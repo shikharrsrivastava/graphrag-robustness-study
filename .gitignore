@@ -1,0 +1,18 @@
+# Python environments and cache
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Local vector database
+chroma_db/
+
+# Personal documents and local data
+data/
+*.pdf
+
+# Environment variables and secrets
+.env
+
+# macOS
+.DS_Store
