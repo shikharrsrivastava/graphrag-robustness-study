@@ -1,3 +1,7 @@
 chromadb
 ollama
 pypdf
+langchain-text-splitters
+requests
+numpy
+faiss-cpu

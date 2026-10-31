@@ -1,0 +1,2337 @@
+{
+  "model": "embeddinggemma",
+  "document_count": 132,
+  "query_count": 24,
+  "dimension": 768,
+  "top_k": 5,
+  "metric": "cosine similarity (normalized vectors + inner product)",
+  "summary": [
+    {
+      "index": "Flat exact",
+      "mean_recall_at_k_vs_flat": 1.0,
+      "mean_latency_ms_per_query": 0.012411502514927028
+    },
+    {
+      "index": "IVF (nlist=3, nprobe=1)",
+      "mean_recall_at_k_vs_flat": 0.7916666666666666,
+      "mean_latency_ms_per_query": 0.03353804398405676
+    },
+    {
+      "index": "HNSW (M=32, efSearch=64)",
+      "mean_recall_at_k_vs_flat": 1.0,
+      "mean_latency_ms_per_query": 0.04982462511785949
+    }
+  ],
+  "results": {
+    "Flat exact": [
+      {
+        "query": "What are the main technical interests and learning goals described in the autobiography?",
+        "results": [
+          {
+            "document_id": 1,
+            "score": 0.5620622038841248,
+            "text_preview": "[PDF page 2, chunk 1]\n01. Who I Am\n\nA technical autobiography\n\nI am Shikhar Srivastava, an undergraduate B.Tech student at IIIT Naya Raipur, with an expected graduation\n\ntimeline of 2029. My current interests center on c"
+          },
+          {
+            "document_id": 0,
+            "score": 0.5463701486587524,
+            "text_preview": "[PDF page 1, chunk 1]\nMY LEARNING\n\nJOURNEY\n\nAn expanded autobiography and technical learning journal\n\nShikhar Srivastava\n\nEducation • Programming • Projects • Machine Learning • RAG • GraphRAG •\n\nResearch Goals\n\nThis doc"
+          },
+          {
+            "document_id": 123,
+            "score": 0.5277218222618103,
+            "text_preview": "[PDF page 62, chunk 1]\n61. Longer-Term Direction\n\nAI engineering and research-minded development\n\nMy career interests include AI and machine-learning engineering, NLP, generative AI, retrieval systems, and\n\nresearch-orie"
+          },
+          {
+            "document_id": 131,
+            "score": 0.4806259274482727,
+            "text_preview": "[PDF page 65, chunk 2]\npipeline. They provide different settings in which to practise the same habits\n\nof clear design, careful testing, and explicit assumptions.\n\nI want my future work to be explainable and evidence-dri"
+          },
+          {
+            "document_id": 4,
+            "score": 0.472732812166214,
+            "text_preview": "[PDF page 3, chunk 1]\n02. My Approach to Learning\n\nConcepts before memorized syntax\n\nI learn best when a technical idea is connected to a small, working example. When I see a library method, I want to\n\nunderstand the obj"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.013625001884065568
+      },
+      {
+        "query": "How does the student approach learning unfamiliar programming libraries and debugging code?",
+        "results": [
+          {
+            "document_id": 4,
+            "score": 0.4893939793109894,
+            "text_preview": "[PDF page 3, chunk 1]\n02. My Approach to Learning\n\nConcepts before memorized syntax\n\nI learn best when a technical idea is connected to a small, working example. When I see a library method, I want to\n\nunderstand the obj"
+          },
+          {
+            "document_id": 5,
+            "score": 0.46293342113494873,
+            "text_preview": "[PDF page 3, chunk 2]\nlarger systems: identify the stages, inspect the data between them, and test each stage before making\n\nassumptions about the whole pipeline.\n\nMy goal is not to avoid difficult code but to make it un"
+          },
+          {
+            "document_id": 13,
+            "score": 0.4576144218444824,
+            "text_preview": "[PDF page 7, chunk 2]\nrequested; and the returned object contains records or associated information. Understanding each part makes\n\nthe code much easier to debug.\n\nI am working toward reading existing code confidently in"
+          },
+          {
+            "document_id": 99,
+            "score": 0.3877241015434265,
+            "text_preview": "[PDF page 50, chunk 1]\n49. Learning to Debug\n\nFind the failing stage\n\nWhen a RAG experiment fails, the error should be localized before changing the design. A missing script is a\n\nworking-directory issue; an import error"
+          },
+          {
+            "document_id": 12,
+            "score": 0.38203057646751404,
+            "text_preview": "[PDF page 7, chunk 1]\n06. Python as a Practical Tool\n\nReadable code for data and AI\n\nPython is useful in my work because its libraries provide high-level building blocks for data handling and AI. The\n\nsame language can r"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012959004379808903
+      },
+      {
+        "query": "What are the main responsibilities of the Emergency Response Dispatcher system?",
+        "results": [
+          {
+            "document_id": 18,
+            "score": 0.544593334197998,
+            "text_preview": "[PDF page 10, chunk 1]\n09. Emergency Response Dispatcher: Architecture\n\nLayers and coordinated components\n\nThe project separates the presentation layer, dispatch orchestration, managers, domain objects, selection policie"
+          },
+          {
+            "document_id": 22,
+            "score": 0.5340984463691711,
+            "text_preview": "[PDF page 12, chunk 1]\n11. Emergency Response Dispatcher: Incidents\n\nStates, priorities, and history\n\nAn incident needs more than a textual description. It has a category, an identifier, state, priority, and information\n"
+          },
+          {
+            "document_id": 16,
+            "score": 0.4954869747161865,
+            "text_preview": "[PDF page 9, chunk 1]\n08. Emergency Response Dispatcher: Purpose\n\nA domain-oriented C++ project\n\nOne of my main software projects is a terminal-based Emergency Response Dispatcher. It models incidents and\n\nresponse vehic"
+          },
+          {
+            "document_id": 24,
+            "score": 0.47973477840423584,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          },
+          {
+            "document_id": 20,
+            "score": 0.45885756611824036,
+            "text_preview": "[PDF page 11, chunk 1]\n10. Emergency Response Dispatcher: Vehicles\n\nSuitability and availability\n\nThe vehicle hierarchy represents response resources with different capabilities. An ambulance may support medical\n\ninciden"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012708012945950031
+      },
+      {
+        "query": "How are the presentation layer, dispatcher, managers, domain objects, and persistence separated in the dispatcher architecture?",
+        "results": [
+          {
+            "document_id": 18,
+            "score": 0.7212246656417847,
+            "text_preview": "[PDF page 10, chunk 1]\n09. Emergency Response Dispatcher: Architecture\n\nLayers and coordinated components\n\nThe project separates the presentation layer, dispatch orchestration, managers, domain objects, selection policie"
+          },
+          {
+            "document_id": 19,
+            "score": 0.6421523690223694,
+            "text_preview": "[PDF page 10, chunk 2]\nific reason to exist. The\n\nDispatcher should coordinate actions rather than duplicate all the internal details of every manager and vehicle.\n\nArchitecture is valuable when it makes behavior easier "
+          },
+          {
+            "document_id": 26,
+            "score": 0.4630456864833832,
+            "text_preview": "[PDF page 14, chunk 1]\n13. Emergency Response Dispatcher: Persistence\n\nKeeping state between program runs\n\nThe dispatcher uses data files for information such as vehicles, incidents, and event history. Persistence allows"
+          },
+          {
+            "document_id": 15,
+            "score": 0.4469889998435974,
+            "text_preview": "[PDF page 8, chunk 2]\nuplicate\n\nevery vehicle-specific rule everywhere; a clear interface lets the appropriate object describe whether it can handle\n\nan incident.\n\nA good design should also make change manageable. If eve"
+          },
+          {
+            "document_id": 14,
+            "score": 0.4335537552833557,
+            "text_preview": "[PDF page 8, chunk 1]\n07. Object-Oriented Programming\n\nDesigning around responsibilities\n\nObject-oriented programming provides tools for grouping related state and behavior. Encapsulation keeps details\n\nbehind an interfa"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.01233299553859979
+      },
+      {
+        "query": "What is the difference between vehicle suitability and vehicle availability?",
+        "results": [
+          {
+            "document_id": 20,
+            "score": 0.6374770402908325,
+            "text_preview": "[PDF page 11, chunk 1]\n10. Emergency Response Dispatcher: Vehicles\n\nSuitability and availability\n\nThe vehicle hierarchy represents response resources with different capabilities. An ambulance may support medical\n\ninciden"
+          },
+          {
+            "document_id": 21,
+            "score": 0.5510267615318298,
+            "text_preview": "[PDF page 11, chunk 2]\nable but already assigned, or\n\navailable but unsuitable for the reported incident. A correct candidate search must consider both conditions.\n\nThis makes the fleet manager a useful boundary: other c"
+          },
+          {
+            "document_id": 17,
+            "score": 0.3755760192871094,
+            "text_preview": "[PDF page 9, chunk 2]\nnd\n\navailability. The dispatcher must choose a suitable resource, handle cases where no resource is available, and\n\npreserve incident state.\n\nThis problem is useful because it has real decision rule"
+          },
+          {
+            "document_id": 15,
+            "score": 0.2893076539039612,
+            "text_preview": "[PDF page 8, chunk 2]\nuplicate\n\nevery vehicle-specific rule everywhere; a clear interface lets the appropriate object describe whether it can handle\n\nan incident.\n\nA good design should also make change manageable. If eve"
+          },
+          {
+            "document_id": 24,
+            "score": 0.2862887382507324,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012208009138703346
+      },
+      {
+        "query": "How do nearest-available and load-balanced dispatch policies differ?",
+        "results": [
+          {
+            "document_id": 24,
+            "score": 0.7009575366973877,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          },
+          {
+            "document_id": 25,
+            "score": 0.552220344543457,
+            "text_preview": "[PDF page 13, chunk 2]\nnd availability constraints. If no candidate is suitable, the correct outcome may be to queue the incident\n\nrather than force an assignment.\n\nKeeping policies behind a shared interface makes it pos"
+          },
+          {
+            "document_id": 17,
+            "score": 0.409213125705719,
+            "text_preview": "[PDF page 9, chunk 2]\nnd\n\navailability. The dispatcher must choose a suitable resource, handle cases where no resource is available, and\n\npreserve incident state.\n\nThis problem is useful because it has real decision rule"
+          },
+          {
+            "document_id": 20,
+            "score": 0.39579808712005615,
+            "text_preview": "[PDF page 11, chunk 1]\n10. Emergency Response Dispatcher: Vehicles\n\nSuitability and availability\n\nThe vehicle hierarchy represents response resources with different capabilities. An ambulance may support medical\n\ninciden"
+          },
+          {
+            "document_id": 19,
+            "score": 0.37818968296051025,
+            "text_preview": "[PDF page 10, chunk 2]\nific reason to exist. The\n\nDispatcher should coordinate actions rather than duplicate all the internal details of every manager and vehicle.\n\nArchitecture is valuable when it makes behavior easier "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.013334007235243917
+      },
+      {
+        "query": "What is the purpose of the IIITNR Hub application and which technologies are explored for it?",
+        "results": [
+          {
+            "document_id": 28,
+            "score": 0.6394330859184265,
+            "text_preview": "[PDF page 15, chunk 1]\n14. IIITNR Hub: The Idea\n\nA student-focused application\n\nIIITNR Hub is a student-focused application idea for centralizing common campus workflows. Planned features\n\ninclude login, timetable and ev"
+          },
+          {
+            "document_id": 30,
+            "score": 0.4502822458744049,
+            "text_preview": "[PDF page 16, chunk 1]\n15. IIITNR Hub: Data and Access\n\nAuthentication is not the same as authorization\n\nRestricting an application to institutional email addresses can help express who the intended users are.\n\nAuthentic"
+          },
+          {
+            "document_id": 55,
+            "score": 0.37895455956459045,
+            "text_preview": "[PDF page 28, chunk 1]\n27. Learning Through Small Projects\n\nFrom idea to explainable implementation\n\nSmall projects connect concepts in ways that isolated exercises cannot. A useful project has a problem statement,\n\nclea"
+          },
+          {
+            "document_id": 130,
+            "score": 0.37326139211654663,
+            "text_preview": "[PDF page 65, chunk 1]\n64. Closing Reflection\n\nBuilding understanding one layer at a time\n\nI am still developing my technical foundations, and many topics in this document are areas I am actively learning.\n\nThat is a rea"
+          },
+          {
+            "document_id": 119,
+            "score": 0.3534058630466461,
+            "text_preview": "[PDF page 60, chunk 1]\n59. What a Good Portfolio Project Shows\n\nArchitecture, evidence, and limitations\n\nA strong portfolio project should show a clear problem, a reasonable design, an implementation that can be run, and"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012042000889778137
+      },
+      {
+        "query": "What is the difference between authentication and authorization in the student application?",
+        "results": [
+          {
+            "document_id": 30,
+            "score": 0.524651288986206,
+            "text_preview": "[PDF page 16, chunk 1]\n15. IIITNR Hub: Data and Access\n\nAuthentication is not the same as authorization\n\nRestricting an application to institutional email addresses can help express who the intended users are.\n\nAuthentic"
+          },
+          {
+            "document_id": 31,
+            "score": 0.4899579584598541,
+            "text_preview": "[PDF page 16, chunk 2]\ns the corresponding button.\n\nThinking about these questions early helps distinguish a working prototype from a safer application. Even in an\n\neducational project, it is useful to know which compone"
+          },
+          {
+            "document_id": 28,
+            "score": 0.366862416267395,
+            "text_preview": "[PDF page 15, chunk 1]\n14. IIITNR Hub: The Idea\n\nA student-focused application\n\nIIITNR Hub is a student-focused application idea for centralizing common campus workflows. Planned features\n\ninclude login, timetable and ev"
+          },
+          {
+            "document_id": 32,
+            "score": 0.3315936326980591,
+            "text_preview": "[PDF page 17, chunk 1]\n16. Placement Prediction: Project Overview\n\nConnecting data preparation to inference\n\nI built an introductory placement-prediction project using a dataset with fields such as student identifier, CG"
+          },
+          {
+            "document_id": 40,
+            "score": 0.3294730484485626,
+            "text_preview": "[PDF page 20, chunk 3]\nclass. The project is an\n\neducational implementation, so its output should not be represented as a real-world guarantee about an individual\n\nstudent's placement outcome."
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.011791998986154795
+      },
+      {
+        "query": "What machine-learning workflow was used in the placement prediction project?",
+        "results": [
+          {
+            "document_id": 32,
+            "score": 0.6421559453010559,
+            "text_preview": "[PDF page 17, chunk 1]\n16. Placement Prediction: Project Overview\n\nConnecting data preparation to inference\n\nI built an introductory placement-prediction project using a dataset with fields such as student identifier, CG"
+          },
+          {
+            "document_id": 33,
+            "score": 0.5735171437263489,
+            "text_preview": "[PDF page 17, chunk 2]\nrediction from the saved model.\n\nBecause the project is educational, its claims should remain proportionate to the dataset and evaluation. A\n\ndemonstration that predicts labels is not automatically"
+          },
+          {
+            "document_id": 38,
+            "score": 0.5525868535041809,
+            "text_preview": "[PDF page 20, chunk 1]\n19. Placement Prediction: Logistic Regression\n\nA baseline classifier\n\nLogistic regression is a supervised-learning algorithm commonly used for classification. It estimates probabilities\n\nusing a le"
+          },
+          {
+            "document_id": 39,
+            "score": 0.5191394090652466,
+            "text_preview": "[PDF page 20, chunk 2]\nuld reflect the task: accuracy may be\n\ninadequate when classes are imbalanced or when different kinds of errors have different consequences.\n\nIn an educational placement-prediction project, the mai"
+          },
+          {
+            "document_id": 40,
+            "score": 0.48349082469940186,
+            "text_preview": "[PDF page 20, chunk 3]\nclass. The project is an\n\neducational implementation, so its output should not be represented as a real-world guarantee about an individual\n\nstudent's placement outcome."
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.011833006283268332
+      },
+      {
+        "query": "Why should a scaler be fitted only on the training data and then reused on test data?",
+        "results": [
+          {
+            "document_id": 36,
+            "score": 0.6508764028549194,
+            "text_preview": "[PDF page 19, chunk 1]\n18. Placement Prediction: Scaling Correctly\n\nFit preprocessing on training data\n\nFeature scaling changes the numerical ranges of input columns. Some models are sensitive to scale, so a scaler\n\ncan "
+          },
+          {
+            "document_id": 37,
+            "score": 0.6140637993812561,
+            "text_preview": "[PDF page 19, chunk 2]\no longer treated as fully unseen. During application inference, the stored scaler should be reused to\n\ntransform new inputs in the same way.\n\nSaving the scaler alongside the model matters because t"
+          },
+          {
+            "document_id": 52,
+            "score": 0.49707841873168945,
+            "text_preview": "[PDF page 26, chunk 2]\nrocessing is fitted appropriately within training data.\n\nWithout that care, preprocessing can leak information across evaluation boundaries.\n\nI learn a library best when I connect a method call to "
+          },
+          {
+            "document_id": 51,
+            "score": 0.48127281665802,
+            "text_preview": "[PDF page 26, chunk 1]\n25. Learning scikit-learn\n\nConsistent interfaces for estimators\n\nScikit-learn uses common interfaces for estimators and transformers. An estimator generally learns from data\n\nthrough `fit` and may "
+          },
+          {
+            "document_id": 35,
+            "score": 0.41656720638275146,
+            "text_preview": "[PDF page 18, chunk 2]\nthat would create leakage and make evaluation misleading. The train/test\n\nsplit should be chosen before data-driven preprocessing is fitted.\n\nThis step taught me that model performance begins with "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.011916999937966466
+      },
+      {
+        "query": "What role does logistic regression play in the placement prediction project?",
+        "results": [
+          {
+            "document_id": 38,
+            "score": 0.6624676585197449,
+            "text_preview": "[PDF page 20, chunk 1]\n19. Placement Prediction: Logistic Regression\n\nA baseline classifier\n\nLogistic regression is a supervised-learning algorithm commonly used for classification. It estimates probabilities\n\nusing a le"
+          },
+          {
+            "document_id": 32,
+            "score": 0.6044063568115234,
+            "text_preview": "[PDF page 17, chunk 1]\n16. Placement Prediction: Project Overview\n\nConnecting data preparation to inference\n\nI built an introductory placement-prediction project using a dataset with fields such as student identifier, CG"
+          },
+          {
+            "document_id": 39,
+            "score": 0.5261058807373047,
+            "text_preview": "[PDF page 20, chunk 2]\nuld reflect the task: accuracy may be\n\ninadequate when classes are imbalanced or when different kinds of errors have different consequences.\n\nIn an educational placement-prediction project, the mai"
+          },
+          {
+            "document_id": 33,
+            "score": 0.5143282413482666,
+            "text_preview": "[PDF page 17, chunk 2]\nrediction from the saved model.\n\nBecause the project is educational, its claims should remain proportionate to the dataset and evaluation. A\n\ndemonstration that predicts labels is not automatically"
+          },
+          {
+            "document_id": 34,
+            "score": 0.4772668480873108,
+            "text_preview": "[PDF page 18, chunk 1]\n17. Placement Prediction: Data Quality\n\nUnderstanding columns before fitting\n\nBefore a model is trained, the dataset should be inspected. Column meanings, missing values, unexpected types,\n\nduplica"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.011916999937966466
+      },
+      {
+        "query": "What are the stages of the local Retrieval-Augmented Generation pipeline?",
+        "results": [
+          {
+            "document_id": 59,
+            "score": 0.5930875539779663,
+            "text_preview": "[PDF page 30, chunk 1]\n29. RAG: What the Name Means\n\nRetrieval-Augmented Generation\n\nRetrieval means finding relevant information from an external collection. Augmented means the retrieved\n\ninformation is added to the co"
+          },
+          {
+            "document_id": 57,
+            "score": 0.5369786024093628,
+            "text_preview": "[PDF page 29, chunk 1]\n28. My RAG Project: Overview\n\nA local PDF question-answering system\n\nI am learning RAG with a local pipeline that ingests PDFs, splits extracted text into chunks, embeds the\n\nchunks, stores them in"
+          },
+          {
+            "document_id": 60,
+            "score": 0.4902535676956177,
+            "text_preview": "[PDF page 30, chunk 2]\npt. This\n\ncan make the answer more specific to a private or specialized document collection, but only if the correct evidence\n\nis retrieved.\n\nRAG does not guarantee truth. The source may not contai"
+          },
+          {
+            "document_id": 77,
+            "score": 0.4738045632839203,
+            "text_preview": "[PDF page 39, chunk 1]\n38. Prompt Construction\n\nCombining question, instructions, and evidence\n\nAfter retrieval, the application creates a prompt that contains the user's question, the retrieved passages, source\n\ndetails"
+          },
+          {
+            "document_id": 108,
+            "score": 0.47205740213394165,
+            "text_preview": "[PDF page 54, chunk 2]\ns distinguish these issues.\n\nRetrieval and generation should be evaluated separately. A system may retrieve correct passages but generate an\n\ninaccurate answer, or generate a plausible answer even "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.01200000406242907
+      },
+      {
+        "query": "What is the difference between PDF text extraction and OCR?",
+        "results": [
+          {
+            "document_id": 61,
+            "score": 0.6605240702629089,
+            "text_preview": "[PDF page 31, chunk 1]\n30. PDF Text Extraction\n\nConverting pages into text\n\nA PDF may contain machine-readable text or scanned images. A PDF reader can often extract text directly from\n\ntext-based pages. Scanned pages ma"
+          },
+          {
+            "document_id": 62,
+            "score": 0.6036770343780518,
+            "text_preview": "[PDF page 31, chunk 2]\nn text for the\n\nprogram.\n\nFor a repeatable RAG workflow, extraction is a distinct stage worth measuring and validating. If the source PDF is\n\nupdated, the system needs to know whether the extracted"
+          },
+          {
+            "document_id": 90,
+            "score": 0.49962538480758667,
+            "text_preview": "[PDF page 45, chunk 2]\nrecords for other PDFs.\n\nThe system should identify the current complete set before deleting obsolete records. If text extraction fails and\n\nproduces an empty result, the program should not interpr"
+          },
+          {
+            "document_id": 86,
+            "score": 0.4870296120643616,
+            "text_preview": "[PDF page 43, chunk 2]\nIt is easier to implement and validate than page-level change detection, so it is a useful first step for a controlled\n\ntiming experiment.\n\nA concrete example\n\nA basic strategy still reads the upda"
+          },
+          {
+            "document_id": 58,
+            "score": 0.4850822687149048,
+            "text_preview": "[PDF page 29, chunk 2]\nibilities are distinct: the embedding model makes vectors, the database finds matching records,\n\nand the generation model writes the answer.\n\nThe value of this project is that every stage can be ob"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.011916999937966466
+      },
+      {
+        "query": "How do chunk size and chunk overlap affect retrieval quality and embedding cost?",
+        "results": [
+          {
+            "document_id": 65,
+            "score": 0.6377503275871277,
+            "text_preview": "[PDF page 33, chunk 1]\n32. Chunk Overlap\n\nKeeping context across boundaries\n\nOverlap repeats a portion of text between neighboring chunks. It can help preserve context when one explanation\n\ncrosses a chunk boundary, so a"
+          },
+          {
+            "document_id": 63,
+            "score": 0.5358291268348694,
+            "text_preview": "[PDF page 32, chunk 1]\n31. Text Chunking\n\nTurning a long document into passages\n\nChunking divides extracted text into manageable passages so retrieval can return focused evidence instead of an\n\nentire document. Very smal"
+          },
+          {
+            "document_id": 66,
+            "score": 0.5197784900665283,
+            "text_preview": "[PDF page 33, chunk 2]\nthan chosen only by convention.\n\nOverlap also matters when text changes. If a paragraph near a boundary becomes longer, the text in adjacent\n\nchunks may change. A robust incremental pipeline reuses"
+          },
+          {
+            "document_id": 69,
+            "score": 0.48692387342453003,
+            "text_preview": "[PDF page 35, chunk 1]\n34. EmbeddingGemma\n\nThe retrieval representation model\n\nEmbeddingGemma is used in my pipeline to turn document chunks and questions into vector representations.\n\nDuring ingestion, chunks are embedd"
+          },
+          {
+            "document_id": 67,
+            "score": 0.48281481862068176,
+            "text_preview": "[PDF page 34, chunk 1]\n33. Embedding Basics\n\nRepresenting meaning with numbers\n\nAn embedding model maps text to a numerical vector. The vector is learned from data and supports comparisons\n\nbetween text representations. "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.01233299553859979
+      },
+      {
+        "query": "What is an embedding and what role does EmbeddingGemma play in the RAG pipeline?",
+        "results": [
+          {
+            "document_id": 69,
+            "score": 0.613129734992981,
+            "text_preview": "[PDF page 35, chunk 1]\n34. EmbeddingGemma\n\nThe retrieval representation model\n\nEmbeddingGemma is used in my pipeline to turn document chunks and questions into vector representations.\n\nDuring ingestion, chunks are embedd"
+          },
+          {
+            "document_id": 57,
+            "score": 0.5948927402496338,
+            "text_preview": "[PDF page 29, chunk 1]\n28. My RAG Project: Overview\n\nA local PDF question-answering system\n\nI am learning RAG with a local pipeline that ingests PDFs, splits extracted text into chunks, embeds the\n\nchunks, stores them in"
+          },
+          {
+            "document_id": 74,
+            "score": 0.555667519569397,
+            "text_preview": "[PDF page 37, chunk 2]\ny the union of everything ever\n\ningested.\n\nMy current Python code generates embeddings through EmbeddingGemma and supplies them to ChromaDB.\n\nChromaDB is responsible for storage, querying, and reco"
+          },
+          {
+            "document_id": 125,
+            "score": 0.5178338885307312,
+            "text_preview": "[PDF page 63, chunk 1]\n62. Appendix: RAG Glossary\n\nKey terms used in this learning journey\n\nA document is a source file. Extracted text is the machine-readable content obtained from that source. A chunk is a\n\nsmaller pas"
+          },
+          {
+            "document_id": 67,
+            "score": 0.5151135921478271,
+            "text_preview": "[PDF page 34, chunk 1]\n33. Embedding Basics\n\nRepresenting meaning with numbers\n\nAn embedding model maps text to a numerical vector. The vector is learned from data and supports comparisons\n\nbetween text representations. "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.01229200279340148
+      },
+      {
+        "query": "What information does ChromaDB store for each chunk and what is its role during retrieval?",
+        "results": [
+          {
+            "document_id": 73,
+            "score": 0.626969039440155,
+            "text_preview": "[PDF page 37, chunk 1]\n36. ChromaDB\n\nStoring vectors and source text\n\nChromaDB stores records with unique IDs, document text, optional metadata, and embeddings. The vector\n\nsupports similarity search; the text gives the "
+          },
+          {
+            "document_id": 74,
+            "score": 0.5622225403785706,
+            "text_preview": "[PDF page 37, chunk 2]\ny the union of everything ever\n\ningested.\n\nMy current Python code generates embeddings through EmbeddingGemma and supplies them to ChromaDB.\n\nChromaDB is responsible for storage, querying, and reco"
+          },
+          {
+            "document_id": 125,
+            "score": 0.5384485125541687,
+            "text_preview": "[PDF page 63, chunk 1]\n62. Appendix: RAG Glossary\n\nKey terms used in this learning journey\n\nA document is a source file. Extracted text is the machine-readable content obtained from that source. A chunk is a\n\nsmaller pas"
+          },
+          {
+            "document_id": 75,
+            "score": 0.5370607972145081,
+            "text_preview": "[PDF page 38, chunk 1]\n37. Semantic Search and Top-K\n\nHow the system finds candidate passages\n\nAt question time, the embedding model converts the query into a vector. ChromaDB compares it with stored vectors\n\nunder the c"
+          },
+          {
+            "document_id": 89,
+            "score": 0.5369662046432495,
+            "text_preview": "[PDF page 45, chunk 1]\n44. Stale Chunks\n\nKeeping the index consistent with the source\n\nA stale chunk is a record in ChromaDB that no longer corresponds to the current PDF content. It can arise when a\n\nparagraph is delete"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012791002518497407
+      },
+      {
+        "query": "Why is upsert not sufficient for a correct incremental ingestion pipeline?",
+        "results": [
+          {
+            "document_id": 87,
+            "score": 0.631552517414093,
+            "text_preview": "[PDF page 44, chunk 1]\n43. Why Upsert Is Not Enough\n\nWriting records is different from avoiding computation\n\nUpsert is a database write operation. Given an ID, it inserts a record if the ID is absent or updates the recor"
+          },
+          {
+            "document_id": 88,
+            "score": 0.505560040473938,
+            "text_preview": "[PDF page 44, chunk 2]\ndifferent database write.\n\nUpsert also does not delete IDs that are absent from the new version. Deletion is a separate operation. An index\n\ncan contain all newly upserted chunks and still be incor"
+          },
+          {
+            "document_id": 127,
+            "score": 0.4897346496582031,
+            "text_preview": "[PDF page 63, chunk 3]\nl ingestion adds a comparison step\n\nbefore embedding and a cleanup step after identifying the current record set. Each stage has a different\n\nresponsibility and different possible failures."
+          },
+          {
+            "document_id": 84,
+            "score": 0.4830203056335449,
+            "text_preview": "[PDF page 42, chunk 2]\nore the upsert call.\n\nA full-ingestion strategy must still address stale records. If the document no longer contains an old chunk, upserting\n\nthe current chunks does not automatically delete that o"
+          },
+          {
+            "document_id": 83,
+            "score": 0.4636872708797455,
+            "text_preview": "[PDF page 42, chunk 1]\n41. Full Ingestion\n\nBuilding the index from current files\n\nFull ingestion reads all selected PDFs, extracts their text, creates all chunks, generates embeddings for all chunks,\n\nand writes the reco"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012792006600648165
+      },
+      {
+        "query": "How does basic incremental ingestion reuse embeddings for unchanged chunks?",
+        "results": [
+          {
+            "document_id": 85,
+            "score": 0.6283957958221436,
+            "text_preview": "[PDF page 43, chunk 1]\n42. Basic Incremental Ingestion\n\nReuse unchanged work\n\nIn a basic incremental pipeline, the changed PDF is still read, its text is extracted, and the current chunks are\n\nrecreated. The program then"
+          },
+          {
+            "document_id": 93,
+            "score": 0.5992945432662964,
+            "text_preview": "[PDF page 47, chunk 1]\n46. Adding a New Paragraph\n\nThe first controlled re-ingestion test\n\nA simple experiment begins with a stable PDF whose original ingestion has completed. The elapsed time, chunk\n\ncount, and stored I"
+          },
+          {
+            "document_id": 80,
+            "score": 0.5985708236694336,
+            "text_preview": "[PDF page 40, chunk 2]\nfingerprints content.\n\nA robust incremental strategy must also consider duplicate text, renamed files, and shifted chunk boundaries. If text\n\nis the same but the ID changes, the system needs a reli"
+          },
+          {
+            "document_id": 83,
+            "score": 0.5833555459976196,
+            "text_preview": "[PDF page 42, chunk 1]\n41. Full Ingestion\n\nBuilding the index from current files\n\nFull ingestion reads all selected PDFs, extracts their text, creates all chunks, generates embeddings for all chunks,\n\nand writes the reco"
+          },
+          {
+            "document_id": 87,
+            "score": 0.5718679428100586,
+            "text_preview": "[PDF page 44, chunk 1]\n43. Why Upsert Is Not Enough\n\nWriting records is different from avoiding computation\n\nUpsert is a database write operation. Given an ID, it inserts a record if the ID is absent or updates the recor"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012666001566685736
+      },
+      {
+        "query": "What measurements should be recorded when comparing full and incremental ingestion?",
+        "results": [
+          {
+            "document_id": 91,
+            "score": 0.4565048813819885,
+            "text_preview": "[PDF page 46, chunk 1]\n45. Benchmarking the Ingestion Experiment\n\nMeasure time and work\n\nThe assignment compares original ingestion with re-ingestion after adding a paragraph. A fair experiment measures\n\noriginal ingesti"
+          },
+          {
+            "document_id": 127,
+            "score": 0.44700244069099426,
+            "text_preview": "[PDF page 63, chunk 3]\nl ingestion adds a comparison step\n\nbefore embedding and a cleanup step after identifying the current record set. Each stage has a different\n\nresponsibility and different possible failures."
+          },
+          {
+            "document_id": 118,
+            "score": 0.4210076332092285,
+            "text_preview": "[PDF page 59, chunk 2]\nstale ones when necessary.\n\nThe experiment should change one major factor at a time. Start with a document version and known database state,\n\nmeasure the original pipeline, make one edit, and compa"
+          },
+          {
+            "document_id": 83,
+            "score": 0.3961091637611389,
+            "text_preview": "[PDF page 42, chunk 1]\n41. Full Ingestion\n\nBuilding the index from current files\n\nFull ingestion reads all selected PDFs, extracts their text, creates all chunks, generates embeddings for all chunks,\n\nand writes the reco"
+          },
+          {
+            "document_id": 116,
+            "score": 0.39340105652809143,
+            "text_preview": "[PDF page 58, chunk 2]\nhas been implemented\n\nbut deletion testing is incomplete, that limitation should be stated. A mentor can then give targeted feedback instead\n\nof guessing which parts have been completed.\n\nA concret"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012625008821487427
+      },
+      {
+        "query": "What is GraphRAG and how do nodes and edges represent relationships between concepts?",
+        "results": [
+          {
+            "document_id": 101,
+            "score": 0.6188334822654724,
+            "text_preview": "[PDF page 51, chunk 1]\n50. GraphRAG: Why It Interests Me\n\nMoving from passages to relationships\n\nGraphRAG is an area I want to explore after I understand a standard RAG baseline. A graph represents entities or\n\nconcepts "
+          },
+          {
+            "document_id": 105,
+            "score": 0.5697956085205078,
+            "text_preview": "[PDF page 53, chunk 1]\n52. GraphRAG Robustness Research\n\nInvestigating damage to graph edges\n\nA research direction I have considered is testing the robustness of GraphRAG when graph edges are removed.\n\nEdges encode relat"
+          },
+          {
+            "document_id": 102,
+            "score": 0.5024290084838867,
+            "text_preview": "[PDF page 51, chunk 2]\nion can make those links\n\nqueryable.\n\nGraphRAG is not automatically better for every question. Graph construction can introduce errors, omit\n\nrelationships, or add complexity. The decision to use g"
+          },
+          {
+            "document_id": 122,
+            "score": 0.4449274241924286,
+            "text_preview": "[PDF page 61, chunk 2]\nn and chunk rebuilding.\n\nThe next goal is to learn GraphRAG concepts step by step. Building a reliable baseline first will help me determine\n\nwhat graph structure adds, how graph clustering affects"
+          },
+          {
+            "document_id": 103,
+            "score": 0.41744375228881836,
+            "text_preview": "[PDF page 52, chunk 1]\n51. Graph Clustering\n\nLeiden, Louvain, and k-core ideas\n\nGraph clustering groups nodes based on connectivity patterns. A community may contain nodes that are more\n\nstrongly connected to one another"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.01200000406242907
+      },
+      {
+        "query": "What are Leiden and Louvain clustering used for in graph analysis?",
+        "results": [
+          {
+            "document_id": 103,
+            "score": 0.6443411111831665,
+            "text_preview": "[PDF page 52, chunk 1]\n51. Graph Clustering\n\nLeiden, Louvain, and k-core ideas\n\nGraph clustering groups nodes based on connectivity patterns. A community may contain nodes that are more\n\nstrongly connected to one another"
+          },
+          {
+            "document_id": 104,
+            "score": 0.5336978435516357,
+            "text_preview": "[PDF page 52, chunk 2]\nexpected to match exactly.\n\nComparing methods requires a clear graph construction procedure and evaluation. The question is not simply which\n\nalgorithm produces the most attractive visualization. I"
+          },
+          {
+            "document_id": 105,
+            "score": 0.42980578541755676,
+            "text_preview": "[PDF page 53, chunk 1]\n52. GraphRAG Robustness Research\n\nInvestigating damage to graph edges\n\nA research direction I have considered is testing the robustness of GraphRAG when graph edges are removed.\n\nEdges encode relat"
+          },
+          {
+            "document_id": 101,
+            "score": 0.36304742097854614,
+            "text_preview": "[PDF page 51, chunk 1]\n50. GraphRAG: Why It Interests Me\n\nMoving from passages to relationships\n\nGraphRAG is an area I want to explore after I understand a standard RAG baseline. A graph represents entities or\n\nconcepts "
+          },
+          {
+            "document_id": 53,
+            "score": 0.35682570934295654,
+            "text_preview": "[PDF page 27, chunk 1]\n26. Data Visualization\n\nMaking patterns visible\n\nMatplotlib and related plotting tools help display trends and relationships that are difficult to notice in raw tables. A\n\nplot should answer a ques"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012250005966052413
+      },
+      {
+        "query": "Why should approximate or graph-based retrieval be evaluated against a reliable baseline?",
+        "results": [
+          {
+            "document_id": 102,
+            "score": 0.5347027778625488,
+            "text_preview": "[PDF page 51, chunk 2]\nion can make those links\n\nqueryable.\n\nGraphRAG is not automatically better for every question. Graph construction can introduce errors, omit\n\nrelationships, or add complexity. The decision to use g"
+          },
+          {
+            "document_id": 107,
+            "score": 0.5064182877540588,
+            "text_preview": "[PDF page 54, chunk 1]\n53. Evaluating Retrieval\n\nDid the system find useful evidence?\n\nRetrieval evaluation asks whether the passages selected by the system contain the evidence needed for a question.\n\nA test set with kn"
+          },
+          {
+            "document_id": 105,
+            "score": 0.4877271354198456,
+            "text_preview": "[PDF page 53, chunk 1]\n52. GraphRAG Robustness Research\n\nInvestigating damage to graph edges\n\nA research direction I have considered is testing the robustness of GraphRAG when graph edges are removed.\n\nEdges encode relat"
+          },
+          {
+            "document_id": 104,
+            "score": 0.472200483083725,
+            "text_preview": "[PDF page 52, chunk 2]\nexpected to match exactly.\n\nComparing methods requires a clear graph construction procedure and evaluation. The question is not simply which\n\nalgorithm produces the most attractive visualization. I"
+          },
+          {
+            "document_id": 122,
+            "score": 0.46916624903678894,
+            "text_preview": "[PDF page 61, chunk 2]\nn and chunk rebuilding.\n\nThe next goal is to learn GraphRAG concepts step by step. Building a reliable baseline first will help me determine\n\nwhat graph structure adds, how graph clustering affects"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012541990145109594
+      },
+      {
+        "query": "What should a reproducible RAG experiment record about its data, code, model, and configuration?",
+        "results": [
+          {
+            "document_id": 113,
+            "score": 0.4986025094985962,
+            "text_preview": "[PDF page 57, chunk 1]\n56. Project Organization\n\nSeparating code, source data, and experiment state\n\nThe RAG project has an original `rag.py`, a `data/` directory for PDFs, and a `chroma_db/` directory for persistent\n\nve"
+          },
+          {
+            "document_id": 117,
+            "score": 0.47547703981399536,
+            "text_preview": "[PDF page 59, chunk 1]\n58. Turning a Task into an Experiment\n\nDefine the question before writing code\n\nA broad instruction becomes more manageable when restated as a testable question. Here, the question is whether\n\nan i"
+          },
+          {
+            "document_id": 99,
+            "score": 0.4607088565826416,
+            "text_preview": "[PDF page 50, chunk 1]\n49. Learning to Debug\n\nFind the failing stage\n\nWhen a RAG experiment fails, the error should be localized before changing the design. A missing script is a\n\nworking-directory issue; an import error"
+          },
+          {
+            "document_id": 98,
+            "score": 0.4419082701206207,
+            "text_preview": "[PDF page 49, chunk 2]\nbase state changed between runs.\n\nA README should explain how to prepare the baseline, when to edit the PDF, how to run the comparison, what\n\neach metric means, and which limitations remain. That m"
+          },
+          {
+            "document_id": 118,
+            "score": 0.4398115575313568,
+            "text_preview": "[PDF page 59, chunk 2]\nstale ones when necessary.\n\nThe experiment should change one major factor at a time. Start with a document version and known database state,\n\nmeasure the original pipeline, make one edit, and compa"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012375006917864084
+      },
+      {
+        "query": "What are the limitations of a small local RAG experiment and why should results not be overstated?",
+        "results": [
+          {
+            "document_id": 99,
+            "score": 0.4323394298553467,
+            "text_preview": "[PDF page 50, chunk 1]\n49. Learning to Debug\n\nFind the failing stage\n\nWhen a RAG experiment fails, the error should be localized before changing the design. A missing script is a\n\nworking-directory issue; an import error"
+          },
+          {
+            "document_id": 117,
+            "score": 0.4040069580078125,
+            "text_preview": "[PDF page 59, chunk 1]\n58. Turning a Task into an Experiment\n\nDefine the question before writing code\n\nA broad instruction becomes more manageable when restated as a testable question. Here, the question is whether\n\nan i"
+          },
+          {
+            "document_id": 96,
+            "score": 0.3846331834793091,
+            "text_preview": "[PDF page 48, chunk 2]\nrconfidence in one\n\nresult.\n\nA useful experiment log describes the environment and the exact input. Timings are observations from a specific\n\nsetup, not universal constants. Reporting chunk and emb"
+          },
+          {
+            "document_id": 109,
+            "score": 0.37715739011764526,
+            "text_preview": "[PDF page 55, chunk 1]\n54. Evaluating Generated Answers\n\nEvidence matters more than fluency\n\nA generated answer should be judged by whether it addresses the question and whether its important claims are\n\nsupported by the"
+          },
+          {
+            "document_id": 110,
+            "score": 0.37697499990463257,
+            "text_preview": "[PDF page 55, chunk 2]\nlarity measures do not capture.\n\nA transparent RAG system should make its evidence inspectable. Source filenames and page numbers can help a\n\nreader confirm a claim, but source metadata alone does "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.012624994269572198
+      }
+    ],
+    "IVF (nlist=3, nprobe=1)": [
+      {
+        "query": "What are the main technical interests and learning goals described in the autobiography?",
+        "results": [
+          {
+            "document_id": 1,
+            "score": 0.5620622038841248,
+            "text_preview": "[PDF page 2, chunk 1]\n01. Who I Am\n\nA technical autobiography\n\nI am Shikhar Srivastava, an undergraduate B.Tech student at IIIT Naya Raipur, with an expected graduation\n\ntimeline of 2029. My current interests center on c"
+          },
+          {
+            "document_id": 0,
+            "score": 0.5463701486587524,
+            "text_preview": "[PDF page 1, chunk 1]\nMY LEARNING\n\nJOURNEY\n\nAn expanded autobiography and technical learning journal\n\nShikhar Srivastava\n\nEducation • Programming • Projects • Machine Learning • RAG • GraphRAG •\n\nResearch Goals\n\nThis doc"
+          },
+          {
+            "document_id": 123,
+            "score": 0.5277218222618103,
+            "text_preview": "[PDF page 62, chunk 1]\n61. Longer-Term Direction\n\nAI engineering and research-minded development\n\nMy career interests include AI and machine-learning engineering, NLP, generative AI, retrieval systems, and\n\nresearch-orie"
+          },
+          {
+            "document_id": 131,
+            "score": 0.4806259274482727,
+            "text_preview": "[PDF page 65, chunk 2]\npipeline. They provide different settings in which to practise the same habits\n\nof clear design, careful testing, and explicit assumptions.\n\nI want my future work to be explainable and evidence-dri"
+          },
+          {
+            "document_id": 4,
+            "score": 0.472732812166214,
+            "text_preview": "[PDF page 3, chunk 1]\n02. My Approach to Learning\n\nConcepts before memorized syntax\n\nI learn best when a technical idea is connected to a small, working example. When I see a library method, I want to\n\nunderstand the obj"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.620916995103471
+      },
+      {
+        "query": "How does the student approach learning unfamiliar programming libraries and debugging code?",
+        "results": [
+          {
+            "document_id": 4,
+            "score": 0.4893939793109894,
+            "text_preview": "[PDF page 3, chunk 1]\n02. My Approach to Learning\n\nConcepts before memorized syntax\n\nI learn best when a technical idea is connected to a small, working example. When I see a library method, I want to\n\nunderstand the obj"
+          },
+          {
+            "document_id": 5,
+            "score": 0.46293342113494873,
+            "text_preview": "[PDF page 3, chunk 2]\nlarger systems: identify the stages, inspect the data between them, and test each stage before making\n\nassumptions about the whole pipeline.\n\nMy goal is not to avoid difficult code but to make it un"
+          },
+          {
+            "document_id": 13,
+            "score": 0.4576144218444824,
+            "text_preview": "[PDF page 7, chunk 2]\nrequested; and the returned object contains records or associated information. Understanding each part makes\n\nthe code much easier to debug.\n\nI am working toward reading existing code confidently in"
+          },
+          {
+            "document_id": 12,
+            "score": 0.38203057646751404,
+            "text_preview": "[PDF page 7, chunk 1]\n06. Python as a Practical Tool\n\nReadable code for data and AI\n\nPython is useful in my work because its libraries provide high-level building blocks for data handling and AI. The\n\nsame language can r"
+          },
+          {
+            "document_id": 8,
+            "score": 0.3799762725830078,
+            "text_preview": "[PDF page 5, chunk 1]\n04. Learning C++\n\nAlgorithms, state, and explicit structure\n\nC++ has been an important part of my programming practice, particularly for data structures, algorithms, and\n\nobject-oriented design. It "
+          }
+        ],
+        "recall_at_k_vs_flat": 0.8,
+        "latency_ms": 0.009374998626299202
+      },
+      {
+        "query": "What are the main responsibilities of the Emergency Response Dispatcher system?",
+        "results": [
+          {
+            "document_id": 18,
+            "score": 0.544593334197998,
+            "text_preview": "[PDF page 10, chunk 1]\n09. Emergency Response Dispatcher: Architecture\n\nLayers and coordinated components\n\nThe project separates the presentation layer, dispatch orchestration, managers, domain objects, selection policie"
+          },
+          {
+            "document_id": 22,
+            "score": 0.5340984463691711,
+            "text_preview": "[PDF page 12, chunk 1]\n11. Emergency Response Dispatcher: Incidents\n\nStates, priorities, and history\n\nAn incident needs more than a textual description. It has a category, an identifier, state, priority, and information\n"
+          },
+          {
+            "document_id": 24,
+            "score": 0.47973477840423584,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          },
+          {
+            "document_id": 20,
+            "score": 0.45885756611824036,
+            "text_preview": "[PDF page 11, chunk 1]\n10. Emergency Response Dispatcher: Vehicles\n\nSuitability and availability\n\nThe vehicle hierarchy represents response resources with different capabilities. An ambulance may support medical\n\ninciden"
+          },
+          {
+            "document_id": 17,
+            "score": 0.4550766348838806,
+            "text_preview": "[PDF page 9, chunk 2]\nnd\n\navailability. The dispatcher must choose a suitable resource, handle cases where no resource is available, and\n\npreserve incident state.\n\nThis problem is useful because it has real decision rule"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.8,
+        "latency_ms": 0.0075830030255019665
+      },
+      {
+        "query": "How are the presentation layer, dispatcher, managers, domain objects, and persistence separated in the dispatcher architecture?",
+        "results": [
+          {
+            "document_id": 18,
+            "score": 0.7212246656417847,
+            "text_preview": "[PDF page 10, chunk 1]\n09. Emergency Response Dispatcher: Architecture\n\nLayers and coordinated components\n\nThe project separates the presentation layer, dispatch orchestration, managers, domain objects, selection policie"
+          },
+          {
+            "document_id": 19,
+            "score": 0.6421523690223694,
+            "text_preview": "[PDF page 10, chunk 2]\nific reason to exist. The\n\nDispatcher should coordinate actions rather than duplicate all the internal details of every manager and vehicle.\n\nArchitecture is valuable when it makes behavior easier "
+          },
+          {
+            "document_id": 26,
+            "score": 0.4630456864833832,
+            "text_preview": "[PDF page 14, chunk 1]\n13. Emergency Response Dispatcher: Persistence\n\nKeeping state between program runs\n\nThe dispatcher uses data files for information such as vehicles, incidents, and event history. Persistence allows"
+          },
+          {
+            "document_id": 15,
+            "score": 0.4469889998435974,
+            "text_preview": "[PDF page 8, chunk 2]\nuplicate\n\nevery vehicle-specific rule everywhere; a clear interface lets the appropriate object describe whether it can handle\n\nan incident.\n\nA good design should also make change manageable. If eve"
+          },
+          {
+            "document_id": 14,
+            "score": 0.4335537552833557,
+            "text_preview": "[PDF page 8, chunk 1]\n07. Object-Oriented Programming\n\nDesigning around responsibilities\n\nObject-oriented programming provides tools for grouping related state and behavior. Encapsulation keeps details\n\nbehind an interfa"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.007166003342717886
+      },
+      {
+        "query": "What is the difference between vehicle suitability and vehicle availability?",
+        "results": [
+          {
+            "document_id": 20,
+            "score": 0.6374770402908325,
+            "text_preview": "[PDF page 11, chunk 1]\n10. Emergency Response Dispatcher: Vehicles\n\nSuitability and availability\n\nThe vehicle hierarchy represents response resources with different capabilities. An ambulance may support medical\n\ninciden"
+          },
+          {
+            "document_id": 21,
+            "score": 0.5510267615318298,
+            "text_preview": "[PDF page 11, chunk 2]\nable but already assigned, or\n\navailable but unsuitable for the reported incident. A correct candidate search must consider both conditions.\n\nThis makes the fleet manager a useful boundary: other c"
+          },
+          {
+            "document_id": 17,
+            "score": 0.3755760192871094,
+            "text_preview": "[PDF page 9, chunk 2]\nnd\n\navailability. The dispatcher must choose a suitable resource, handle cases where no resource is available, and\n\npreserve incident state.\n\nThis problem is useful because it has real decision rule"
+          },
+          {
+            "document_id": 15,
+            "score": 0.2893076539039612,
+            "text_preview": "[PDF page 8, chunk 2]\nuplicate\n\nevery vehicle-specific rule everywhere; a clear interface lets the appropriate object describe whether it can handle\n\nan incident.\n\nA good design should also make change manageable. If eve"
+          },
+          {
+            "document_id": 24,
+            "score": 0.2862887382507324,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.007042006473056972
+      },
+      {
+        "query": "How do nearest-available and load-balanced dispatch policies differ?",
+        "results": [
+          {
+            "document_id": 24,
+            "score": 0.7009575366973877,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          },
+          {
+            "document_id": 25,
+            "score": 0.552220344543457,
+            "text_preview": "[PDF page 13, chunk 2]\nnd availability constraints. If no candidate is suitable, the correct outcome may be to queue the incident\n\nrather than force an assignment.\n\nKeeping policies behind a shared interface makes it pos"
+          },
+          {
+            "document_id": 17,
+            "score": 0.409213125705719,
+            "text_preview": "[PDF page 9, chunk 2]\nnd\n\navailability. The dispatcher must choose a suitable resource, handle cases where no resource is available, and\n\npreserve incident state.\n\nThis problem is useful because it has real decision rule"
+          },
+          {
+            "document_id": 20,
+            "score": 0.39579808712005615,
+            "text_preview": "[PDF page 11, chunk 1]\n10. Emergency Response Dispatcher: Vehicles\n\nSuitability and availability\n\nThe vehicle hierarchy represents response resources with different capabilities. An ambulance may support medical\n\ninciden"
+          },
+          {
+            "document_id": 19,
+            "score": 0.37818968296051025,
+            "text_preview": "[PDF page 10, chunk 2]\nific reason to exist. The\n\nDispatcher should coordinate actions rather than duplicate all the internal details of every manager and vehicle.\n\nArchitecture is valuable when it makes behavior easier "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.006750007742084563
+      },
+      {
+        "query": "What is the purpose of the IIITNR Hub application and which technologies are explored for it?",
+        "results": [
+          {
+            "document_id": 28,
+            "score": 0.6394330859184265,
+            "text_preview": "[PDF page 15, chunk 1]\n14. IIITNR Hub: The Idea\n\nA student-focused application\n\nIIITNR Hub is a student-focused application idea for centralizing common campus workflows. Planned features\n\ninclude login, timetable and ev"
+          },
+          {
+            "document_id": 55,
+            "score": 0.37895455956459045,
+            "text_preview": "[PDF page 28, chunk 1]\n27. Learning Through Small Projects\n\nFrom idea to explainable implementation\n\nSmall projects connect concepts in ways that isolated exercises cannot. A useful project has a problem statement,\n\nclea"
+          },
+          {
+            "document_id": 130,
+            "score": 0.37326139211654663,
+            "text_preview": "[PDF page 65, chunk 1]\n64. Closing Reflection\n\nBuilding understanding one layer at a time\n\nI am still developing my technical foundations, and many topics in this document are areas I am actively learning.\n\nThat is a rea"
+          },
+          {
+            "document_id": 119,
+            "score": 0.3534058630466461,
+            "text_preview": "[PDF page 60, chunk 1]\n59. What a Good Portfolio Project Shows\n\nArchitecture, evidence, and limitations\n\nA strong portfolio project should show a clear problem, a reasonable design, an implementation that can be run, and"
+          },
+          {
+            "document_id": 56,
+            "score": 0.34315651655197144,
+            "text_preview": "[PDF page 28, chunk 2]\nhandling, embeddings, retrieval, and generation. Each project\n\noffers a different perspective on designing a system from several components.\n\nI want each project to be something I can explain in an"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.8,
+        "latency_ms": 0.006375004886649549
+      },
+      {
+        "query": "What is the difference between authentication and authorization in the student application?",
+        "results": [
+          {
+            "document_id": 30,
+            "score": 0.524651288986206,
+            "text_preview": "[PDF page 16, chunk 1]\n15. IIITNR Hub: Data and Access\n\nAuthentication is not the same as authorization\n\nRestricting an application to institutional email addresses can help express who the intended users are.\n\nAuthentic"
+          },
+          {
+            "document_id": 31,
+            "score": 0.4899579584598541,
+            "text_preview": "[PDF page 16, chunk 2]\ns the corresponding button.\n\nThinking about these questions early helps distinguish a working prototype from a safer application. Even in an\n\neducational project, it is useful to know which compone"
+          },
+          {
+            "document_id": 29,
+            "score": 0.3207429349422455,
+            "text_preview": "[PDF page 15, chunk 2]\noaded documents or images.\n\nA useful hub has to be more than a screen with many buttons. It needs accurate data, clear permissions, sensible\n\nnavigation, and feedback when a request succeeds or fai"
+          },
+          {
+            "document_id": 25,
+            "score": 0.2822352349758148,
+            "text_preview": "[PDF page 13, chunk 2]\nnd availability constraints. If no candidate is suitable, the correct outcome may be to queue the incident\n\nrather than force an assignment.\n\nKeeping policies behind a shared interface makes it pos"
+          },
+          {
+            "document_id": 39,
+            "score": 0.27810636162757874,
+            "text_preview": "[PDF page 20, chunk 2]\nuld reflect the task: accuracy may be\n\ninadequate when classes are imbalanced or when different kinds of errors have different consequences.\n\nIn an educational placement-prediction project, the mai"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.4,
+        "latency_ms": 0.006875008693896234
+      },
+      {
+        "query": "What machine-learning workflow was used in the placement prediction project?",
+        "results": [
+          {
+            "document_id": 32,
+            "score": 0.6421559453010559,
+            "text_preview": "[PDF page 17, chunk 1]\n16. Placement Prediction: Project Overview\n\nConnecting data preparation to inference\n\nI built an introductory placement-prediction project using a dataset with fields such as student identifier, CG"
+          },
+          {
+            "document_id": 33,
+            "score": 0.5735171437263489,
+            "text_preview": "[PDF page 17, chunk 2]\nrediction from the saved model.\n\nBecause the project is educational, its claims should remain proportionate to the dataset and evaluation. A\n\ndemonstration that predicts labels is not automatically"
+          },
+          {
+            "document_id": 40,
+            "score": 0.48349082469940186,
+            "text_preview": "[PDF page 20, chunk 3]\nclass. The project is an\n\neducational implementation, so its output should not be represented as a real-world guarantee about an individual\n\nstudent's placement outcome."
+          },
+          {
+            "document_id": 55,
+            "score": 0.39153385162353516,
+            "text_preview": "[PDF page 28, chunk 1]\n27. Learning Through Small Projects\n\nFrom idea to explainable implementation\n\nSmall projects connect concepts in ways that isolated exercises cannot. A useful project has a problem statement,\n\nclea"
+          },
+          {
+            "document_id": 41,
+            "score": 0.38691890239715576,
+            "text_preview": "[PDF page 21, chunk 1]\n20. Serving a Saved Model\n\nFrom training artifacts to a Flask app\n\nSaving a trained estimator makes it possible to use the model without training it on every request. The model and\n\npreprocessing a"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.6,
+        "latency_ms": 0.006333008059300482
+      },
+      {
+        "query": "Why should a scaler be fitted only on the training data and then reused on test data?",
+        "results": [
+          {
+            "document_id": 36,
+            "score": 0.6508764028549194,
+            "text_preview": "[PDF page 19, chunk 1]\n18. Placement Prediction: Scaling Correctly\n\nFit preprocessing on training data\n\nFeature scaling changes the numerical ranges of input columns. Some models are sensitive to scale, so a scaler\n\ncan "
+          },
+          {
+            "document_id": 37,
+            "score": 0.6140637993812561,
+            "text_preview": "[PDF page 19, chunk 2]\no longer treated as fully unseen. During application inference, the stored scaler should be reused to\n\ntransform new inputs in the same way.\n\nSaving the scaler alongside the model matters because t"
+          },
+          {
+            "document_id": 35,
+            "score": 0.41656720638275146,
+            "text_preview": "[PDF page 18, chunk 2]\nthat would create leakage and make evaluation misleading. The train/test\n\nsplit should be chosen before data-driven preprocessing is fitted.\n\nThis step taught me that model performance begins with "
+          },
+          {
+            "document_id": 34,
+            "score": 0.404706209897995,
+            "text_preview": "[PDF page 18, chunk 1]\n17. Placement Prediction: Data Quality\n\nUnderstanding columns before fitting\n\nBefore a model is trained, the dataset should be inspected. Column meanings, missing values, unexpected types,\n\nduplica"
+          },
+          {
+            "document_id": 50,
+            "score": 0.39390724897384644,
+            "text_preview": "[PDF page 25, chunk 2]\nset to influence\n\ntraining or preprocessing. A robust experiment guards against these issues and uses metrics aligned with the actual\n\ntask.\n\nI want to treat ML as a chain of decisions rather than "
+          }
+        ],
+        "recall_at_k_vs_flat": 0.6,
+        "latency_ms": 0.007333001121878624
+      },
+      {
+        "query": "What role does logistic regression play in the placement prediction project?",
+        "results": [
+          {
+            "document_id": 38,
+            "score": 0.6624676585197449,
+            "text_preview": "[PDF page 20, chunk 1]\n19. Placement Prediction: Logistic Regression\n\nA baseline classifier\n\nLogistic regression is a supervised-learning algorithm commonly used for classification. It estimates probabilities\n\nusing a le"
+          },
+          {
+            "document_id": 39,
+            "score": 0.5261058807373047,
+            "text_preview": "[PDF page 20, chunk 2]\nuld reflect the task: accuracy may be\n\ninadequate when classes are imbalanced or when different kinds of errors have different consequences.\n\nIn an educational placement-prediction project, the mai"
+          },
+          {
+            "document_id": 34,
+            "score": 0.4772668480873108,
+            "text_preview": "[PDF page 18, chunk 1]\n17. Placement Prediction: Data Quality\n\nUnderstanding columns before fitting\n\nBefore a model is trained, the dataset should be inspected. Column meanings, missing values, unexpected types,\n\nduplica"
+          },
+          {
+            "document_id": 36,
+            "score": 0.3939320147037506,
+            "text_preview": "[PDF page 19, chunk 1]\n18. Placement Prediction: Scaling Correctly\n\nFit preprocessing on training data\n\nFeature scaling changes the numerical ranges of input columns. Some models are sensitive to scale, so a scaler\n\ncan "
+          },
+          {
+            "document_id": 24,
+            "score": 0.3560057282447815,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.6,
+        "latency_ms": 0.006791000487282872
+      },
+      {
+        "query": "What are the stages of the local Retrieval-Augmented Generation pipeline?",
+        "results": [
+          {
+            "document_id": 59,
+            "score": 0.5930875539779663,
+            "text_preview": "[PDF page 30, chunk 1]\n29. RAG: What the Name Means\n\nRetrieval-Augmented Generation\n\nRetrieval means finding relevant information from an external collection. Augmented means the retrieved\n\ninformation is added to the co"
+          },
+          {
+            "document_id": 57,
+            "score": 0.5369786024093628,
+            "text_preview": "[PDF page 29, chunk 1]\n28. My RAG Project: Overview\n\nA local PDF question-answering system\n\nI am learning RAG with a local pipeline that ingests PDFs, splits extracted text into chunks, embeds the\n\nchunks, stores them in"
+          },
+          {
+            "document_id": 60,
+            "score": 0.4902535676956177,
+            "text_preview": "[PDF page 30, chunk 2]\npt. This\n\ncan make the answer more specific to a private or specialized document collection, but only if the correct evidence\n\nis retrieved.\n\nRAG does not guarantee truth. The source may not contai"
+          },
+          {
+            "document_id": 77,
+            "score": 0.4738045632839203,
+            "text_preview": "[PDF page 39, chunk 1]\n38. Prompt Construction\n\nCombining question, instructions, and evidence\n\nAfter retrieval, the application creates a prompt that contains the user's question, the retrieved passages, source\n\ndetails"
+          },
+          {
+            "document_id": 108,
+            "score": 0.47205740213394165,
+            "text_preview": "[PDF page 54, chunk 2]\ns distinguish these issues.\n\nRetrieval and generation should be evaluated separately. A system may retrieve correct passages but generate an\n\ninaccurate answer, or generate a plausible answer even "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.009041003067977726
+      },
+      {
+        "query": "What is the difference between PDF text extraction and OCR?",
+        "results": [
+          {
+            "document_id": 61,
+            "score": 0.6605240702629089,
+            "text_preview": "[PDF page 31, chunk 1]\n30. PDF Text Extraction\n\nConverting pages into text\n\nA PDF may contain machine-readable text or scanned images. A PDF reader can often extract text directly from\n\ntext-based pages. Scanned pages ma"
+          },
+          {
+            "document_id": 62,
+            "score": 0.6036770343780518,
+            "text_preview": "[PDF page 31, chunk 2]\nn text for the\n\nprogram.\n\nFor a repeatable RAG workflow, extraction is a distinct stage worth measuring and validating. If the source PDF is\n\nupdated, the system needs to know whether the extracted"
+          },
+          {
+            "document_id": 90,
+            "score": 0.49962538480758667,
+            "text_preview": "[PDF page 45, chunk 2]\nrecords for other PDFs.\n\nThe system should identify the current complete set before deleting obsolete records. If text extraction fails and\n\nproduces an empty result, the program should not interpr"
+          },
+          {
+            "document_id": 86,
+            "score": 0.4870296120643616,
+            "text_preview": "[PDF page 43, chunk 2]\nIt is easier to implement and validate than page-level change detection, so it is a useful first step for a controlled\n\ntiming experiment.\n\nA concrete example\n\nA basic strategy still reads the upda"
+          },
+          {
+            "document_id": 58,
+            "score": 0.4850822687149048,
+            "text_preview": "[PDF page 29, chunk 2]\nibilities are distinct: the embedding model makes vectors, the database finds matching records,\n\nand the generation model writes the answer.\n\nThe value of this project is that every stage can be ob"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.008208007784560323
+      },
+      {
+        "query": "How do chunk size and chunk overlap affect retrieval quality and embedding cost?",
+        "results": [
+          {
+            "document_id": 65,
+            "score": 0.6377503275871277,
+            "text_preview": "[PDF page 33, chunk 1]\n32. Chunk Overlap\n\nKeeping context across boundaries\n\nOverlap repeats a portion of text between neighboring chunks. It can help preserve context when one explanation\n\ncrosses a chunk boundary, so a"
+          },
+          {
+            "document_id": 63,
+            "score": 0.5358291268348694,
+            "text_preview": "[PDF page 32, chunk 1]\n31. Text Chunking\n\nTurning a long document into passages\n\nChunking divides extracted text into manageable passages so retrieval can return focused evidence instead of an\n\nentire document. Very smal"
+          },
+          {
+            "document_id": 66,
+            "score": 0.5197784900665283,
+            "text_preview": "[PDF page 33, chunk 2]\nthan chosen only by convention.\n\nOverlap also matters when text changes. If a paragraph near a boundary becomes longer, the text in adjacent\n\nchunks may change. A robust incremental pipeline reuses"
+          },
+          {
+            "document_id": 69,
+            "score": 0.48692387342453003,
+            "text_preview": "[PDF page 35, chunk 1]\n34. EmbeddingGemma\n\nThe retrieval representation model\n\nEmbeddingGemma is used in my pipeline to turn document chunks and questions into vector representations.\n\nDuring ingestion, chunks are embedd"
+          },
+          {
+            "document_id": 67,
+            "score": 0.48281481862068176,
+            "text_preview": "[PDF page 34, chunk 1]\n33. Embedding Basics\n\nRepresenting meaning with numbers\n\nAn embedding model maps text to a numerical vector. The vector is learned from data and supports comparisons\n\nbetween text representations. "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.008167000487446785
+      },
+      {
+        "query": "What is an embedding and what role does EmbeddingGemma play in the RAG pipeline?",
+        "results": [
+          {
+            "document_id": 69,
+            "score": 0.613129734992981,
+            "text_preview": "[PDF page 35, chunk 1]\n34. EmbeddingGemma\n\nThe retrieval representation model\n\nEmbeddingGemma is used in my pipeline to turn document chunks and questions into vector representations.\n\nDuring ingestion, chunks are embedd"
+          },
+          {
+            "document_id": 57,
+            "score": 0.5948927402496338,
+            "text_preview": "[PDF page 29, chunk 1]\n28. My RAG Project: Overview\n\nA local PDF question-answering system\n\nI am learning RAG with a local pipeline that ingests PDFs, splits extracted text into chunks, embeds the\n\nchunks, stores them in"
+          },
+          {
+            "document_id": 74,
+            "score": 0.555667519569397,
+            "text_preview": "[PDF page 37, chunk 2]\ny the union of everything ever\n\ningested.\n\nMy current Python code generates embeddings through EmbeddingGemma and supplies them to ChromaDB.\n\nChromaDB is responsible for storage, querying, and reco"
+          },
+          {
+            "document_id": 125,
+            "score": 0.5178338885307312,
+            "text_preview": "[PDF page 63, chunk 1]\n62. Appendix: RAG Glossary\n\nKey terms used in this learning journey\n\nA document is a source file. Extracted text is the machine-readable content obtained from that source. A chunk is a\n\nsmaller pas"
+          },
+          {
+            "document_id": 67,
+            "score": 0.5151135921478271,
+            "text_preview": "[PDF page 34, chunk 1]\n33. Embedding Basics\n\nRepresenting meaning with numbers\n\nAn embedding model maps text to a numerical vector. The vector is learned from data and supports comparisons\n\nbetween text representations. "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.00841599830891937
+      },
+      {
+        "query": "What information does ChromaDB store for each chunk and what is its role during retrieval?",
+        "results": [
+          {
+            "document_id": 73,
+            "score": 0.626969039440155,
+            "text_preview": "[PDF page 37, chunk 1]\n36. ChromaDB\n\nStoring vectors and source text\n\nChromaDB stores records with unique IDs, document text, optional metadata, and embeddings. The vector\n\nsupports similarity search; the text gives the "
+          },
+          {
+            "document_id": 74,
+            "score": 0.5622225403785706,
+            "text_preview": "[PDF page 37, chunk 2]\ny the union of everything ever\n\ningested.\n\nMy current Python code generates embeddings through EmbeddingGemma and supplies them to ChromaDB.\n\nChromaDB is responsible for storage, querying, and reco"
+          },
+          {
+            "document_id": 125,
+            "score": 0.5384485125541687,
+            "text_preview": "[PDF page 63, chunk 1]\n62. Appendix: RAG Glossary\n\nKey terms used in this learning journey\n\nA document is a source file. Extracted text is the machine-readable content obtained from that source. A chunk is a\n\nsmaller pas"
+          },
+          {
+            "document_id": 75,
+            "score": 0.5370607972145081,
+            "text_preview": "[PDF page 38, chunk 1]\n37. Semantic Search and Top-K\n\nHow the system finds candidate passages\n\nAt question time, the embedding model converts the query into a vector. ChromaDB compares it with stored vectors\n\nunder the c"
+          },
+          {
+            "document_id": 89,
+            "score": 0.5369662046432495,
+            "text_preview": "[PDF page 45, chunk 1]\n44. Stale Chunks\n\nKeeping the index consistent with the source\n\nA stale chunk is a record in ChromaDB that no longer corresponds to the current PDF content. It can arise when a\n\nparagraph is delete"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.008332994184456766
+      },
+      {
+        "query": "Why is upsert not sufficient for a correct incremental ingestion pipeline?",
+        "results": [
+          {
+            "document_id": 87,
+            "score": 0.631552517414093,
+            "text_preview": "[PDF page 44, chunk 1]\n43. Why Upsert Is Not Enough\n\nWriting records is different from avoiding computation\n\nUpsert is a database write operation. Given an ID, it inserts a record if the ID is absent or updates the recor"
+          },
+          {
+            "document_id": 88,
+            "score": 0.505560040473938,
+            "text_preview": "[PDF page 44, chunk 2]\ndifferent database write.\n\nUpsert also does not delete IDs that are absent from the new version. Deletion is a separate operation. An index\n\ncan contain all newly upserted chunks and still be incor"
+          },
+          {
+            "document_id": 127,
+            "score": 0.4897346496582031,
+            "text_preview": "[PDF page 63, chunk 3]\nl ingestion adds a comparison step\n\nbefore embedding and a cleanup step after identifying the current record set. Each stage has a different\n\nresponsibility and different possible failures."
+          },
+          {
+            "document_id": 84,
+            "score": 0.4830203056335449,
+            "text_preview": "[PDF page 42, chunk 2]\nore the upsert call.\n\nA full-ingestion strategy must still address stale records. If the document no longer contains an old chunk, upserting\n\nthe current chunks does not automatically delete that o"
+          },
+          {
+            "document_id": 83,
+            "score": 0.4636872708797455,
+            "text_preview": "[PDF page 42, chunk 1]\n41. Full Ingestion\n\nBuilding the index from current files\n\nFull ingestion reads all selected PDFs, extracts their text, creates all chunks, generates embeddings for all chunks,\n\nand writes the reco"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.008749993867240846
+      },
+      {
+        "query": "How does basic incremental ingestion reuse embeddings for unchanged chunks?",
+        "results": [
+          {
+            "document_id": 85,
+            "score": 0.6283957958221436,
+            "text_preview": "[PDF page 43, chunk 1]\n42. Basic Incremental Ingestion\n\nReuse unchanged work\n\nIn a basic incremental pipeline, the changed PDF is still read, its text is extracted, and the current chunks are\n\nrecreated. The program then"
+          },
+          {
+            "document_id": 93,
+            "score": 0.5992945432662964,
+            "text_preview": "[PDF page 47, chunk 1]\n46. Adding a New Paragraph\n\nThe first controlled re-ingestion test\n\nA simple experiment begins with a stable PDF whose original ingestion has completed. The elapsed time, chunk\n\ncount, and stored I"
+          },
+          {
+            "document_id": 80,
+            "score": 0.5985708236694336,
+            "text_preview": "[PDF page 40, chunk 2]\nfingerprints content.\n\nA robust incremental strategy must also consider duplicate text, renamed files, and shifted chunk boundaries. If text\n\nis the same but the ID changes, the system needs a reli"
+          },
+          {
+            "document_id": 83,
+            "score": 0.5833555459976196,
+            "text_preview": "[PDF page 42, chunk 1]\n41. Full Ingestion\n\nBuilding the index from current files\n\nFull ingestion reads all selected PDFs, extracts their text, creates all chunks, generates embeddings for all chunks,\n\nand writes the reco"
+          },
+          {
+            "document_id": 87,
+            "score": 0.5718679428100586,
+            "text_preview": "[PDF page 44, chunk 1]\n43. Why Upsert Is Not Enough\n\nWriting records is different from avoiding computation\n\nUpsert is a database write operation. Given an ID, it inserts a record if the ID is absent or updates the recor"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.008333008736371994
+      },
+      {
+        "query": "What measurements should be recorded when comparing full and incremental ingestion?",
+        "results": [
+          {
+            "document_id": 91,
+            "score": 0.4565048813819885,
+            "text_preview": "[PDF page 46, chunk 1]\n45. Benchmarking the Ingestion Experiment\n\nMeasure time and work\n\nThe assignment compares original ingestion with re-ingestion after adding a paragraph. A fair experiment measures\n\noriginal ingesti"
+          },
+          {
+            "document_id": 127,
+            "score": 0.44700244069099426,
+            "text_preview": "[PDF page 63, chunk 3]\nl ingestion adds a comparison step\n\nbefore embedding and a cleanup step after identifying the current record set. Each stage has a different\n\nresponsibility and different possible failures."
+          },
+          {
+            "document_id": 83,
+            "score": 0.3961091637611389,
+            "text_preview": "[PDF page 42, chunk 1]\n41. Full Ingestion\n\nBuilding the index from current files\n\nFull ingestion reads all selected PDFs, extracts their text, creates all chunks, generates embeddings for all chunks,\n\nand writes the reco"
+          },
+          {
+            "document_id": 129,
+            "score": 0.39135581254959106,
+            "text_preview": "[PDF page 64, chunk 2]\nfrom other PDFs were not affected.\n\nWhen interpreting results, compare both elapsed time and work counts. Make sure the full and incremental\n\nstrategies began from equivalent pre-edit states. Repor"
+          },
+          {
+            "document_id": 92,
+            "score": 0.3802315890789032,
+            "text_preview": "[PDF page 46, chunk 2]\nthe comparison is invalid.\n\nThe result should be measured rather than assumed. A tiny PDF may show little benefit because comparison itself\n\nhas overhead. A larger PDF with many unchanged chunks ma"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.6,
+        "latency_ms": 0.008417002391070127
+      },
+      {
+        "query": "What is GraphRAG and how do nodes and edges represent relationships between concepts?",
+        "results": [
+          {
+            "document_id": 101,
+            "score": 0.6188334822654724,
+            "text_preview": "[PDF page 51, chunk 1]\n50. GraphRAG: Why It Interests Me\n\nMoving from passages to relationships\n\nGraphRAG is an area I want to explore after I understand a standard RAG baseline. A graph represents entities or\n\nconcepts "
+          },
+          {
+            "document_id": 105,
+            "score": 0.5697956085205078,
+            "text_preview": "[PDF page 53, chunk 1]\n52. GraphRAG Robustness Research\n\nInvestigating damage to graph edges\n\nA research direction I have considered is testing the robustness of GraphRAG when graph edges are removed.\n\nEdges encode relat"
+          },
+          {
+            "document_id": 102,
+            "score": 0.5024290084838867,
+            "text_preview": "[PDF page 51, chunk 2]\nion can make those links\n\nqueryable.\n\nGraphRAG is not automatically better for every question. Graph construction can introduce errors, omit\n\nrelationships, or add complexity. The decision to use g"
+          },
+          {
+            "document_id": 122,
+            "score": 0.4449274241924286,
+            "text_preview": "[PDF page 61, chunk 2]\nn and chunk rebuilding.\n\nThe next goal is to learn GraphRAG concepts step by step. Building a reliable baseline first will help me determine\n\nwhat graph structure adds, how graph clustering affects"
+          },
+          {
+            "document_id": 121,
+            "score": 0.41355234384536743,
+            "text_preview": "[PDF page 61, chunk 1]\n60. Near-Term Goals\n\nBuild a dependable baseline first\n\nMy immediate goal is to understand the current RAG code well enough to explain the entire flow: PDF extraction,\n\nchunking, embedding, ChromaD"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.8,
+        "latency_ms": 0.008290997357107699
+      },
+      {
+        "query": "What are Leiden and Louvain clustering used for in graph analysis?",
+        "results": [
+          {
+            "document_id": 103,
+            "score": 0.6443411111831665,
+            "text_preview": "[PDF page 52, chunk 1]\n51. Graph Clustering\n\nLeiden, Louvain, and k-core ideas\n\nGraph clustering groups nodes based on connectivity patterns. A community may contain nodes that are more\n\nstrongly connected to one another"
+          },
+          {
+            "document_id": 104,
+            "score": 0.5336978435516357,
+            "text_preview": "[PDF page 52, chunk 2]\nexpected to match exactly.\n\nComparing methods requires a clear graph construction procedure and evaluation. The question is not simply which\n\nalgorithm produces the most attractive visualization. I"
+          },
+          {
+            "document_id": 53,
+            "score": 0.35682570934295654,
+            "text_preview": "[PDF page 27, chunk 1]\n26. Data Visualization\n\nMaking patterns visible\n\nMatplotlib and related plotting tools help display trends and relationships that are difficult to notice in raw tables. A\n\nplot should answer a ques"
+          },
+          {
+            "document_id": 54,
+            "score": 0.3228369951248169,
+            "text_preview": "[PDF page 27, chunk 2]\nde further investigation.\n\nIn model evaluation, a chart should complement rather than replace quantitative measures. A visual difference can\n\nbe useful, but it needs a clear definition and should n"
+          },
+          {
+            "document_id": 10,
+            "score": 0.2918476462364197,
+            "text_preview": "[PDF page 6, chunk 1]\n05. Algorithms and Complexity\n\nChoosing an approach deliberately\n\nAlgorithmic problem solving involves translating a statement into constraints, selecting a representation, and using\n\nthose constrai"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.6,
+        "latency_ms": 0.007167007424868643
+      },
+      {
+        "query": "Why should approximate or graph-based retrieval be evaluated against a reliable baseline?",
+        "results": [
+          {
+            "document_id": 102,
+            "score": 0.5347027778625488,
+            "text_preview": "[PDF page 51, chunk 2]\nion can make those links\n\nqueryable.\n\nGraphRAG is not automatically better for every question. Graph construction can introduce errors, omit\n\nrelationships, or add complexity. The decision to use g"
+          },
+          {
+            "document_id": 107,
+            "score": 0.5064182877540588,
+            "text_preview": "[PDF page 54, chunk 1]\n53. Evaluating Retrieval\n\nDid the system find useful evidence?\n\nRetrieval evaluation asks whether the passages selected by the system contain the evidence needed for a question.\n\nA test set with kn"
+          },
+          {
+            "document_id": 105,
+            "score": 0.4877271354198456,
+            "text_preview": "[PDF page 53, chunk 1]\n52. GraphRAG Robustness Research\n\nInvestigating damage to graph edges\n\nA research direction I have considered is testing the robustness of GraphRAG when graph edges are removed.\n\nEdges encode relat"
+          },
+          {
+            "document_id": 122,
+            "score": 0.46916624903678894,
+            "text_preview": "[PDF page 61, chunk 2]\nn and chunk rebuilding.\n\nThe next goal is to learn GraphRAG concepts step by step. Building a reliable baseline first will help me determine\n\nwhat graph structure adds, how graph clustering affects"
+          },
+          {
+            "document_id": 108,
+            "score": 0.4672172963619232,
+            "text_preview": "[PDF page 54, chunk 2]\ns distinguish these issues.\n\nRetrieval and generation should be evaluated separately. A system may retrieve correct passages but generate an\n\ninaccurate answer, or generate a plausible answer even "
+          }
+        ],
+        "recall_at_k_vs_flat": 0.8,
+        "latency_ms": 0.00825000461190939
+      },
+      {
+        "query": "What should a reproducible RAG experiment record about its data, code, model, and configuration?",
+        "results": [
+          {
+            "document_id": 98,
+            "score": 0.4419082701206207,
+            "text_preview": "[PDF page 49, chunk 2]\nbase state changed between runs.\n\nA README should explain how to prepare the baseline, when to edit the PDF, how to run the comparison, what\n\neach metric means, and which limitations remain. That m"
+          },
+          {
+            "document_id": 118,
+            "score": 0.4398115575313568,
+            "text_preview": "[PDF page 59, chunk 2]\nstale ones when necessary.\n\nThe experiment should change one major factor at a time. Start with a document version and known database state,\n\nmeasure the original pipeline, make one edit, and compa"
+          },
+          {
+            "document_id": 50,
+            "score": 0.4397618770599365,
+            "text_preview": "[PDF page 25, chunk 2]\nset to influence\n\ntraining or preprocessing. A robust experiment guards against these issues and uses metrics aligned with the actual\n\ntask.\n\nI want to treat ML as a chain of decisions rather than "
+          },
+          {
+            "document_id": 96,
+            "score": 0.4381600022315979,
+            "text_preview": "[PDF page 48, chunk 2]\nrconfidence in one\n\nresult.\n\nA useful experiment log describes the environment and the exact input. Timings are observations from a specific\n\nsetup, not universal constants. Reporting chunk and emb"
+          },
+          {
+            "document_id": 106,
+            "score": 0.4301159977912903,
+            "text_preview": "[PDF page 53, chunk 2]\nty, indexing\n\ntime, and context size. The experiment should define the corruption process and the measurements before results\n\nare examined.\n\nThis is a research direction under exploration, not a c"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.4,
+        "latency_ms": 0.007124996045604348
+      },
+      {
+        "query": "What are the limitations of a small local RAG experiment and why should results not be overstated?",
+        "results": [
+          {
+            "document_id": 96,
+            "score": 0.3846331834793091,
+            "text_preview": "[PDF page 48, chunk 2]\nrconfidence in one\n\nresult.\n\nA useful experiment log describes the environment and the exact input. Timings are observations from a specific\n\nsetup, not universal constants. Reporting chunk and emb"
+          },
+          {
+            "document_id": 106,
+            "score": 0.336466908454895,
+            "text_preview": "[PDF page 53, chunk 2]\nty, indexing\n\ntime, and context size. The experiment should define the corruption process and the measurements before results\n\nare examined.\n\nThis is a research direction under exploration, not a c"
+          },
+          {
+            "document_id": 115,
+            "score": 0.31932497024536133,
+            "text_preview": "[PDF page 58, chunk 1]\n57. Research Communication\n\nExplaining a result to a mentor\n\nA technical update is useful when it states the question, the method used, the evidence obtained, and the remaining\n\nuncertainty. For th"
+          },
+          {
+            "document_id": 118,
+            "score": 0.30886000394821167,
+            "text_preview": "[PDF page 59, chunk 2]\nstale ones when necessary.\n\nThe experiment should change one major factor at a time. Start with a document version and known database state,\n\nmeasure the original pipeline, make one edit, and compa"
+          },
+          {
+            "document_id": 112,
+            "score": 0.3084598481655121,
+            "text_preview": "[PDF page 56, chunk 2]\nay through a\n\ncomparison.\n\nWhen a script cannot be found, the issue may be the current working directory rather than Python itself. Checking\n\n`pwd` and listing the project files can solve that prob"
+          }
+        ],
+        "recall_at_k_vs_flat": 0.2,
+        "latency_ms": 0.013875003787688911
+      }
+    ],
+    "HNSW (M=32, efSearch=64)": [
+      {
+        "query": "What are the main technical interests and learning goals described in the autobiography?",
+        "results": [
+          {
+            "document_id": 1,
+            "score": 0.5620622038841248,
+            "text_preview": "[PDF page 2, chunk 1]\n01. Who I Am\n\nA technical autobiography\n\nI am Shikhar Srivastava, an undergraduate B.Tech student at IIIT Naya Raipur, with an expected graduation\n\ntimeline of 2029. My current interests center on c"
+          },
+          {
+            "document_id": 0,
+            "score": 0.5463701486587524,
+            "text_preview": "[PDF page 1, chunk 1]\nMY LEARNING\n\nJOURNEY\n\nAn expanded autobiography and technical learning journal\n\nShikhar Srivastava\n\nEducation • Programming • Projects • Machine Learning • RAG • GraphRAG •\n\nResearch Goals\n\nThis doc"
+          },
+          {
+            "document_id": 123,
+            "score": 0.5277218222618103,
+            "text_preview": "[PDF page 62, chunk 1]\n61. Longer-Term Direction\n\nAI engineering and research-minded development\n\nMy career interests include AI and machine-learning engineering, NLP, generative AI, retrieval systems, and\n\nresearch-orie"
+          },
+          {
+            "document_id": 131,
+            "score": 0.4806259274482727,
+            "text_preview": "[PDF page 65, chunk 2]\npipeline. They provide different settings in which to practise the same habits\n\nof clear design, careful testing, and explicit assumptions.\n\nI want my future work to be explainable and evidence-dri"
+          },
+          {
+            "document_id": 4,
+            "score": 0.47273287177085876,
+            "text_preview": "[PDF page 3, chunk 1]\n02. My Approach to Learning\n\nConcepts before memorized syntax\n\nI learn best when a technical idea is connected to a small, working example. When I see a library method, I want to\n\nunderstand the obj"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.5010000022593886
+      },
+      {
+        "query": "How does the student approach learning unfamiliar programming libraries and debugging code?",
+        "results": [
+          {
+            "document_id": 4,
+            "score": 0.4893939793109894,
+            "text_preview": "[PDF page 3, chunk 1]\n02. My Approach to Learning\n\nConcepts before memorized syntax\n\nI learn best when a technical idea is connected to a small, working example. When I see a library method, I want to\n\nunderstand the obj"
+          },
+          {
+            "document_id": 5,
+            "score": 0.4629334807395935,
+            "text_preview": "[PDF page 3, chunk 2]\nlarger systems: identify the stages, inspect the data between them, and test each stage before making\n\nassumptions about the whole pipeline.\n\nMy goal is not to avoid difficult code but to make it un"
+          },
+          {
+            "document_id": 13,
+            "score": 0.4576144516468048,
+            "text_preview": "[PDF page 7, chunk 2]\nrequested; and the returned object contains records or associated information. Understanding each part makes\n\nthe code much easier to debug.\n\nI am working toward reading existing code confidently in"
+          },
+          {
+            "document_id": 99,
+            "score": 0.3877241015434265,
+            "text_preview": "[PDF page 50, chunk 1]\n49. Learning to Debug\n\nFind the failing stage\n\nWhen a RAG experiment fails, the error should be localized before changing the design. A missing script is a\n\nworking-directory issue; an import error"
+          },
+          {
+            "document_id": 12,
+            "score": 0.38203054666519165,
+            "text_preview": "[PDF page 7, chunk 1]\n06. Python as a Practical Tool\n\nReadable code for data and AI\n\nPython is useful in my work because its libraries provide high-level building blocks for data handling and AI. The\n\nsame language can r"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.03070798993576318
+      },
+      {
+        "query": "What are the main responsibilities of the Emergency Response Dispatcher system?",
+        "results": [
+          {
+            "document_id": 18,
+            "score": 0.5445932745933533,
+            "text_preview": "[PDF page 10, chunk 1]\n09. Emergency Response Dispatcher: Architecture\n\nLayers and coordinated components\n\nThe project separates the presentation layer, dispatch orchestration, managers, domain objects, selection policie"
+          },
+          {
+            "document_id": 22,
+            "score": 0.5340984463691711,
+            "text_preview": "[PDF page 12, chunk 1]\n11. Emergency Response Dispatcher: Incidents\n\nStates, priorities, and history\n\nAn incident needs more than a textual description. It has a category, an identifier, state, priority, and information\n"
+          },
+          {
+            "document_id": 16,
+            "score": 0.49548691511154175,
+            "text_preview": "[PDF page 9, chunk 1]\n08. Emergency Response Dispatcher: Purpose\n\nA domain-oriented C++ project\n\nOne of my main software projects is a terminal-based Emergency Response Dispatcher. It models incidents and\n\nresponse vehic"
+          },
+          {
+            "document_id": 24,
+            "score": 0.47973477840423584,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          },
+          {
+            "document_id": 20,
+            "score": 0.45885753631591797,
+            "text_preview": "[PDF page 11, chunk 1]\n10. Emergency Response Dispatcher: Vehicles\n\nSuitability and availability\n\nThe vehicle hierarchy represents response resources with different capabilities. An ambulance may support medical\n\ninciden"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.028583002858795226
+      },
+      {
+        "query": "How are the presentation layer, dispatcher, managers, domain objects, and persistence separated in the dispatcher architecture?",
+        "results": [
+          {
+            "document_id": 18,
+            "score": 0.7212246656417847,
+            "text_preview": "[PDF page 10, chunk 1]\n09. Emergency Response Dispatcher: Architecture\n\nLayers and coordinated components\n\nThe project separates the presentation layer, dispatch orchestration, managers, domain objects, selection policie"
+          },
+          {
+            "document_id": 19,
+            "score": 0.6421523690223694,
+            "text_preview": "[PDF page 10, chunk 2]\nific reason to exist. The\n\nDispatcher should coordinate actions rather than duplicate all the internal details of every manager and vehicle.\n\nArchitecture is valuable when it makes behavior easier "
+          },
+          {
+            "document_id": 26,
+            "score": 0.4630456864833832,
+            "text_preview": "[PDF page 14, chunk 1]\n13. Emergency Response Dispatcher: Persistence\n\nKeeping state between program runs\n\nThe dispatcher uses data files for information such as vehicles, incidents, and event history. Persistence allows"
+          },
+          {
+            "document_id": 15,
+            "score": 0.4469889998435974,
+            "text_preview": "[PDF page 8, chunk 2]\nuplicate\n\nevery vehicle-specific rule everywhere; a clear interface lets the appropriate object describe whether it can handle\n\nan incident.\n\nA good design should also make change manageable. If eve"
+          },
+          {
+            "document_id": 14,
+            "score": 0.4335538148880005,
+            "text_preview": "[PDF page 8, chunk 1]\n07. Object-Oriented Programming\n\nDesigning around responsibilities\n\nObject-oriented programming provides tools for grouping related state and behavior. Encapsulation keeps details\n\nbehind an interfa"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.027667003450915217
+      },
+      {
+        "query": "What is the difference between vehicle suitability and vehicle availability?",
+        "results": [
+          {
+            "document_id": 20,
+            "score": 0.6374770998954773,
+            "text_preview": "[PDF page 11, chunk 1]\n10. Emergency Response Dispatcher: Vehicles\n\nSuitability and availability\n\nThe vehicle hierarchy represents response resources with different capabilities. An ambulance may support medical\n\ninciden"
+          },
+          {
+            "document_id": 21,
+            "score": 0.5510267615318298,
+            "text_preview": "[PDF page 11, chunk 2]\nable but already assigned, or\n\navailable but unsuitable for the reported incident. A correct candidate search must consider both conditions.\n\nThis makes the fleet manager a useful boundary: other c"
+          },
+          {
+            "document_id": 17,
+            "score": 0.3755760192871094,
+            "text_preview": "[PDF page 9, chunk 2]\nnd\n\navailability. The dispatcher must choose a suitable resource, handle cases where no resource is available, and\n\npreserve incident state.\n\nThis problem is useful because it has real decision rule"
+          },
+          {
+            "document_id": 15,
+            "score": 0.2893076539039612,
+            "text_preview": "[PDF page 8, chunk 2]\nuplicate\n\nevery vehicle-specific rule everywhere; a clear interface lets the appropriate object describe whether it can handle\n\nan incident.\n\nA good design should also make change manageable. If eve"
+          },
+          {
+            "document_id": 24,
+            "score": 0.2862887382507324,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.028458991437219083
+      },
+      {
+        "query": "How do nearest-available and load-balanced dispatch policies differ?",
+        "results": [
+          {
+            "document_id": 24,
+            "score": 0.7009574770927429,
+            "text_preview": "[PDF page 13, chunk 1]\n12. Emergency Response Dispatcher: Dispatch Policies\n\nDifferent strategies can optimize different goals\n\nThe project considers different dispatch policies, including a nearest-available approach an"
+          },
+          {
+            "document_id": 25,
+            "score": 0.552220344543457,
+            "text_preview": "[PDF page 13, chunk 2]\nnd availability constraints. If no candidate is suitable, the correct outcome may be to queue the incident\n\nrather than force an assignment.\n\nKeeping policies behind a shared interface makes it pos"
+          },
+          {
+            "document_id": 17,
+            "score": 0.409213125705719,
+            "text_preview": "[PDF page 9, chunk 2]\nnd\n\navailability. The dispatcher must choose a suitable resource, handle cases where no resource is available, and\n\npreserve incident state.\n\nThis problem is useful because it has real decision rule"
+          },
+          {
+            "document_id": 20,
+            "score": 0.39579805731773376,
+            "text_preview": "[PDF page 11, chunk 1]\n10. Emergency Response Dispatcher: Vehicles\n\nSuitability and availability\n\nThe vehicle hierarchy represents response resources with different capabilities. An ambulance may support medical\n\ninciden"
+          },
+          {
+            "document_id": 19,
+            "score": 0.37818968296051025,
+            "text_preview": "[PDF page 10, chunk 2]\nific reason to exist. The\n\nDispatcher should coordinate actions rather than duplicate all the internal details of every manager and vehicle.\n\nArchitecture is valuable when it makes behavior easier "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.028290989575907588
+      },
+      {
+        "query": "What is the purpose of the IIITNR Hub application and which technologies are explored for it?",
+        "results": [
+          {
+            "document_id": 28,
+            "score": 0.6394330859184265,
+            "text_preview": "[PDF page 15, chunk 1]\n14. IIITNR Hub: The Idea\n\nA student-focused application\n\nIIITNR Hub is a student-focused application idea for centralizing common campus workflows. Planned features\n\ninclude login, timetable and ev"
+          },
+          {
+            "document_id": 30,
+            "score": 0.4502822458744049,
+            "text_preview": "[PDF page 16, chunk 1]\n15. IIITNR Hub: Data and Access\n\nAuthentication is not the same as authorization\n\nRestricting an application to institutional email addresses can help express who the intended users are.\n\nAuthentic"
+          },
+          {
+            "document_id": 55,
+            "score": 0.37895455956459045,
+            "text_preview": "[PDF page 28, chunk 1]\n27. Learning Through Small Projects\n\nFrom idea to explainable implementation\n\nSmall projects connect concepts in ways that isolated exercises cannot. A useful project has a problem statement,\n\nclea"
+          },
+          {
+            "document_id": 130,
+            "score": 0.37326139211654663,
+            "text_preview": "[PDF page 65, chunk 1]\n64. Closing Reflection\n\nBuilding understanding one layer at a time\n\nI am still developing my technical foundations, and many topics in this document are areas I am actively learning.\n\nThat is a rea"
+          },
+          {
+            "document_id": 119,
+            "score": 0.35340583324432373,
+            "text_preview": "[PDF page 60, chunk 1]\n59. What a Good Portfolio Project Shows\n\nArchitecture, evidence, and limitations\n\nA strong portfolio project should show a clear problem, a reasonable design, an implementation that can be run, and"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.02750000567175448
+      },
+      {
+        "query": "What is the difference between authentication and authorization in the student application?",
+        "results": [
+          {
+            "document_id": 30,
+            "score": 0.524651288986206,
+            "text_preview": "[PDF page 16, chunk 1]\n15. IIITNR Hub: Data and Access\n\nAuthentication is not the same as authorization\n\nRestricting an application to institutional email addresses can help express who the intended users are.\n\nAuthentic"
+          },
+          {
+            "document_id": 31,
+            "score": 0.48995792865753174,
+            "text_preview": "[PDF page 16, chunk 2]\ns the corresponding button.\n\nThinking about these questions early helps distinguish a working prototype from a safer application. Even in an\n\neducational project, it is useful to know which compone"
+          },
+          {
+            "document_id": 28,
+            "score": 0.366862416267395,
+            "text_preview": "[PDF page 15, chunk 1]\n14. IIITNR Hub: The Idea\n\nA student-focused application\n\nIIITNR Hub is a student-focused application idea for centralizing common campus workflows. Planned features\n\ninclude login, timetable and ev"
+          },
+          {
+            "document_id": 32,
+            "score": 0.3315936326980591,
+            "text_preview": "[PDF page 17, chunk 1]\n16. Placement Prediction: Project Overview\n\nConnecting data preparation to inference\n\nI built an introductory placement-prediction project using a dataset with fields such as student identifier, CG"
+          },
+          {
+            "document_id": 40,
+            "score": 0.3294730484485626,
+            "text_preview": "[PDF page 20, chunk 3]\nclass. The project is an\n\neducational implementation, so its output should not be represented as a real-world guarantee about an individual\n\nstudent's placement outcome."
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.028167007258161902
+      },
+      {
+        "query": "What machine-learning workflow was used in the placement prediction project?",
+        "results": [
+          {
+            "document_id": 32,
+            "score": 0.6421558856964111,
+            "text_preview": "[PDF page 17, chunk 1]\n16. Placement Prediction: Project Overview\n\nConnecting data preparation to inference\n\nI built an introductory placement-prediction project using a dataset with fields such as student identifier, CG"
+          },
+          {
+            "document_id": 33,
+            "score": 0.5735170841217041,
+            "text_preview": "[PDF page 17, chunk 2]\nrediction from the saved model.\n\nBecause the project is educational, its claims should remain proportionate to the dataset and evaluation. A\n\ndemonstration that predicts labels is not automatically"
+          },
+          {
+            "document_id": 38,
+            "score": 0.5525868535041809,
+            "text_preview": "[PDF page 20, chunk 1]\n19. Placement Prediction: Logistic Regression\n\nA baseline classifier\n\nLogistic regression is a supervised-learning algorithm commonly used for classification. It estimates probabilities\n\nusing a le"
+          },
+          {
+            "document_id": 39,
+            "score": 0.5191393494606018,
+            "text_preview": "[PDF page 20, chunk 2]\nuld reflect the task: accuracy may be\n\ninadequate when classes are imbalanced or when different kinds of errors have different consequences.\n\nIn an educational placement-prediction project, the mai"
+          },
+          {
+            "document_id": 40,
+            "score": 0.48349082469940186,
+            "text_preview": "[PDF page 20, chunk 3]\nclass. The project is an\n\neducational implementation, so its output should not be represented as a real-world guarantee about an individual\n\nstudent's placement outcome."
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.027667003450915217
+      },
+      {
+        "query": "Why should a scaler be fitted only on the training data and then reused on test data?",
+        "results": [
+          {
+            "document_id": 36,
+            "score": 0.6508763432502747,
+            "text_preview": "[PDF page 19, chunk 1]\n18. Placement Prediction: Scaling Correctly\n\nFit preprocessing on training data\n\nFeature scaling changes the numerical ranges of input columns. Some models are sensitive to scale, so a scaler\n\ncan "
+          },
+          {
+            "document_id": 37,
+            "score": 0.6140637993812561,
+            "text_preview": "[PDF page 19, chunk 2]\no longer treated as fully unseen. During application inference, the stored scaler should be reused to\n\ntransform new inputs in the same way.\n\nSaving the scaler alongside the model matters because t"
+          },
+          {
+            "document_id": 52,
+            "score": 0.49707841873168945,
+            "text_preview": "[PDF page 26, chunk 2]\nrocessing is fitted appropriately within training data.\n\nWithout that care, preprocessing can leak information across evaluation boundaries.\n\nI learn a library best when I connect a method call to "
+          },
+          {
+            "document_id": 51,
+            "score": 0.48127281665802,
+            "text_preview": "[PDF page 26, chunk 1]\n25. Learning scikit-learn\n\nConsistent interfaces for estimators\n\nScikit-learn uses common interfaces for estimators and transformers. An estimator generally learns from data\n\nthrough `fit` and may "
+          },
+          {
+            "document_id": 35,
+            "score": 0.41656720638275146,
+            "text_preview": "[PDF page 18, chunk 2]\nthat would create leakage and make evaluation misleading. The train/test\n\nsplit should be chosen before data-driven preprocessing is fitted.\n\nThis step taught me that model performance begins with "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.027250003768131137
+      },
+      {
+        "query": "What role does logistic regression play in the placement prediction project?",
+        "results": [
+          {
+            "document_id": 38,
+            "score": 0.6624677181243896,
+            "text_preview": "[PDF page 20, chunk 1]\n19. Placement Prediction: Logistic Regression\n\nA baseline classifier\n\nLogistic regression is a supervised-learning algorithm commonly used for classification. It estimates probabilities\n\nusing a le"
+          },
+          {
+            "document_id": 32,
+            "score": 0.6044063568115234,
+            "text_preview": "[PDF page 17, chunk 1]\n16. Placement Prediction: Project Overview\n\nConnecting data preparation to inference\n\nI built an introductory placement-prediction project using a dataset with fields such as student identifier, CG"
+          },
+          {
+            "document_id": 39,
+            "score": 0.5261059403419495,
+            "text_preview": "[PDF page 20, chunk 2]\nuld reflect the task: accuracy may be\n\ninadequate when classes are imbalanced or when different kinds of errors have different consequences.\n\nIn an educational placement-prediction project, the mai"
+          },
+          {
+            "document_id": 33,
+            "score": 0.5143282413482666,
+            "text_preview": "[PDF page 17, chunk 2]\nrediction from the saved model.\n\nBecause the project is educational, its claims should remain proportionate to the dataset and evaluation. A\n\ndemonstration that predicts labels is not automatically"
+          },
+          {
+            "document_id": 34,
+            "score": 0.4772668480873108,
+            "text_preview": "[PDF page 18, chunk 1]\n17. Placement Prediction: Data Quality\n\nUnderstanding columns before fitting\n\nBefore a model is trained, the dataset should be inspected. Column meanings, missing values, unexpected types,\n\nduplica"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.027125002816319466
+      },
+      {
+        "query": "What are the stages of the local Retrieval-Augmented Generation pipeline?",
+        "results": [
+          {
+            "document_id": 59,
+            "score": 0.5930875539779663,
+            "text_preview": "[PDF page 30, chunk 1]\n29. RAG: What the Name Means\n\nRetrieval-Augmented Generation\n\nRetrieval means finding relevant information from an external collection. Augmented means the retrieved\n\ninformation is added to the co"
+          },
+          {
+            "document_id": 57,
+            "score": 0.5369786024093628,
+            "text_preview": "[PDF page 29, chunk 1]\n28. My RAG Project: Overview\n\nA local PDF question-answering system\n\nI am learning RAG with a local pipeline that ingests PDFs, splits extracted text into chunks, embeds the\n\nchunks, stores them in"
+          },
+          {
+            "document_id": 60,
+            "score": 0.4902535378932953,
+            "text_preview": "[PDF page 30, chunk 2]\npt. This\n\ncan make the answer more specific to a private or specialized document collection, but only if the correct evidence\n\nis retrieved.\n\nRAG does not guarantee truth. The source may not contai"
+          },
+          {
+            "document_id": 77,
+            "score": 0.4738045632839203,
+            "text_preview": "[PDF page 39, chunk 1]\n38. Prompt Construction\n\nCombining question, instructions, and evidence\n\nAfter retrieval, the application creates a prompt that contains the user's question, the retrieved passages, source\n\ndetails"
+          },
+          {
+            "document_id": 108,
+            "score": 0.47205740213394165,
+            "text_preview": "[PDF page 54, chunk 2]\ns distinguish these issues.\n\nRetrieval and generation should be evaluated separately. A system may retrieve correct passages but generate an\n\ninaccurate answer, or generate a plausible answer even "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.026708003133535385
+      },
+      {
+        "query": "What is the difference between PDF text extraction and OCR?",
+        "results": [
+          {
+            "document_id": 61,
+            "score": 0.6605240702629089,
+            "text_preview": "[PDF page 31, chunk 1]\n30. PDF Text Extraction\n\nConverting pages into text\n\nA PDF may contain machine-readable text or scanned images. A PDF reader can often extract text directly from\n\ntext-based pages. Scanned pages ma"
+          },
+          {
+            "document_id": 62,
+            "score": 0.6036770343780518,
+            "text_preview": "[PDF page 31, chunk 2]\nn text for the\n\nprogram.\n\nFor a repeatable RAG workflow, extraction is a distinct stage worth measuring and validating. If the source PDF is\n\nupdated, the system needs to know whether the extracted"
+          },
+          {
+            "document_id": 90,
+            "score": 0.4996253252029419,
+            "text_preview": "[PDF page 45, chunk 2]\nrecords for other PDFs.\n\nThe system should identify the current complete set before deleting obsolete records. If text extraction fails and\n\nproduces an empty result, the program should not interpr"
+          },
+          {
+            "document_id": 86,
+            "score": 0.48702967166900635,
+            "text_preview": "[PDF page 43, chunk 2]\nIt is easier to implement and validate than page-level change detection, so it is a useful first step for a controlled\n\ntiming experiment.\n\nA concrete example\n\nA basic strategy still reads the upda"
+          },
+          {
+            "document_id": 58,
+            "score": 0.4850822687149048,
+            "text_preview": "[PDF page 29, chunk 2]\nibilities are distinct: the embedding model makes vectors, the database finds matching records,\n\nand the generation model writes the answer.\n\nThe value of this project is that every stage can be ob"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.026583991711959243
+      },
+      {
+        "query": "How do chunk size and chunk overlap affect retrieval quality and embedding cost?",
+        "results": [
+          {
+            "document_id": 65,
+            "score": 0.6377503275871277,
+            "text_preview": "[PDF page 33, chunk 1]\n32. Chunk Overlap\n\nKeeping context across boundaries\n\nOverlap repeats a portion of text between neighboring chunks. It can help preserve context when one explanation\n\ncrosses a chunk boundary, so a"
+          },
+          {
+            "document_id": 63,
+            "score": 0.5358291268348694,
+            "text_preview": "[PDF page 32, chunk 1]\n31. Text Chunking\n\nTurning a long document into passages\n\nChunking divides extracted text into manageable passages so retrieval can return focused evidence instead of an\n\nentire document. Very smal"
+          },
+          {
+            "document_id": 66,
+            "score": 0.5197785496711731,
+            "text_preview": "[PDF page 33, chunk 2]\nthan chosen only by convention.\n\nOverlap also matters when text changes. If a paragraph near a boundary becomes longer, the text in adjacent\n\nchunks may change. A robust incremental pipeline reuses"
+          },
+          {
+            "document_id": 69,
+            "score": 0.48692387342453003,
+            "text_preview": "[PDF page 35, chunk 1]\n34. EmbeddingGemma\n\nThe retrieval representation model\n\nEmbeddingGemma is used in my pipeline to turn document chunks and questions into vector representations.\n\nDuring ingestion, chunks are embedd"
+          },
+          {
+            "document_id": 67,
+            "score": 0.4828147888183594,
+            "text_preview": "[PDF page 34, chunk 1]\n33. Embedding Basics\n\nRepresenting meaning with numbers\n\nAn embedding model maps text to a numerical vector. The vector is learned from data and supports comparisons\n\nbetween text representations. "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.02608299837447703
+      },
+      {
+        "query": "What is an embedding and what role does EmbeddingGemma play in the RAG pipeline?",
+        "results": [
+          {
+            "document_id": 69,
+            "score": 0.6131296753883362,
+            "text_preview": "[PDF page 35, chunk 1]\n34. EmbeddingGemma\n\nThe retrieval representation model\n\nEmbeddingGemma is used in my pipeline to turn document chunks and questions into vector representations.\n\nDuring ingestion, chunks are embedd"
+          },
+          {
+            "document_id": 57,
+            "score": 0.5948927402496338,
+            "text_preview": "[PDF page 29, chunk 1]\n28. My RAG Project: Overview\n\nA local PDF question-answering system\n\nI am learning RAG with a local pipeline that ingests PDFs, splits extracted text into chunks, embeds the\n\nchunks, stores them in"
+          },
+          {
+            "document_id": 74,
+            "score": 0.555667519569397,
+            "text_preview": "[PDF page 37, chunk 2]\ny the union of everything ever\n\ningested.\n\nMy current Python code generates embeddings through EmbeddingGemma and supplies them to ChromaDB.\n\nChromaDB is responsible for storage, querying, and reco"
+          },
+          {
+            "document_id": 125,
+            "score": 0.5178338289260864,
+            "text_preview": "[PDF page 63, chunk 1]\n62. Appendix: RAG Glossary\n\nKey terms used in this learning journey\n\nA document is a source file. Extracted text is the machine-readable content obtained from that source. A chunk is a\n\nsmaller pas"
+          },
+          {
+            "document_id": 67,
+            "score": 0.5151135921478271,
+            "text_preview": "[PDF page 34, chunk 1]\n33. Embedding Basics\n\nRepresenting meaning with numbers\n\nAn embedding model maps text to a numerical vector. The vector is learned from data and supports comparisons\n\nbetween text representations. "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.026249996153637767
+      },
+      {
+        "query": "What information does ChromaDB store for each chunk and what is its role during retrieval?",
+        "results": [
+          {
+            "document_id": 73,
+            "score": 0.626969039440155,
+            "text_preview": "[PDF page 37, chunk 1]\n36. ChromaDB\n\nStoring vectors and source text\n\nChromaDB stores records with unique IDs, document text, optional metadata, and embeddings. The vector\n\nsupports similarity search; the text gives the "
+          },
+          {
+            "document_id": 74,
+            "score": 0.5622225403785706,
+            "text_preview": "[PDF page 37, chunk 2]\ny the union of everything ever\n\ningested.\n\nMy current Python code generates embeddings through EmbeddingGemma and supplies them to ChromaDB.\n\nChromaDB is responsible for storage, querying, and reco"
+          },
+          {
+            "document_id": 125,
+            "score": 0.5384485125541687,
+            "text_preview": "[PDF page 63, chunk 1]\n62. Appendix: RAG Glossary\n\nKey terms used in this learning journey\n\nA document is a source file. Extracted text is the machine-readable content obtained from that source. A chunk is a\n\nsmaller pas"
+          },
+          {
+            "document_id": 75,
+            "score": 0.5370607376098633,
+            "text_preview": "[PDF page 38, chunk 1]\n37. Semantic Search and Top-K\n\nHow the system finds candidate passages\n\nAt question time, the embedding model converts the query into a vector. ChromaDB compares it with stored vectors\n\nunder the c"
+          },
+          {
+            "document_id": 89,
+            "score": 0.5369662046432495,
+            "text_preview": "[PDF page 45, chunk 1]\n44. Stale Chunks\n\nKeeping the index consistent with the source\n\nA stale chunk is a record in ChromaDB that no longer corresponds to the current PDF content. It can arise when a\n\nparagraph is delete"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.026291003450751305
+      },
+      {
+        "query": "Why is upsert not sufficient for a correct incremental ingestion pipeline?",
+        "results": [
+          {
+            "document_id": 87,
+            "score": 0.6315525770187378,
+            "text_preview": "[PDF page 44, chunk 1]\n43. Why Upsert Is Not Enough\n\nWriting records is different from avoiding computation\n\nUpsert is a database write operation. Given an ID, it inserts a record if the ID is absent or updates the recor"
+          },
+          {
+            "document_id": 88,
+            "score": 0.505560040473938,
+            "text_preview": "[PDF page 44, chunk 2]\ndifferent database write.\n\nUpsert also does not delete IDs that are absent from the new version. Deletion is a separate operation. An index\n\ncan contain all newly upserted chunks and still be incor"
+          },
+          {
+            "document_id": 127,
+            "score": 0.4897346496582031,
+            "text_preview": "[PDF page 63, chunk 3]\nl ingestion adds a comparison step\n\nbefore embedding and a cleanup step after identifying the current record set. Each stage has a different\n\nresponsibility and different possible failures."
+          },
+          {
+            "document_id": 84,
+            "score": 0.4830203056335449,
+            "text_preview": "[PDF page 42, chunk 2]\nore the upsert call.\n\nA full-ingestion strategy must still address stale records. If the document no longer contains an old chunk, upserting\n\nthe current chunks does not automatically delete that o"
+          },
+          {
+            "document_id": 83,
+            "score": 0.4636872708797455,
+            "text_preview": "[PDF page 42, chunk 1]\n41. Full Ingestion\n\nBuilding the index from current files\n\nFull ingestion reads all selected PDFs, extracts their text, creates all chunks, generates embeddings for all chunks,\n\nand writes the reco"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.027624992071650922
+      },
+      {
+        "query": "How does basic incremental ingestion reuse embeddings for unchanged chunks?",
+        "results": [
+          {
+            "document_id": 85,
+            "score": 0.6283958554267883,
+            "text_preview": "[PDF page 43, chunk 1]\n42. Basic Incremental Ingestion\n\nReuse unchanged work\n\nIn a basic incremental pipeline, the changed PDF is still read, its text is extracted, and the current chunks are\n\nrecreated. The program then"
+          },
+          {
+            "document_id": 93,
+            "score": 0.5992945432662964,
+            "text_preview": "[PDF page 47, chunk 1]\n46. Adding a New Paragraph\n\nThe first controlled re-ingestion test\n\nA simple experiment begins with a stable PDF whose original ingestion has completed. The elapsed time, chunk\n\ncount, and stored I"
+          },
+          {
+            "document_id": 80,
+            "score": 0.5985708236694336,
+            "text_preview": "[PDF page 40, chunk 2]\nfingerprints content.\n\nA robust incremental strategy must also consider duplicate text, renamed files, and shifted chunk boundaries. If text\n\nis the same but the ID changes, the system needs a reli"
+          },
+          {
+            "document_id": 83,
+            "score": 0.5833555459976196,
+            "text_preview": "[PDF page 42, chunk 1]\n41. Full Ingestion\n\nBuilding the index from current files\n\nFull ingestion reads all selected PDFs, extracts their text, creates all chunks, generates embeddings for all chunks,\n\nand writes the reco"
+          },
+          {
+            "document_id": 87,
+            "score": 0.5718679428100586,
+            "text_preview": "[PDF page 44, chunk 1]\n43. Why Upsert Is Not Enough\n\nWriting records is different from avoiding computation\n\nUpsert is a database write operation. Given an ID, it inserts a record if the ID is absent or updates the recor"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.025500004994682968
+      },
+      {
+        "query": "What measurements should be recorded when comparing full and incremental ingestion?",
+        "results": [
+          {
+            "document_id": 91,
+            "score": 0.4565048813819885,
+            "text_preview": "[PDF page 46, chunk 1]\n45. Benchmarking the Ingestion Experiment\n\nMeasure time and work\n\nThe assignment compares original ingestion with re-ingestion after adding a paragraph. A fair experiment measures\n\noriginal ingesti"
+          },
+          {
+            "document_id": 127,
+            "score": 0.44700247049331665,
+            "text_preview": "[PDF page 63, chunk 3]\nl ingestion adds a comparison step\n\nbefore embedding and a cleanup step after identifying the current record set. Each stage has a different\n\nresponsibility and different possible failures."
+          },
+          {
+            "document_id": 118,
+            "score": 0.42100760340690613,
+            "text_preview": "[PDF page 59, chunk 2]\nstale ones when necessary.\n\nThe experiment should change one major factor at a time. Start with a document version and known database state,\n\nmeasure the original pipeline, make one edit, and compa"
+          },
+          {
+            "document_id": 83,
+            "score": 0.39610913395881653,
+            "text_preview": "[PDF page 42, chunk 1]\n41. Full Ingestion\n\nBuilding the index from current files\n\nFull ingestion reads all selected PDFs, extracts their text, creates all chunks, generates embeddings for all chunks,\n\nand writes the reco"
+          },
+          {
+            "document_id": 116,
+            "score": 0.39340105652809143,
+            "text_preview": "[PDF page 58, chunk 2]\nhas been implemented\n\nbut deletion testing is incomplete, that limitation should be stated. A mentor can then give targeted feedback instead\n\nof guessing which parts have been completed.\n\nA concret"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.03708399890456349
+      },
+      {
+        "query": "What is GraphRAG and how do nodes and edges represent relationships between concepts?",
+        "results": [
+          {
+            "document_id": 101,
+            "score": 0.6188335418701172,
+            "text_preview": "[PDF page 51, chunk 1]\n50. GraphRAG: Why It Interests Me\n\nMoving from passages to relationships\n\nGraphRAG is an area I want to explore after I understand a standard RAG baseline. A graph represents entities or\n\nconcepts "
+          },
+          {
+            "document_id": 105,
+            "score": 0.5697956681251526,
+            "text_preview": "[PDF page 53, chunk 1]\n52. GraphRAG Robustness Research\n\nInvestigating damage to graph edges\n\nA research direction I have considered is testing the robustness of GraphRAG when graph edges are removed.\n\nEdges encode relat"
+          },
+          {
+            "document_id": 102,
+            "score": 0.5024290084838867,
+            "text_preview": "[PDF page 51, chunk 2]\nion can make those links\n\nqueryable.\n\nGraphRAG is not automatically better for every question. Graph construction can introduce errors, omit\n\nrelationships, or add complexity. The decision to use g"
+          },
+          {
+            "document_id": 122,
+            "score": 0.4449274241924286,
+            "text_preview": "[PDF page 61, chunk 2]\nn and chunk rebuilding.\n\nThe next goal is to learn GraphRAG concepts step by step. Building a reliable baseline first will help me determine\n\nwhat graph structure adds, how graph clustering affects"
+          },
+          {
+            "document_id": 103,
+            "score": 0.41744375228881836,
+            "text_preview": "[PDF page 52, chunk 1]\n51. Graph Clustering\n\nLeiden, Louvain, and k-core ideas\n\nGraph clustering groups nodes based on connectivity patterns. A community may contain nodes that are more\n\nstrongly connected to one another"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.039040998672135174
+      },
+      {
+        "query": "What are Leiden and Louvain clustering used for in graph analysis?",
+        "results": [
+          {
+            "document_id": 103,
+            "score": 0.6443411111831665,
+            "text_preview": "[PDF page 52, chunk 1]\n51. Graph Clustering\n\nLeiden, Louvain, and k-core ideas\n\nGraph clustering groups nodes based on connectivity patterns. A community may contain nodes that are more\n\nstrongly connected to one another"
+          },
+          {
+            "document_id": 104,
+            "score": 0.5336978435516357,
+            "text_preview": "[PDF page 52, chunk 2]\nexpected to match exactly.\n\nComparing methods requires a clear graph construction procedure and evaluation. The question is not simply which\n\nalgorithm produces the most attractive visualization. I"
+          },
+          {
+            "document_id": 105,
+            "score": 0.4298056960105896,
+            "text_preview": "[PDF page 53, chunk 1]\n52. GraphRAG Robustness Research\n\nInvestigating damage to graph edges\n\nA research direction I have considered is testing the robustness of GraphRAG when graph edges are removed.\n\nEdges encode relat"
+          },
+          {
+            "document_id": 101,
+            "score": 0.363047331571579,
+            "text_preview": "[PDF page 51, chunk 1]\n50. GraphRAG: Why It Interests Me\n\nMoving from passages to relationships\n\nGraphRAG is an area I want to explore after I understand a standard RAG baseline. A graph represents entities or\n\nconcepts "
+          },
+          {
+            "document_id": 53,
+            "score": 0.35682570934295654,
+            "text_preview": "[PDF page 27, chunk 1]\n26. Data Visualization\n\nMaking patterns visible\n\nMatplotlib and related plotting tools help display trends and relationships that are difficult to notice in raw tables. A\n\nplot should answer a ques"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.037959005567245185
+      },
+      {
+        "query": "Why should approximate or graph-based retrieval be evaluated against a reliable baseline?",
+        "results": [
+          {
+            "document_id": 102,
+            "score": 0.5347027778625488,
+            "text_preview": "[PDF page 51, chunk 2]\nion can make those links\n\nqueryable.\n\nGraphRAG is not automatically better for every question. Graph construction can introduce errors, omit\n\nrelationships, or add complexity. The decision to use g"
+          },
+          {
+            "document_id": 107,
+            "score": 0.5064182877540588,
+            "text_preview": "[PDF page 54, chunk 1]\n53. Evaluating Retrieval\n\nDid the system find useful evidence?\n\nRetrieval evaluation asks whether the passages selected by the system contain the evidence needed for a question.\n\nA test set with kn"
+          },
+          {
+            "document_id": 105,
+            "score": 0.48772719502449036,
+            "text_preview": "[PDF page 53, chunk 1]\n52. GraphRAG Robustness Research\n\nInvestigating damage to graph edges\n\nA research direction I have considered is testing the robustness of GraphRAG when graph edges are removed.\n\nEdges encode relat"
+          },
+          {
+            "document_id": 104,
+            "score": 0.472200483083725,
+            "text_preview": "[PDF page 52, chunk 2]\nexpected to match exactly.\n\nComparing methods requires a clear graph construction procedure and evaluation. The question is not simply which\n\nalgorithm produces the most attractive visualization. I"
+          },
+          {
+            "document_id": 122,
+            "score": 0.46916624903678894,
+            "text_preview": "[PDF page 61, chunk 2]\nn and chunk rebuilding.\n\nThe next goal is to learn GraphRAG concepts step by step. Building a reliable baseline first will help me determine\n\nwhat graph structure adds, how graph clustering affects"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.038583006244152784
+      },
+      {
+        "query": "What should a reproducible RAG experiment record about its data, code, model, and configuration?",
+        "results": [
+          {
+            "document_id": 113,
+            "score": 0.49860259890556335,
+            "text_preview": "[PDF page 57, chunk 1]\n56. Project Organization\n\nSeparating code, source data, and experiment state\n\nThe RAG project has an original `rag.py`, a `data/` directory for PDFs, and a `chroma_db/` directory for persistent\n\nve"
+          },
+          {
+            "document_id": 117,
+            "score": 0.47547709941864014,
+            "text_preview": "[PDF page 59, chunk 1]\n58. Turning a Task into an Experiment\n\nDefine the question before writing code\n\nA broad instruction becomes more manageable when restated as a testable question. Here, the question is whether\n\nan i"
+          },
+          {
+            "document_id": 99,
+            "score": 0.4607088565826416,
+            "text_preview": "[PDF page 50, chunk 1]\n49. Learning to Debug\n\nFind the failing stage\n\nWhen a RAG experiment fails, the error should be localized before changing the design. A missing script is a\n\nworking-directory issue; an import error"
+          },
+          {
+            "document_id": 98,
+            "score": 0.4419082999229431,
+            "text_preview": "[PDF page 49, chunk 2]\nbase state changed between runs.\n\nA README should explain how to prepare the baseline, when to edit the PDF, how to run the comparison, what\n\neach metric means, and which limitations remain. That m"
+          },
+          {
+            "document_id": 118,
+            "score": 0.4398115277290344,
+            "text_preview": "[PDF page 59, chunk 2]\nstale ones when necessary.\n\nThe experiment should change one major factor at a time. Start with a document version and known database state,\n\nmeasure the original pipeline, make one edit, and compa"
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.037874997360631824
+      },
+      {
+        "query": "What are the limitations of a small local RAG experiment and why should results not be overstated?",
+        "results": [
+          {
+            "document_id": 99,
+            "score": 0.4323394298553467,
+            "text_preview": "[PDF page 50, chunk 1]\n49. Learning to Debug\n\nFind the failing stage\n\nWhen a RAG experiment fails, the error should be localized before changing the design. A missing script is a\n\nworking-directory issue; an import error"
+          },
+          {
+            "document_id": 117,
+            "score": 0.4040069580078125,
+            "text_preview": "[PDF page 59, chunk 1]\n58. Turning a Task into an Experiment\n\nDefine the question before writing code\n\nA broad instruction becomes more manageable when restated as a testable question. Here, the question is whether\n\nan i"
+          },
+          {
+            "document_id": 96,
+            "score": 0.3846331238746643,
+            "text_preview": "[PDF page 48, chunk 2]\nrconfidence in one\n\nresult.\n\nA useful experiment log describes the environment and the exact input. Timings are observations from a specific\n\nsetup, not universal constants. Reporting chunk and emb"
+          },
+          {
+            "document_id": 109,
+            "score": 0.37715739011764526,
+            "text_preview": "[PDF page 55, chunk 1]\n54. Evaluating Generated Answers\n\nEvidence matters more than fluency\n\nA generated answer should be judged by whether it addresses the question and whether its important claims are\n\nsupported by the"
+          },
+          {
+            "document_id": 110,
+            "score": 0.37697499990463257,
+            "text_preview": "[PDF page 55, chunk 2]\nlarity measures do not capture.\n\nA transparent RAG system should make its evidence inspectable. Source filenames and page numbers can help a\n\nreader confirm a claim, but source metadata alone does "
+          }
+        ],
+        "recall_at_k_vs_flat": 1.0,
+        "latency_ms": 0.03779100370593369
+      }
+    ]
+  }
+}

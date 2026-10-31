@@ -16,3 +16,8 @@ data/
 
 # macOS
 .DS_Store
+
+# Local datasets and generated artifacts
+chroma_db/
+*.npy
+data/*.pdf
