@@ -182,6 +182,20 @@ class SeedEntitySpec(BaseModel):
     expected_type: Optional[str] = None
 
 
+class EntityAttributeEvidence(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    entity_id: str = Field(..., min_length=1)
+    entity_name: str = Field(..., min_length=1)
+    attribute_name: str = Field(..., min_length=1)
+    extracted_value: str = Field(..., min_length=1)
+    evidence_quote: str = Field(..., min_length=1)
+    chunk_id: str = Field(..., min_length=1)
+    confidence: float = Field(default=1.0, ge=0.0, le=1.0)
+    is_verified: bool = Field(default=False)
+    verification_notes: Optional[str] = Field(default=None)
+
+
 class QueryPlan(BaseModel):
     model_config = ConfigDict(extra="forbid")
 

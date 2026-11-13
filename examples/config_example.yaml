@@ -1,0 +1,56 @@
+# Hybrid GraphRAG System Configuration Example
+#
+# This file illustrates all primary configuration settings available when
+# configuring an enterprise Hybrid GraphRAG engine instance.
+
+config_version: "1.0.0"
+
+# Knowledge base root storage path.
+# Each knowledge base will be isolated inside a subdirectory: <storage_root>/<kb_id>/
+storage_root: "knowledge_bases"
+
+# Directory where prompt templates are stored
+prompts_dir: "prompts"
+
+# Optional path to a domain-specific ontology YAML file
+domain_ontology_path: "configs/domains/general.yaml"
+
+# Document chunking parameters
+chunking:
+  chunk_size: 1100
+  chunk_overlap: 180
+  respect_sentence_boundaries: true
+
+# Ollama LLM and Embedding Model Service Configuration
+ollama:
+  base_url: "http://localhost:11434"
+  llm_model: "gemma3:4b"
+  embedding_model: "embeddinggemma:latest"
+  expected_embedding_dim: 768
+  temperature: 0.0
+  timeout_seconds: 120
+  max_retries: 2
+
+# Entity resolution and cross-document deduplication settings
+resolution:
+  similarity_candidate_threshold: 0.82
+  auto_merge_threshold: 0.95
+  require_type_match: true
+  use_llm_verification_for_ambiguous: true
+
+# Leiden hierarchical community detection parameters
+leiden:
+  objective: "RBConfigurationVertexPartition"
+  resolution_parameter: 1.0
+  random_seed: 42
+  edge_weight_rule: "distinct_supporting_chunks"
+
+# Hybrid retrieval & Context fusion parameters
+retrieval:
+  max_traversal_hops: 3
+  max_graph_candidates: 20
+  vector_top_k: 10
+  community_top_k: 3
+  final_context_chunks: 8
+  rrf_k: 60
+  max_context_chars: 12000

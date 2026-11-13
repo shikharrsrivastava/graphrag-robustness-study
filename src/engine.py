@@ -407,6 +407,7 @@ class HybridGraphRAGEngine:
         retrieval_result.route_diagnostics["answer_generation_seconds"] = answer_seconds
         answer = structured_answer.answer
         retrieval_result.generated_answer = answer
+        retrieval_result.canonical_answer = structured_answer.canonical_answer
         retrieval_result.answer_abstained = structured_answer.abstained
         retrieval_result.abstained = structured_answer.abstained
         retrieval_result.abstention_reason = structured_answer.abstention_reason

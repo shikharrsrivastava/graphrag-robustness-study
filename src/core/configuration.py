@@ -116,8 +116,9 @@ class EngineConfig(BaseModel):
             p.mkdir(parents=True, exist_ok=True)
 
         snapshot_path = kb_root / "config_snapshot.yaml"
-        with open(snapshot_path, "w", encoding="utf-8") as f:
-            yaml.safe_dump(self.model_dump(mode="json"), f, sort_keys=False)
+        if not snapshot_path.exists():
+            with open(snapshot_path, "w", encoding="utf-8") as f:
+                yaml.safe_dump(self.model_dump(mode="json"), f, sort_keys=False)
 
         return paths
 
