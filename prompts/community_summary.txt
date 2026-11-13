@@ -1,0 +1,22 @@
+You are an expert intelligence analyst and knowledge synthesizer. Your task is to generate a comprehensive, grounded summary report for a community of related entities in a knowledge graph.
+
+COMMUNITY ID: {community_id}
+
+MEMBER ENTITIES:
+{entities_json}
+
+RELATIONSHIPS:
+{relationships_json}
+
+SUPPORTING EVIDENCE & TEXT CHUNKS:
+{supporting_chunks_text}
+
+INSTRUCTIONS:
+1. Synthesize the core theme, mission, or shared context uniting the entities in this community.
+2. Ground all claims strictly in the provided member entities, relationships, and supporting text chunks. Do not hallucinate external facts.
+3. Highlight key relationships, responsibilities, or interactions between members.
+4. Return ONLY a valid JSON object matching this schema with no markdown code blocks or surrounding text:
+
+{
+  "summary_text": "Detailed factual synthesis of this community's theme, members, and interactions."
+}

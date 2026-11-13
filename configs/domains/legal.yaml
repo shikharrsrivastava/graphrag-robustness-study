@@ -1,0 +1,31 @@
+kb_id: "legal_kb"
+ontology:
+  domain_name: "legal_documents"
+  version: "1.0.0"
+  entity_types:
+    STATUTE: "Acts, codes, legislation, or statutory sections"
+    CASE: "Judicial decisions, precedents, or tribunal rulings"
+    COURT: "Supreme Court, High Courts, or tribunals"
+    PARTY: "Petitioners, respondents, appellants, or organizations"
+    LEGAL_CONCEPT: "Doctrines, tests, rights, or statutory obligations"
+  relationship_types:
+    INTERPRETS:
+      name: "INTERPRETS"
+      description: "Case interprets or applies a statute or legal concept"
+      allowed_source_types: ["CASE"]
+      allowed_target_types: ["STATUTE", "LEGAL_CONCEPT"]
+    DECIDED_BY:
+      name: "DECIDED_BY"
+      description: "Case was decided by a court"
+      allowed_source_types: ["CASE"]
+      allowed_target_types: ["COURT"]
+    CITES:
+      name: "CITES"
+      description: "Case cites an earlier precedent case"
+      allowed_source_types: ["CASE"]
+      allowed_target_types: ["CASE"]
+    ESTABLISHES:
+      name: "ESTABLISHES"
+      description: "Case or statute establishes a legal concept or test"
+      allowed_source_types: ["CASE", "STATUTE"]
+      allowed_target_types: ["LEGAL_CONCEPT"]

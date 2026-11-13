@@ -1,0 +1,293 @@
+{
+  "timestamp": "2026-11-13T16:49:34Z",
+  "models": {
+    "llm": "gemma3:4b",
+    "embedding": "embeddinggemma:latest"
+  },
+  "knowledge_bases": {
+    "academic_kb": {
+      "index_stats": {
+        "kb_id": "academic_kb",
+        "documents": 3,
+        "pages": 3,
+        "chunks": 3,
+        "entities": 5,
+        "relationships": 2,
+        "communities": 3,
+        "community_reports": 3,
+        "manifest_fingerprint": "528282714798916971b3bc8af58ed33793e499d5354a99c6214261b8d0a17a1e"
+      },
+      "indexing_duration_seconds": 43.03,
+      "queries": [
+        {
+          "query_type": "single_hop",
+          "question": "Who supervises the Medical AI project?",
+          "mode": "hybrid",
+          "answer": "Professor Sharma supervises the Medical AI project [C001, D002, p.1].",
+          "abstained": false,
+          "abstention_reason": null,
+          "evidence_count": 3,
+          "evidence_chunks": [
+            {
+              "chunk_id": "D002_C0000",
+              "doc_id": "D002",
+              "routes": [
+                "GRAPH",
+                "VECTOR"
+              ],
+              "rrf_score": 0.03278688524590164
+            },
+            {
+              "chunk_id": "D003_C0000",
+              "doc_id": "D003",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.016129032258064516
+            },
+            {
+              "chunk_id": "D001_C0000",
+              "doc_id": "D001",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.015873015873015872
+            }
+          ],
+          "community_reports_count": 0,
+          "duration_seconds": 10.48
+        },
+        {
+          "query_type": "multi_hop_3hop",
+          "question": "What technology does the project supervised by Rahul's mentor use?",
+          "mode": "hybrid",
+          "answer": "The project supervised by Rahul's mentor, Professor Sharma, uses machine learning to detect diseases [D002_C0000, D002] as part of the Medical AI project [D002_C0000, D002]. [D003_C0000, D003] Rahul works under Professor Sharma [C001, D001, p.1].",
+          "abstained": false,
+          "abstention_reason": null,
+          "evidence_count": 3,
+          "evidence_chunks": [
+            {
+              "chunk_id": "D001_C0000",
+              "doc_id": "D001",
+              "routes": [
+                "GRAPH",
+                "VECTOR"
+              ],
+              "rrf_score": 0.03278688524590164
+            },
+            {
+              "chunk_id": "D002_C0000",
+              "doc_id": "D002",
+              "routes": [
+                "GRAPH",
+                "VECTOR"
+              ],
+              "rrf_score": 0.03225806451612903
+            },
+            {
+              "chunk_id": "D003_C0000",
+              "doc_id": "D003",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.015873015873015872
+            }
+          ],
+          "community_reports_count": 0,
+          "duration_seconds": 13.82
+        },
+        {
+          "query_type": "global_theme",
+          "question": "Summarize the primary research themes across the projects.",
+          "mode": "community_aware",
+          "answer": "The primary research themes across the projects are the Medical AI project, which uses machine learning to detect diseases [D003, D002, p.1], and Rahul\u2019s work under Professor Sharma at IIIT Naya Raipur [D001, D002, p.1] [D001, D002].",
+          "abstained": false,
+          "abstention_reason": null,
+          "evidence_count": 3,
+          "evidence_chunks": [
+            {
+              "chunk_id": "D002_C0000",
+              "doc_id": "D002",
+              "routes": [
+                "COMMUNITY",
+                "VECTOR"
+              ],
+              "rrf_score": 0.01639344262295082
+            },
+            {
+              "chunk_id": "D001_C0000",
+              "doc_id": "D001",
+              "routes": [
+                "COMMUNITY",
+                "VECTOR"
+              ],
+              "rrf_score": 0.016129032258064516
+            },
+            {
+              "chunk_id": "D003_C0000",
+              "doc_id": "D003",
+              "routes": [
+                "COMMUNITY",
+                "VECTOR"
+              ],
+              "rrf_score": 0.015873015873015872
+            }
+          ],
+          "community_reports_count": 3,
+          "duration_seconds": 12.44
+        },
+        {
+          "query_type": "alias_query",
+          "question": "Who works under Prof. Sharma?",
+          "mode": "hybrid",
+          "answer": "Rahul works under Professor Sharma [C001, D001, p.1].",
+          "abstained": false,
+          "abstention_reason": null,
+          "evidence_count": 3,
+          "evidence_chunks": [
+            {
+              "chunk_id": "D001_C0000",
+              "doc_id": "D001",
+              "routes": [
+                "GRAPH",
+                "VECTOR"
+              ],
+              "rrf_score": 0.03252247488101534
+            },
+            {
+              "chunk_id": "D002_C0000",
+              "doc_id": "D002",
+              "routes": [
+                "GRAPH",
+                "VECTOR"
+              ],
+              "rrf_score": 0.03252247488101534
+            },
+            {
+              "chunk_id": "D003_C0000",
+              "doc_id": "D003",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.015873015873015872
+            }
+          ],
+          "community_reports_count": 0,
+          "duration_seconds": 9.92
+        },
+        {
+          "query_type": "unanswerable",
+          "question": "What is the capital of France?",
+          "mode": "hybrid",
+          "answer": "The context does not contain information about the capital of France. [C001, D001, p.1]",
+          "abstained": false,
+          "abstention_reason": null,
+          "evidence_count": 3,
+          "evidence_chunks": [
+            {
+              "chunk_id": "D001_C0000",
+              "doc_id": "D001",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.01639344262295082
+            },
+            {
+              "chunk_id": "D002_C0000",
+              "doc_id": "D002",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.016129032258064516
+            },
+            {
+              "chunk_id": "D003_C0000",
+              "doc_id": "D003",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.015873015873015872
+            }
+          ],
+          "community_reports_count": 0,
+          "duration_seconds": 10.02
+        }
+      ]
+    },
+    "company_kb": {
+      "index_stats": {
+        "kb_id": "company_kb",
+        "documents": 2,
+        "pages": 2,
+        "chunks": 2,
+        "entities": 5,
+        "relationships": 2,
+        "communities": 3,
+        "community_reports": 3,
+        "manifest_fingerprint": "916540fa28283fef59d100fd64748eccd1e42718837212770455006825d458be"
+      },
+      "indexing_duration_seconds": 42.54,
+      "queries": [
+        {
+          "query_type": "domain_query",
+          "question": "What is CloudSec built with?",
+          "mode": "hybrid",
+          "answer": "CloudSec is built with Rust [C001, D002, p.1].",
+          "abstained": false,
+          "evidence_count": 2,
+          "evidence_chunks": [
+            {
+              "chunk_id": "D002_C0000",
+              "doc_id": "D002",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.01639344262295082
+            },
+            {
+              "chunk_id": "D001_C0000",
+              "doc_id": "D001",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.016129032258064516
+            }
+          ],
+          "duration_seconds": 10.08
+        },
+        {
+          "query_type": "manager_query",
+          "question": "Who manages the CloudSec product?",
+          "mode": "hybrid",
+          "answer": "Priya manages the CloudSec product [C001, D001, p.1].",
+          "abstained": false,
+          "evidence_count": 2,
+          "evidence_chunks": [
+            {
+              "chunk_id": "D001_C0000",
+              "doc_id": "D001",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.01639344262295082
+            },
+            {
+              "chunk_id": "D002_C0000",
+              "doc_id": "D002",
+              "routes": [
+                "VECTOR"
+              ],
+              "rrf_score": 0.016129032258064516
+            }
+          ],
+          "duration_seconds": 10.0
+        }
+      ]
+    }
+  },
+  "isolation_checks": {
+    "academic_kb_isolated": true,
+    "company_kb_isolated": true,
+    "zero_cross_kb_leakage_confirmed": true
+  }
+}

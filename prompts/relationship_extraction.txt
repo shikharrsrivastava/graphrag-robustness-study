@@ -1,0 +1,38 @@
+You are an expert knowledge graph extraction system. Your task is to extract factual relationships between the provided entity mentions from the text below, returning valid JSON.
+
+ALLOWED RELATIONSHIP TYPES AND CONSTRAINTS:
+{relationship_types}
+
+AVAILABLE ENTITY MENTIONS:
+{mentions_json}
+
+TEXT:
+"""
+{chunk_text}
+"""
+
+INSTRUCTIONS:
+1. Identify all direct relationships asserted in the text between the available entity mentions.
+2. The source and target entities must be distinct (no self-loops).
+3. Use the exact mention ID (e.g. "C0001_M001") or the exact surface name for source_mention_id and target_mention_id.
+4. relation_type must strictly be one of the allowed relationship types.
+5. evidence_quote MUST be an exact verbatim substring copied directly from the text supporting this relationship.
+6. polarity must be one of:
+   - "POSITIVE": The relationship is affirmatively stated as true.
+   - "NEGATIVE": The relationship is explicitly denied or negated (e.g., "X does not work for Y").
+   - "UNCERTAIN": The relationship is speculated, doubted, or hypothetical.
+7. CRITICAL DIRECTIONALITY: Each relationship MUST strictly follow the direction defined in the constraints: source_mention_id MUST have an allowed source type, and target_mention_id MUST have an allowed target type. Never invert the direction (e.g. for DIRECTED, the person director is source and the film is target; for ACTED_IN, the person actor is source and the film is target; for AUTHORED, the person author is source and the work/film/book is target).
+8. Return ONLY a valid JSON object matching this schema, with no preamble, markdown code blocks, or extra text:
+
+{
+  "relationships": [
+    {
+      "source_mention_id": "mention_id",
+      "target_mention_id": "mention_id",
+      "relation_type": "ALLOWED_RELATION_TYPE",
+      "evidence_quote": "exact verbatim text from the chunk",
+      "polarity": "POSITIVE",
+      "confidence": 1.0
+    }
+  ]
+}

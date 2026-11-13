@@ -1,0 +1,36 @@
+kb_id: "company_kb"
+ontology:
+  domain_name: "company_knowledge"
+  version: "1.0.0"
+  entity_types:
+    EMPLOYEE: "Company engineers, managers, executives, or staff"
+    DEPARTMENT: "Engineering, product, operations, or business units"
+    PRODUCT: "Software products, platforms, or internal services"
+    TECHNOLOGY: "Programming languages, databases, cloud tools, or frameworks"
+    CLIENT: "Enterprise customers or partner organizations"
+  relationship_types:
+    MANAGES:
+      name: "MANAGES"
+      description: "Employee manages another employee, department, or product"
+      allowed_source_types: ["EMPLOYEE"]
+      allowed_target_types: ["EMPLOYEE", "DEPARTMENT", "PRODUCT"]
+    BELONGS_TO:
+      name: "BELONGS_TO"
+      description: "Employee or product belongs to a department"
+      allowed_source_types: ["EMPLOYEE", "PRODUCT"]
+      allowed_target_types: ["DEPARTMENT"]
+    DEVELOPS:
+      name: "DEVELOPS"
+      description: "Employee or department builds or maintains a product"
+      allowed_source_types: ["EMPLOYEE", "DEPARTMENT"]
+      allowed_target_types: ["PRODUCT"]
+    BUILT_WITH:
+      name: "BUILT_WITH"
+      description: "Product is built using a specific technology"
+      allowed_source_types: ["PRODUCT"]
+      allowed_target_types: ["TECHNOLOGY"]
+    SERVES:
+      name: "SERVES"
+      description: "Product or department serves a client"
+      allowed_source_types: ["PRODUCT", "DEPARTMENT"]
+      allowed_target_types: ["CLIENT"]

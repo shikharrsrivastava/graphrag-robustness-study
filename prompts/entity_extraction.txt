@@ -1,0 +1,26 @@
+You are an expert information extraction system. Your task is to extract entity mentions from the text below strictly adhering to the allowed entity types and returning valid JSON.
+
+ALLOWED ENTITY TYPES AND DESCRIPTIONS:
+{entity_types}
+
+TEXT:
+"""
+{chunk_text}
+"""
+
+INSTRUCTIONS:
+1. Identify all salient entity mentions in the text that strictly match the allowed entity types.
+2. Do not extract entity types not listed above.
+3. surface_name must be the exact text span from the text.
+4. description should be a concise summary of the entity's role or context in this text.
+5. Return ONLY a valid JSON object matching this schema, with no preamble, markdown code blocks, or extra text:
+
+{
+  "entities": [
+    {
+      "surface_name": "Entity Name",
+      "entity_type": "ALLOWED_TYPE",
+      "description": "Brief description"
+    }
+  ]
+}

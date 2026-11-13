@@ -1,0 +1,26 @@
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Environment variables & secrets
+.env
+*.env
+
+# Local databases, knowledge bases, and heavy artifacts
+/storage/
+/knowledge_bases/
+*.db
+*.sqlite3
+
+# macOS system files
+.DS_Store
+
+# Temporary/unreviewed prompt or scratch files
+hybrid_graphrag_mega_prompt.md
