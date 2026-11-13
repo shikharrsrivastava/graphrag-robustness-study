@@ -442,6 +442,7 @@ def test_hybrid_orchestrator_context_builder_and_generator(tmp_path: Path) -> No
         supporting_chunk_ids=["C001"],
         model_tag="gemma3:4b",
         prompt_version="v1.0",
+        verification_status="VERIFIED",
     )
     doc_store.save_community_reports([rep1])
     vstore.upsert_community_reports([rep1], [embedder.embed_text(rep1.summary_text)])

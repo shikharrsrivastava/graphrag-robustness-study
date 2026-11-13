@@ -139,6 +139,25 @@ class Relationship(BaseModel):
         return v.strip().upper().replace(" ", "_")
 
 
+class GroundedClaim(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    subject_id: str = Field(..., min_length=1)
+    subject_name: str = Field(default="")
+    subject_type: Optional[str] = Field(default=None)
+    relation_type: str = Field(..., min_length=1)
+    object_id: str = Field(..., min_length=1)
+    object_name: str = Field(default="")
+    object_type: Optional[str] = Field(default=None)
+    supporting_edge_ids: List[str] = Field(default_factory=list)
+    source_chunk_ids: List[str] = Field(default_factory=list)
+
+    @field_validator("relation_type")
+    @classmethod
+    def normalize_relation_type(cls, v: str) -> str:
+        return v.strip().upper().replace(" ", "_")
+
+
 class CommunityReport(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -151,6 +170,9 @@ class CommunityReport(BaseModel):
     summary_text: str = Field(..., min_length=1)
     model_tag: str = Field(..., min_length=1)
     prompt_version: str = Field(..., min_length=1)
+    verified_claims: List[GroundedClaim] = Field(default_factory=list)
+    unsupported_claims_rejected: int = Field(default=0, ge=0)
+    verification_status: str = Field(default="UNVERIFIED")  # "VERIFIED", "FALLBACK", "UNVERIFIED"
 
 
 class SeedEntitySpec(BaseModel):

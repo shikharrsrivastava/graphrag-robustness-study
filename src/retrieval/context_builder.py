@@ -7,28 +7,43 @@ from src.core.models import RetrievalResult
 
 logger = logging.getLogger(__name__)
 
+TRUSTED_COMMUNITY_STATUSES = frozenset({"VERIFIED", "FALLBACK"})
+
 
 class ContextBuilder:
     """Formats community summaries, graph paths, and chunk evidence within a strict character budget."""
 
-    def __init__(self, max_chars: int = 12000) -> None:
+    def __init__(self, max_chars: int = 12000, allow_unverified_communities: bool = False) -> None:
         if max_chars < 500:
             raise ValueError("max_chars must be at least 500 characters.")
         self.max_chars = max_chars
+        self.allow_unverified_communities = allow_unverified_communities
 
     def build_context(self, retrieval_result: RetrievalResult) -> str:
         """Construct structured markdown context from a RetrievalResult within max_chars."""
         sections: List[str] = []
         current_len = 0
 
-        # 1. Community Summaries
+        # 1. Community Summaries (filtered using allowlist: only VERIFIED and FALLBACK trusted by default)
         if retrieval_result.community_reports:
-            comm_lines = ["### Community Summaries"]
+            comm_lines: List[str] = []
             for rep in retrieval_result.community_reports:
+                status = getattr(rep, "verification_status", None)
+                if status not in TRUSTED_COMMUNITY_STATUSES and not self.allow_unverified_communities:
+                    logger.warning(
+                        "Omitting community report %s (community %d) with untrusted verification status '%s' from generation context.",
+                        rep.report_id,
+                        rep.community_id,
+                        status,
+                    )
+                    continue
                 comm_lines.append(f"- [Community {rep.community_id}]: {rep.summary_text.strip()}")
-            comm_block = "\n".join(comm_lines)
-            sections.append(comm_block)
-            current_len += len(comm_block) + 2
+
+            if comm_lines:
+                comm_block = "### Community Summaries\n" + "\n".join(comm_lines)
+                if current_len + len(comm_block) + 2 <= self.max_chars:
+                    sections.append(comm_block)
+                    current_len += len(comm_block) + 2
 
         # 2. Supporting Graph Traversal Paths
         all_paths: List[str] = []
