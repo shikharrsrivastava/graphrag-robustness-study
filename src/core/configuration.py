@@ -113,6 +113,26 @@ class RetrievalConfig(BaseModel):
         ge=1,
         description="Maximum total chunks to admit via document-title discovery per query",
     )
+    entity_description_discovery_enabled: bool = Field(
+        default=False,
+        description="Enable entity-description-based seed discovery in graph retrieval",
+    )
+    entity_description_similarity_threshold: float = Field(
+        default=0.65,
+        ge=0.0,
+        le=1.0,
+        description="Minimum cosine similarity threshold for entity description matching",
+    )
+    max_description_candidates_per_seed: int = Field(
+        default=3,
+        ge=1,
+        description="Maximum entity description candidates to retain per seed specification",
+    )
+    max_description_candidates_per_query: int = Field(
+        default=6,
+        ge=1,
+        description="Maximum total entity description candidates to admit per query",
+    )
 
 
 class PromptVersions(BaseModel):

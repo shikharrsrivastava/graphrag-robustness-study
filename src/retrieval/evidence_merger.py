@@ -39,6 +39,7 @@ class EvidenceMerger:
                         graph_provenance_types=list(ev.graph_provenance_types),
                         cooccurrence_details=list(ev.cooccurrence_details),
                         document_title_details=list(ev.document_title_details),
+                        entity_description_details=list(ev.entity_description_details),
                     )
                 else:
                     existing = merged_dict[cid]
@@ -88,5 +89,10 @@ class EvidenceMerger:
                     for dtd in ev.document_title_details:
                         if dtd not in existing.document_title_details:
                             existing.document_title_details.append(dtd)
+
+                    # Union entity description details
+                    for edd in ev.entity_description_details:
+                        if edd not in existing.entity_description_details:
+                            existing.entity_description_details.append(edd)
 
         return list(merged_dict.values())

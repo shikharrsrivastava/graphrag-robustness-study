@@ -6,6 +6,10 @@ from src.retrieval.document_title_discoverer import (
     DocumentTitleCandidate,
     DocumentTitleDiscoverer,
 )
+from src.retrieval.entity_description_discoverer import (
+    EntityDescriptionCandidate,
+    EntityDescriptionDiscoverer,
+)
 from src.retrieval.evidence_merger import EvidenceMerger
 from src.retrieval.graph_retriever import GraphEvidenceRetriever
 from src.retrieval.query_planner import OllamaQueryPlanner
@@ -24,6 +28,8 @@ __all__ = [
     "ResolutionDecision",
     "DocumentTitleDiscoverer",
     "DocumentTitleCandidate",
+    "EntityDescriptionDiscoverer",
+    "EntityDescriptionCandidate",
     "GraphEvidenceRetriever",
     "VectorEvidenceRetriever",
     "EvidenceMerger",

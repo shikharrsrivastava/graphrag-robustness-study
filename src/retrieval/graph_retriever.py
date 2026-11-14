@@ -10,6 +10,7 @@ from src.core.models import (
     CanonicalEntity,
     CooccurrenceProvenance,
     DocumentTitleProvenance,
+    EntityDescriptionProvenance,
     Evidence,
     GraphProvenanceType,
     ProvenanceRoute,
@@ -18,6 +19,7 @@ from src.core.models import (
 from src.graph.graph_builder import IGraphBuilder
 from src.graph.traversal import GraphTraverser, TraversedPath
 from src.retrieval.document_title_discoverer import DocumentTitleDiscoverer
+from src.retrieval.entity_description_discoverer import EntityDescriptionCandidate
 from src.retrieval.seed_retriever import SeedEntityRetriever
 from src.storage.document_store import DocumentStore
 
@@ -45,6 +47,10 @@ class GraphEvidenceRetriever:
         max_title_matches_per_seed: int = 2,
         max_chunks_per_title_match: int = 3,
         max_title_candidates_per_query: int = 6,
+        entity_description_discovery_enabled: bool = False,
+        entity_description_similarity_threshold: float = 0.65,
+        max_description_candidates_per_seed: int = 3,
+        max_description_candidates_per_query: int = 6,
         retrieval_config: Optional[RetrievalConfig] = None,
         title_discoverer: Optional[DocumentTitleDiscoverer] = None,
     ) -> None:
@@ -64,6 +70,10 @@ class GraphEvidenceRetriever:
             self.max_title_matches_per_seed = retrieval_config.max_title_matches_per_seed
             self.max_chunks_per_title_match = retrieval_config.max_chunks_per_title_match
             self.max_title_candidates_per_query = retrieval_config.max_title_candidates_per_query
+            self.entity_description_discovery_enabled = retrieval_config.entity_description_discovery_enabled
+            self.entity_description_similarity_threshold = retrieval_config.entity_description_similarity_threshold
+            self.max_description_candidates_per_seed = retrieval_config.max_description_candidates_per_seed
+            self.max_description_candidates_per_query = retrieval_config.max_description_candidates_per_query
         else:
             self.max_candidates = max_candidates
             self.provenance_expansion_enabled = provenance_expansion_enabled
@@ -75,6 +85,21 @@ class GraphEvidenceRetriever:
             self.max_title_matches_per_seed = max_title_matches_per_seed
             self.max_chunks_per_title_match = max_chunks_per_title_match
             self.max_title_candidates_per_query = max_title_candidates_per_query
+            self.entity_description_discovery_enabled = entity_description_discovery_enabled
+            self.entity_description_similarity_threshold = entity_description_similarity_threshold
+            self.max_description_candidates_per_seed = max_description_candidates_per_seed
+            self.max_description_candidates_per_query = max_description_candidates_per_query
+
+        # Synchronize configuration down to seed_retriever if applicable
+        if self.entity_description_discovery_enabled and hasattr(self.seed_retriever, "entity_description_discovery_enabled"):
+            self.seed_retriever.entity_description_discovery_enabled = True
+            self.seed_retriever.entity_description_similarity_threshold = self.entity_description_similarity_threshold
+            self.seed_retriever.max_description_candidates_per_seed = self.max_description_candidates_per_seed
+            self.seed_retriever.max_description_candidates_per_query = self.max_description_candidates_per_query
+            if hasattr(self.seed_retriever, "description_discoverer") and self.seed_retriever.description_discoverer:
+                self.seed_retriever.description_discoverer.similarity_threshold = self.entity_description_similarity_threshold
+                self.seed_retriever.description_discoverer.max_candidates_per_seed = self.max_description_candidates_per_seed
+                self.seed_retriever.description_discoverer.max_candidates_per_query = self.max_description_candidates_per_query
 
         self.title_discoverer = title_discoverer or DocumentTitleDiscoverer(
             doc_store=self.doc_store,
@@ -105,6 +130,12 @@ class GraphEvidenceRetriever:
                 "matched_documents_count": 0,
                 "discovered_chunks_count": 0,
                 "ambiguous_titles_count": 0,
+                "matches": [],
+            },
+            "entity_description_discovery_enabled": self.entity_description_discovery_enabled,
+            "entity_description_diagnostics": {
+                "enabled": self.entity_description_discovery_enabled,
+                "matched_entities_count": 0,
                 "matches": [],
             },
         }
@@ -179,22 +210,51 @@ class GraphEvidenceRetriever:
         chunk_provenance_types: Dict[str, List[GraphProvenanceType]] = {}
         chunk_cooccurrence_details: Dict[str, List[CooccurrenceProvenance]] = {}
         chunk_title_details: Dict[str, List[DocumentTitleProvenance]] = {}
+        chunk_desc_details: Dict[str, List[EntityDescriptionProvenance]] = {}
 
         if resolved_eids:
             # Map each entity id back to its originating seed spec name and detect type conflicts
             eid_to_spec_name: Dict[str, Set[str]] = {}
             eid_to_type_conflict: Dict[str, Tuple[str, str]] = {}
+            eid_to_desc_candidate: Dict[str, EntityDescriptionCandidate] = {}
+
+            # Collect description candidates from seed_res if present
+            for dc in getattr(seed_res, "description_candidates", ()):
+                eid_to_desc_candidate[dc.candidate_id] = dc
+
             for d in getattr(seed_res, "resolution_diagnostics", ()):
                 if hasattr(d, "candidate_id") and d.candidate_id and hasattr(d, "status") and d.status in ("ACCEPTED", "AMBIGUOUS"):
                     eid_to_spec_name.setdefault(d.candidate_id, set()).add(d.seed_name)
                     if not d.type_compatible and d.expected_type and d.candidate_type:
                         eid_to_type_conflict[d.candidate_id] = (d.expected_type, d.candidate_type)
-
-            entities = self.doc_store.load_canonical_entities()
-            for spec in plan.seed_entities:
-                spec_eids, _ = self.seed_retriever._resolve_single_spec(spec, entities)
-                for eid in spec_eids:
-                    eid_to_spec_name.setdefault(eid, set()).add(spec.name)
+                    if getattr(d, "matching_method", None) == "ENTITY_DESCRIPTION_SEARCH":
+                        if d.candidate_id not in eid_to_desc_candidate:
+                            ent_desc = ""
+                            if hasattr(self.doc_store, "get_canonical_entity"):
+                                e_obj = self.doc_store.get_canonical_entity(d.candidate_id)
+                                if e_obj:
+                                    ent_desc = e_obj.description
+                            eid_to_desc_candidate[d.candidate_id] = EntityDescriptionCandidate(
+                                seed_name=d.seed_name,
+                                expected_type=d.expected_type,
+                                candidate_id=d.candidate_id,
+                                candidate_name=d.candidate_name or d.candidate_id,
+                                candidate_type=d.candidate_type or "UNKNOWN",
+                                matched_description=ent_desc,
+                                similarity_score=d.similarity_score or 0.0,
+                                distance_score=round(1.0 - (d.similarity_score or 0.0), 4) if d.similarity_score else None,
+                                matching_method="ENTITY_DESCRIPTION_SEARCH",
+                                type_compatible=d.type_compatible,
+                                confidence_score=d.confidence_score,
+                                ranking=d.ranking,
+                                is_ambiguous=d.status == "AMBIGUOUS",
+                                candidate_ids=[d.candidate_id],
+                                status=d.status,
+                                reason=d.reason,
+                            )
+                    else:
+                        # Exact or alias matches strictly supersede description discovery
+                        eid_to_desc_candidate.pop(d.candidate_id, None)
 
             # 2. Traverse graph
             traversed_paths = self.traverser.traverse(
@@ -249,17 +309,51 @@ class GraphEvidenceRetriever:
                 seed_specs = eid_to_spec_name.get(eid, set())
                 conflict = eid_to_type_conflict.get(eid)
                 conflict_suffix = f" [Type Conflict: expected {conflict[0]}, actual {conflict[1]}]" if conflict else ""
+                desc_cand = eid_to_desc_candidate.get(eid)
+                is_desc_seed = desc_cand is not None
+
                 for cid in direct_chunks:
-                    direct_path_str = f"GRAPH_SEED_PROVENANCE: Seed Entity [{v_label} ({eid})]{conflict_suffix}"
+                    if is_desc_seed and desc_cand:
+                        direct_path_str = (
+                            f"ENTITY_DESCRIPTION_SEED_PROVENANCE: Description Seed [{v_label} ({eid})] "
+                            f"(sim: {desc_cand.similarity_score:.3f}){conflict_suffix}"
+                        )
+                        prov_type = GraphProvenanceType.ENTITY_DESCRIPTION_SEED_PROVENANCE
+                        alignment_val = 0.90
+                        prov_detail = desc_cand.to_provenance()
+                        chunk_desc_details.setdefault(cid, []).append(prov_detail)
+                    else:
+                        direct_path_str = f"GRAPH_SEED_PROVENANCE: Seed Entity [{v_label} ({eid})]{conflict_suffix}"
+                        prov_type = GraphProvenanceType.GRAPH_SEED_PROVENANCE
+                        alignment_val = 1.00
+
                     chunk_path_map.setdefault(cid, []).append(direct_path_str)
                     chunk_support_count[cid] = chunk_support_count.get(cid, 0) + 1
                     chunk_min_hop[cid] = 0
-                    chunk_best_alignment[cid] = max(chunk_best_alignment.get(cid, 0.0), 1.0)
+                    chunk_best_alignment[cid] = max(chunk_best_alignment.get(cid, 0.0), alignment_val)
                     if seed_specs:
                         chunk_specs_map.setdefault(cid, set()).update(seed_specs)
-                    chunk_provenance_types.setdefault(cid, []).append(
-                        GraphProvenanceType.GRAPH_SEED_PROVENANCE
-                    )
+                    chunk_provenance_types.setdefault(cid, []).append(prov_type)
+
+            desc_matches_diag = []
+            desc_matched_eids: Set[str] = set()
+            desc_discovered_cids: Set[str] = set()
+            ambig_desc_count = 0
+            for eid, dc in eid_to_desc_candidate.items():
+                desc_matched_eids.add(eid)
+                if dc.is_ambiguous:
+                    ambig_desc_count += 1
+                cids_for_e = seed_direct_chunks_map.get(eid, [])
+                desc_discovered_cids.update(cids_for_e)
+                desc_matches_diag.append(dc.model_dump())
+
+            self.last_diagnostics["entity_description_diagnostics"] = {
+                "enabled": self.entity_description_discovery_enabled,
+                "matched_entities_count": len(desc_matched_eids),
+                "discovered_chunks_count": len(desc_discovered_cids),
+                "ambiguous_descriptions_count": ambig_desc_count,
+                "matches": desc_matches_diag,
+            }
 
             # 3b. One-hop Entity-Chunk-Entity bipartite provenance expansion
             if self.provenance_expansion_enabled:
@@ -513,6 +607,7 @@ class GraphEvidenceRetriever:
                 graph_provenance_types=unique_prov_types,
                 cooccurrence_details=cooccur_details,
                 document_title_details=title_details,
+                entity_description_details=chunk_desc_details.get(cid, []),
             )
             evidence_list.append(ev)
             rank += 1

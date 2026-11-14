@@ -304,16 +304,21 @@ Retrieval options configured in `configs/default.yaml` or programmatically via `
 | `max_title_matches_per_seed` | `int` | `2` | Maximum document titles to match per seed specification (`ge=1`). |
 | `max_chunks_per_title_match` | `int` | `3` | Maximum chunks to retrieve per matched document title (`ge=1`). |
 | `max_title_candidates_per_query` | `int` | `6` | Maximum total chunks to admit via document-title discovery per query (`ge=1`). |
+| `entity_description_discovery_enabled` | `bool` | `False` | Enable entity-description-based seed discovery via dense search over `entity_descriptions`. |
+| `entity_description_similarity_threshold` | `float` | `0.65` | Cosine similarity threshold for description discovery (`ge=0.0, le=1.0`). |
+| `max_description_candidates_per_seed` | `int` | `3` | Maximum ambiguous candidate entities to retain per descriptive seed (`ge=1`). |
+| `max_description_candidates_per_query` | `int` | `6` | Maximum total candidates admitted via description discovery per query (`ge=1`). |
 
 ### Provenance Attribution Models
 
-Retrieval evidence items explicitly distinguish between direct seed matches, traversed multigraph edges, documentary co-occurrence, and document title discovery:
+Retrieval evidence items explicitly distinguish between direct seed matches, traversed multigraph edges, documentary co-occurrence, document title discovery, and entity description discovery:
 
 - **`GraphProvenanceType`** (`Enum`):
   - `GRAPH_SEED_PROVENANCE`: Chunk directly contains a resolved query seed entity.
   - `GRAPH_EDGE_PROVENANCE`: Chunk supports an edge along a validated graph traversal path.
   - `ENTITY_CHUNK_COOCCURRENCE`: Chunk recovered through 1-hop documentary co-occurrence (`Seed -> Chunk A -> Cooccur Entity -> Chunk B`).
   - `DOCUMENT_TITLE_PROVENANCE`: Chunk recovered through authoritative document title matching (`DOCUMENT_TITLE_PROVENANCE: Document Title [Title (doc_id)]`).
+  - `ENTITY_DESCRIPTION_SEED_PROVENANCE`: Chunk recovered through dense description search over persisted entity descriptions.
 
 - **`CooccurrenceProvenance`** (`BaseModel`):
   - `seed_entity_id`: Resolved query seed entity ID.
@@ -332,3 +337,18 @@ Retrieval evidence items explicitly distinguish between direct seed matches, tra
   - `matching_method`: Matching technique (`EXACT_NORMALIZED`, `PUNCTUATION_NORMALIZED`, or `ARTICLE_NORMALIZED`).
   - `is_ambiguous`: True if multiple documents shared the normalized title.
   - `candidate_doc_ids`: List of all document IDs matching the title if ambiguous.
+
+- **`EntityDescriptionProvenance`** (`BaseModel`):
+  - `seed_name`: Original descriptive seed entity query string.
+  - `candidate_id`: Resolved canonical entity ID (e.g. `E019`).
+  - `candidate_name`: Canonical entity name (e.g. `Animorphs`).
+  - `candidate_type`: Canonical entity type (e.g. `BOOK`).
+  - `matched_description`: Persisted entity description matched in ChromaDB.
+  - `similarity_score`: Cosine similarity score ($\ge 0.65$).
+  - `distance_score`: Raw ChromaDB cosine distance (optional).
+  - `matching_method`: Fixed at `"ENTITY_DESCRIPTION_SEARCH"`.
+  - `type_compatible`: Whether candidate type matches `expected_type`.
+  - `confidence_score`: Ordinal ranking heuristic (sim for compatible, sim $\times 0.70$ for conflicting).
+  - `ranking`: Rank within candidate pool for this seed.
+  - `is_ambiguous`: True if multiple candidates were virtually tied (within 0.02).
+  - `candidate_ids`: List of all tied candidate IDs if ambiguous.

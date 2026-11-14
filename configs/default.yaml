@@ -46,3 +46,7 @@ retrieval:
   max_title_matches_per_seed: 2
   max_chunks_per_title_match: 3
   max_title_candidates_per_query: 6
+  entity_description_discovery_enabled: false
+  entity_description_similarity_threshold: 0.65
+  max_description_candidates_per_seed: 3
+  max_description_candidates_per_query: 6

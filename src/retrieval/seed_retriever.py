@@ -13,6 +13,10 @@ from src.resolution.entity_resolver import (
 )
 from src.storage.document_store import DocumentStore
 from src.storage.vector_store import ChromaVectorStore
+from src.retrieval.entity_description_discoverer import (
+    EntityDescriptionCandidate,
+    EntityDescriptionDiscoverer,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +26,7 @@ class SeedResolutionResult(NamedTuple):
     ambiguous_seeds: Dict[str, List[str]]
     unresolved_seeds: List[str]
     resolution_diagnostics: Tuple[ResolutionDecision, ...] = ()
+    description_candidates: Tuple[EntityDescriptionCandidate, ...] = ()
 
 
 class SeedEntityRetriever:
@@ -34,6 +39,11 @@ class SeedEntityRetriever:
         embedding_provider: EmbeddingProvider,
         similarity_threshold: float = 0.82,
         max_candidates_per_seed: int = 5,
+        entity_description_discovery_enabled: bool = False,
+        entity_description_similarity_threshold: float = 0.65,
+        max_description_candidates_per_seed: int = 3,
+        max_description_candidates_per_query: int = 6,
+        description_discoverer: Optional[EntityDescriptionDiscoverer] = None,
     ) -> None:
         if max_candidates_per_seed < 1:
             raise ValueError(
@@ -44,6 +54,19 @@ class SeedEntityRetriever:
         self.embedding_provider = embedding_provider
         self.similarity_threshold = similarity_threshold
         self.max_candidates_per_seed = max_candidates_per_seed
+        self.entity_description_discovery_enabled = entity_description_discovery_enabled
+        self.entity_description_similarity_threshold = entity_description_similarity_threshold
+        self.max_description_candidates_per_seed = max_description_candidates_per_seed
+        self.max_description_candidates_per_query = max_description_candidates_per_query
+
+        self.description_discoverer = description_discoverer or EntityDescriptionDiscoverer(
+            doc_store=self.doc_store,
+            vector_store=self.vector_store,
+            embedding_provider=self.embedding_provider,
+            similarity_threshold=self.entity_description_similarity_threshold,
+            max_candidates_per_seed=self.max_description_candidates_per_seed,
+            max_candidates_per_query=self.max_description_candidates_per_query,
+        )
 
     def resolve_seeds(self, seed_specs: List[SeedEntitySpec]) -> SeedResolutionResult:
         """Resolve a list of seed entity specifications to canonical entity IDs with confidence-aware ranking."""
@@ -51,13 +74,15 @@ class SeedEntityRetriever:
         ambiguous: Dict[str, List[str]] = {}
         unresolved: List[str] = []
         all_decisions: List[ResolutionDecision] = []
+        all_desc_candidates: List[EntityDescriptionCandidate] = []
 
         # Preload canonical entities from store
         entities = self.doc_store.load_canonical_entities()
 
         for spec in seed_specs:
-            entity_ids, is_ambiguous, decisions = self._resolve_single_spec_detailed(spec, entities)
+            entity_ids, is_ambiguous, decisions, desc_candidates = self._resolve_single_spec_detailed(spec, entities)
             all_decisions.extend(decisions)
+            all_desc_candidates.extend(desc_candidates)
             if is_ambiguous:
                 ambiguous[spec.name] = entity_ids
                 # Include candidate IDs so downstream traversal can explore all candidates
@@ -76,6 +101,7 @@ class SeedEntityRetriever:
             ambiguous_seeds=ambiguous,
             unresolved_seeds=unresolved,
             resolution_diagnostics=tuple(all_decisions),
+            description_candidates=tuple(all_desc_candidates),
         )
 
     def _resolve_single_spec(
@@ -87,14 +113,14 @@ class SeedEntityRetriever:
 
         Preserves existing 2-tuple return signature (entity_ids, is_ambiguous) for backward compatibility.
         """
-        eids, is_ambiguous, _ = self._resolve_single_spec_detailed(spec, entities)
+        eids, is_ambiguous, _, _ = self._resolve_single_spec_detailed(spec, entities)
         return eids, is_ambiguous
 
     def _resolve_single_spec_detailed(
         self,
         spec: SeedEntitySpec,
         entities: List[CanonicalEntity],
-    ) -> Tuple[List[str], bool, List[ResolutionDecision]]:
+    ) -> Tuple[List[str], bool, List[ResolutionDecision], List[EntityDescriptionCandidate]]:
         """Resolve a single SeedEntitySpec through confidence-aware candidate ranking."""
         norm_name = normalize_entity_name(spec.name)
         expected_type = spec.expected_type.strip().upper() if spec.expected_type else None
@@ -189,7 +215,7 @@ class SeedEntityRetriever:
                         )
                     )
 
-                return [c[0].entity_id for c in selected], is_ambiguous, decisions
+                return [c[0].entity_id for c in selected], is_ambiguous, decisions, []
 
             else:
                 # Tier 2 (Score 0.80): Exact canonical match retained despite type conflict
@@ -237,7 +263,7 @@ class SeedEntityRetriever:
                         )
                     )
 
-                return [c[0].entity_id for c in selected], is_ambiguous, decisions
+                return [c[0].entity_id for c in selected], is_ambiguous, decisions, []
 
         # -------------------------------------------------------------
         # Step 2: Known alias match & honorific/affix-stripped match
@@ -341,7 +367,7 @@ class SeedEntityRetriever:
                         )
                     )
 
-                return [c[0].entity_id for c in selected], is_ambiguous, decisions
+                return [c[0].entity_id for c in selected], is_ambiguous, decisions, []
 
             else:
                 # Tier 4 (Score 0.60): Alias match retained despite type conflict
@@ -389,10 +415,10 @@ class SeedEntityRetriever:
                         )
                     )
 
-                return [c[0].entity_id for c in selected], is_ambiguous, decisions
+                return [c[0].entity_id for c in selected], is_ambiguous, decisions, []
 
         # -------------------------------------------------------------
-        # Step 3 & 4: Embedding-based candidate discovery & fallback
+        # Step 3: Embedding-based candidate discovery (Task 4)
         # -------------------------------------------------------------
         query_emb = self.embedding_provider.embed_text(spec.name)
 
@@ -482,6 +508,21 @@ class SeedEntityRetriever:
                 )
 
         if not valid_candidates:
+            # -------------------------------------------------------------
+            # Step 4: Entity-description-based fallback discovery (Task 6)
+            # Only fires after Steps 1-3 (exact, alias, embedding) all fail.
+            # -------------------------------------------------------------
+            if self.entity_description_discovery_enabled:
+                candidates, is_ambiguous, desc_decisions = self.description_discoverer.discover_candidates(
+                    seed_spec=spec,
+                    entities_by_id=entities_by_id,
+                    query_embedding=query_emb,
+                )
+                decisions.extend(desc_decisions)
+                if candidates:
+                    return [c.candidate_id for c in candidates], is_ambiguous, decisions, candidates
+                return [], False, decisions, []
+
             decisions.append(
                 ResolutionDecision(
                     seed_name=spec.name,
@@ -498,7 +539,7 @@ class SeedEntityRetriever:
                     reason=f"No candidate met exact canonical, alias, or embedding similarity threshold ({self.similarity_threshold})",
                 )
             )
-            return [], False, decisions
+            return [], False, decisions, []
 
         # Split into compatible (Tier 5) and conflicting (Tier 6)
         comp_v = [c for c in valid_candidates if c[4]]
@@ -574,7 +615,7 @@ class SeedEntityRetriever:
                     )
                 )
 
-            return [c[0] for c in selected], is_ambiguous, decisions
+            return [c[0] for c in selected], is_ambiguous, decisions, []
 
         else:
             # Tier 6: Embedding candidate retained despite type conflict
@@ -628,4 +669,4 @@ class SeedEntityRetriever:
                         )
                     )
 
-            return [c[0] for c in selected], is_ambiguous, decisions
+            return [c[0] for c in selected], is_ambiguous, decisions, []

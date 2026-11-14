@@ -37,6 +37,28 @@ class GraphProvenanceType(str, Enum):
     GRAPH_EDGE_PROVENANCE = "GRAPH_EDGE_PROVENANCE"
     ENTITY_CHUNK_COOCCURRENCE = "ENTITY_CHUNK_COOCCURRENCE"
     DOCUMENT_TITLE_PROVENANCE = "DOCUMENT_TITLE_PROVENANCE"
+    ENTITY_DESCRIPTION_SEED_PROVENANCE = "ENTITY_DESCRIPTION_SEED_PROVENANCE"
+
+
+class EntityDescriptionProvenance(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    seed_name: str = Field(..., min_length=1, description="Original query plan seed entity string")
+    candidate_id: str = Field(..., min_length=1, description="Resolved canonical entity ID")
+    candidate_name: str = Field(..., min_length=1, description="Canonical entity name")
+    candidate_type: str = Field(..., min_length=1, description="Canonical entity type")
+    matched_description: str = Field(default="", description="Persisted entity description matched")
+    similarity_score: float = Field(..., ge=0.0, le=1.0, description="Cosine similarity score")
+    distance_score: Optional[float] = Field(default=None, description="Raw ChromaDB cosine distance")
+    matching_method: str = Field(
+        default="ENTITY_DESCRIPTION_SEARCH",
+        description="Matching method used",
+    )
+    type_compatible: bool = Field(default=False, description="Whether candidate_type matches expected_type")
+    confidence_score: float = Field(default=0.0, ge=0.0, le=1.0, description="Confidence score assigned")
+    ranking: int = Field(default=1, ge=1, description="Rank within candidate pool")
+    is_ambiguous: bool = Field(default=False, description="Whether multiple candidates met threshold")
+    candidate_ids: List[str] = Field(default_factory=list, description="All matching candidate IDs if ambiguous")
 
 
 class DocumentTitleProvenance(BaseModel):
@@ -292,6 +314,7 @@ class Evidence(BaseModel):
     graph_provenance_types: List[GraphProvenanceType] = Field(default_factory=list)
     cooccurrence_details: List[CooccurrenceProvenance] = Field(default_factory=list)
     document_title_details: List[DocumentTitleProvenance] = Field(default_factory=list)
+    entity_description_details: List[EntityDescriptionProvenance] = Field(default_factory=list)
 
 
 class RetrievalResult(BaseModel):

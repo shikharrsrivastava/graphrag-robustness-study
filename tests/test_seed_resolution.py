@@ -603,6 +603,7 @@ def test_task4_phantom_id_rejected_single_and_mixed(tmp_path: Path) -> None:
         vector_store=vstore,
         embedding_provider=embedder,
         similarity_threshold=0.82,
+        entity_description_discovery_enabled=False,
     )
 
     # 1. Single phantom case: ChromaDB returns ID absent from DocumentStore with sim >= 0.82

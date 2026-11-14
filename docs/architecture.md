@@ -131,12 +131,27 @@ flowchart TD
    - **Empirical Integration Findings & Known Limitations**:
      - *Q5 (Laleli Mosque / Esma Sultan Mansion)*: *Esma Sultan Mansion* is successfully recovered and balanced alongside *Laleli Mosque*.
      - *Q6 (2014 S/S / Winner)*: *2014 S/S* album document is successfully recovered via `DOCUMENT_TITLE_PROVENANCE`. However, *Winner (band)* remains unretrieved because it was not in the QueryPlan seed entities and there are no semantic edges between *2014 S/S* and *Winner (band)*. In the entity graph, `E024` (*WINNER*, `PERSON` in `D003`) and `E030` (*Winner*, `FILM` in `D005`) are separate unlinked vertices that both link to `E025` (*YG Entertainment*).
-6. **Dense Vector Retrieval**: HNSW cosine similarity lookup over text chunk embeddings.
-7. **Hierarchical Community Retrieval**: Semantic discovery across macro-thematic community reports for global context.
-8. **Reciprocal Rank Fusion (RRF)**: Merges candidates across retrieval channels with formula:
+6. **Entity-Description-Based Seed Discovery**: When `entity_description_discovery_enabled: true`, recovers canonical graph entities when a query describes an entity rather than naming it explicitly (e.g., Q9 `5a85ea09` describing *Animorphs* as *"science fantasy young adult series"*, matching canonical entity `E019`):
+   - **Cross-Modal Semantic Dense Search**: Queries the persisted `entity_descriptions` ChromaDB collection using dense embeddings (`embeddinggemma:latest`). The `text_chunks` collection is **never** accessed, ensuring strict boundary isolation as a graph retrieval mechanism rather than a text-chunk vector search fallback.
+   - **Similarity Threshold Semantics ($0.65$ vs $0.82$)**: The legacy $0.82$ threshold was calibrated for exact lexical entity name-to-name embeddings. Descriptive natural-language query phrases matching against persisted multi-sentence entity descriptions operate across a different linguistic modality, peaking empirically between $0.67$ and $0.70$ (e.g., *Animorphs* at $0.6795$, with nearest distractor *The Divide trilogy* at $0.5776$). A calibrated similarity threshold of $0.65$ (`ge=0.0, le=1.0`) reliably admits the true descriptive match while firmly rejecting irrelevant entities.
+   - **Type-Aware Scoring Hierarchy**:
+     - *Tier 5 (Compatible Type)*: When the query plan's `expected_type` matches the candidate's canonical type (or `expected_type=None`), `confidence_score = similarity_score`, `type_compatible=True`.
+     - *Tier 6 (Conflicting Type)*: When types conflict, candidate is penalized by multiplier $0.70$: `confidence_score = round(similarity_score * 0.70, 4)`, `type_compatible=False`, and annotated with `[Type Conflict: expected ..., actual ...]`.
+   - **Ambiguity Preservation & Candidate Bounds**: When multiple candidates have similarity scores virtually tied within $0.02$ of the top candidate, all tied candidates are marked `is_ambiguous=True`, assigned `status="AMBIGUOUS"`, and returned up to `max_description_candidates_per_seed` (default 3, `ge=1`). Total query-level candidates are bounded by `max_description_candidates_per_query` (default 6, `ge=1`).
+   - **Ranking Precedence & Topological Grounding**:
+     - Exact direct seed vertices (`alignment=1.00, min_hop=0`) strictly outrank description-discovered seeds (`alignment=0.90, min_hop=0`).
+     - Description-discovered seeds strictly outrank bipartite co-occurrence expansion (`alignment=0.85, min_hop=1`) and document-title discovery (`alignment=0.80, min_hop=1`).
+     - Graph edges traversing outward from description-discovered seeds receive full `GRAPH_EDGE_PROVENANCE` based on traversed path alignment.
+   - **Provenance Attribution**: Attributed exclusively under `ENTITY_DESCRIPTION_SEED_PROVENANCE` with structured `EntityDescriptionProvenance` metadata preserving `seed_name`, `candidate_id`, `candidate_name`, `candidate_type`, `matched_description`, `similarity_score`, `distance_score`, and ambiguity status.
+   - **Empirical Integration Findings**:
+     - *Target Q9 (`5a85ea09`)*: Description discovery successfully matches `E019` (*Animorphs*, `BOOK`, similarity $0.6795$). Recovers both gold supporting documents: `D003_C0000` (*The Hork-Bajir Chronicles*) and `D009_C0000` (*Animorphs*), improving graph Recall from 0.0% to 100.0%.
+     - *Controls Q1, Q3, Q7*: Retain exact canonical matching with zero regression and zero side-effects.
+7. **Dense Vector Retrieval**: HNSW cosine similarity lookup over text chunk embeddings.
+8. **Hierarchical Community Retrieval**: Semantic discovery across macro-thematic community reports for global context.
+9. **Reciprocal Rank Fusion (RRF)**: Merges candidates across retrieval channels with formula:
    $$\text{RRF}(d) = \sum_{m \in \{\text{graph}, \text{vector}\}} \frac{1}{k + r_m(d)} \quad (k=60)$$
    Ties are broken deterministically by graph supporting edge count, graph presence, and chunk ID.
-9. **Context Construction**: Formats Community Overviews, Directed Graph Paths, and Text Chunks within a strict $12,000$ character window budget.
+10. **Context Construction**: Formats Community Overviews, Directed Graph Paths, and Text Chunks within a strict $12,000$ character window budget.
 
 ---
 
