@@ -121,12 +121,25 @@ class GraphEvidenceRetriever:
         seed_res = self.seed_retriever.resolve_seeds(plan.seed_entities)
         resolved_eids = seed_res.resolved_entity_ids
         self.last_diagnostics["resolved_seed_count"] = len(resolved_eids)
+        self.last_diagnostics["ambiguous_seeds"] = dict(seed_res.ambiguous_seeds)
+        self.last_diagnostics["unresolved_seeds"] = list(seed_res.unresolved_seeds)
+        self.last_diagnostics["seed_resolution_diagnostics"] = [
+            d.model_dump() if hasattr(d, "model_dump") else d
+            for d in getattr(seed_res, "resolution_diagnostics", ())
+        ]
         if not resolved_eids:
             logger.info("No seed entities could be resolved for query: %s", question)
             return []
 
-        # Map each entity id back to its originating seed spec name
+        # Map each entity id back to its originating seed spec name and detect type conflicts
         eid_to_spec_name: Dict[str, Set[str]] = {}
+        eid_to_type_conflict: Dict[str, Tuple[str, str]] = {}
+        for d in getattr(seed_res, "resolution_diagnostics", ()):
+            if hasattr(d, "candidate_id") and d.candidate_id and hasattr(d, "status") and d.status in ("ACCEPTED", "AMBIGUOUS"):
+                eid_to_spec_name.setdefault(d.candidate_id, set()).add(d.seed_name)
+                if not d.type_compatible and d.expected_type and d.candidate_type:
+                    eid_to_type_conflict[d.candidate_id] = (d.expected_type, d.candidate_type)
+
         entities = self.doc_store.load_canonical_entities()
         for spec in plan.seed_entities:
             spec_eids, _ = self.seed_retriever._resolve_single_spec(spec, entities)
@@ -193,8 +206,10 @@ class GraphEvidenceRetriever:
 
             seed_direct_chunks_map[eid] = direct_chunks
             seed_specs = eid_to_spec_name.get(eid, set())
+            conflict = eid_to_type_conflict.get(eid)
+            conflict_suffix = f" [Type Conflict: expected {conflict[0]}, actual {conflict[1]}]" if conflict else ""
             for cid in direct_chunks:
-                direct_path_str = f"GRAPH_SEED_PROVENANCE: Seed Entity [{v_label} ({eid})]"
+                direct_path_str = f"GRAPH_SEED_PROVENANCE: Seed Entity [{v_label} ({eid})]{conflict_suffix}"
                 chunk_path_map.setdefault(cid, []).append(direct_path_str)
                 chunk_support_count[cid] = chunk_support_count.get(cid, 0) + 1
                 chunk_min_hop[cid] = 0

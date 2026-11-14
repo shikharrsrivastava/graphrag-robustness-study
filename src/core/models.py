@@ -200,6 +200,32 @@ class SeedEntitySpec(BaseModel):
     expected_type: Optional[str] = None
 
 
+class ResolutionDecision(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    seed_name: str = Field(..., description="Original seed entity name string")
+    expected_type: Optional[str] = Field(default=None, description="Expected entity type from SeedEntitySpec, or None")
+    candidate_id: Optional[str] = Field(default=None, description="Canonical entity ID (e.g., E032)")
+    candidate_name: Optional[str] = Field(default=None, description="Canonical entity name")
+    candidate_type: Optional[str] = Field(default=None, description="Canonical entity type from KB")
+    matching_method: Optional[str] = Field(default=None, description="EXACT_CANONICAL, PERSON_NAME_VARIATION, EXACT_ALIAS, AFFIX_STRIPPED, EMBEDDING, or NONE")
+    type_compatible: bool = Field(default=False, description="Whether candidate_type matches expected_type")
+    confidence_score: float = Field(
+        default=0.0,
+        ge=0.0,
+        le=1.0,
+        description=(
+            "Deterministic ordinal ranking heuristic (not a calibrated probability or Bayesian posterior). "
+            "Exact lexical matches (1.00/0.80), aliases (0.75/0.60), and embedding similarities represent different "
+            "matching modalities and should not be interpreted as directly comparable probabilities."
+        ),
+    )
+    similarity_score: Optional[float] = Field(default=None, description="Raw embedding cosine similarity if from vector search, else None")
+    ranking: int = Field(default=1, ge=0, description="Rank within candidate pool for this seed")
+    status: str = Field(..., description="ACCEPTED, AMBIGUOUS, REJECTED, or UNRESOLVED")
+    reason: str = Field(..., description="Human-readable explanation of the resolution decision")
+
+
 class EntityAttributeEvidence(BaseModel):
     model_config = ConfigDict(extra="forbid")
 

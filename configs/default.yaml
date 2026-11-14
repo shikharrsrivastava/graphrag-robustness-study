@@ -41,3 +41,4 @@ retrieval:
   max_cooccurring_entities_per_chunk: 5
   max_expanded_candidates_per_query: 10
   direct_seed_outranks_expanded: true
+  max_candidates_per_seed: 5

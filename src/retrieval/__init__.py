@@ -6,13 +6,18 @@ from src.retrieval.evidence_merger import EvidenceMerger
 from src.retrieval.graph_retriever import GraphEvidenceRetriever
 from src.retrieval.query_planner import OllamaQueryPlanner
 from src.retrieval.reranker import RRFReranker
-from src.retrieval.seed_retriever import SeedEntityRetriever, SeedResolutionResult
+from src.retrieval.seed_retriever import (
+    ResolutionDecision,
+    SeedEntityRetriever,
+    SeedResolutionResult,
+)
 from src.retrieval.vector_retriever import VectorEvidenceRetriever
 
 __all__ = [
     "OllamaQueryPlanner",
     "SeedEntityRetriever",
     "SeedResolutionResult",
+    "ResolutionDecision",
     "GraphEvidenceRetriever",
     "VectorEvidenceRetriever",
     "EvidenceMerger",

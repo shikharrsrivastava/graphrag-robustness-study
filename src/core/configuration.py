@@ -89,6 +89,11 @@ class RetrievalConfig(BaseModel):
         default=True,
         description="Whether direct seed chunks always outrank bipartite-expanded chunks in graph candidate ranking",
     )
+    max_candidates_per_seed: int = Field(
+        default=5,
+        ge=1,
+        description="Maximum ambiguous canonical entity candidates to retain per seed specification in confidence-aware resolution",
+    )
 
 
 class PromptVersions(BaseModel):

@@ -296,6 +296,7 @@ class HybridGraphRAGEngine:
             vector_store=self.vector_store,
             embedding_provider=self.embedding_service,
             similarity_threshold=self.config.resolution.similarity_candidate_threshold,
+            max_candidates_per_seed=getattr(self.config.retrieval, "max_candidates_per_seed", 5),
         )
         graph_retriever = GraphEvidenceRetriever(
             doc_store=self.doc_store,

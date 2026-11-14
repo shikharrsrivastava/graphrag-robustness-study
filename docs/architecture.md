@@ -97,7 +97,24 @@ flowchart TD
 
 ### Retrieval Stages
 1. **Query Planning**: LLM classifies question intent into `LOCAL` (entity-centric), `GLOBAL` (thematic overview), or `MIXED` (multi-hop relational). Identifies seed entities and predicted traversal paths.
-2. **Seed Entity Resolution**: Matches seed entity specifications against canonical graph nodes using exact string, normalized alias, and embedding fallback.
+2. **Confidence-Aware Seed Entity Resolution**: Matches seed entity specifications against canonical graph nodes using a transparent 6-tier ranking hierarchy that tolerates noisy query-planner type predictions while preserving entity identity, provenance, and ambiguity:
+   - **Priority Tiering Hierarchy & Score Semantics**:
+     1. **Tier 1 (Score 1.00)**: Exact Canonical Name Match + Compatible Type (or unconstrained when `expected_type=None`).
+     2. **Tier 2 (Score 0.80)**: Exact Canonical Name Match + Conflicting Type.
+     3. **Tier 3 (Score 0.75)**: Exact Alias / Affix-stripped Match + Compatible Type.
+     4. **Tier 4 (Score 0.60)**: Exact Alias / Affix-stripped Match + Conflicting Type.
+     5. **Tier 5 (Score $\ge 0.82$)**: Dense Semantic Embedding Match + Compatible Type.
+     6. **Tier 6 (Score $\text{sim} \times 0.70$)**: Dense Semantic Embedding Match + Conflicting Type.
+     *Confidence Score Semantics*: `ResolutionDecision.confidence_score` represents a deterministic ordinal ranking heuristic, **not** a calibrated probability or Bayesian posterior. Exact lexical matches (1.00/0.80), aliases (0.75/0.60), and embedding similarities represent fundamentally different matching modalities and their raw values should not be interpreted as directly comparable probabilities.
+   - **Why Exact Matching Precedes Uncertain Type Predictions**: Query planner LLMs frequently predict noisy or mismatched entity types (e.g., predicting `WORK` or `COUNTRY` when indexing assigned `FILM` or `ORGANIZATION`, or `LOCATION` when indexing assigned `BOOK`). Exact string matching against the canonical entity name is high-confidence lexical evidence of entity identity. Discarding exact lexical matches due to noisy type predictions causes complete retrieval failure.
+   - **Ambiguity Preservation & Candidate Limits**: When multiple canonical entities match at the same priority tier (e.g., *Local H* existing as `FILM`, `ORGANIZATION`, and `PERSON`), all candidates are retained up to `max_candidates_per_seed` (default 5, lower-bounded by `ge=1`). The system never arbitrarily picks one candidate or automatically merges differently-typed vertices.
+   - **Explicit Type Conflict Representation**: Type conflicts are transparently recorded in structured `ResolutionDecision` diagnostics and annotated in graph provenance paths (e.g., `GRAPH_SEED_PROVENANCE: Seed Entity [Local H (E032)] [Type Conflict: expected WORK, actual FILM]`).
+   - **Embedding Fallback & Strict Threshold**: When no exact name or alias match exists, the retriever queries ChromaDB entity descriptions. The strict `0.82` cosine similarity threshold is preserved; candidates below `0.82` are rejected.
+   - **Empirical Integration Findings & Known Limitations**:
+     - *Q4 (Local H / For Against)*: Both gold documents are recovered in the top 5 chunks (All-ranks Recall = 100.0%, Recall@5 = 100.0%). However, because three ambiguous *Local H* candidate vertices compete on graph path density, Recall@2 is 50.0% (*For Against* at Rank 1, *Local H* at Rank 5).
+     - *Q5 (Laleli Mosque / Esma Sultan Mansion)*: *Laleli Mosque* is recovered at Rank 1 (Recall@2 = 50.0%), but *Esma Sultan Mansion* remains unresolved because no canonical entity vertex was extracted during indexing.
+     - *Q7 (Roger O. Egeberg / Richard Nixon)*: In diagnostic experiments where *Richard Nixon* was manually supplied as a seed specification, Recall@2 reached 100.0%. However, this is a seed-injected diagnostic, not an autonomous retrieval discovery, because the original question does not name *Richard Nixon*.
+     - *Boundaries*: Confidence-aware seed resolution does **NOT** perform automatic entity merging, does not modify indexing-time entity extraction, and does not solve cross-document coreference.
 3. **Directed Graph Traversal**: Breadth-First Search (BFS) up to `max_hops=3`, enforcing cycle prevention, optional tenant/scope filtering, and scoring edge type relevance.
 4. **1-Hop Entity-Chunk-Entity Provenance Expansion**: When `provenance_expansion_enabled: true`, expands direct seed chunks to unretrieved supporting documents via documented entity co-occurrence:
    - **Path Pattern**: `Seed Entity -> Direct Chunk -> Co-occurring Entity -> Expanded Target Chunk`.
