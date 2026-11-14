@@ -301,7 +301,7 @@ class HybridGraphRAGEngine:
             doc_store=self.doc_store,
             seed_retriever=seed_retriever,
             graph=graph,
-            max_candidates=self.config.retrieval.max_graph_candidates,
+            retrieval_config=self.config.retrieval,
         )
         vector_retriever = VectorEvidenceRetriever(
             doc_store=self.doc_store,

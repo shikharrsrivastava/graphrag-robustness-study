@@ -257,3 +257,44 @@ except KnowledgeBaseNotFoundError as exc:
 except ConfigurationError as exc:
     print(f"Configuration error: {exc}")
 ```
+
+---
+
+## 7. Retrieval Configuration & Provenance Models
+
+### `RetrievalConfig` Configuration Parameters
+
+Retrieval options configured in `configs/default.yaml` or programmatically via `EngineConfig.retrieval`:
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `max_traversal_hops` | `int` | `3` | Maximum BFS hops on knowledge graph edges ($1..6$). |
+| `max_graph_candidates` | `int` | `20` | Maximum candidate evidence chunks retrieved from the graph route. |
+| `vector_top_k` | `int` | `10` | Top-$K$ candidate chunks retrieved from ChromaDB dense vector search. |
+| `community_top_k` | `int` | `3` | Number of hierarchical community summaries retrieved for global queries. |
+| `final_context_chunks` | `int` | `8` | Final chunk count budgeted for answer generation after RRF fusion. |
+| `rrf_k` | `int` | `60` | Reciprocal Rank Fusion constant denominator factor. |
+| `max_context_chars` | `int` | `12000` | Strict character window limit for LLM prompt context construction. |
+| `provenance_expansion_enabled` | `bool` | `False` | Enable 1-hop Entity–Chunk–Entity bipartite provenance expansion. |
+| `max_chunks_per_cooccurring_entity` | `int` | `2` | Hub suppression threshold: max chunks an entity can appear in before exclusion as a generic hub. |
+| `max_cooccurring_entities_per_chunk`| `int` | `5` | Maximum co-occurring entities expanded per direct seed chunk. |
+| `max_expanded_candidates_per_query` | `int` | `10` | Maximum total expanded chunk candidates per query. |
+| `direct_seed_outranks_expanded` | `bool` | `True` | Direct seed chunks (`alignment=1.0`) strictly outrank expanded chunks (`alignment=0.85`). |
+
+### Provenance Attribution Models
+
+Retrieval evidence items explicitly distinguish between direct seed matches, traversed multigraph edges, and documentary co-occurrence:
+
+- **`GraphProvenanceType`** (`Enum`):
+  - `GRAPH_SEED_PROVENANCE`: Chunk directly contains a resolved query seed entity.
+  - `GRAPH_EDGE_PROVENANCE`: Chunk supports an edge along a validated graph traversal path.
+  - `ENTITY_CHUNK_COOCCURRENCE`: Chunk recovered through 1-hop documentary co-occurrence (`Seed -> Chunk A -> Cooccur Entity -> Chunk B`).
+
+- **`CooccurrenceProvenance`** (`BaseModel`):
+  - `seed_entity_id`: Resolved query seed entity ID.
+  - `direct_chunk_id`: Direct chunk containing the seed entity.
+  - `cooccurring_entity_id`: Entity co-occurring within the direct chunk.
+  - `expanded_chunk_id`: Target chunk where the co-occurring entity also appears.
+  - `expansion_depth`: Strictly fixed at `1` (one-hop constraint).
+  - `skipped_hub_entities`: List of generic hub entity IDs pruned during expansion.
+  - `fan_out_pruned`: Whether expansion was bounded by query fan-out limits.

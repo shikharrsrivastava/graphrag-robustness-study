@@ -36,3 +36,8 @@ retrieval:
   final_context_chunks: 8
   rrf_k: 60
   max_context_chars: 12000
+  provenance_expansion_enabled: false
+  max_chunks_per_cooccurring_entity: 2
+  max_cooccurring_entities_per_chunk: 5
+  max_expanded_candidates_per_query: 10
+  direct_seed_outranks_expanded: true

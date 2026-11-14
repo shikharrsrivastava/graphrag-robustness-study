@@ -66,6 +66,29 @@ class RetrievalConfig(BaseModel):
     final_context_chunks: int = Field(default=8, ge=1)
     rrf_k: int = Field(default=60, ge=1)
     max_context_chars: int = Field(default=12000, ge=500)
+    provenance_expansion_enabled: bool = Field(
+        default=False,
+        description="Enable one-hop Entity-Chunk-Entity provenance expansion in graph retrieval",
+    )
+    max_chunks_per_cooccurring_entity: int = Field(
+        default=2,
+        ge=1,
+        description="Hub suppression threshold: maximum chunks an entity can appear in before being excluded as a hub",
+    )
+    max_cooccurring_entities_per_chunk: int = Field(
+        default=5,
+        ge=1,
+        description="Maximum co-occurring entities to expand per direct seed chunk",
+    )
+    max_expanded_candidates_per_query: int = Field(
+        default=10,
+        ge=1,
+        description="Maximum total expanded chunk candidates per query",
+    )
+    direct_seed_outranks_expanded: bool = Field(
+        default=True,
+        description="Whether direct seed chunks always outrank bipartite-expanded chunks in graph candidate ranking",
+    )
 
 
 class PromptVersions(BaseModel):

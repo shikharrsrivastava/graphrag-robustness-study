@@ -99,12 +99,18 @@ flowchart TD
 1. **Query Planning**: LLM classifies question intent into `LOCAL` (entity-centric), `GLOBAL` (thematic overview), or `MIXED` (multi-hop relational). Identifies seed entities and predicted traversal paths.
 2. **Seed Entity Resolution**: Matches seed entity specifications against canonical graph nodes using exact string, normalized alias, and embedding fallback.
 3. **Directed Graph Traversal**: Breadth-First Search (BFS) up to `max_hops=3`, enforcing cycle prevention, optional tenant/scope filtering, and scoring edge type relevance.
-4. **Dense Vector Retrieval**: HNSW cosine similarity lookup over text chunk embeddings.
-5. **Hierarchical Community Retrieval**: Semantic discovery across macro-thematic community reports for global context.
-6. **Reciprocal Rank Fusion (RRF)**: Merges candidates across retrieval channels with formula:
+4. **1-Hop Entity-Chunk-Entity Provenance Expansion**: When `provenance_expansion_enabled: true`, expands direct seed chunks to unretrieved supporting documents via documented entity co-occurrence:
+   - **Path Pattern**: `Seed Entity -> Direct Chunk -> Co-occurring Entity -> Expanded Target Chunk`.
+   - **Strict 1-Hop Constraint**: Bipartite expansion depth is strictly fixed at 1 hop; no recursive or ungrounded expansion.
+   - **Hub Entity Suppression**: Co-occurring entities appearing in $> K$ chunks (default $K=2$) are skipped to avoid generic hub pollution (e.g., countries, common years).
+   - **Precedence & Ranking Policy**: Direct seed chunks (`alignment=1.0, min_hop=0`) strictly outrank expanded chunks (`alignment=0.85, min_hop=1`) when `direct_seed_outranks_expanded: true`. Existing direct seed and traversed chunks are never displaced or inflated.
+   - **Transparency & Attribution**: Every retrieved chunk explicitly distinguishes its provenance route (`GRAPH_SEED_PROVENANCE`, `GRAPH_EDGE_PROVENANCE`, or `ENTITY_CHUNK_COOCCURRENCE`) with structured `CooccurrenceProvenance` metadata.
+5. **Dense Vector Retrieval**: HNSW cosine similarity lookup over text chunk embeddings.
+6. **Hierarchical Community Retrieval**: Semantic discovery across macro-thematic community reports for global context.
+7. **Reciprocal Rank Fusion (RRF)**: Merges candidates across retrieval channels with formula:
    $$\text{RRF}(d) = \sum_{m \in \{\text{graph}, \text{vector}\}} \frac{1}{k + r_m(d)} \quad (k=60)$$
    Ties are broken deterministically by graph supporting edge count, graph presence, and chunk ID.
-7. **Context Construction**: Formats Community Overviews, Directed Graph Paths, and Text Chunks within a strict $12,000$ character window budget.
+8. **Context Construction**: Formats Community Overviews, Directed Graph Paths, and Text Chunks within a strict $12,000$ character window budget.
 
 ---
 

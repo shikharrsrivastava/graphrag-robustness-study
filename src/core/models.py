@@ -32,6 +32,24 @@ class ProvenanceRoute(str, Enum):
     COMMUNITY = "COMMUNITY"
 
 
+class GraphProvenanceType(str, Enum):
+    GRAPH_SEED_PROVENANCE = "GRAPH_SEED_PROVENANCE"
+    GRAPH_EDGE_PROVENANCE = "GRAPH_EDGE_PROVENANCE"
+    ENTITY_CHUNK_COOCCURRENCE = "ENTITY_CHUNK_COOCCURRENCE"
+
+
+class CooccurrenceProvenance(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    seed_entity_id: str = Field(..., min_length=1, description="Resolved seed entity ID that initiated the path")
+    direct_chunk_id: str = Field(..., min_length=1, description="Direct chunk where the seed entity appears")
+    cooccurring_entity_id: str = Field(..., min_length=1, description="Entity co-occurring in the direct chunk")
+    expanded_chunk_id: str = Field(..., min_length=1, description="Target chunk where cooccurring entity also appears")
+    expansion_depth: int = Field(default=1, ge=1, le=1, description="Bipartite expansion depth (strictly 1-hop)")
+    skipped_hub_entities: List[str] = Field(default_factory=list, description="Hub entities pruned during this expansion")
+    fan_out_pruned: bool = Field(default=False, description="Whether expansion was halted by fan-out limits")
+
+
 class Document(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -226,6 +244,8 @@ class Evidence(BaseModel):
     supporting_graph_paths: List[str] = Field(default_factory=list)
     supporting_edge_ids: List[str] = Field(default_factory=list)
     community_ids: List[int] = Field(default_factory=list)
+    graph_provenance_types: List[GraphProvenanceType] = Field(default_factory=list)
+    cooccurrence_details: List[CooccurrenceProvenance] = Field(default_factory=list)
 
 
 class RetrievalResult(BaseModel):

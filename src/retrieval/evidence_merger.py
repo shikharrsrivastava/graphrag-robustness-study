@@ -36,6 +36,8 @@ class EvidenceMerger:
                         supporting_graph_paths=list(ev.supporting_graph_paths),
                         supporting_edge_ids=list(ev.supporting_edge_ids),
                         community_ids=list(ev.community_ids),
+                        graph_provenance_types=list(ev.graph_provenance_types),
+                        cooccurrence_details=list(ev.cooccurrence_details),
                     )
                 else:
                     existing = merged_dict[cid]
@@ -70,5 +72,15 @@ class EvidenceMerger:
                         if comm_id not in existing.community_ids:
                             existing.community_ids.append(comm_id)
                     existing.community_ids.sort()
+
+                    # Union graph provenance types
+                    for pt in ev.graph_provenance_types:
+                        if pt not in existing.graph_provenance_types:
+                            existing.graph_provenance_types.append(pt)
+
+                    # Union cooccurrence details
+                    for cd in ev.cooccurrence_details:
+                        if cd not in existing.cooccurrence_details:
+                            existing.cooccurrence_details.append(cd)
 
         return list(merged_dict.values())

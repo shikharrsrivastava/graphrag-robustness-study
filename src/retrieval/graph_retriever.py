@@ -1,11 +1,19 @@
-"""Graph evidence retriever using SeedEntityRetriever and GraphTraverser."""
+"""Graph evidence retriever using SeedEntityRetriever, GraphTraverser, and Bipartite Provenance Expansion."""
 
 from __future__ import annotations
 import logging
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 import igraph
+from src.core.configuration import RetrievalConfig
 from src.core.interfaces import Retriever
-from src.core.models import Evidence, ProvenanceRoute, QueryPlan
+from src.core.models import (
+    CanonicalEntity,
+    CooccurrenceProvenance,
+    Evidence,
+    GraphProvenanceType,
+    ProvenanceRoute,
+    QueryPlan,
+)
 from src.graph.graph_builder import IGraphBuilder
 from src.graph.traversal import GraphTraverser, TraversedPath
 from src.retrieval.seed_retriever import SeedEntityRetriever
@@ -15,7 +23,9 @@ logger = logging.getLogger(__name__)
 
 
 class GraphEvidenceRetriever:
-    """Retrieves evidence chunks along graph traversal paths starting from resolved seed entities."""
+    """Retrieves evidence chunks along graph traversal paths starting from resolved seed entities,
+    with optional 1-hop Entity-Chunk-Entity bipartite provenance expansion.
+    """
 
     def __init__(
         self,
@@ -24,13 +34,65 @@ class GraphEvidenceRetriever:
         graph: Optional[igraph.Graph] = None,
         traverser: Optional[GraphTraverser] = None,
         max_candidates: int = 20,
+        provenance_expansion_enabled: bool = False,
+        max_chunks_per_cooccurring_entity: int = 2,
+        max_cooccurring_entities_per_chunk: int = 5,
+        max_expanded_candidates_per_query: int = 10,
+        direct_seed_outranks_expanded: bool = True,
+        retrieval_config: Optional[RetrievalConfig] = None,
     ) -> None:
         self.doc_store = doc_store
         self.seed_retriever = seed_retriever
         self.graph = graph or IGraphBuilder.reconstruct_from_store(doc_store)
         self.traverser = traverser or GraphTraverser(max_candidates=max_candidates)
-        self.max_candidates = max_candidates
-        self.last_diagnostics: Dict[str, int] = {"resolved_seed_count": 0, "valid_path_count": 0, "evidence_count": 0}
+
+        if retrieval_config is not None:
+            self.max_candidates = retrieval_config.max_graph_candidates
+            self.provenance_expansion_enabled = retrieval_config.provenance_expansion_enabled
+            self.max_chunks_per_cooccurring_entity = retrieval_config.max_chunks_per_cooccurring_entity
+            self.max_cooccurring_entities_per_chunk = retrieval_config.max_cooccurring_entities_per_chunk
+            self.max_expanded_candidates_per_query = retrieval_config.max_expanded_candidates_per_query
+            self.direct_seed_outranks_expanded = retrieval_config.direct_seed_outranks_expanded
+        else:
+            self.max_candidates = max_candidates
+            self.provenance_expansion_enabled = provenance_expansion_enabled
+            self.max_chunks_per_cooccurring_entity = max_chunks_per_cooccurring_entity
+            self.max_cooccurring_entities_per_chunk = max_cooccurring_entities_per_chunk
+            self.max_expanded_candidates_per_query = max_expanded_candidates_per_query
+            self.direct_seed_outranks_expanded = direct_seed_outranks_expanded
+
+        # In-memory bipartite index caches
+        self._bipartite_indexed: bool = False
+        self._entities_by_id: Dict[str, CanonicalEntity] = {}
+        self._chunk_to_entity_ids: Dict[str, List[str]] = {}
+        self._entity_to_chunk_ids: Dict[str, List[str]] = {}
+
+        self.last_diagnostics: Dict[str, Any] = {
+            "resolved_seed_count": 0,
+            "valid_path_count": 0,
+            "evidence_count": 0,
+            "provenance_expansion_enabled": self.provenance_expansion_enabled,
+            "cooccurring_entities_count": 0,
+            "expanded_chunks_count": 0,
+            "candidate_fan_out": 0,
+            "skipped_hub_entities": [],
+            "fan_out_pruned": False,
+        }
+
+    def _ensure_bipartite_index(self, force: bool = False) -> None:
+        """Lazily construct in-memory bipartite index between entities and chunks."""
+        if self._bipartite_indexed and not force:
+            return
+        entities = self.doc_store.load_canonical_entities()
+        self._entities_by_id = {ent.entity_id: ent for ent in entities}
+        self._chunk_to_entity_ids = {}
+        self._entity_to_chunk_ids = {}
+        for ent in entities:
+            cids = list(ent.source_chunk_ids)
+            self._entity_to_chunk_ids[ent.entity_id] = cids
+            for cid in cids:
+                self._chunk_to_entity_ids.setdefault(cid, []).append(ent.entity_id)
+        self._bipartite_indexed = True
 
     def retrieve(
         self,
@@ -40,13 +102,25 @@ class GraphEvidenceRetriever:
         scope_id: Optional[str] = None,
     ) -> List[Evidence]:
         """Retrieve graph evidence for the query plan, satisfying the Retriever protocol."""
+        self.last_diagnostics = {
+            "resolved_seed_count": 0,
+            "valid_path_count": 0,
+            "evidence_count": 0,
+            "provenance_expansion_enabled": self.provenance_expansion_enabled,
+            "cooccurring_entities_count": 0,
+            "expanded_chunks_count": 0,
+            "candidate_fan_out": 0,
+            "skipped_hub_entities": [],
+            "fan_out_pruned": False,
+        }
+
         if not plan.seed_entities:
             return []
 
         # 1. Resolve seed entities
         seed_res = self.seed_retriever.resolve_seeds(plan.seed_entities)
         resolved_eids = seed_res.resolved_entity_ids
-        self.last_diagnostics = {"resolved_seed_count": len(resolved_eids), "valid_path_count": 0, "evidence_count": 0}
+        self.last_diagnostics["resolved_seed_count"] = len(resolved_eids)
         if not resolved_eids:
             logger.info("No seed entities could be resolved for query: %s", question)
             return []
@@ -75,14 +149,17 @@ class GraphEvidenceRetriever:
         chunk_best_alignment: Dict[str, float] = {}
         chunk_support_count: Dict[str, int] = {}
         chunk_specs_map: Dict[str, Set[str]] = {}
+        chunk_provenance_types: Dict[str, List[GraphProvenanceType]] = {}
+        chunk_cooccurrence_details: Dict[str, List[CooccurrenceProvenance]] = {}
 
         for path in traversed_paths:
             path_str = path.to_path_string()
+            labeled_path_str = f"GRAPH_EDGE_PROVENANCE: {path_str}"
             start_eid = path.node_ids[0] if path.node_ids else ""
             path_specs = eid_to_spec_name.get(start_eid, set())
 
             for cid in path.chunk_ids:
-                chunk_path_map.setdefault(cid, []).append(path_str)
+                chunk_path_map.setdefault(cid, []).append(labeled_path_str)
                 chunk_edge_map.setdefault(cid, []).extend(path.edge_ids)
                 chunk_support_count[cid] = chunk_support_count.get(cid, 0) + 1
                 if path_specs:
@@ -95,8 +172,12 @@ class GraphEvidenceRetriever:
                     or path.alignment_score > chunk_best_alignment[cid]
                 ):
                     chunk_best_alignment[cid] = path.alignment_score
+                chunk_provenance_types.setdefault(cid, []).append(
+                    GraphProvenanceType.GRAPH_EDGE_PROVENANCE
+                )
 
-        # Also incorporate direct chunks from seed entity vertices (even if isolated or with 0 incident edges)
+        # Direct chunks from seed entity vertices
+        seed_direct_chunks_map: Dict[str, List[str]] = {}
         for eid in resolved_eids:
             v_label = eid
             direct_chunks: List[str] = []
@@ -110,15 +191,136 @@ class GraphEvidenceRetriever:
                     v_label = ent.name
                     direct_chunks = list(ent.source_chunk_ids)
 
+            seed_direct_chunks_map[eid] = direct_chunks
             seed_specs = eid_to_spec_name.get(eid, set())
             for cid in direct_chunks:
-                direct_path_str = f"Seed Entity [{v_label} ({eid})]"
+                direct_path_str = f"GRAPH_SEED_PROVENANCE: Seed Entity [{v_label} ({eid})]"
                 chunk_path_map.setdefault(cid, []).append(direct_path_str)
                 chunk_support_count[cid] = chunk_support_count.get(cid, 0) + 1
                 chunk_min_hop[cid] = 0
                 chunk_best_alignment[cid] = max(chunk_best_alignment.get(cid, 0.0), 1.0)
                 if seed_specs:
                     chunk_specs_map.setdefault(cid, set()).update(seed_specs)
+                chunk_provenance_types.setdefault(cid, []).append(
+                    GraphProvenanceType.GRAPH_SEED_PROVENANCE
+                )
+
+        # 3b. One-hop Entity-Chunk-Entity bipartite provenance expansion
+        if self.provenance_expansion_enabled:
+            self._ensure_bipartite_index()
+            cooccurring_entities_seen: Set[str] = set()
+            expanded_chunks_seen: Set[str] = set()
+            skipped_hubs: List[str] = []
+            fan_out_pruned = False
+            total_expanded_added = 0
+            existing_cids = set(chunk_path_map.keys())
+
+            for seed_eid in resolved_eids:
+                seed_name = seed_eid
+                if seed_eid in self._entities_by_id:
+                    seed_name = self._entities_by_id[seed_eid].name
+                elif seed_eid in self.graph.vs["name"]:
+                    seed_name = self.graph.vs.find(name=seed_eid).attributes().get("label") or seed_eid
+
+                direct_cids = seed_direct_chunks_map.get(seed_eid, [])
+                seed_specs = eid_to_spec_name.get(seed_eid, set())
+
+                for direct_cid in direct_cids:
+                    # Find entities co-occurring in this direct chunk
+                    cooccur_eids = sorted([
+                        e for e in self._chunk_to_entity_ids.get(direct_cid, [])
+                        if e != seed_eid
+                    ])
+
+                    # Cap per direct chunk
+                    if len(cooccur_eids) > self.max_cooccurring_entities_per_chunk:
+                        cooccur_eids = cooccur_eids[: self.max_cooccurring_entities_per_chunk]
+
+                    for cooccur_eid in cooccur_eids:
+                        cooccurring_entities_seen.add(cooccur_eid)
+                        cooccur_ent = self._entities_by_id.get(cooccur_eid)
+                        cooccur_name = cooccur_ent.name if cooccur_ent else cooccur_eid
+
+                        other_cids = sorted(self._entity_to_chunk_ids.get(cooccur_eid, []))
+                        # Hub suppression
+                        if len(other_cids) > self.max_chunks_per_cooccurring_entity:
+                            if cooccur_eid not in skipped_hubs:
+                                skipped_hubs.append(cooccur_eid)
+                            continue
+
+                        # Expanded chunks excluding direct_cid and chunks already in direct/traversal candidate set
+                        expanded_cids = [
+                            c for c in other_cids
+                            if c != direct_cid and c not in existing_cids
+                        ]
+                        for exp_cid in expanded_cids:
+                            if scope_id:
+                                chunk_obj = self.doc_store.get_chunk(exp_cid)
+                                if chunk_obj and chunk_obj.scope_id and chunk_obj.scope_id != scope_id:
+                                    continue
+
+                            if total_expanded_added >= self.max_expanded_candidates_per_query:
+                                fan_out_pruned = True
+                                break
+
+                            expanded_chunks_seen.add(exp_cid)
+                            total_expanded_added += 1
+
+                            cooccur_path_str = (
+                                f"ENTITY_CHUNK_COOCCURRENCE: Seed [{seed_name} ({seed_eid})] "
+                                f"-> Chunk [{direct_cid}] -> Co-occur [{cooccur_name} ({cooccur_eid})] "
+                                f"-> Chunk [{exp_cid}]"
+                            )
+                            chunk_path_map.setdefault(exp_cid, []).append(cooccur_path_str)
+                            chunk_support_count[exp_cid] = chunk_support_count.get(exp_cid, 0) + 1
+
+                            alignment_val = 0.85 if self.direct_seed_outranks_expanded else 1.0
+                            if (
+                                exp_cid not in chunk_best_alignment
+                                or alignment_val > chunk_best_alignment[exp_cid]
+                            ):
+                                chunk_best_alignment[exp_cid] = alignment_val
+
+                            if exp_cid not in chunk_min_hop or 1 < chunk_min_hop[exp_cid]:
+                                chunk_min_hop[exp_cid] = 1
+
+                            if seed_specs:
+                                chunk_specs_map.setdefault(exp_cid, set()).update(seed_specs)
+
+                            chunk_provenance_types.setdefault(exp_cid, []).append(
+                                GraphProvenanceType.ENTITY_CHUNK_COOCCURRENCE
+                            )
+
+                            prov_detail = CooccurrenceProvenance(
+                                seed_entity_id=seed_eid,
+                                direct_chunk_id=direct_cid,
+                                cooccurring_entity_id=cooccur_eid,
+                                expanded_chunk_id=exp_cid,
+                                expansion_depth=1,
+                                skipped_hub_entities=list(skipped_hubs),
+                                fan_out_pruned=fan_out_pruned,
+                            )
+                            chunk_cooccurrence_details.setdefault(exp_cid, []).append(prov_detail)
+
+                        if fan_out_pruned:
+                            break
+                    if fan_out_pruned:
+                        break
+                if fan_out_pruned:
+                    break
+
+            if fan_out_pruned:
+                for details_list in chunk_cooccurrence_details.values():
+                    for d in details_list:
+                        d.fan_out_pruned = True
+
+            self.last_diagnostics.update({
+                "cooccurring_entities_count": len(cooccurring_entities_seen),
+                "expanded_chunks_count": len(expanded_chunks_seen),
+                "candidate_fan_out": total_expanded_added,
+                "skipped_hub_entities": skipped_hubs,
+                "fan_out_pruned": fan_out_pruned,
+            })
 
         if not chunk_path_map:
             return []
@@ -177,6 +379,8 @@ class GraphEvidenceRetriever:
 
             unique_paths = list(dict.fromkeys(chunk_path_map[cid]))
             unique_edges = list(dict.fromkeys(chunk_edge_map.get(cid, [])))
+            unique_prov_types = list(dict.fromkeys(chunk_provenance_types.get(cid, [])))
+            cooccur_details = chunk_cooccurrence_details.get(cid, [])
 
             ev = Evidence(
                 kb_id=kb_id,
@@ -193,6 +397,8 @@ class GraphEvidenceRetriever:
                 supporting_graph_paths=unique_paths,
                 supporting_edge_ids=unique_edges,
                 community_ids=[],
+                graph_provenance_types=unique_prov_types,
+                cooccurrence_details=cooccur_details,
             )
             evidence_list.append(ev)
             rank += 1
