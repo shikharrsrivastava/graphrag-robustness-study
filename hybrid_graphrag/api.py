@@ -7,7 +7,7 @@ import time
 from typing import Any, Dict, List, Optional, Union
 import yaml
 
-from src.core.configuration import EngineConfig, load_engine_config
+from src.core.configuration import EngineConfig, deep_merge_dicts, load_engine_config
 from src.core.interfaces import EmbeddingProvider
 from src.core.models import RetrievalResult
 from src.engine import HybridGraphRAGEngine
@@ -41,6 +41,13 @@ class HybridGraphRAG:
         return self._engine.kb_id
 
     @property
+    def kb_dir(self) -> Path:
+        """The directory path of the active knowledge base."""
+        if hasattr(self._engine, "kb_paths") and "kb_root" in self._engine.kb_paths:
+            return Path(self._engine.kb_paths["kb_root"])
+        return Path(self._engine.config.get_kb_root(getattr(self._engine, "base_dir", Path("."))))
+
+    @property
     def config(self) -> EngineConfig:
         """The underlying active engine configuration."""
         return self._engine.config
@@ -71,8 +78,23 @@ class HybridGraphRAG:
         if isinstance(config, EngineConfig):
             engine_config = config
         elif isinstance(config, dict):
+            data = dict(config)
+            if kb_id:
+                data["kb_id"] = kb_id
+            if "ontology" not in data:
+                base_cfg_path = Path(base_dir) / "configs" / "default.yaml"
+                domain_cfg_path = Path(base_dir) / "configs" / "domains" / "academic.yaml"
+                base_data: Dict[str, Any] = {}
+                if base_cfg_path.exists():
+                    with open(base_cfg_path, "r", encoding="utf-8") as f:
+                        base_data = yaml.safe_load(f) or {}
+                if domain_cfg_path.exists():
+                    with open(domain_cfg_path, "r", encoding="utf-8") as f:
+                        domain_data = yaml.safe_load(f) or {}
+                    base_data = deep_merge_dicts(base_data, domain_data)
+                data = deep_merge_dicts(base_data, data)
             try:
-                engine_config = EngineConfig.model_validate(config)
+                engine_config = EngineConfig.model_validate(data)
             except Exception as e:
                 raise ConfigurationError(f"Invalid configuration dictionary: {e}") from e
         elif isinstance(config, (str, Path)):
@@ -197,6 +219,7 @@ class HybridGraphRAG:
         self,
         question: str,
         mode: str = "hybrid",
+        route: Optional[str] = None,
         scope_id: Optional[str] = None,
     ) -> QueryResult:
         """Execute retrieval and answer generation for a user question.
@@ -204,6 +227,7 @@ class HybridGraphRAG:
         Args:
             question: The natural language question to answer.
             mode: Retrieval mode: 'hybrid' (default), 'vector_only', 'graph_only', or 'community_aware'.
+            route: Alias for mode parameter for backward compatibility.
             scope_id: Optional tenant or document scope filter.
 
         Returns:
@@ -212,6 +236,9 @@ class HybridGraphRAG:
         self._check_closed()
         if not question or not question.strip():
             raise ValueError("Question cannot be empty.")
+
+        if route is not None:
+            mode = route
 
         allowed_modes = {"hybrid", "vector_only", "graph_only", "community_aware"}
         mode_clean = mode.strip().lower()

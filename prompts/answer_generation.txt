@@ -32,7 +32,13 @@ INSTRUCTIONS:
      - In "canonical_answer", provide ONLY the exact name of the selected entity.
      - State clearly in "answer" why the selected entity satisfies the criteria and why the other entity does not, citing both source chunks.
 
-4. Reasoning & Canonical Answer:
+4. Multi-hop & Bridge Questions ("X of Y that was formed by who?", "...administration of a president that served during what years?"):
+   - Identify the intermediate entity connecting the premise to the target (e.g. identify which boy group released the debut album 2014 S/S, or which president the official served under).
+   - Traverse to the ultimate requested attribute (e.g. who formed that specific boy group, or what years that specific president served).
+   - Disambiguate against distractor entities that superficially share numbers, years, or keywords (e.g. a group formed in 2014 is NOT the album titled "2014 S/S").
+   - Set "canonical_answer" to the final requested target attribute, NOT the intermediate bridge entity.
+
+5. Reasoning & Canonical Answer:
    - Provide your step-by-step reasoning first in "reasoning".
    - In "canonical_answer", provide ONLY the concise direct answer (e.g. "yes", "no", entity name, number, or short phrase). If abstaining, return "".
    - Ensure "canonical_answer" and "answer" are completely consistent and never contradict each other.

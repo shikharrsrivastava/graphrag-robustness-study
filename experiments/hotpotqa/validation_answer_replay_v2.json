@@ -1,0 +1,1747 @@
+{
+  "metadata": {
+    "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+    "kb_config_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_eval/hotpot_full_5a8b57f25542995d1e6f1371/config_snapshot.yaml",
+    "planner_ontology_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/configs/domains/academic.yaml",
+    "planner_ontology_relationship_types": [
+      "ACTED_IN",
+      "AFFILIATED_WITH",
+      "AUTHORED",
+      "BORN_IN",
+      "COLLABORATED_WITH",
+      "DIRECTED",
+      "LOCATED_IN",
+      "MEMBER_OF",
+      "NATIONALITY",
+      "PARTICIPATED_IN",
+      "PART_OF",
+      "RELATED_TO",
+      "STUDIES_AT",
+      "SUPERVISES",
+      "USES",
+      "WORKS_AT",
+      "WORKS_ON",
+      "WORKS_UNDER",
+      "WROTE"
+    ],
+    "persisted_kb_ontology_relationship_types": [
+      "ACTED_IN",
+      "AFFILIATED_WITH",
+      "AUTHORED",
+      "BORN_IN",
+      "DIRECTED",
+      "LOCATED_IN",
+      "MEMBER_OF",
+      "PARTICIPATED_IN",
+      "PART_OF",
+      "RELATED_TO",
+      "STUDIES_AT",
+      "SUPERVISES",
+      "USES",
+      "WORKS_AT",
+      "WORKS_ON",
+      "WORKS_UNDER",
+      "WROTE"
+    ],
+    "planner_ontology_differs_from_persisted_kb": true,
+    "graph_edge_audit_note": "The existing knowledge graph contains exactly zero NATIONALITY edges, as established by audit. Query planning uses the updated ontology to permit the query path, but graph retrieval relies on direct seed provenance (hop 0) rather than multi-hop nationality graph traversal.",
+    "question_id": "5a8b57f25542995d1e6f1371",
+    "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+    "gold_answer": "yes",
+    "generated_answers_included": true,
+    "shared_preparation_timing": {
+      "query_planning_seconds": 7.424574541990296,
+      "seed_resolution_seconds": 0.0030713750020368025,
+      "total_shared_prep_seconds": 7.427645916992333,
+      "shared_prep_execution_count": 1,
+      "note": "Shared preparation (query planning and seed resolution) is executed exactly once and reused across routes, not executed independently four times.",
+      "overall_validation_elapsed_seconds": 7.614873458005604
+    },
+    "shared_query_plan": {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "intent": "LOCAL",
+      "seed_entities": [
+        {
+          "name": "Scott Derrickson",
+          "expected_type": "PERSON"
+        },
+        {
+          "name": "Ed Wood",
+          "expected_type": "PERSON"
+        }
+      ],
+      "target_type": null,
+      "relationship_path": [
+        "NATIONALITY"
+      ],
+      "requires_clarification": false,
+      "clarification_reason": null,
+      "invalid_relationship_types": []
+    },
+    "resolved_seed_entity_ids": [
+      "E013",
+      "E069",
+      "E040"
+    ],
+    "ambiguous_seeds": {
+      "Ed Wood": [
+        "E069",
+        "E040"
+      ]
+    },
+    "answer_replay": {
+      "replay_executed": true,
+      "source_retrieval_file": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/validation_retrieval_only_refreshed.json",
+      "retrieval_reused_without_reexecution": true,
+      "llm_model": "gemma3:4b",
+      "generation_timestamp": "2026-11-13T22:37:23Z",
+      "generation_seconds_by_route": {
+        "vector_only": 27.256102250001277,
+        "graph_only": 24.243807041988475,
+        "hybrid": 23.664219375001267,
+        "community_aware": 24.76199791599356
+      },
+      "total_generation_seconds": 99.92612658298458
+    }
+  },
+  "routes": {
+    "vector_only": {
+      "timing": {
+        "query_planning_seconds": 7.424574541990296,
+        "seed_resolution_seconds": 0.0,
+        "route_retrieval_seconds": 0.12459083300200291,
+        "route_plus_shared_prep_seconds": 7.549165374992299,
+        "overall_validation_elapsed_seconds": 7.614873458005604,
+        "answer_generation_seconds": 27.256102250001277
+      },
+      "embedding_accounting": {
+        "embed_text_invocations": 1,
+        "embed_batch_invocations": 0,
+        "total_wrapper_invocations": 1,
+        "delegated_provider_calls": 1,
+        "ollama_request_attempts_inferred": 1,
+        "provider_internal_cache_hits": 0
+      },
+      "abstained": false,
+      "abstention_reason": null,
+      "resolved_seed_entity_ids": [],
+      "evidence_count": 10,
+      "evidence": [
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Ed Wood\nEdward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 1,
+          "vector_distance": 0.457317054271698,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Scott Derrickson\nScott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California.  He is best known for directing horror films such as \"Sinister\", \"The Exorcism of Emily Rose\", and \"Deliver Us From Evil\", as well as the 2016 Marvel Cinematic Universe installment, \"Doctor Strange.\"",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 2,
+          "vector_distance": 0.5652050971984863,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D001_C0000",
+          "doc_id": "D001",
+          "filename": "ctx_000_Ed_Wood_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Ed Wood (film)\nEd Wood is a 1994 American biographical period comedy-drama film directed and produced by Tim Burton, and starring Johnny Depp as cult filmmaker Ed Wood.  The film concerns the period in Wood's life when he made his best-known films as well as his relationship with actor Bela Lugosi, played by Martin Landau.  Sarah Jessica Parker, Patricia Arquette, Jeffrey Jones, Lisa Marie, and Bill Murray are among the supporting cast.",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 3,
+          "vector_distance": 0.5780588388442993,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D003_C0000",
+          "doc_id": "D003",
+          "filename": "ctx_002_Woodson_Arkansas.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Woodson, Arkansas\nWoodson is a census-designated place (CDP) in Pulaski County, Arkansas, in the United States.  Its population was 403 at the 2010 census.  It is part of the Little Rock\u2013North Little Rock\u2013Conway Metropolitan Statistical Area.  Woodson and its accompanying Woodson Lake and Wood Hollow are the namesake for Ed Wood Sr., a prominent plantation owner, trader, and businessman at the turn of the 20th century.  Woodson is adjacent to the Wood Plantation, the largest of the plantations own by Ed Wood Sr.",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 4,
+          "vector_distance": 0.6458067893981934,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D006_C0000",
+          "doc_id": "D006",
+          "filename": "ctx_005_Deliver_Us_from_Evil_2014_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Deliver Us from Evil (2014 film)\nDeliver Us from Evil is a 2014 American supernatural horror film directed by Scott Derrickson and produced by Jerry Bruckheimer.  The film is officially based on a 2001 non-fiction book entitled \"Beware the Night\" by Ralph Sarchie and Lisa Collier Cool, and its marketing campaign highlighted that it was \"inspired by actual accounts\".  The film stars Eric Bana, \u00c9dgar Ram\u00edrez, Sean Harris, Olivia Munn, and Joel McHale in the main roles and was released on July 2, 2014.",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 5,
+          "vector_distance": 0.6643649339675903,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D009_C0000",
+          "doc_id": "D009",
+          "filename": "ctx_008_Conrad_Brooks.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Conrad Brooks\nConrad Brooks (born Conrad Biedrzycki on January 3, 1931 in Baltimore, Maryland) is an American actor.  He moved to Hollywood, California in 1948 to pursue a career in acting.  He got his start in movies appearing in Ed Wood films such as \"Plan 9 from Outer Space\", \"Glen or Glenda\", and \"Jail Bait.\"  He took a break from acting during the 1960s and 1970s but due to the ongoing interest in the films of Ed Wood, he reemerged in the 1980s and has become a prolific actor.  He also has since gone on to write, produce and direct several films.",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 6,
+          "vector_distance": 0.6729304194450378,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D008_C0000",
+          "doc_id": "D008",
+          "filename": "ctx_007_Sinister_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Sinister (film)\nSinister is a 2012 supernatural horror film directed by Scott Derrickson and written by Derrickson and C. Robert Cargill.  It stars Ethan Hawke as fictional true-crime writer Ellison Oswalt who discovers a box of home movies in his attic that puts his family in danger.",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 7,
+          "vector_distance": 0.7145116329193115,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D007_C0000",
+          "doc_id": "D007",
+          "filename": "ctx_006_Adam_Collis.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Adam Collis\nAdam Collis is an American filmmaker and actor.  He attended the Duke University from 1986 to 1990 and the University of California, Los Angeles from 2007 to 2010.  He also studied cinema at the University of Southern California from 1991 to 1997.  Collis first work was the assistant director for the Scott Derrickson's short \"Love in the Ruins\" (1995).  In 1998, he played \"Crankshaft\" in Eric Koyanagi's \"Hundred Percent\".",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 8,
+          "vector_distance": 0.716962456703186,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D010_C0000",
+          "doc_id": "D010",
+          "filename": "ctx_009_Doctor_Strange_2016_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Doctor Strange (2016 film)\nDoctor Strange is a 2016 American superhero film based on the Marvel Comics character of the same name, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures.  It is the fourteenth film of the Marvel Cinematic Universe (MCU).  The film was directed by Scott Derrickson, who wrote it with Jon Spaihts and C. Robert Cargill, and stars Benedict Cumberbatch as Stephen Strange, along with Chiwetel Ejiofor, Rachel McAdams, Benedict Wong, Michael Stuhlbarg, Benjamin Bratt, Scott Adkins, Mads Mikkelsen, and Tilda Swinton.  In \"Doctor Strange\", surgeon Strange learns the mystic arts after a career-ending car accident.",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 9,
+          "vector_distance": 0.7559616565704346,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D004_C0000",
+          "doc_id": "D004",
+          "filename": "ctx_003_Tyler_Bates.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Tyler Bates\nTyler Bates (born June 5, 1965) is an American musician, music producer, and composer for films, television, and video games.  Much of his work is in the action and horror film genres, with films like \"Dawn of the Dead, 300, Sucker Punch,\" and \"John Wick.\"  He has collaborated with directors like Zack Snyder, Rob Zombie, Neil Marshall, William Friedkin, Scott Derrickson, and James Gunn.  With Gunn, he has scored every one of the director's films; including \"Guardians of the Galaxy\", which became one of the highest grossing domestic movies of 2014, and its 2017 sequel.  In addition, he is also the lead guitarist of the American rock band Marilyn Manson, and produced its albums \"The Pale Emperor\" and \"Heaven Upside Down\".",
+          "routes": [
+            "VECTOR"
+          ],
+          "graph_rank": null,
+          "vector_rank": 10,
+          "vector_distance": 0.7644528746604919,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        }
+      ],
+      "community_report_count": 0,
+      "community_reports": [],
+      "diagnostics": {
+        "vector_candidates": 10,
+        "graph_candidates": 0,
+        "community_candidates": 0,
+        "seed_entity_count": 0,
+        "invalid_relation_count": 0,
+        "evidence_after_merge": 10,
+        "evidence_after_reranking": 10,
+        "route_seconds": 0.12459083300200291,
+        "route_errors": {},
+        "answer_generation_seconds": 27.256102250001277
+      },
+      "retrieval_metrics": {
+        "recall_at_2": {
+          "supporting_fact_recall_at_k": 1.0,
+          "supporting_document_recall_at_k": 1.0,
+          "complete_supporting_evidence_at_k": true,
+          "supporting_document_coverage": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "supporting_fact_coverage": [
+            [
+              "Ed Wood",
+              0
+            ],
+            [
+              "Scott Derrickson",
+              0
+            ]
+          ]
+        },
+        "recall_at_5": {
+          "supporting_fact_recall_at_k": 1.0,
+          "supporting_document_recall_at_k": 1.0,
+          "complete_supporting_evidence_at_k": true,
+          "supporting_document_coverage": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "supporting_fact_coverage": [
+            [
+              "Ed Wood",
+              0
+            ],
+            [
+              "Scott Derrickson",
+              0
+            ]
+          ]
+        }
+      },
+      "answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+      "canonical_answer": "yes",
+      "answer_metrics": {
+        "exact_match": true,
+        "token_f1": 1.0
+      },
+      "cited_chunk_ids": [
+        "D002_C0000",
+        "D005_C0000"
+      ],
+      "citation_references": [
+        {
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ]
+        }
+      ]
+    },
+    "graph_only": {
+      "timing": {
+        "query_planning_seconds": 7.424574541990296,
+        "seed_resolution_seconds": 0.0030713750020368025,
+        "route_retrieval_seconds": 0.0035334169951966032,
+        "route_plus_shared_prep_seconds": 7.431179333987529,
+        "overall_validation_elapsed_seconds": 7.614873458005604,
+        "answer_generation_seconds": 24.243807041988475
+      },
+      "embedding_accounting": {
+        "embed_text_invocations": 0,
+        "embed_batch_invocations": 0,
+        "total_wrapper_invocations": 0,
+        "delegated_provider_calls": 0,
+        "ollama_request_attempts_inferred": 0,
+        "provider_internal_cache_hits": 0
+      },
+      "abstained": false,
+      "abstention_reason": null,
+      "resolved_seed_entity_ids": [
+        "E013",
+        "E069",
+        "E040"
+      ],
+      "evidence_count": 8,
+      "evidence": [
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Scott Derrickson\nScott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California.  He is best known for directing horror films such as \"Sinister\", \"The Exorcism of Emily Rose\", and \"Deliver Us From Evil\", as well as the 2016 Marvel Cinematic Universe installment, \"Doctor Strange.\"",
+          "routes": [
+            "GRAPH"
+          ],
+          "graph_rank": 1,
+          "vector_rank": null,
+          "vector_distance": null,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Ed Wood\nEdward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+          "routes": [
+            "GRAPH"
+          ],
+          "graph_rank": 2,
+          "vector_rank": null,
+          "vector_distance": null,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [
+            "Seed Entity [Edward Davis Wood Jr. (E040)]"
+          ],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D004_C0000",
+          "doc_id": "D004",
+          "filename": "ctx_003_Tyler_Bates.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Tyler Bates\nTyler Bates (born June 5, 1965) is an American musician, music producer, and composer for films, television, and video games.  Much of his work is in the action and horror film genres, with films like \"Dawn of the Dead, 300, Sucker Punch,\" and \"John Wick.\"  He has collaborated with directors like Zack Snyder, Rob Zombie, Neil Marshall, William Friedkin, Scott Derrickson, and James Gunn.  With Gunn, he has scored every one of the director's films; including \"Guardians of the Galaxy\", which became one of the highest grossing domestic movies of 2014, and its 2017 sequel.  In addition, he is also the lead guitarist of the American rock band Marilyn Manson, and produced its albums \"The Pale Emperor\" and \"Heaven Upside Down\".",
+          "routes": [
+            "GRAPH"
+          ],
+          "graph_rank": 3,
+          "vector_rank": null,
+          "vector_distance": null,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D009_C0000",
+          "doc_id": "D009",
+          "filename": "ctx_008_Conrad_Brooks.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Conrad Brooks\nConrad Brooks (born Conrad Biedrzycki on January 3, 1931 in Baltimore, Maryland) is an American actor.  He moved to Hollywood, California in 1948 to pursue a career in acting.  He got his start in movies appearing in Ed Wood films such as \"Plan 9 from Outer Space\", \"Glen or Glenda\", and \"Jail Bait.\"  He took a break from acting during the 1960s and 1970s but due to the ongoing interest in the films of Ed Wood, he reemerged in the 1980s and has become a prolific actor.  He also has since gone on to write, produce and direct several films.",
+          "routes": [
+            "GRAPH"
+          ],
+          "graph_rank": 4,
+          "vector_rank": null,
+          "vector_distance": null,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [
+            "Seed Entity [Ed Wood (E069)]"
+          ],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D006_C0000",
+          "doc_id": "D006",
+          "filename": "ctx_005_Deliver_Us_from_Evil_2014_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Deliver Us from Evil (2014 film)\nDeliver Us from Evil is a 2014 American supernatural horror film directed by Scott Derrickson and produced by Jerry Bruckheimer.  The film is officially based on a 2001 non-fiction book entitled \"Beware the Night\" by Ralph Sarchie and Lisa Collier Cool, and its marketing campaign highlighted that it was \"inspired by actual accounts\".  The film stars Eric Bana, \u00c9dgar Ram\u00edrez, Sean Harris, Olivia Munn, and Joel McHale in the main roles and was released on July 2, 2014.",
+          "routes": [
+            "GRAPH"
+          ],
+          "graph_rank": 5,
+          "vector_rank": null,
+          "vector_distance": null,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D007_C0000",
+          "doc_id": "D007",
+          "filename": "ctx_006_Adam_Collis.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Adam Collis\nAdam Collis is an American filmmaker and actor.  He attended the Duke University from 1986 to 1990 and the University of California, Los Angeles from 2007 to 2010.  He also studied cinema at the University of Southern California from 1991 to 1997.  Collis first work was the assistant director for the Scott Derrickson's short \"Love in the Ruins\" (1995).  In 1998, he played \"Crankshaft\" in Eric Koyanagi's \"Hundred Percent\".",
+          "routes": [
+            "GRAPH"
+          ],
+          "graph_rank": 6,
+          "vector_rank": null,
+          "vector_distance": null,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D008_C0000",
+          "doc_id": "D008",
+          "filename": "ctx_007_Sinister_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Sinister (film)\nSinister is a 2012 supernatural horror film directed by Scott Derrickson and written by Derrickson and C. Robert Cargill.  It stars Ethan Hawke as fictional true-crime writer Ellison Oswalt who discovers a box of home movies in his attic that puts his family in danger.",
+          "routes": [
+            "GRAPH"
+          ],
+          "graph_rank": 7,
+          "vector_rank": null,
+          "vector_distance": null,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D010_C0000",
+          "doc_id": "D010",
+          "filename": "ctx_009_Doctor_Strange_2016_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Doctor Strange (2016 film)\nDoctor Strange is a 2016 American superhero film based on the Marvel Comics character of the same name, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures.  It is the fourteenth film of the Marvel Cinematic Universe (MCU).  The film was directed by Scott Derrickson, who wrote it with Jon Spaihts and C. Robert Cargill, and stars Benedict Cumberbatch as Stephen Strange, along with Chiwetel Ejiofor, Rachel McAdams, Benedict Wong, Michael Stuhlbarg, Benjamin Bratt, Scott Adkins, Mads Mikkelsen, and Tilda Swinton.  In \"Doctor Strange\", surgeon Strange learns the mystic arts after a career-ending car accident.",
+          "routes": [
+            "GRAPH"
+          ],
+          "graph_rank": 8,
+          "vector_rank": null,
+          "vector_distance": null,
+          "rrf_score": 0.0,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        }
+      ],
+      "community_report_count": 0,
+      "community_reports": [],
+      "diagnostics": {
+        "vector_candidates": 0,
+        "graph_candidates": 8,
+        "community_candidates": 0,
+        "seed_entity_count": 3,
+        "invalid_relation_count": 0,
+        "evidence_after_merge": 8,
+        "evidence_after_reranking": 8,
+        "graph_details": {
+          "resolved_seed_count": 3,
+          "valid_path_count": 8,
+          "evidence_count": 8
+        },
+        "route_seconds": 0.0035334169951966032,
+        "route_errors": {},
+        "answer_generation_seconds": 24.243807041988475
+      },
+      "retrieval_metrics": {
+        "recall_at_2": {
+          "supporting_fact_recall_at_k": 1.0,
+          "supporting_document_recall_at_k": 1.0,
+          "complete_supporting_evidence_at_k": true,
+          "supporting_document_coverage": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "supporting_fact_coverage": [
+            [
+              "Ed Wood",
+              0
+            ],
+            [
+              "Scott Derrickson",
+              0
+            ]
+          ]
+        },
+        "recall_at_5": {
+          "supporting_fact_recall_at_k": 1.0,
+          "supporting_document_recall_at_k": 1.0,
+          "complete_supporting_evidence_at_k": true,
+          "supporting_document_coverage": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "supporting_fact_coverage": [
+            [
+              "Ed Wood",
+              0
+            ],
+            [
+              "Scott Derrickson",
+              0
+            ]
+          ]
+        }
+      },
+      "answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+      "canonical_answer": "yes",
+      "answer_metrics": {
+        "exact_match": true,
+        "token_f1": 1.0
+      },
+      "cited_chunk_ids": [
+        "D002_C0000",
+        "D005_C0000"
+      ],
+      "citation_references": [
+        {
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ]
+        }
+      ]
+    },
+    "hybrid": {
+      "timing": {
+        "query_planning_seconds": 7.424574541990296,
+        "seed_resolution_seconds": 0.0030713750020368025,
+        "route_retrieval_seconds": 0.018966749994433485,
+        "route_plus_shared_prep_seconds": 7.446612666986766,
+        "overall_validation_elapsed_seconds": 7.614873458005604,
+        "answer_generation_seconds": 23.664219375001267
+      },
+      "embedding_accounting": {
+        "embed_text_invocations": 1,
+        "embed_batch_invocations": 0,
+        "total_wrapper_invocations": 1,
+        "delegated_provider_calls": 1,
+        "ollama_request_attempts_inferred": 1,
+        "provider_internal_cache_hits": 0
+      },
+      "abstained": false,
+      "abstention_reason": null,
+      "resolved_seed_entity_ids": [
+        "E013",
+        "E069",
+        "E040"
+      ],
+      "evidence_count": 8,
+      "evidence": [
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Scott Derrickson\nScott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California.  He is best known for directing horror films such as \"Sinister\", \"The Exorcism of Emily Rose\", and \"Deliver Us From Evil\", as well as the 2016 Marvel Cinematic Universe installment, \"Doctor Strange.\"",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 1,
+          "vector_rank": 2,
+          "vector_distance": 0.5652050971984863,
+          "rrf_score": 0.03252247488101534,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Ed Wood\nEdward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 2,
+          "vector_rank": 1,
+          "vector_distance": 0.457317054271698,
+          "rrf_score": 0.03252247488101534,
+          "supporting_graph_paths": [
+            "Seed Entity [Edward Davis Wood Jr. (E040)]"
+          ],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D009_C0000",
+          "doc_id": "D009",
+          "filename": "ctx_008_Conrad_Brooks.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Conrad Brooks\nConrad Brooks (born Conrad Biedrzycki on January 3, 1931 in Baltimore, Maryland) is an American actor.  He moved to Hollywood, California in 1948 to pursue a career in acting.  He got his start in movies appearing in Ed Wood films such as \"Plan 9 from Outer Space\", \"Glen or Glenda\", and \"Jail Bait.\"  He took a break from acting during the 1960s and 1970s but due to the ongoing interest in the films of Ed Wood, he reemerged in the 1980s and has become a prolific actor.  He also has since gone on to write, produce and direct several films.",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 4,
+          "vector_rank": 6,
+          "vector_distance": 0.6729304194450378,
+          "rrf_score": 0.030776515151515152,
+          "supporting_graph_paths": [
+            "Seed Entity [Ed Wood (E069)]"
+          ],
+          "supporting_edge_ids": [],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D006_C0000",
+          "doc_id": "D006",
+          "filename": "ctx_005_Deliver_Us_from_Evil_2014_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Deliver Us from Evil (2014 film)\nDeliver Us from Evil is a 2014 American supernatural horror film directed by Scott Derrickson and produced by Jerry Bruckheimer.  The film is officially based on a 2001 non-fiction book entitled \"Beware the Night\" by Ralph Sarchie and Lisa Collier Cool, and its marketing campaign highlighted that it was \"inspired by actual accounts\".  The film stars Eric Bana, \u00c9dgar Ram\u00edrez, Sean Harris, Olivia Munn, and Joel McHale in the main roles and was released on July 2, 2014.",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 5,
+          "vector_rank": 5,
+          "vector_distance": 0.6643649339675903,
+          "rrf_score": 0.03076923076923077,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D004_C0000",
+          "doc_id": "D004",
+          "filename": "ctx_003_Tyler_Bates.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Tyler Bates\nTyler Bates (born June 5, 1965) is an American musician, music producer, and composer for films, television, and video games.  Much of his work is in the action and horror film genres, with films like \"Dawn of the Dead, 300, Sucker Punch,\" and \"John Wick.\"  He has collaborated with directors like Zack Snyder, Rob Zombie, Neil Marshall, William Friedkin, Scott Derrickson, and James Gunn.  With Gunn, he has scored every one of the director's films; including \"Guardians of the Galaxy\", which became one of the highest grossing domestic movies of 2014, and its 2017 sequel.  In addition, he is also the lead guitarist of the American rock band Marilyn Manson, and produced its albums \"The Pale Emperor\" and \"Heaven Upside Down\".",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 3,
+          "vector_rank": 10,
+          "vector_distance": 0.7644528746604919,
+          "rrf_score": 0.030158730158730156,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D007_C0000",
+          "doc_id": "D007",
+          "filename": "ctx_006_Adam_Collis.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Adam Collis\nAdam Collis is an American filmmaker and actor.  He attended the Duke University from 1986 to 1990 and the University of California, Los Angeles from 2007 to 2010.  He also studied cinema at the University of Southern California from 1991 to 1997.  Collis first work was the assistant director for the Scott Derrickson's short \"Love in the Ruins\" (1995).  In 1998, he played \"Crankshaft\" in Eric Koyanagi's \"Hundred Percent\".",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 6,
+          "vector_rank": 8,
+          "vector_distance": 0.716962456703186,
+          "rrf_score": 0.029857397504456328,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D008_C0000",
+          "doc_id": "D008",
+          "filename": "ctx_007_Sinister_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Sinister (film)\nSinister is a 2012 supernatural horror film directed by Scott Derrickson and written by Derrickson and C. Robert Cargill.  It stars Ethan Hawke as fictional true-crime writer Ellison Oswalt who discovers a box of home movies in his attic that puts his family in danger.",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 7,
+          "vector_rank": 7,
+          "vector_distance": 0.7145116329193115,
+          "rrf_score": 0.029850746268656716,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D010_C0000",
+          "doc_id": "D010",
+          "filename": "ctx_009_Doctor_Strange_2016_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Doctor Strange (2016 film)\nDoctor Strange is a 2016 American superhero film based on the Marvel Comics character of the same name, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures.  It is the fourteenth film of the Marvel Cinematic Universe (MCU).  The film was directed by Scott Derrickson, who wrote it with Jon Spaihts and C. Robert Cargill, and stars Benedict Cumberbatch as Stephen Strange, along with Chiwetel Ejiofor, Rachel McAdams, Benedict Wong, Michael Stuhlbarg, Benjamin Bratt, Scott Adkins, Mads Mikkelsen, and Tilda Swinton.  In \"Doctor Strange\", surgeon Strange learns the mystic arts after a career-ending car accident.",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 8,
+          "vector_rank": 9,
+          "vector_distance": 0.7559616565704346,
+          "rrf_score": 0.02919863597612958,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        }
+      ],
+      "community_report_count": 0,
+      "community_reports": [],
+      "diagnostics": {
+        "vector_candidates": 10,
+        "graph_candidates": 8,
+        "community_candidates": 0,
+        "seed_entity_count": 3,
+        "invalid_relation_count": 0,
+        "evidence_after_merge": 10,
+        "evidence_after_reranking": 8,
+        "route_errors": {},
+        "graph_details": {
+          "resolved_seed_count": 3,
+          "valid_path_count": 8,
+          "evidence_count": 8
+        },
+        "route_seconds": 0.018966749994433485,
+        "answer_generation_seconds": 23.664219375001267
+      },
+      "retrieval_metrics": {
+        "recall_at_2": {
+          "supporting_fact_recall_at_k": 1.0,
+          "supporting_document_recall_at_k": 1.0,
+          "complete_supporting_evidence_at_k": true,
+          "supporting_document_coverage": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "supporting_fact_coverage": [
+            [
+              "Ed Wood",
+              0
+            ],
+            [
+              "Scott Derrickson",
+              0
+            ]
+          ]
+        },
+        "recall_at_5": {
+          "supporting_fact_recall_at_k": 1.0,
+          "supporting_document_recall_at_k": 1.0,
+          "complete_supporting_evidence_at_k": true,
+          "supporting_document_coverage": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "supporting_fact_coverage": [
+            [
+              "Ed Wood",
+              0
+            ],
+            [
+              "Scott Derrickson",
+              0
+            ]
+          ]
+        }
+      },
+      "answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+      "canonical_answer": "yes",
+      "answer_metrics": {
+        "exact_match": true,
+        "token_f1": 1.0
+      },
+      "cited_chunk_ids": [
+        "D002_C0000",
+        "D005_C0000"
+      ],
+      "citation_references": [
+        {
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ]
+        }
+      ]
+    },
+    "community_aware": {
+      "timing": {
+        "query_planning_seconds": 7.424574541990296,
+        "seed_resolution_seconds": 0.0030713750020368025,
+        "route_retrieval_seconds": 0.0334776670060819,
+        "route_plus_shared_prep_seconds": 7.461123583998415,
+        "overall_validation_elapsed_seconds": 7.614873458005604,
+        "answer_generation_seconds": 24.76199791599356
+      },
+      "embedding_accounting": {
+        "embed_text_invocations": 2,
+        "embed_batch_invocations": 0,
+        "total_wrapper_invocations": 2,
+        "delegated_provider_calls": 2,
+        "ollama_request_attempts_inferred": 2,
+        "provider_internal_cache_hits": 0
+      },
+      "abstained": false,
+      "abstention_reason": null,
+      "resolved_seed_entity_ids": [
+        "E013",
+        "E069",
+        "E040"
+      ],
+      "evidence_count": 8,
+      "evidence": [
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Scott Derrickson\nScott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California.  He is best known for directing horror films such as \"Sinister\", \"The Exorcism of Emily Rose\", and \"Deliver Us From Evil\", as well as the 2016 Marvel Cinematic Universe installment, \"Doctor Strange.\"",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 1,
+          "vector_rank": 2,
+          "vector_distance": 0.5652050971984863,
+          "rrf_score": 0.03252247488101534,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Ed Wood\nEdward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+          "routes": [
+            "GRAPH",
+            "COMMUNITY",
+            "VECTOR"
+          ],
+          "graph_rank": 2,
+          "vector_rank": 1,
+          "vector_distance": 0.457317054271698,
+          "rrf_score": 0.03252247488101534,
+          "supporting_graph_paths": [
+            "Seed Entity [Edward Davis Wood Jr. (E040)]"
+          ],
+          "supporting_edge_ids": [],
+          "community_ids": [
+            28
+          ]
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D009_C0000",
+          "doc_id": "D009",
+          "filename": "ctx_008_Conrad_Brooks.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Conrad Brooks\nConrad Brooks (born Conrad Biedrzycki on January 3, 1931 in Baltimore, Maryland) is an American actor.  He moved to Hollywood, California in 1948 to pursue a career in acting.  He got his start in movies appearing in Ed Wood films such as \"Plan 9 from Outer Space\", \"Glen or Glenda\", and \"Jail Bait.\"  He took a break from acting during the 1960s and 1970s but due to the ongoing interest in the films of Ed Wood, he reemerged in the 1980s and has become a prolific actor.  He also has since gone on to write, produce and direct several films.",
+          "routes": [
+            "GRAPH",
+            "COMMUNITY",
+            "VECTOR"
+          ],
+          "graph_rank": 4,
+          "vector_rank": 6,
+          "vector_distance": 0.6729304194450378,
+          "rrf_score": 0.030776515151515152,
+          "supporting_graph_paths": [
+            "Seed Entity [Ed Wood (E069)]"
+          ],
+          "supporting_edge_ids": [],
+          "community_ids": [
+            40
+          ]
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D006_C0000",
+          "doc_id": "D006",
+          "filename": "ctx_005_Deliver_Us_from_Evil_2014_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Deliver Us from Evil (2014 film)\nDeliver Us from Evil is a 2014 American supernatural horror film directed by Scott Derrickson and produced by Jerry Bruckheimer.  The film is officially based on a 2001 non-fiction book entitled \"Beware the Night\" by Ralph Sarchie and Lisa Collier Cool, and its marketing campaign highlighted that it was \"inspired by actual accounts\".  The film stars Eric Bana, \u00c9dgar Ram\u00edrez, Sean Harris, Olivia Munn, and Joel McHale in the main roles and was released on July 2, 2014.",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 5,
+          "vector_rank": 5,
+          "vector_distance": 0.6643649339675903,
+          "rrf_score": 0.03076923076923077,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D004_C0000",
+          "doc_id": "D004",
+          "filename": "ctx_003_Tyler_Bates.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Tyler Bates\nTyler Bates (born June 5, 1965) is an American musician, music producer, and composer for films, television, and video games.  Much of his work is in the action and horror film genres, with films like \"Dawn of the Dead, 300, Sucker Punch,\" and \"John Wick.\"  He has collaborated with directors like Zack Snyder, Rob Zombie, Neil Marshall, William Friedkin, Scott Derrickson, and James Gunn.  With Gunn, he has scored every one of the director's films; including \"Guardians of the Galaxy\", which became one of the highest grossing domestic movies of 2014, and its 2017 sequel.  In addition, he is also the lead guitarist of the American rock band Marilyn Manson, and produced its albums \"The Pale Emperor\" and \"Heaven Upside Down\".",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 3,
+          "vector_rank": 10,
+          "vector_distance": 0.7644528746604919,
+          "rrf_score": 0.030158730158730156,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D007_C0000",
+          "doc_id": "D007",
+          "filename": "ctx_006_Adam_Collis.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Adam Collis\nAdam Collis is an American filmmaker and actor.  He attended the Duke University from 1986 to 1990 and the University of California, Los Angeles from 2007 to 2010.  He also studied cinema at the University of Southern California from 1991 to 1997.  Collis first work was the assistant director for the Scott Derrickson's short \"Love in the Ruins\" (1995).  In 1998, he played \"Crankshaft\" in Eric Koyanagi's \"Hundred Percent\".",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 6,
+          "vector_rank": 8,
+          "vector_distance": 0.716962456703186,
+          "rrf_score": 0.029857397504456328,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D008_C0000",
+          "doc_id": "D008",
+          "filename": "ctx_007_Sinister_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Sinister (film)\nSinister is a 2012 supernatural horror film directed by Scott Derrickson and written by Derrickson and C. Robert Cargill.  It stars Ethan Hawke as fictional true-crime writer Ellison Oswalt who discovers a box of home movies in his attic that puts his family in danger.",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 7,
+          "vector_rank": 7,
+          "vector_distance": 0.7145116329193115,
+          "rrf_score": 0.029850746268656716,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "chunk_id": "D010_C0000",
+          "doc_id": "D010",
+          "filename": "ctx_009_Doctor_Strange_2016_film_.txt",
+          "page_numbers": [
+            1
+          ],
+          "text": "Title: Doctor Strange (2016 film)\nDoctor Strange is a 2016 American superhero film based on the Marvel Comics character of the same name, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures.  It is the fourteenth film of the Marvel Cinematic Universe (MCU).  The film was directed by Scott Derrickson, who wrote it with Jon Spaihts and C. Robert Cargill, and stars Benedict Cumberbatch as Stephen Strange, along with Chiwetel Ejiofor, Rachel McAdams, Benedict Wong, Michael Stuhlbarg, Benjamin Bratt, Scott Adkins, Mads Mikkelsen, and Tilda Swinton.  In \"Doctor Strange\", surgeon Strange learns the mystic arts after a career-ending car accident.",
+          "routes": [
+            "GRAPH",
+            "VECTOR"
+          ],
+          "graph_rank": 8,
+          "vector_rank": 9,
+          "vector_distance": 0.7559616565704346,
+          "rrf_score": 0.02919863597612958,
+          "supporting_graph_paths": [
+            "Scott Derrickson -[LOCATED_IN]-> Los Angeles",
+            "Scott Derrickson -[LOCATED_IN]-> California",
+            "Scott Derrickson -[DIRECTED]-> Sinister",
+            "Scott Derrickson -[DIRECTED]-> Doctor Strange",
+            "Scott Derrickson -[RELATED_TO]-> Eric Koyanagi",
+            "Scott Derrickson -[WORKS_UNDER]-> C. Robert Cargill",
+            "Scott Derrickson -[WORKS_AT]-> Marvel Studios",
+            "Scott Derrickson -[WORKS_UNDER]-> Jon Spaihts",
+            "Seed Entity [Scott Derrickson (E013)]"
+          ],
+          "supporting_edge_ids": [
+            "REL_0006",
+            "REL_0007",
+            "REL_0004",
+            "REL_0005",
+            "REL_0025",
+            "REL_0037",
+            "REL_0034",
+            "REL_0036"
+          ],
+          "community_ids": []
+        }
+      ],
+      "community_report_count": 3,
+      "community_reports": [
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "report_id": "COMM_REPORT_0028",
+          "community_id": 28,
+          "partition_id": "leiden_rb_res_1.0_seed_42_8718f326",
+          "member_entity_ids": [
+            "E040"
+          ],
+          "supporting_chunk_ids": [
+            "D005_C0000"
+          ],
+          "summary_text": "Edward Davis Wood Jr. (PERSON): Filmmaker, actor, writer, producer, and director",
+          "model_tag": "gemma3:4b",
+          "prompt_version": "v1.0",
+          "verified_claims": [],
+          "unsupported_claims_rejected": 0,
+          "verification_status": "VERIFIED"
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "report_id": "COMM_REPORT_0010",
+          "community_id": 10,
+          "partition_id": "leiden_rb_res_1.0_seed_42_8718f326",
+          "member_entity_ids": [
+            "E003"
+          ],
+          "supporting_chunk_ids": [
+            "D001_C0000"
+          ],
+          "summary_text": "Johnny Depp (PERSON): Actor starring as Ed Wood",
+          "model_tag": "gemma3:4b",
+          "prompt_version": "v1.0",
+          "verified_claims": [],
+          "unsupported_claims_rejected": 0,
+          "verification_status": "VERIFIED"
+        },
+        {
+          "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+          "report_id": "COMM_REPORT_0040",
+          "community_id": 40,
+          "partition_id": "leiden_rb_res_1.0_seed_42_8718f326",
+          "member_entity_ids": [
+            "E069"
+          ],
+          "supporting_chunk_ids": [
+            "D009_C0000"
+          ],
+          "summary_text": "Ed Wood (PERSON): Director of films Conrad Brooks appeared in",
+          "model_tag": "gemma3:4b",
+          "prompt_version": "v1.0",
+          "verified_claims": [],
+          "unsupported_claims_rejected": 0,
+          "verification_status": "VERIFIED"
+        }
+      ],
+      "diagnostics": {
+        "vector_candidates": 10,
+        "graph_candidates": 8,
+        "community_candidates": 3,
+        "seed_entity_count": 3,
+        "invalid_relation_count": 0,
+        "evidence_after_merge": 10,
+        "evidence_after_reranking": 8,
+        "route_errors": {},
+        "graph_details": {
+          "resolved_seed_count": 3,
+          "valid_path_count": 8,
+          "evidence_count": 8
+        },
+        "route_seconds": 0.0334776670060819,
+        "answer_generation_seconds": 24.76199791599356
+      },
+      "retrieval_metrics": {
+        "recall_at_2": {
+          "supporting_fact_recall_at_k": 1.0,
+          "supporting_document_recall_at_k": 1.0,
+          "complete_supporting_evidence_at_k": true,
+          "supporting_document_coverage": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "supporting_fact_coverage": [
+            [
+              "Ed Wood",
+              0
+            ],
+            [
+              "Scott Derrickson",
+              0
+            ]
+          ]
+        },
+        "recall_at_5": {
+          "supporting_fact_recall_at_k": 1.0,
+          "supporting_document_recall_at_k": 1.0,
+          "complete_supporting_evidence_at_k": true,
+          "supporting_document_coverage": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "supporting_fact_coverage": [
+            [
+              "Ed Wood",
+              0
+            ],
+            [
+              "Scott Derrickson",
+              0
+            ]
+          ]
+        }
+      },
+      "answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+      "canonical_answer": "yes",
+      "answer_metrics": {
+        "exact_match": true,
+        "token_f1": 1.0
+      },
+      "cited_chunk_ids": [
+        "D002_C0000",
+        "D005_C0000"
+      ],
+      "citation_references": [
+        {
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ]
+        },
+        {
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ]
+        }
+      ]
+    }
+  },
+  "route_contributions": {
+    "vector_chunks": [
+      "D001_C0000",
+      "D002_C0000",
+      "D003_C0000",
+      "D004_C0000",
+      "D005_C0000",
+      "D006_C0000",
+      "D007_C0000",
+      "D008_C0000",
+      "D009_C0000",
+      "D010_C0000"
+    ],
+    "graph_chunks": [
+      "D002_C0000",
+      "D004_C0000",
+      "D005_C0000",
+      "D006_C0000",
+      "D007_C0000",
+      "D008_C0000",
+      "D009_C0000",
+      "D010_C0000"
+    ],
+    "hybrid_chunks": [
+      "D002_C0000",
+      "D004_C0000",
+      "D005_C0000",
+      "D006_C0000",
+      "D007_C0000",
+      "D008_C0000",
+      "D009_C0000",
+      "D010_C0000"
+    ],
+    "community_aware_chunks": [
+      "D002_C0000",
+      "D004_C0000",
+      "D005_C0000",
+      "D006_C0000",
+      "D007_C0000",
+      "D008_C0000",
+      "D009_C0000",
+      "D010_C0000"
+    ],
+    "graph_unique_vs_vector": [],
+    "hybrid_unique_vs_vector": [],
+    "community_unique_vs_hybrid": [],
+    "shared_graph_vector": [
+      "D002_C0000",
+      "D004_C0000",
+      "D005_C0000",
+      "D006_C0000",
+      "D007_C0000",
+      "D008_C0000",
+      "D009_C0000",
+      "D010_C0000"
+    ],
+    "final_hybrid_chunks": [
+      "D002_C0000",
+      "D004_C0000",
+      "D005_C0000",
+      "D006_C0000",
+      "D007_C0000",
+      "D008_C0000",
+      "D009_C0000",
+      "D010_C0000"
+    ]
+  },
+  "overall_validation_elapsed_seconds": 7.614873458005604,
+  "total_embedding_accounting": {
+    "embed_text_invocations": 4,
+    "embed_batch_invocations": 0,
+    "total_wrapper_invocations": 4,
+    "delegated_provider_calls": 4,
+    "ollama_request_attempts_inferred": 4,
+    "provider_internal_cache_hits": 0
+  }
+}

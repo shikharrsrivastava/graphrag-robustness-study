@@ -567,3 +567,244 @@ def test_11_citation_metric_calculations() -> None:
     assert question_coverage == 2 / 3
     assert len(answered_records) == 2
     assert answered_em == 1.0
+
+
+# ---------------------------------------------------------------------------
+# Test 12: Grounded post-nominal suffix preservation (Q1)
+# ---------------------------------------------------------------------------
+def test_12_grounded_post_nominal_suffix_preservation() -> None:
+    """Post-nominal honorifics and suffixes (DSC, Jr., OBE) must be preserved in selection canonical answers."""
+    c1 = _make_chunk(
+        "D002_C0000",
+        "D002",
+        "Henry Roth (February 8, 1906 – October 13, 1995) was an American novelist and short story writer.",
+    )
+    c2 = _make_chunk(
+        "D007_C0000",
+        "D007",
+        "Robert Erskine Childers DSC (25 June 1870 – 24 November 1922) was a British author and politician.",
+    )
+
+    query_plan = QueryPlan(
+        question="Which writer was from England, Henry Roth or Robert Erskine Childers?",
+        seed_entities=[
+            SeedEntitySpec(name="Henry Roth", expected_type="PERSON"),
+            SeedEntitySpec(name="Robert Erskine Childers", expected_type="PERSON"),
+        ],
+        relationship_path=["NATIONALITY"],
+    )
+
+    retrieval_result = RetrievalResult(
+        kb_id="test_kb",
+        question=query_plan.question,
+        query_plan=query_plan,
+        evidence_list=[c1, c2],
+    )
+
+    llm = OllamaLLMClient(
+        custom_generator=lambda _p: json.dumps({
+            "reasoning": "Henry Roth was American. Robert Erskine Childers was British.",
+            "extracted_attributes": [
+                {
+                    "entity_name": "Henry Roth",
+                    "entity_id": None,
+                    "attribute_name": "NATIONALITY",
+                    "extracted_value": "American",
+                    "evidence_quote": "Henry Roth (February 8, 1906 – October 13, 1995) was an American novelist and short story writer.",
+                    "chunk_id": "D002_C0000",
+                },
+                {
+                    "entity_name": "Robert Erskine Childers",
+                    "entity_id": None,
+                    "attribute_name": "NATIONALITY",
+                    "extracted_value": "British",
+                    "evidence_quote": "Robert Erskine Childers DSC (25 June 1870 – 24 November 1922) was a British author and politician.",
+                    "chunk_id": "D007_C0000",
+                },
+            ],
+            "canonical_answer": "Robert Erskine Childers",
+            "answer": "Robert Erskine Childers was British.",
+            "abstained": False,
+            "cited_chunk_ids": ["D002_C0000", "D007_C0000"],
+        })
+    )
+
+    gen = OllamaAnswerGenerator(llm)
+    output = gen.generate_structured(retrieval_result)
+
+    assert output.canonical_answer == "Robert Erskine Childers DSC"
+    assert output.abstained is False
+
+
+# ---------------------------------------------------------------------------
+# Test 13: Multi-hop boy group & record label bridge (Q6)
+# ---------------------------------------------------------------------------
+def test_13_multi_hop_boy_group_record_label_bridge() -> None:
+    """Multi-hop bridge question must resolve ultimate target (YG Entertainment), not distractor."""
+    c1 = _make_chunk(
+        "D003_C0000",
+        "D003",
+        "2014 S/S is the debut album of South Korean group WINNER, released in 2014 by record label YG Entertainment.",
+    )
+    c2 = _make_chunk(
+        "D005_C0000",
+        "D005",
+        "Winner is a South Korean boy group formed in 2013 by YG Entertainment.",
+    )
+    c3 = _make_chunk(
+        "D006_C0000",
+        "D006",
+        "Madtown is a South Korean boy group formed in 2014 by J. Tune Camp.",
+    )
+
+    query_plan = QueryPlan(
+        question="2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+        intent="LOCAL",
+    )
+
+    retrieval_result = RetrievalResult(
+        kb_id="test_kb",
+        question=query_plan.question,
+        query_plan=query_plan,
+        evidence_list=[c1, c2, c3],
+    )
+
+    llm = OllamaLLMClient(
+        custom_generator=lambda _p: json.dumps({
+            "reasoning": "2014 S/S is the debut album of WINNER [D003_C0000], which was formed by YG Entertainment [D005_C0000]. Madtown was formed in 2014 by J. Tune Camp but did not release 2014 S/S.",
+            "extracted_attributes": [
+                {
+                    "entity_name": "WINNER",
+                    "entity_id": None,
+                    "attribute_name": "FORMED_BY",
+                    "extracted_value": "YG Entertainment",
+                    "evidence_quote": "Winner is a South Korean boy group formed in 2013 by YG Entertainment.",
+                    "chunk_id": "D005_C0000",
+                }
+            ],
+            "canonical_answer": "YG Entertainment",
+            "answer": "2014 S/S is the debut album of the South Korean boy group WINNER, which was formed by YG Entertainment [D003_C0000] [D005_C0000].",
+            "abstained": False,
+            "cited_chunk_ids": ["D003_C0000", "D005_C0000"],
+        })
+    )
+
+    gen = OllamaAnswerGenerator(llm)
+    output = gen.generate_structured(retrieval_result)
+
+    assert output.canonical_answer == "YG Entertainment"
+    assert output.abstained is False
+    assert "D006_C0000" not in output.cited_chunk_ids
+    assert set(output.cited_chunk_ids) == {"D003_C0000", "D005_C0000"}
+
+
+# ---------------------------------------------------------------------------
+# Test 14: Multi-hop presidential administration term years bridge (Q7)
+# ---------------------------------------------------------------------------
+def test_14_multi_hop_presidential_term_bridge() -> None:
+    """Bridge question asking for term years must provide the years, not the intermediate president."""
+    c1 = _make_chunk(
+        "D009_C0000",
+        "D009",
+        "Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the Nixon administration.",
+    )
+    c2 = _make_chunk(
+        "D003_C0000",
+        "D003",
+        "Richard Milhous Nixon was the 37th President of the United States from 1969 until 1974.",
+    )
+
+    query_plan = QueryPlan(
+        question="Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+        intent="LOCAL",
+    )
+
+    retrieval_result = RetrievalResult(
+        kb_id="test_kb",
+        question=query_plan.question,
+        query_plan=query_plan,
+        evidence_list=[c1, c2],
+    )
+
+    llm = OllamaLLMClient(
+        custom_generator=lambda _p: json.dumps({
+            "reasoning": "Roger O. Egeberg served under President Richard Nixon [D009_C0000]. Richard Nixon served as President from 1969 until 1974 [D003_C0000].",
+            "extracted_attributes": [
+                {
+                    "entity_name": "Richard Nixon",
+                    "entity_id": None,
+                    "attribute_name": "SERVED_YEARS",
+                    "extracted_value": "1969 until 1974",
+                    "evidence_quote": "Richard Milhous Nixon was the 37th President of the United States from 1969 until 1974.",
+                    "chunk_id": "D003_C0000",
+                }
+            ],
+            "canonical_answer": "1969 until 1974",
+            "answer": "President Richard Nixon served from 1969 until 1974 [D003_C0000].",
+            "abstained": False,
+            "cited_chunk_ids": ["D009_C0000", "D003_C0000"],
+        })
+    )
+
+    gen = OllamaAnswerGenerator(llm)
+    output = gen.generate_structured(retrieval_result)
+
+    assert output.canonical_answer == "1969 until 1974"
+    assert output.abstained is False
+    assert set(output.cited_chunk_ids) == {"D009_C0000", "D003_C0000"}
+
+
+# ---------------------------------------------------------------------------
+# Test 15: Cross-domain multi-hop attribution (Domain Invariance)
+# ---------------------------------------------------------------------------
+def test_15_synthetic_multi_hop_domain_invariance() -> None:
+    """Multi-hop bridge question in academic/scientific domain resolves correctly across hops."""
+    c1 = _make_chunk(
+        "ACAD_C01",
+        "DOC_01",
+        "The Raman effect was discovered in 1928 by C. V. Raman at the Indian Association for the Cultivation of Science located in Kolkata.",
+    )
+    c2 = _make_chunk(
+        "ACAD_C02",
+        "DOC_02",
+        "Kolkata is the primary capital city of the state of West Bengal in India.",
+    )
+
+    query_plan = QueryPlan(
+        question="The institution where the Raman effect was discovered is located in a city belonging to what state?",
+        intent="LOCAL",
+    )
+
+    retrieval_result = RetrievalResult(
+        kb_id="test_kb",
+        question=query_plan.question,
+        query_plan=query_plan,
+        evidence_list=[c1, c2],
+    )
+
+    llm = OllamaLLMClient(
+        custom_generator=lambda _p: json.dumps({
+            "reasoning": "The Raman effect was discovered at the Indian Association for the Cultivation of Science in Kolkata [ACAD_C01]. Kolkata belongs to the state of West Bengal [ACAD_C02].",
+            "extracted_attributes": [
+                {
+                    "entity_name": "Kolkata",
+                    "entity_id": None,
+                    "attribute_name": "STATE",
+                    "extracted_value": "West Bengal",
+                    "evidence_quote": "Kolkata is the primary capital city of the state of West Bengal in India.",
+                    "chunk_id": "ACAD_C02",
+                }
+            ],
+            "canonical_answer": "West Bengal",
+            "answer": "The Indian Association for the Cultivation of Science is in Kolkata [ACAD_C01], which is located in West Bengal [ACAD_C02].",
+            "abstained": False,
+            "cited_chunk_ids": ["ACAD_C01", "ACAD_C02"],
+        })
+    )
+
+    gen = OllamaAnswerGenerator(llm)
+    output = gen.generate_structured(retrieval_result)
+
+    assert output.canonical_answer == "West Bengal"
+    assert output.abstained is False
+    assert set(output.cited_chunk_ids) == {"ACAD_C01", "ACAD_C02"}

@@ -1,8 +1,8 @@
-# Hybrid GraphRAG Public Python API
+# Hybrid GraphRAG Public Python API Reference
 
-This document provides a comprehensive guide to the public Python interface for the **Hybrid GraphRAG** engine.
+This document provides a complete reference for the public Python interface of the **Hybrid GraphRAG** engine.
 
-The public interface is designed as an enterprise-ready, thin facade (`HybridGraphRAG`) exposing document ingestion, multi-tenancy knowledge-base isolation, multi-route retrieval, evidence-grounded answer generation, and verified citation validation.
+The public interface is designed as an enterprise-grade facade (`HybridGraphRAG`) providing document ingestion, multi-tenant knowledge base isolation, multi-route retrieval, evidence-grounded answer generation, and verifiable citation validation.
 
 ---
 
@@ -10,7 +10,7 @@ The public interface is designed as an enterprise-ready, thin facade (`HybridGra
 
 ### Installation & Import
 
-Import the facade and response models directly from `hybrid_graphrag`:
+Import the primary facade, response models, and exception classes from `hybrid_graphrag`:
 
 ```python
 from hybrid_graphrag import (
@@ -18,204 +18,242 @@ from hybrid_graphrag import (
     QueryResult,
     Citation,
     HybridGraphRAGError,
+    ConfigurationError,
+    IngestionError,
+    KnowledgeBaseNotFoundError,
+    QueryError,
 )
 ```
 
-*(Note: Dual-path importing via `from src import HybridGraphRAG` is also fully supported for backwards compatibility).*
-
-### Basic Usage
+### Complete End-to-End Example
 
 ```python
 from pathlib import Path
 from hybrid_graphrag import HybridGraphRAG
 
-# Initialize an isolated knowledge base
-with HybridGraphRAG.from_config("configs/default.yaml", kb_id="medical_kb") as engine:
-    # 1. Ingest files or directory
-    engine.ingest("./data/medical_papers")
+# 1. Initialize a new knowledge base from configuration
+with HybridGraphRAG.from_config("configs/default.yaml", kb_id="medical_research") as engine:
+    # 2. Ingest document directory (PDFs, Markdown, text)
+    stats = engine.ingest("./data/medical_papers", rebuild=True)
+    print(f"Ingested {stats.get('documents_processed')} documents into {engine.kb_id}")
 
-    # 2. Query the engine
+    # 3. Query the knowledge base
     result = engine.query(
         question="What treatments are effective for severe asthma?",
-        route="hybrid"
+        mode="hybrid"  # Options: "hybrid", "vector_only", "graph_only", "community_aware"
     )
 
-    # 3. Access verified answer and citations
-    print(result.answer)
-    for c in result.citations:
-        print(f"[{c.citation_id}] Document {c.doc_id}: {c.text}")
+    # 4. Access structured answer, canonical answer, and citations
+    print(f"Canonical Answer: {result.canonical_answer}")
+    print(f"Answer: {result.answer}\n")
+    print("Verified Citations:")
+    for citation in result.citations:
+        print(f"- [{citation.chunk_id}] {citation.filename} (p.{citation.page_numbers}): {citation.text_snippet}")
 ```
 
 ---
 
 ## 2. Factory Methods & Initialization
 
-The `HybridGraphRAG` class provides two primary factory constructors to create or resume an engine instance.
+The `HybridGraphRAG` class provides two primary constructors to create or resume an engine instance.
 
 ### `HybridGraphRAG.from_config(...)`
 
-Initializes a new knowledge base or attaches to an existing one using an explicit configuration dictionary or YAML file path.
+Initializes a new knowledge base or re-attaches to an existing one using an explicit configuration dictionary, domain YAML file, or `EngineConfig` object.
 
 ```python
 engine = HybridGraphRAG.from_config(
-    config="configs/default.yaml",  # str, Path, or dict
-    kb_id="research_kb",            # Knowledge base identifier
-    domain_ontology_path=None       # Optional custom domain ontology YAML
+    config="configs/default.yaml",  # Union[str, Path, Dict[str, Any], EngineConfig]
+    kb_id="research_kb",            # Optional[str] override for knowledge base ID
+    base_dir=".",                   # Union[str, Path] base directory for storage
+    llm_client=None,                # Optional custom OllamaLLMClient
+    embedding_service=None,         # Optional custom EmbeddingProvider
 )
 ```
 
-- **`config`** (`str | Path | dict`): Path to a configuration YAML file or a dictionary conforming to `SystemConfig`.
-- **`kb_id`** (`str`): Target knowledge base identifier. If omitted, defaults to `"default_kb"`.
-- **`domain_ontology_path`** (`str | Path | None`): Optional path to a domain ontology schema for targeted entity and relation extraction.
+- **`config`** (`str | Path | dict | EngineConfig`): Path to a configuration YAML (or domain configuration file), dictionary mapping, or validated `EngineConfig`.
+- **`kb_id`** (`str | None`): Optional knowledge base identifier override. Must not contain path separators.
+- **`base_dir`** (`str | Path`): Base directory for resolving relative storage paths (default: `"."`).
+- **`llm_client`** (`OllamaLLMClient | None`): Optional custom LLM client for non-Ollama inference or testing mocks.
+- **`embedding_service`** (`EmbeddingProvider | None`): Optional custom dense embedding provider.
 
-### `HybridGraphRAG.from_existing(kb_dir)`
+### `HybridGraphRAG.from_existing(...)`
 
-Reopens an existing, persisted knowledge base without re-ingesting documents, re-extracting entities, or re-indexing embeddings.
+Reopens an existing, already-indexed knowledge base without re-ingesting documents, re-extracting entities, or re-computing embeddings.
 
 ```python
-engine = HybridGraphRAG.from_existing("knowledge_bases/research_kb")
+engine = HybridGraphRAG.from_existing(
+    kb_dir="knowledge_bases/research_kb",  # Union[str, Path]
+    base_dir=".",                          # Union[str, Path]
+    llm_client=None,                       # Optional custom OllamaLLMClient
+    embedding_service=None,                # Optional custom EmbeddingProvider
+)
 ```
 
-- Automatically recovers `config_snapshot.yaml` saved during previous runs.
-- Loads existing NetworkX graph, document chunks, and vector store collections immediately.
-- Raises `KnowledgeBaseNotFoundError` if the directory does not exist or lacks snapshot configuration.
+- Automatically loads `config_snapshot.yaml` saved during original indexing.
+- Re-hydrates in-memory `igraph.Graph` from persisted JSONL records and attaches to existing ChromaDB vector collections.
+- Raises `KnowledgeBaseNotFoundError` if the directory does not exist or lacks `config_snapshot.yaml`.
 
 ---
 
-## 3. Document Ingestion
+## 3. Core Engine Methods
+
+### `engine.ingest(...)`
+
+Ingests, chunks, extracts entities/relations, builds knowledge graphs, runs Leiden clustering, and indexes documents.
 
 ```python
 stats = engine.ingest(
-    source="path/to/docs",  # Single file or directory path
-    document_ids=None       # Optional custom IDs mapping
+    input_path="./inputs/my_docs",  # Union[str, Path] directory or PDF file
+    rebuild=True                    # bool, whether to clear existing records
 )
 ```
 
-- Accepts a file path (`.txt`, `.md`, `.json`, `.pdf`) or directory containing documents.
-- Chunks text according to chunking configuration, runs entity & relation extraction, resolves coreferences and canonical entities, builds the knowledge graph, and indexes embeddings into ChromaDB.
-- **Returns**: Dictionary with ingestion metrics (e.g. `{"document_count": 5, "chunk_count": 42}`).
-- **Errors**: Raises `IngestionError` if the path does not exist or parsing fails.
+- **`input_path`**: Path to a directory containing `.pdf`, `.txt`, or `.md` files, or a single PDF file.
+- **`rebuild`**: If `True` (default), clears any previous index for this `kb_id` before indexing.
+- **Returns**: Dictionary of indexing metrics (e.g. `documents`, `chunks`, `entities`, `relationships`, `communities`).
+- **Raises**: `IngestionError` if the input path does not exist or parsing fails.
 
----
+### `engine.query(...)`
 
-## 4. Querying & Retrieval Routes
+Executes multi-route retrieval, reciprocal rank fusion, and grounded answer generation with verifiable inline citations.
 
 ```python
 result: QueryResult = engine.query(
-    question="Were Scott Derrickson and Ed Wood of the same nationality?",
-    route="hybrid",
-    top_k=8
+    question="Which writer was from England, Henry Roth or Robert Erskine Childers?",
+    mode="hybrid",        # "hybrid" | "vector_only" | "graph_only" | "community_aware"
+    route=None,           # Backward-compatible alias for 'mode'
+    scope_id=None,        # Optional tenant or document scope filter
 )
 ```
 
-### Available Routes:
-- `"hybrid"` *(Default)*: Reciprocal Rank Fusion (RRF) combining vector similarity and multi-hop graph traversal.
-- `"vector"`: Dense semantic retrieval using chunk embeddings.
-- `"graph"`: Multi-hop graph entity traversal over canonical entities and relations.
-- `"community"`: Leiden community detection and graph-grounded community report retrieval.
+- **`question`** (`str`): The natural language question to answer. Must not be empty.
+- **`mode`** (`str`): Retrieval routing strategy.
+  - `"hybrid"` *(Default)*: Reciprocal Rank Fusion (RRF $k=60$) combining multi-hop `igraph` BFS traversal and ChromaDB dense vector search.
+  - `"vector_only"`: Dense cosine similarity retrieval over chunk embeddings.
+  - `"graph_only"`: Seed-directed multigraph traversal over canonical entities and relations.
+  - `"community_aware"`: Leiden community detection reports combined with local chunk evidence.
+- **`route`** (`str | None`): Alias for `mode` for backward compatibility.
+- **`scope_id`** (`str | None`): Optional tenant or document metadata filter.
+- **Returns**: `QueryResult` object.
+- **Raises**: `QueryError` if retrieval or generation fails; `ValueError` for invalid questions or modes.
+
+### `engine.get_kb_stats()`
+
+Returns runtime summary statistics of the active knowledge base:
+
+```python
+stats = engine.get_kb_stats()
+```
+
+Returns:
+```python
+{
+    "kb_id": "medical_research",
+    "documents": 12,
+    "chunks": 148,
+    "entities": 320,
+    "relationships": 580,
+    "communities": 18,
+    "community_reports": 18,
+    "vector_store_counts": {
+        "chunks": 148,
+        "entities": 320,
+        "community_reports": 18
+    },
+    "graph": {
+        "vertices": 320,
+        "edges": 580
+    }
+}
+```
+
+### `engine.close()`
+
+Releases cached graph memory structures, document index references, and underlying storage handles.
 
 ---
 
-## 5. Response Models
+## 4. Response Data Models
 
 ### `QueryResult`
 
-The query method returns a structured `QueryResult` dataclass:
+The structured result returned by `engine.query()`:
 
 | Field | Type | Description |
-|---|---|---|
-| `question` | `str` | The input user query. |
-| `answer` | `str` | Synthesized answer grounded strictly in verified evidence. |
-| `route` | `str` | Retrieval route used (`"hybrid"`, `"vector"`, `"graph"`, `"community"`). |
-| `citations` | `list[Citation]` | Verified supporting citations linked to source chunks. |
-| `raw_context` | `str` | Full structured context provided to the generation LLM. |
-| `abstained` | `bool` | `True` if the engine abstained due to insufficient evidence or conflict. |
-| `abstention_reason` | `str | None` | Reason for abstention if `abstained=True`. |
-| `latency_seconds` | `float` | Query latency in seconds. |
-| `metadata` | `dict` | Diagnostic metrics (e.g. candidate entity counts, chunk IDs). |
+| :--- | :--- | :--- |
+| `question` | `str` | The original user question. |
+| `answer` | `str` | Full synthesized answer with inline chunk citations (e.g. `[D007_C0000]`). |
+| `canonical_answer` | `str \| None` | Concise, normalized direct answer (e.g. `"yes"`, `"no"`, entity name, or phrase). |
+| `abstained` | `bool` | `True` if the engine abstained due to missing or conflicting evidence. |
+| `abstention_reason` | `str \| None` | Explicit diagnostic explanation if `abstained=True`. |
+| `citations` | `List[Citation]` | List of verified citations supporting the answer. |
+| `cited_chunk_ids` | `List[str]` | Unique chunk identifiers cited in the answer. |
+| `mode` | `str` | Active retrieval mode (e.g. `"hybrid"`). |
+| `route` | `str` | Property alias for `mode`. |
+| `latency_seconds` | `float` | Total query execution time in seconds. |
+| `timing` | `Dict[str, float]` | Detailed latency breakdown (e.g. `query_planning_seconds`, `answer_generation_seconds`). |
+| `raw_result` | `RetrievalResult \| None` | Internal retrieval result containing full evidence objects. |
 
 ### `Citation`
 
-Each citation represents an evidence attribution verified against the underlying retrieved text chunks:
+Represents an individual evidence citation validated against source document chunks:
 
 | Field | Type | Description |
-|---|---|---|
-| `citation_id` | `str` | Citation identifier in the answer (e.g., `"[1]"` or `"[CHK_001]"`). |
-| `chunk_id` | `str` | Ground truth chunk ID from the knowledge base. |
-| `doc_id` | `str` | Source document ID containing the chunk. |
-| `text` | `str` | The exact supporting text passage. |
-| `valid` | `bool` | Whether the citation was validated by the engine (`True`). |
+| :--- | :--- | :--- |
+| `chunk_id` | `str` | Unique chunk identifier (e.g. `"D007_C0000"`). |
+| `citation_id` | `str` | Property alias for `chunk_id` for backward compatibility. |
+| `doc_id` | `str` | Source document identifier (e.g. `"D007"`). |
+| `filename` | `str` | Source file name (e.g. `"ctx_006_Robert_Erskine_Childers.txt"`). |
+| `page_numbers` | `List[int]` | Source page numbers where the passage appears. |
+| `text_snippet` | `str \| None` | Excerpt of the cited chunk text. |
+| `text` | `str \| None` | Property alias for `text_snippet`. |
+| `valid` | `bool` | Whether the citation was verified against retrieved chunks (`True`). |
 
 ---
 
-## 6. Knowledge Base Isolation & Multi-Tenancy
+## 5. Lifecycle Management
 
-Every knowledge base managed by `HybridGraphRAG` is strictly isolated within its own directory under `storage_root`:
-
-```
-knowledge_bases/
-├── research_papers/
-│   ├── config_snapshot.yaml
-│   ├── graph.json
-│   ├── chunks.json
-│   └── chromadb/
-└── medical_records/
-    ├── config_snapshot.yaml
-    ├── graph.json
-    ├── chunks.json
-    └── chromadb/
-```
-
-- **Zero Leakage**: Graph traversals, ChromaDB collections, and community reports are partitioned per `kb_id`.
-- **Independent Lifecycles**: Knowledge bases can be ingested, queried, or deleted independently without affecting peers.
-
----
-
-## 7. Lifecycle & Resource Management
-
-Engines should be properly closed to release locks and underlying storage connections.
-
-### Using Context Manager (Recommended):
+Instances implement the Python context manager protocol (`__enter__` / `__exit__`):
 
 ```python
-with HybridGraphRAG.from_config("configs/default.yaml", kb_id="my_kb") as engine:
-    result = engine.query("What is the main finding?")
+# Context manager automatically calls engine.close() upon exit
+with HybridGraphRAG.from_existing("knowledge_bases/my_kb") as engine:
+    result = engine.query("What is the primary conclusion?")
+    print(result.answer)
 ```
 
-### Manual Lifecycle:
-
+Manual lifecycle pattern:
 ```python
-engine = HybridGraphRAG.from_config("configs/default.yaml", kb_id="my_kb")
+engine = HybridGraphRAG.from_existing("knowledge_bases/my_kb")
 try:
-    result = engine.query("What is the main finding?")
+    result = engine.query("What is the primary conclusion?")
 finally:
     engine.close()
 ```
 
 ---
 
-## 8. Exception Hierarchy
+## 6. Exception Hierarchy
 
-All public exceptions inherit from `HybridGraphRAGError`:
+All exceptions raised by the public API derive from `HybridGraphRAGError`:
 
 ```text
 HybridGraphRAGError
-├── ConfigurationError
-├── KnowledgeBaseNotFoundError
-├── IngestionError
-├── QueryError
-└── ModelError
+├── ConfigurationError          # Invalid configuration format or missing files
+├── KnowledgeBaseNotFoundError  # Target KB directory or snapshot does not exist
+├── IngestionError              # Document loading, parsing, or indexing failures
+└── QueryError                  # Retrieval, planning, or generation execution errors
 ```
 
-Catch them cleanly in client code:
-
+Example exception handling:
 ```python
 from hybrid_graphrag import HybridGraphRAG, ConfigurationError, KnowledgeBaseNotFoundError
 
 try:
-    engine = HybridGraphRAG.from_existing("non_existent_kb")
-except KnowledgeBaseNotFoundError as e:
-    print(f"KB directory not found: {e}")
-except ConfigurationError as e:
-    print(f"Invalid configuration: {e}")
+    engine = HybridGraphRAG.from_existing("knowledge_bases/nonexistent_kb")
+except KnowledgeBaseNotFoundError as exc:
+    print(f"KB not found: {exc}")
+except ConfigurationError as exc:
+    print(f"Configuration error: {exc}")
 ```

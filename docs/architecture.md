@@ -1,101 +1,192 @@
-# Hybrid GraphRAG System Architecture Specification
+# Enterprise Hybrid GraphRAG Engine: System Architecture
 
-## 1. Overview & High-Level Philosophy
+## 1. Executive Summary & Design Principles
 
-The Hybrid GraphRAG System combines the structural, multi-hop reasoning capabilities of directed Knowledge Graphs (via `igraph`) with the semantic flexibility of dense vector similarity (via `ChromaDB`) and high-level thematic abstractions (via `Leiden` community detection).
+The **Hybrid GraphRAG Engine** is an enterprise-grade, offline-first Retrieval-Augmented Generation system. It synthesizes the deterministic topological precision of directed property knowledge graphs with the semantic versatility of dense vector retrieval and hierarchical community clustering.
 
-Operating completely on a local, cost-free stack powered by **Ollama** (`gemma3:4b` for extraction, summarization, planning, and grounded generation; `embeddinggemma:latest` for 768-dimensional dense embeddings), the architecture is partitioned into **19 distinct stages** across two execution phases:
-1. **Offline Indexing Pipeline** (Stages 1–10)
-2. **Online Query & Retrieval Pipeline** (Stages 11–19)
+### Core Architectural Axioms
+1. **Zero External API Dependencies**: Built 100% on local model infrastructure using **Ollama** (`gemma3:4b` / `qwen2.5:7b` for reasoning and extraction; `embeddinggemma:latest` for 768-dimensional dense representations).
+2. **Deterministic Topological Grounding**: Facts, relations, and communities maintain immutable bi-directional provenance linkages back to original document text chunks and character spans.
+3. **Multi-Domain Tenant Isolation**: Physical separation of storage, vector indices, graph partitions, and configuration snapshots per Knowledge Base ID (`kb_id`), preventing cross-domain information leakage.
+4. **Deterministic Reasoning Engine**: Comparative queries (Boolean equivalence and entity selection) and multi-hop bridge questions are resolved through rule-grounded, verifiable verification layers rather than speculative generative hallucinations.
 
 ---
 
-## 2. End-to-End Architectural Data Flow
+## 2. Ingestion Pipeline Architecture
+
+The ingestion pipeline converts unstructured heterogeneous documents (PDFs, Markdown, text) into validated multigraph representations, vector indices, and hierarchical Leiden community summaries.
 
 ```mermaid
 flowchart TD
-    subgraph Offline_Indexing ["Phase 1: Offline Indexing Pipeline"]
-        A["Raw Documents (.pdf, .txt, .md)"] --> B["Stage 1-2: PDFLoader"]
-        B --> C["Stage 3: DeterministicChunker<br/>(1100 chars, 180 overlap)"]
-        C --> D["Stage 4: Entity & Relationship Extraction<br/>(gemma3:4b + Ontology Constraints)"]
-        D --> E["Stage 5: Conservative Entity Resolution<br/>(5-step matching + Remapping)"]
-        E --> F["Stage 6: Dense Embedding Generation<br/>(embeddinggemma:latest, 768-d)"]
-        F --> G["ChromaDB Collections<br/>(entity_descriptions, text_chunks)"]
-        E --> H["Stage 7: Directed Multigraph Construction<br/>(igraph.Graph + GraphValidator)"]
-        H --> I["Stage 8: Fixed Leiden Clustering<br/>(Undirected Projection, seed=42)"]
-        I --> J["Stage 9: Community Summarization<br/>(CommunityReport synthesis)"]
-        J --> K["ChromaDB Collection<br/>(community_reports)"]
-        H --> L["Stage 10: JSONL Persistence & Manifest<br/>(DocumentStore + manifest.json)"]
+    subgraph Ingestion ["1. Document Processing & Ingestion"]
+        A["Raw Documents (.pdf, .txt, .md)"] --> B["PDFLoader & Normalizer"]
+        B --> C["DeterministicChunker<br/>(1100 chars, 180 overlap)"]
     end
 
-    subgraph Online_Query ["Phase 2: Online Query & Retrieval Engine"]
-        Q["User Natural Language Question"] --> QP["Stage 11: Query Planner<br/>(LOCAL, GLOBAL, MIXED intent)"]
-        QP --> SR["Stage 12: Seed Entity Retriever<br/>(4-step hierarchy + Ambiguity check)"]
-        SR --> GT["Stage 13: Graph Traversal Retriever<br/>(Directed BFS, Cycle-free, max_hops=3)"]
-        QP --> VR["Stage 14: Dense Vector Retriever<br/>(ChromaDB text_chunks, cosine metric)"]
-        QP --> CR["Stage 15: Community Retriever<br/>(ChromaDB community_reports)"]
-        GT & VR & CR --> EM["Stage 16: Evidence Merger<br/>(Deduplication by chunk_id)"]
-        EM --> RRF["Stage 17: Reciprocal Rank Fusion (RRF)<br/>k=60 + Graph grounding tie-break"]
-        RRF --> CB["Stage 18: Context Builder<br/>(Community summaries + Graph paths + Chunks, max 12k chars)"]
-        CB --> AG["Stage 19: Grounded Answer Generator<br/>(Inline citations [C001, D001, p.1] + Abstention)"]
-        AG --> ANS["Final Factually Grounded Answer"]
+    subgraph Extraction ["2. Ontology-Bound Extraction"]
+        C --> D["Ollama LLM (gemma3:4b)<br/>Structured Extraction Schema"]
+        D --> E{"Ontology Validator"}
+        E -- "Valid Triple" --> F["Entity Mentions & Triples"]
+        E -- "Invalid/Negated" --> G["Rejection Log (manifest.json)"]
+    end
+
+    subgraph Resolution ["3. Conservative Entity Resolution"]
+        F --> H["Surface Normalization"]
+        H --> I["Honorific & Alias Stripping"]
+        I --> J["Dense Vector Similarity (EmbeddingGemma)"]
+        J --> K["Disambiguation & Remapping"]
+        K --> L["Canonical Entities"]
+    end
+
+    subgraph Storage_Build ["4. Graph & Vector Indexing"]
+        L --> M["igraph Directed Multigraph Builder"]
+        C & L --> N["ChromaDB Collections<br/>(text_chunks, entity_descriptions)"]
+        M --> O["Leiden Clustering (seed=42, res=1.0)"]
+        O --> P["Community Detection (RBConfiguration)"]
+        P --> Q["Graph-Grounded Summarizer"]
+        Q --> R["ChromaDB (community_reports)"]
+        M --> S["Graph Fingerprint (SHA-256) & Manifest"]
+    end
+```
+
+### Ingestion Stages
+1. **Document Loading & Normalization**: Deterministic alphabetical file ordering, sequential identifier assignment (`D001`, `D002`), line-ending canonicalization (`\r\n` $\to$ `\n`), per-page tracking.
+2. **Deterministic Chunking**: Sliding-window chunker with character limit ($1,100$) and overlap ($180$). Boundary preference heuristics prioritize paragraphs, sentences, and punctuation within the final 25% boundary window.
+3. **Ontology-Bound Extraction**: Extraction prompt restricted by strict domain ontology (`DomainOntology`). Rejects quote mismatches, negated facts, and invalid endpoint entity types.
+4. **Conservative Entity Resolution**: 5-step resolution pipeline: surface matching $\to$ honorific stripping $\to$ exact/alias matching $\to$ embedding cosine similarity ($\ge 0.82$) $\to$ ambiguous band verification.
+5. **Directed Multigraph Construction**: Preserves distinct relationship types on directed multigraph edges in `igraph`, aggregating duplicate edges and merging provenance chunk sets.
+6. **Leiden Community Detection**: Projects unmutated undirected graph with distinct chunk support weights, computing Leiden partitions with fixed random seed ($42$).
+7. **Graph-Grounded Community Summarization**: Hierarchical community report generation featuring deterministic fast-path for singletons and grounded LLM synthesis for multi-node clusters.
+
+---
+
+## 3. Retrieval & Fusion Pipeline
+
+The retrieval pipeline dynamically adapts to query complexity, retrieving structural paths, semantic chunks, and high-level community overviews, combining them via Reciprocal Rank Fusion (RRF).
+
+```mermaid
+flowchart TD
+    subgraph Query_Planning ["1. Query Analysis & Planning"]
+        Q["User Query"] --> QP["Query Planner (LLM)"]
+        QP --> Intent["Intent Classification<br/>(LOCAL, GLOBAL, MIXED)"]
+        QP --> Seeds["Seed Entity Extraction"]
+        QP --> Path["Planned Relationship Path"]
+    end
+
+    subgraph Retrieval_Streams ["2. Parallel Retrieval Streams"]
+        Seeds --> SR["Seed Entity Resolver<br/>(Exact -> Alias -> Vector)"]
+        SR --> GT["igraph BFS Traversal<br/>(Cycle-free, max_hops=3)"]
+        Q --> VR["Dense Vector Search<br/>(ChromaDB text_chunks)"]
+        Intent --> CR["Community Search<br/>(ChromaDB community_reports)"]
+    end
+
+    subgraph Fusion ["3. Evidence Merging & Rank Fusion"]
+        GT --> EM["Evidence Deduplicator & Merger"]
+        VR --> EM
+        CR --> EM
+        EM --> RRF["Reciprocal Rank Fusion (k=60)<br/>RRF = 1/(60+r_graph) + 1/(60+r_vector)"]
+        RRF --> TieBreak["Deterministic Tie-Breaking<br/>(Supporting Edges, Provenance)"]
+    end
+
+    subgraph Generation ["4. Context Budgeting & Generation"]
+        TieBreak --> CB["Context Builder<br/>(Budget: 12,000 characters)"]
+        CB --> AG["Grounded Answer Generator"]
+        AG --> Output["Structured QueryResult<br/>(Answer, Canonical Answer, Citations)"]
+    end
+```
+
+### Retrieval Stages
+1. **Query Planning**: LLM classifies question intent into `LOCAL` (entity-centric), `GLOBAL` (thematic overview), or `MIXED` (multi-hop relational). Identifies seed entities and predicted traversal paths.
+2. **Seed Entity Resolution**: Matches seed entity specifications against canonical graph nodes using exact string, normalized alias, and embedding fallback.
+3. **Directed Graph Traversal**: Breadth-First Search (BFS) up to `max_hops=3`, enforcing cycle prevention, optional tenant/scope filtering, and scoring edge type relevance.
+4. **Dense Vector Retrieval**: HNSW cosine similarity lookup over text chunk embeddings.
+5. **Hierarchical Community Retrieval**: Semantic discovery across macro-thematic community reports for global context.
+6. **Reciprocal Rank Fusion (RRF)**: Merges candidates across retrieval channels with formula:
+   $$\text{RRF}(d) = \sum_{m \in \{\text{graph}, \text{vector}\}} \frac{1}{k + r_m(d)} \quad (k=60)$$
+   Ties are broken deterministically by graph supporting edge count, graph presence, and chunk ID.
+7. **Context Construction**: Formats Community Overviews, Directed Graph Paths, and Text Chunks within a strict $12,000$ character window budget.
+
+---
+
+## 4. Deterministic Comparative & Multi-Hop Reasoning
+
+To eliminate LLM hallucinations on comparative and multi-hop queries, the engine implements a deterministic verification layer.
+
+```mermaid
+flowchart TD
+    Start["Incoming Query & Retrieved Evidence"] --> IntentCheck{"Query Intent Classification"}
+
+    IntentCheck -- "Entity Selection<br/>('Which of A or B...')" --> SelBranch["ComparativeReasoningEngine.evaluate_selection"]
+    IntentCheck -- "Boolean Comparison<br/>('Are A and B both...')" --> CompBranch["ComparativeReasoningEngine.evaluate_comparison"]
+    IntentCheck -- "Multi-Hop Bridge<br/>('X of Y that was formed by who?')" --> BridgeBranch["Multi-Hop Traversal & Fact Extraction"]
+    IntentCheck -- "General Factual" --> GenBranch["Direct Grounded Synthesis"]
+
+    subgraph Selection_Reasoning ["Selection Reasoning"]
+        SelBranch --> ExtractSeeds["Extract Verified Seed Attributes"]
+        ExtractSeeds --> CheckCriteria{"Does Entity Satisfy Criteria?"}
+        CheckCriteria -- "Entity 1 Only" --> Pick1["Select Entity 1"]
+        CheckCriteria -- "Entity 2 Only" --> Pick2["Select Entity 2"]
+        CheckCriteria -- "Both or Neither" --> AbstainSel["Abstain with Reason"]
+        Pick1 & Pick2 --> SuffixCheck{"Post-Nominal Suffix in Evidence?<br/>(e.g. 'DSC', 'Jr.', 'OBE')"}
+        SuffixCheck -- "Yes" --> AppendSuffix["Append Grounded Suffix"]
+        SuffixCheck -- "No" --> RetainName["Retain Canonical Name"]
+    end
+
+    subgraph Comparison_Reasoning ["Boolean Comparison Reasoning"]
+        CompBranch --> CompType{"Comparison Domain"}
+        CompType -- "Occupation" --> SpecCheck{"Evidence-Grounded Specialization<br/>(e.g. 'opera composer')"}
+        CompType -- "Location" --> GranCheck{"Location Granularity<br/>(neighborhood vs city vs country)"}
+        CompType -- "General/Nationality" --> NormCheck{"Demonym & Synonym Normalization"}
+        SpecCheck & GranCheck & NormCheck --> EquivResult{"Are Attributes Equivalent?"}
+        EquivResult -- "Identical" --> AnsYes["canonical_answer: 'yes'"]
+        EquivResult -- "Different" --> AnsNo["canonical_answer: 'no'"]
+        EquivResult -- "Insufficient" --> AnsAbstain["Abstain"]
+    end
+
+    subgraph Bridge_Reasoning ["Multi-Hop Bridge Reasoning"]
+        BridgeBranch --> Step1["Hop 1: Resolve Premise to Bridge Entity<br/>(e.g. '2014 S/S' -> 'WINNER')"]
+        Step1 --> Disambig{"Distractor Check<br/>(Match all relational criteria)"}
+        Disambig --> Step2["Hop 2: Resolve Bridge Entity to Target Attribute<br/>(e.g. 'WINNER' -> 'YG Entertainment')"]
+        Step2 --> CanonTarget["canonical_answer = Target Attribute<br/>(Never intermediate entity)"]
     end
 ```
 
 ---
 
-## 3. Storage Layout & Knowledge Base Isolation
+## 5. Storage Layer & Multi-Tenant Knowledge Base Isolation
 
-All data, models, graphs, and vector collections are strictly scoped by `kb_id` to guarantee zero cross-KB leakage:
+All data artifacts are physically isolated within dedicated Knowledge Base directories:
 
+```mermaid
+graph TD
+    Root["knowledge_bases/"]
+    Root --> KB1["knowledge_bases/kb_finance/"]
+    Root --> KB2["knowledge_bases/kb_legal/"]
+    Root --> KB3["knowledge_bases/kb_hotpotqa/"]
+
+    subgraph Layout ["Isolated Knowledge Base Directory Layout"]
+        KB3 --> Snapshot["config_snapshot.yaml (Active Configuration)"]
+        KB3 --> Manifest["manifest.json (Graph SHA-256 & Verification)"]
+        KB3 --> DataDir["data/"]
+        KB3 --> GraphDir["graph/"]
+        KB3 --> VectorDir["vector_store/ (ChromaDB Directory)"]
+
+        DataDir --> Chunks["processed/chunks.jsonl"]
+        DataDir --> Mentions["processed/entity_mentions.jsonl"]
+        DataDir --> Triples["processed/triples.jsonl"]
+
+        GraphDir --> Entities["graph/entities.jsonl"]
+        GraphDir --> Relations["graph/relationships.jsonl"]
+        GraphDir --> Comm["graph/communities.jsonl"]
+        GraphDir --> Reports["graph/community_reports.jsonl"]
+
+        VectorDir --> ColChunks["Collection: text_chunks (Cosine HNSW)"]
+        VectorDir --> ColEntities["Collection: entity_descriptions (Cosine HNSW)"]
+        VectorDir --> ColReports["Collection: community_reports (Cosine HNSW)"]
+    end
 ```
-knowledge_bases/
-└── <kb_id>/
-    ├── config_snapshot.yaml         # Deterministic active config snapshot
-    ├── manifest.json                # Graph validation metrics & SHA-256 fingerprint
-    ├── data/
-    │   ├── raw_documents/           # Original input documents
-    │   └── processed/
-    │       ├── documents.jsonl      # Normalized Document records
-    │       ├── pages.jsonl          # Extracted Page records with content hashes
-    │       ├── chunks.jsonl         # Text Chunk records with spans and hashes
-    │       ├── entity_mentions.jsonl# Raw surface entity mentions per chunk
-    │       ├── triples.jsonl        # Raw relationship extractions with validation status
-    │       └── mention_to_entity.jsonl # Mapping from mention_id to canonical entity_id
-    ├── graph/
-    │   ├── entities.jsonl           # CanonicalEntity records with merged aliases
-    │   ├── relationships.jsonl      # Aggregated validated multigraph edges
-    │   ├── communities.jsonl        # Leiden partition assignments and modularity metrics
-    │   └── community_reports.jsonl  # Grounded CommunityReport syntheses
-    └── vector_store/                # ChromaDB persistent directory
-        ├── entity_descriptions      # Cosine HNSW collection of CanonicalEntity descriptions
-        ├── text_chunks              # Cosine HNSW collection of Chunk text with scope_id
-        └── community_reports        # Cosine HNSW collection of CommunityReport summaries
-```
 
----
-
-## 4. Pipeline Stages Specification
-
-### Offline Indexing (Stages 1–10)
-1. **Directory Loading & Ingestion**: Deterministically sorts files alphabetically, assigns sequential IDs (`D001`, `D002`), normalizes line breaks (`\r\n` $\to$ `\n`), extracts per-page text, flags empty/scanned documents.
-2. **Deterministic Chunking**: Sliding character window (`chunk_size=1100`, `chunk_overlap=180`) respecting sentence/paragraph boundaries within the last 25% boundary preference window.
-3. **Ontology-Constrained Extraction**: Zero-shot LLM prompts structured via Pydantic schemas. Verifies exact quote substrings (`REJECTED_QUOTE_MISMATCH`), checks polarity/negation (`REJECTED_NEGATION`), and verifies endpoint types against `DomainOntology` (`REJECTED_ONTOLOGY`).
-4. **Conservative Entity Resolution**: 5-step pipeline: surface normalization $\to$ honorific stripping $\to$ exact/alias matching $\to$ embedding similarity discovery ($\ge 0.82$) $\to$ ambiguous verification band ($0.82 \le \text{sim} < 0.95$). Remaps edges, eliminates self-loops, and aggregates identical multigraph edges.
-5. **ChromaDB Indexing**: Cosine distance indexing of canonical entity representations and text chunks.
-6. **igraph Multigraph Construction**: Constructs directed `igraph.Graph` preserving multigraph edge relationships. Generates deterministic SHA-256 `graph_fingerprint` and validates endpoints and provenance.
-7. **Leiden Community Detection**: Builds an unmutated undirected projection with distinct supporting chunk weights, finding modular partitions (`seed=42`, `res=1.0`).
-8. **Community Summarization**: Generates comprehensive factual synthesis per community, persisting to `community_reports.jsonl` and indexing into ChromaDB.
-
-### Online Query Engine (Stages 11–19)
-11. **Query Planning**: LLM classifies intent into `LOCAL`, `GLOBAL`, or `MIXED`, identifies seed entities, expected target types, and planned relationship traversal paths validated against ontology constraints.
-12. **Seed Entity Resolution**: Resolves natural language entity specs through exact name match $\to$ honorific-stripped alias match $\to$ vector lookup $\to$ tie ambiguity verification.
-13. **Directed Graph Traversal**: BFS traversal up to `max_hops=3`, preventing vertex cycles, filtering by `scope_id`, and scoring path alignment against planned relationship sequences.
-14. **Vector Retrieval**: Cosine similarity chunk discovery across the text chunk collection.
-15. **Community Retrieval**: Discovers thematic community reports for broad overview queries.
-16. **Evidence Merging**: Groups items by `chunk_id`, unioning routes (`GRAPH`, `VECTOR`, `COMMUNITY`), preserving minimum ranks and graph paths.
-17. **Reciprocal Rank Fusion (RRF)**: Computes score:
-    $$\text{RRF Score} = \frac{1}{k + \text{graph\_rank}} + \frac{1}{k + \text{vector\_rank}} \quad (k=60)$$
-    Ties broken deterministically by supporting edge count, graph rank presence, and chunk ID.
-18. **Context Construction**: Formats Community Summaries, Graph Traversal Paths, and Chunks within a strict character budget (`max_context_chars=12000`).
-19. **Grounded Answer Generation**: LLM answers strictly using context evidence, generating inline citations `[chunk_id, doc_id, p.X]`, handling conflicting evidence, and cleanly abstaining if context is insufficient.
+### Isolation Guarantees
+- **Config Immobility**: Once initialized or indexed, the configuration snapshot (`config_snapshot.yaml`) locks the chunking parameters, ontology, and embedding model.
+- **Data Encapsulation**: ChromaDB collections and igraph indices exist strictly inside the `kb_id` subdirectory; queries to `kb_finance` cannot access vectors or vertices from `kb_legal`.
+- **Integrity Verification**: `manifest.json` preserves the SHA-256 fingerprint of the serialized multigraph, ensuring corruption or accidental file modification is detected on load.

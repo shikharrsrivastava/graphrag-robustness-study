@@ -1,0 +1,794 @@
+{
+  "timestamp": "2026-11-14T08:17:05Z",
+  "sample_size": 9,
+  "comparison_aggregates": {
+    "gemma3_4b": {
+      "exact_match": 0.8888888888888888,
+      "token_f1": 0.8888888888888888,
+      "abstention_rate": 0.0,
+      "mean_latency_seconds": 34.79819842589172
+    },
+    "qwen2_5_7b": {
+      "exact_match": 0.7777777777777778,
+      "token_f1": 0.8518518518518519,
+      "abstention_rate": 0.0,
+      "mean_latency_seconds": 84.423912
+    }
+  },
+  "per_question_results": [
+    {
+      "question_id": "5a8133725542995ce29dcbdb",
+      "question_index": 1,
+      "question_type": "comparison",
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "gold_answer": "Robert Erskine Childers DSC",
+      "is_regression_control": false,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "Henry Roth was American [D002_C0000], while Robert Erskine Childers was British [D007_C0000]. Therefore, Robert Erskine Childers DSC was from England, not Henry Roth.",
+        "canonical_answer": "Robert Erskine Childers DSC",
+        "reasoning": "The question asks which writer was from England, comparing Henry Roth and Robert Erskine Childers. Chunk D002_C0000 states that Henry Roth was an American novelist and short story writer. Chunk D007_C0000 states that Robert Erskine Childers was a British writer. Therefore, Robert Erskine Childers was from England, while Henry Roth was from America.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Henry Roth",
+            "entity_id": null,
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "American",
+            "evidence_quote": "Henry Roth (February 8, 1906 \u2013 October 13, 1995) was an American novelist and short story writer.",
+            "chunk_id": "D002_C0000"
+          },
+          {
+            "entity_name": "Robert Erskine Childers",
+            "entity_id": "E017",
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "British",
+            "evidence_quote": "Robert Erskine Childers DSC (25 June 1870 \u2013 24 November 1922), universally known as Erskine Childers, was a British writer...",
+            "chunk_id": "D007_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D002_C0000",
+          "D007_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 20.72045037499629
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "Henry Roth was American [D002_C0000], while Robert Erskine Childers was British [D007_C0000]. Therefore, Robert Erskine Childers DSC was from England, not Henry Roth.",
+        "canonical_answer": "Robert Erskine Childers DSC",
+        "reasoning": "We need to determine the nationality of Henry Roth and Robert Erskine Childers based on the provided evidence. The evidence states that Henry Roth was an American novelist and short story writer, while Robert Erskine Childers was a British writer and Fenian revolutionary.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Henry Roth",
+            "entity_id": "E005",
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "American",
+            "evidence_quote": "Henry Roth (February 8, 1906 \u2013 October 13, 1995) was an American novelist and short story writer.",
+            "chunk_id": "D002_C0000"
+          },
+          {
+            "entity_name": "Robert Erskine Childers",
+            "entity_id": "E017",
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "British",
+            "evidence_quote": "Robert Erskine Childers DSC (25 June 1870 \u2013 24 November 1922), universally known as Erskine Childers, was a British writer, whose works included the influential novel 'The Riddle of the Sands', and a Fenian revolutionary who smuggled guns to Ireland in his sailing yacht 'Asgard'.",
+            "chunk_id": "D007_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D002_C0000",
+          "D007_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 80.5355729580042
+      }
+    },
+    {
+      "question_id": "5a8b57f25542995d1e6f1371",
+      "question_index": 2,
+      "question_type": "comparison",
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "gold_answer": "yes",
+      "is_regression_control": true,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+        "canonical_answer": "yes",
+        "reasoning": "The question asks if Scott Derrickson and Ed Wood were of the same nationality. The evidence provides information about their birthplaces. Scott Derrickson was born in Los Angeles, California [D002_C0000]. Ed Wood was born in October 10, 1924 in [D005_C0000]. These birthplaces indicate different nationalities: Derrickson is American and Wood is American. Therefore, they were not of the same nationality.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Scott Derrickson",
+            "entity_id": "E013",
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "American",
+            "evidence_quote": "Scott Derrickson (born July 16, 1966) is an American director, screenwriter and producer. He lives in Los Angeles, California.",
+            "chunk_id": "D002_C0000"
+          },
+          {
+            "entity_name": "Ed Wood",
+            "entity_id": "E040",
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "American",
+            "evidence_quote": "Edward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+            "chunk_id": "D005_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D002_C0000",
+          "D005_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 45.83287795899378
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "I am unable to answer this question. Verified evidence for the nationality of Ed Wood was not found in retrieved evidence.",
+        "canonical_answer": "",
+        "reasoning": "We need to determine the nationality of Scott Derrickson and Ed Wood based on the provided evidence. The evidence states that Scott Derrickson is American, but there is no explicit information about Ed Wood's nationality.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Scott Derrickson",
+            "entity_id": "E013",
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "American",
+            "evidence_quote": "Scott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.",
+            "chunk_id": "D002_C0000"
+          }
+        ],
+        "abstained": true,
+        "abstention_reason": "Verified evidence for the nationality of Ed Wood was not found in retrieved evidence.",
+        "cited_chunk_ids": [],
+        "citation_count": 0,
+        "valid_citation_count": 0,
+        "exact_match": 0,
+        "token_f1": 0.0,
+        "latency_seconds": 67.75782524999522
+      }
+    },
+    {
+      "question_id": "5ab29c24554299449642c932",
+      "question_index": 3,
+      "question_type": "comparison",
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "gold_answer": "yes",
+      "is_regression_control": false,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "Giuseppe Verdi was Opera composer [D004_C0000] and Ambroise Thomas was Opera composer [D006_C0000], and both are grounded by evidence as opera composers. Therefore, they were of the same attribute.",
+        "canonical_answer": "yes",
+        "reasoning": "The question asks if Giuseppe Verdi and Ambroise Thomas are both opera composers. Let's examine the evidence for each. Giuseppe Verdi is described as an Italian opera composer in several chunks, including [D004_C0000] and [D010_C0000]. Ambroise Thomas is described as a French composer known for his operas \"Mignon\" and \"Hamlet\" in [D006_C0000] and [D007_C0000]. Both are explicitly identified as opera composers within their respective chunks. Therefore, they share the same occupation.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Giuseppe Verdi",
+            "entity_id": "E017",
+            "attribute_name": "Occupation",
+            "extracted_value": "Opera composer",
+            "evidence_quote": "Giuseppe Fortunino Francesco Verdi (] ; 9 or 10 October 1813 \u2013 27 January 1901) was an Italian opera composer.",
+            "chunk_id": "D004_C0000"
+          },
+          {
+            "entity_name": "Ambroise Thomas",
+            "entity_id": "E055",
+            "attribute_name": "Occupation",
+            "extracted_value": "Opera composer",
+            "evidence_quote": "Charles Louis Ambroise Thomas (5 August 1811 \u2013 12 February 1896) was a French composer, best known for his operas \"Mignon\" (1866) and \"Hamlet\" (1868, after Shakespeare)",
+            "chunk_id": "D006_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000",
+          "D006_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 44.45350370800588
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "Giuseppe Verdi was Opera composer [D004_C0000] and Ambroise Thomas was Composer, best known for his operas [D006_C0000], and both are grounded by evidence as opera composers. Therefore, they were of the same attribute.",
+        "canonical_answer": "yes",
+        "reasoning": "We need to check if both Giuseppe Verdi and Ambroise Thomas are opera composers. The evidence states that Giuseppe Verdi was an Italian opera composer [D004_C0000]. For Ambroise Thomas, the evidence states that he was a French composer, best known for his operas [D006_C0000]. While both are composers, Ambroise Thomas is specifically mentioned as a composer of operas, which aligns with the definition of an opera composer.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Giuseppe Verdi",
+            "entity_id": "E017",
+            "attribute_name": "Occupation",
+            "extracted_value": "Opera composer",
+            "evidence_quote": "Giuseppe Fortunino Francesco Verdi (] ; 9 or 10 October 1813 \u2013 27 January 1901) was an Italian opera composer.",
+            "chunk_id": "D004_C0000"
+          },
+          {
+            "entity_name": "Ambroise Thomas",
+            "entity_id": "E055",
+            "attribute_name": "Occupation",
+            "extracted_value": "Composer, best known for his operas",
+            "evidence_quote": "Charles Louis Ambroise Thomas (5 August 1811 \u2013 12 February 1896) was a French composer, best known for his operas \"Mignon\" (1866) and \"Hamlet\" (1868, after Shakespeare) and as Director of the Conservatoire de Paris from 1871 till his death.",
+            "chunk_id": "D006_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000",
+          "D006_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 108.40788679200341
+      }
+    },
+    {
+      "question_id": "5a8db19d5542994ba4e3dd00",
+      "question_index": 4,
+      "question_type": "comparison",
+      "question": "Are Local H and For Against both from the United States?",
+      "gold_answer": "yes",
+      "is_regression_control": false,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "Local H was American [D005_C0000] and For Against was United States [D007_C0000]. Therefore, they were of the same nationality.",
+        "canonical_answer": "yes",
+        "reasoning": "The question asks if Local H and For Against are both from the United States. We need to examine the provided chunks to determine the nationalities of each band. Chunk D007_C0000 states that For Against is a United States post-punk/dream pop band from Lincoln, Nebraska. Chunk D005_C0000 states that Local H is an American rock band originally formed in Zion, Illinois. Therefore, both bands are from the United States.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Local H",
+            "entity_id": null,
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "American",
+            "evidence_quote": "Local H is an American rock band originally formed in Zion, Illinois.",
+            "chunk_id": "D005_C0000"
+          },
+          {
+            "entity_name": "For Against",
+            "entity_id": null,
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "United States",
+            "evidence_quote": "For Against is a United States post-punk/dream pop band from Lincoln, Nebraska.",
+            "chunk_id": "D007_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D005_C0000",
+          "D007_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 30.029704917003983
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "Local H was American [D005_C0000] and For Against was United States [D007_C0000]. Therefore, they were of the same nationality.",
+        "canonical_answer": "yes",
+        "reasoning": "We need to check the nationality of both Local H and For Against based on the provided evidence. The evidence states that Local H is an American rock band, while For Against is a United States post-punk/dream pop band. Both bands are explicitly stated to be from the United States.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Local H",
+            "entity_id": null,
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "American",
+            "evidence_quote": "Local H is an American rock band originally formed by guitarist and vocalist Scott Lucas, bassist Matt Garcia, drummer Joe Daniels, and lead guitarist John Sparkman in Zion, Illinois in 1987.",
+            "chunk_id": "D005_C0000"
+          },
+          {
+            "entity_name": "For Against",
+            "entity_id": null,
+            "attribute_name": "NATIONALITY",
+            "extracted_value": "United States",
+            "evidence_quote": "For Against is a United States post-punk/dream pop band from Lincoln, Nebraska.",
+            "chunk_id": "D007_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D005_C0000",
+          "D007_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 70.67518474999815
+      }
+    },
+    {
+      "question_id": "5adbf0a255429947ff17385a",
+      "question_index": 5,
+      "question_type": "comparison",
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "gold_answer": "no",
+      "is_regression_control": false,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "Laleli Mosque is located in Laleli, Fatih, Istanbul, Turkey [D006_C0000], while Esma Sultan Mansion is located in Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey [D007_C0000]. Therefore, they are not located in the same neighborhood.",
+        "canonical_answer": "no",
+        "reasoning": "The question asks if the Laleli Mosque and Esma Sultan Mansion are located in the same neighborhood. The evidence provides information about the locations of the Laleli Mosque and the Esma Sultan Mansion. The Laleli Mosque is located in Laleli, Fatih, Istanbul, Turkey. The Esma Sultan Mansion is located at Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey. These are distinct neighborhoods within Istanbul. Therefore, they are not located in the same neighborhood.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Laleli Mosque",
+            "entity_id": null,
+            "attribute_name": "LOCATION",
+            "extracted_value": "Laleli, Fatih, Istanbul, Turkey",
+            "evidence_quote": "The Laleli Mosque (Turkish: \"Laleli Camii, or Tulip Mosque\" ) is an 18th-century Ottoman imperial mosque located in Laleli, Fatih, Istanbul, Turkey.",
+            "chunk_id": "D006_C0000"
+          },
+          {
+            "entity_name": "Esma Sultan Mansion",
+            "entity_id": null,
+            "attribute_name": "LOCATION",
+            "extracted_value": "Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey",
+            "evidence_quote": "The Esma Sultan Mansion (Turkish: \"Esma Sultan Yal\u0131s\u0131\" ), a historical yal\u0131 (English: waterside mansion ) located at Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey and named after its original owner Esma Sultan, is used today as a cultural center after being redeveloped.",
+            "chunk_id": "D007_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D006_C0000",
+          "D007_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 45.56565941699955
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "Laleli Mosque is located in Laleli, Fatih, Istanbul, Turkey [D006_C0000], while Esma Sultan Mansion is located in Ortak\u00f6y [D007_C0000]. Therefore, they are not located in the same neighborhood.",
+        "canonical_answer": "no",
+        "reasoning": "We need to determine if the Laleli Mosque and Esma Sultan Mansion are located in the same neighborhood. The evidence provides information about the location of the Laleli Mosque, which is in Laleli, Fatih, Istanbul, Turkey. However, it does not provide any information about the neighborhood of the Esma Sultan Mansion.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Laleli Mosque",
+            "entity_id": null,
+            "attribute_name": "LOCATED_IN",
+            "extracted_value": "Laleli, Fatih, Istanbul, Turkey",
+            "evidence_quote": "The Laleli Mosque (Turkish: \"Laleli Camii, or Tulip Mosque\" ) is an 18th-century Ottoman imperial mosque located in Laleli, Fatih, Istanbul, Turkey.",
+            "chunk_id": "D006_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D006_C0000",
+          "D007_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 38.02400137500081
+      }
+    },
+    {
+      "question_id": "5abd94525542992ac4f382d2",
+      "question_index": 6,
+      "question_type": "bridge",
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "gold_answer": "YG Entertainment",
+      "is_regression_control": false,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "The debut album 2014 S/S was released by the group's record label, YG Entertainment, which formed the South Korean boy group WINNER [D003_C0000].",
+        "canonical_answer": "YG Entertainment",
+        "reasoning": "The question asks who formed the South Korean boy group whose debut album is 2014 S/S. Chunk D003_C0000 states that 2014 S/S was released by YG Entertainment, the group's record label. Chunk D005_C0000 identifies WINNER as the group formed by YG Entertainment. Therefore, YG Entertainment formed WINNER.",
+        "extracted_attributes": [
+          {
+            "entity_name": "WINNER",
+            "entity_id": null,
+            "attribute_name": "Record Label",
+            "extracted_value": "YG Entertainment",
+            "evidence_quote": "The members were credited for writing the lyrics and composing the majority of the album's songs.",
+            "chunk_id": "D003_C0000"
+          },
+          {
+            "entity_name": "YG Entertainment",
+            "entity_id": null,
+            "attribute_name": "Formed Group",
+            "extracted_value": "WINNER",
+            "evidence_quote": "It was released on August 12, 2014 by the group's record label, YG Entertainment.",
+            "chunk_id": "D003_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D003_C0000"
+        ],
+        "citation_count": 1,
+        "valid_citation_count": 1,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 15.754565082999761
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "2014 S/S is the debut album of the South Korean boy group WINNER, which was formed by YG Entertainment [D005_C0000].",
+        "canonical_answer": "YG Entertainment",
+        "reasoning": "The evidence states that 2014 S/S is the debut album of the South Korean group WINNER, and that WINNER was formed by YG Entertainment.",
+        "extracted_attributes": [
+          {
+            "entity_name": "WINNER",
+            "entity_id": null,
+            "attribute_name": "FORMED BY",
+            "extracted_value": "YG Entertainment",
+            "evidence_quote": "Winner (Hangul: \uc704\ub108), often stylized as WINNER, is a South Korean boy group formed in 2013 by YG Entertainment and debuted in 2014.",
+            "chunk_id": "D005_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D005_C0000"
+        ],
+        "citation_count": 1,
+        "valid_citation_count": 1,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 37.186890541997855
+      }
+    },
+    {
+      "question_id": "5ae0d4c9554299603e418468",
+      "question_index": 7,
+      "question_type": "bridge",
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "gold_answer": "1969 until 1974",
+      "is_regression_control": false,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the Nixon administration. This is stated in chunk D009_C0000: \"Roger Olaf Egeberg, M.D. (13 November 1902 \u2013 13 September 1997 Washington, D.C.) was an American medical educator, administrator and advocate of public health. He was General Douglas MacArthur's personal physician during World War II in the Pacific theater. His other roles included Assistant Secretary for Health and Scientific Affairs in the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services) during the Nixon administration.\"",
+        "canonical_answer": "Nixon",
+        "reasoning": "The question asks for the years during which Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs. Chunk D009_C0000 states that he held this role during the Nixon administration. Chunk D004_C0000 states that Steven K. Galson served as Acting Assistant Secretary for Health during the Obama administration. Therefore, the answer is the Nixon administration.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Roger O. Egeberg",
+            "entity_id": "E067",
+            "attribute_name": "Administration",
+            "extracted_value": "Nixon",
+            "evidence_quote": "He was General Douglas MacArthur's personal physician during World War II in the Pacific theater. His other roles included Assistant Secretary for Health and Scientific Affairs in the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services) during the Nixon administration.",
+            "chunk_id": "D009_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D009_C0000"
+        ],
+        "citation_count": 1,
+        "valid_citation_count": 1,
+        "exact_match": 0,
+        "token_f1": 0.0,
+        "latency_seconds": 17.288049542010413
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of Richard Nixon, who served from 1969 to 1974 [D009_C0000, D003_C0000].",
+        "canonical_answer": "1969 to 1974",
+        "reasoning": "The evidence states that Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the Nixon administration. Richard Nixon was the 37th President of the United States and served from 1969 to 1974.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Roger O. Egeberg",
+            "entity_id": "E067",
+            "attribute_name": "WORKS_UNDER -> PART_OF",
+            "extracted_value": "Department of Health, Education, and Welfare",
+            "evidence_quote": "Roger O. Egeberg -[WORKS_AT]-> Department of Health, Education, and Welfare\nRoger O. Egeberg -[STUDIES_AT]-> University of Southern California",
+            "chunk_id": "D009_C0000"
+          },
+          {
+            "entity_name": "Richard Nixon",
+            "entity_id": null,
+            "attribute_name": "TIME_PERIOD_OF_SERVICE",
+            "extracted_value": "1969 to 1974",
+            "evidence_quote": "Richard Milhous Nixon (January 9, 1913 \u2013 April 22, 1994) was the 37th President of the United States from 1969 until 1974, when he resigned from office, the only U.S. president to do so.",
+            "chunk_id": "D003_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D003_C0000",
+          "D009_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 0,
+        "token_f1": 0.6666666666666666,
+        "latency_seconds": 79.13977995800087
+      }
+    },
+    {
+      "question_id": "5a8e3ea95542995a26add48d",
+      "question_index": 8,
+      "question_type": "bridge",
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "gold_answer": "Greenwich Village, New York City",
+      "is_regression_control": false,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "The director of the romantic comedy \"Big Stone Gap\" is Adriana Trigiani, who is based in Greenwich Village, New York City, according to chunk D004_C0000 [D004_C0000].",
+        "canonical_answer": "Greenwich Village, New York City",
+        "reasoning": "The question asks for the director of \"Big Stone Gap\" and their location in New York City. Chunk D010_C0000 states that the film was written and directed by Adriana Trigiani. Chunk D004_C0000 states that Adriana Trigiani is based in Greenwich Village, New York City. Therefore, the director of the film is located in Greenwich Village, New York City.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Adriana Trigiani",
+            "entity_id": null,
+            "attribute_name": "Location",
+            "extracted_value": "Greenwich Village, New York City",
+            "evidence_quote": "Trigiani has published a novel a year since 2000. Trigiani is an Italian American best-selling author of sixteen books, television writer, film director, and entrepreneur based in Greenwich Village, New York City.",
+            "chunk_id": "D004_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000"
+        ],
+        "citation_count": 1,
+        "valid_citation_count": 1,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 23.25165570800891
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "The director of the romantic comedy 'Big Stone Gap', Adriana Trigiani, is based in Greenwich Village, New York City [D004_C0000].",
+        "canonical_answer": "Greenwich Village, New York City",
+        "reasoning": "The evidence provides information about the film 'Big Stone Gap' and its director, Adriana Trigiani. It also mentions that Adriana Trigiani is based in Greenwich Village, New York City.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Adriana Trigiani",
+            "entity_id": "E083",
+            "attribute_name": "BASED_IN",
+            "extracted_value": "Greenwich Village, New York City",
+            "evidence_quote": "Adriana Trigiani is an Italian American best-selling author of sixteen books, television writer, film director, and entrepreneur based in Greenwich Village, New York City.",
+            "chunk_id": "D004_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000"
+        ],
+        "citation_count": 1,
+        "valid_citation_count": 1,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 59.47360845799267
+      }
+    },
+    {
+      "question_id": "5a85ea095542994775f606a8",
+      "question_index": 9,
+      "question_type": "bridge",
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "gold_answer": "Animorphs",
+      "is_regression_control": false,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "The series \"Animorphs\" [D009_C0000] is a science fantasy young adult series told in first person with six main characters. It features themes of dehumanization and war, and the story involves alien species (the Yeerks) and the enslavement of the Hork-Bajir. The Hork-Bajir Chronicles [D003_C0000] is a companion book to Animorphs that details the enslavement of the Hork-Bajir by the Yeerks.",
+        "canonical_answer": "Animorphs",
+        "reasoning": "The question asks about a science fantasy young adult series told in first person with companion books narrating the stories of enslaved worlds and alien species. Let's examine the provided chunks for this information. Chunk D009_C0000 describes \"Animorphs\", which is a science fantasy series told in first person with six main characters. It features themes of dehumanization and war, and the story involves alien species. Chunk D003_C0000 describes \"The Hork-Bajir Chronicles\", a companion book to Animorphs, which details the enslavement of the Hork-Bajir by the Yeerks. Chunk D005_C0000 describes \"Left Behind: The Kids\", which follows teenagers experiencing the rapture and tribulation based on biblical scriptures. None of these books perfectly match the description of a series with companion books narrating the stories of enslaved worlds and alien species. However, \"Animorphs\" is the closest match, as it involves alien species (the Yeerks) and themes of enslavement (the Hork-Bajir). Therefore, I will select \"Animorphs\" as the answer.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Animorphs",
+            "entity_id": null,
+            "attribute_name": "genre",
+            "extracted_value": "science fantasy",
+            "evidence_quote": "Animorphs is a science fantasy series of young adult books",
+            "chunk_id": "D009_C0000"
+          },
+          {
+            "entity_name": "Animorphs",
+            "entity_id": null,
+            "attribute_name": "narrative style",
+            "extracted_value": "first person",
+            "evidence_quote": "Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic. It is told in first person, with all six main characters taking turns narrating the books through their own perspectives.",
+            "chunk_id": "D009_C0000"
+          },
+          {
+            "entity_name": "Animorphs",
+            "entity_id": null,
+            "attribute_name": "companion books",
+            "extracted_value": "has companion books",
+            "evidence_quote": "The Hork-Bajir Chronicles is the second companion book to the \"Animorphs\" series",
+            "chunk_id": "D003_C0000"
+          },
+          {
+            "entity_name": "Animorphs",
+            "entity_id": null,
+            "attribute_name": "themes",
+            "extracted_value": "enslavement of worlds and alien species",
+            "evidence_quote": "It is told in first person, with all six main characters taking turns narrating the books through their own perspectives. Horror, war, dehumanization, sanity, morality, innocence, leadership, freedom and growing up are the core themes of the series.",
+            "chunk_id": "D009_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D003_C0000",
+          "D009_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 71.30029158300022
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "The Animorphs series, told in first person, has a set of companion books, The Hork-Bajir Chronicles, narrating the stories of enslaved worlds and alien species [D009_C0000, D003_C0000].",
+        "canonical_answer": "yes",
+        "reasoning": "The question asks for a science fantasy young adult series told in first person with companion books narrating the stories of enslaved worlds and alien species. The evidence mentions the Animorphs series, which is a science fantasy young adult series told in first person. The Hork-Bajir Chronicles is a companion book to the Animorphs series, which narrates the story of the enslaved Hork-Bajir and their alien species.",
+        "extracted_attributes": [
+          {
+            "entity_name": "Animorphs",
+            "entity_id": null,
+            "attribute_name": "GENRE",
+            "extracted_value": "science fantasy",
+            "evidence_quote": "Animorphs is a science fantasy series of young adult books.",
+            "chunk_id": "D009_C0000"
+          },
+          {
+            "entity_name": "Animorphs",
+            "entity_id": null,
+            "attribute_name": "TARGET AUDIENCE",
+            "extracted_value": "young adult",
+            "evidence_quote": "Animorphs is a science fantasy series of young adult books.",
+            "chunk_id": "D009_C0000"
+          },
+          {
+            "entity_name": "Animorphs",
+            "entity_id": null,
+            "attribute_name": "PERSPECTIVE",
+            "extracted_value": "first person",
+            "evidence_quote": "It is told in first person, with all six main characters taking turns narrating the books through their own perspectives.",
+            "chunk_id": "D009_C0000"
+          },
+          {
+            "entity_name": "The Hork-Bajir Chronicles",
+            "entity_id": null,
+            "attribute_name": "RELATIONSHIP",
+            "extracted_value": "companion book",
+            "evidence_quote": "The Hork-Bajir Chronicles is the second companion book to the 'Animorphs' series.",
+            "chunk_id": "D003_C0000"
+          },
+          {
+            "entity_name": "The Hork-Bajir Chronicles",
+            "entity_id": null,
+            "attribute_name": "STORYLINE",
+            "extracted_value": "stories of enslaved worlds and alien species",
+            "evidence_quote": "The book is introduced by Tobias, who flies to the valley of the free Hork-Bajir, where Jara Hamee tells him the story of how the Yeerks enslaved the Hork-Bajir, and how Aldrea, an Andalite, and her companion, Dak Hamee, a Hork-Bajir, tried to save their world from the invasion.",
+            "chunk_id": "D003_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D003_C0000",
+          "D009_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 0,
+        "token_f1": 0.0,
+        "latency_seconds": 207.52290987499873
+      }
+    },
+    {
+      "question_id": "5a877e5d5542993e715abf7d",
+      "question_index": 10,
+      "question_type": "bridge",
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "gold_answer": "David Weissman",
+      "is_regression_control": false,
+      "retrieved_chunk_count": 8,
+      "gemma3_4b": {
+        "model": "gemma3:4b",
+        "answer": "David Weissman co-wrote \"Evolution\" (D004_C0000) and \"The Family Man\" (D010_C0000) which starred Nicolas Cage and T\u00e9a Leoni. [D004_C0000] states that David Weissman is a screenwriter for \"Evolution\", and [D010_C0000] indicates that he co-wrote \"The Family Man\" with David Diamond, and that film starred Nicolas Cage and T\u00e9a Leoni.",
+        "canonical_answer": "David Weissman",
+        "reasoning": "The question asks for the screenwriter who co-wrote a film starring Nicolas Cage and T\u00e9a Leoni, given that they were involved in \"Evolution\". Let's examine the provided chunks for this information. Chunk D004 describes David Weissman as a screenwriter for \"Evolution\" (2001). Chunk D010 details \"The Family Man\", which David Weissman co-wrote with David Diamond and starred Nicolas Cage and T\u00e9a Leoni. Therefore, David Weissman is the answer.",
+        "extracted_attributes": [
+          {
+            "entity_name": "David Weissman",
+            "entity_id": null,
+            "attribute_name": "Co-wrote film",
+            "extracted_value": "Evolution",
+            "evidence_quote": "David Weissman is a screenwriter and director. His film credits include \"The Family Man\" (2000), \"Evolution\" (2001), and \"When in Rome\" (2010).",
+            "chunk_id": "D004_C0000"
+          },
+          {
+            "entity_name": "The Family Man",
+            "entity_id": null,
+            "attribute_name": "Co-written by",
+            "extracted_value": "David Weissman",
+            "evidence_quote": "The Family Man is a 2000 American romantic comedy-drama film directed by Brett Ratner, written by David Diamond and David Weissman, and starring Nicolas Cage and T\u00e9a Leoni.",
+            "chunk_id": "D010_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000",
+          "D010_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 44.81990550000046
+      },
+      "qwen2_5_7b": {
+        "model": "qwen2.5:7b",
+        "answer": "David Weissman co-wrote 'The Family Man' with David Diamond and had credits for 'Evolution'. [D004_C0000, D010_C0000]",
+        "canonical_answer": "David Weissman",
+        "reasoning": "We need to find a screenwriter who co-wrote 'The Family Man' with David Weissman and had credits for 'Evolution'. From the evidence, David Weissman is a screenwriter who co-wrote 'The Family Man' with David Diamond. 'Evolution' is mentioned as one of David Weissman's film credits.",
+        "extracted_attributes": [
+          {
+            "entity_name": "David Weissman",
+            "entity_id": "E040",
+            "attribute_name": "Film Credits",
+            "extracted_value": "The Family Man, Evolution, When in Rome",
+            "evidence_quote": "David Weissman is a screenwriter and director. His film credits include \"The Family Man\" (2000), \"Evolution\" (2001), and \"When in Rome\" (2010).",
+            "chunk_id": "D004_C0000"
+          },
+          {
+            "entity_name": "David Weissman",
+            "entity_id": "E040",
+            "attribute_name": "Co-writer of",
+            "extracted_value": "The Family Man",
+            "evidence_quote": "The Family Man is a 2000 American romantic comedy-drama film directed by Brett Ratner, written by David Diamond and David Weissman, and starring Nicolas Cage and T\u00e9a Leoni.",
+            "chunk_id": "D010_C0000"
+          }
+        ],
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000",
+          "D010_C0000"
+        ],
+        "citation_count": 2,
+        "valid_citation_count": 2,
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "latency_seconds": 78.84937329200329
+      }
+    }
+  ]
+}

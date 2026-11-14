@@ -24,3 +24,8 @@ __pycache__/
 
 # Temporary/unreviewed prompt or scratch files
 hybrid_graphrag_mega_prompt.md
+
+# Evaluation logs and transient scratch inputs
+experiments/hotpotqa/pilot_10_run.log
+experiments/hotpotqa/inputs/pilot/
+

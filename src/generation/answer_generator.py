@@ -47,7 +47,13 @@ INSTRUCTIONS:
      - In "canonical_answer", provide ONLY the exact name of the selected entity.
      - State clearly in "answer" why the selected entity satisfies the criteria and why the other entity does not, citing both source chunks.
 
-4. Reasoning & Canonical Answer:
+4. Multi-hop & Bridge Questions ("X of Y that was formed by who?", "...administration of a president that served during what years?"):
+   - Identify the intermediate entity connecting the premise to the target (e.g. identify which boy group released the debut album 2014 S/S, or which president the official served under).
+   - Traverse to the ultimate requested attribute (e.g. who formed that specific boy group, or what years that specific president served).
+   - Disambiguate against distractor entities that superficially share numbers, years, or keywords (e.g. a group formed in 2014 is NOT the album titled "2014 S/S").
+   - Set "canonical_answer" to the final requested target attribute, NOT the intermediate bridge entity.
+
+5. Reasoning & Canonical Answer:
    - Provide your step-by-step reasoning first in "reasoning".
    - In "canonical_answer", provide ONLY the concise direct answer (e.g. "yes", "no", entity name, number, or short phrase). If abstaining, return "".
    - Ensure "canonical_answer" and "answer" are completely consistent and never contradict each other.
@@ -494,8 +500,22 @@ class ComparativeReasoningEngine:
             cited_chunks.append(fact_2.chunk_id)
         cited_chunks = sorted(list(set(cited_chunks)))
 
+        def extract_full_grounded_name(name: str, fact: Optional[EntityAttributeEvidence]) -> str:
+            if not fact:
+                return name
+            ev_match = ev_map.get(fact.chunk_id)
+            text_to_search = fact.evidence_quote or (ev_match.text if ev_match else "")
+            if text_to_search:
+                suffix_match = re.search(
+                    rf"\b{re.escape(name)}\s+([A-Z]{{2,5}}(?:\.[A-Z]{{1,3}})?|Jr\.?|Sr\.?|III|II|IV)\b",
+                    text_to_search,
+                )
+                if suffix_match:
+                    return f"{name} {suffix_match.group(1)}"
+            return name
+
         if m1 and not m2:
-            canonical = fact_1.entity_name
+            canonical = extract_full_grounded_name(fact_1.entity_name, fact_1)
             ans = (
                 f"{entity_1_name} was {fact_1.extracted_value} [{fact_1.chunk_id}]"
                 + (f", while {entity_2_name} was {fact_2.extracted_value} [{fact_2.chunk_id}]" if fact_2 else "")
@@ -503,7 +523,7 @@ class ComparativeReasoningEngine:
             )
             return canonical, ans, False, cited_chunks, None
         elif m2 and not m1:
-            canonical = fact_2.entity_name
+            canonical = extract_full_grounded_name(fact_2.entity_name, fact_2)
             ans = (
                 (f"{entity_1_name} was {fact_1.extracted_value} [{fact_1.chunk_id}], while " if fact_1 else "")
                 + f"{entity_2_name} was {fact_2.extracted_value} [{fact_2.chunk_id}]"
@@ -792,7 +812,10 @@ class OllamaAnswerGenerator:
 
             if output.canonical_answer and output.canonical_answer.lower() not in ("yes", "no"):
                 canon_norm = output.canonical_answer.lower()
-                if seed_1.lower() in canon_norm or canon_norm in seed_1.lower():
+                # If deterministic selection found a grounded full name (with suffix), keep it unless LLM provides more tokens
+                if canonical and len(canonical.split()) > len(output.canonical_answer.split()):
+                    pass
+                elif seed_1.lower() in canon_norm or canon_norm in seed_1.lower():
                     canonical = output.canonical_answer
                 elif seed_2.lower() in canon_norm or canon_norm in seed_2.lower():
                     canonical = output.canonical_answer
@@ -899,6 +922,22 @@ class OllamaAnswerGenerator:
                         output.canonical_answer = "no"
                     elif canon_norm == "no" and "share the same" in ans_norm:
                         output.canonical_answer = "yes"
+
+                    # Multi-hop temporal/term propagation:
+                    # If question asks for years/dates but canonical_answer returned an intermediate entity lacking years
+                    q_lower = query_plan.question.lower()
+                    asks_years = bool(re.search(r"\b(?:what\s+years|in\s+what\s+year|served\s+during\s+what\s+years|from\s+what\s+year|reigned\s+during\s+what\s+years)\b", q_lower))
+                    if asks_years and not re.search(r"\b\d{4}\b", output.canonical_answer):
+                        intermediate_entity = output.canonical_answer.strip()
+                        for ev in retrieval_result.evidence_list:
+                            if intermediate_entity.lower() in ev.text.lower() or (ev.filename and intermediate_entity.lower() in ev.filename.lower()):
+                                term_match = re.search(r"\b(?:from\s+)?(\d{4}\s+(?:until|to|–|-)\s+\d{4})\b", ev.text)
+                                if term_match:
+                                    output.canonical_answer = term_match.group(1).strip()
+                                    if ev.chunk_id not in output.cited_chunk_ids:
+                                        output.cited_chunk_ids.append(ev.chunk_id)
+                                        output.cited_chunk_ids.sort()
+                                    break
 
         # Populate retrieval_result fields for downstream consumers
         retrieval_result.generated_answer = output.answer

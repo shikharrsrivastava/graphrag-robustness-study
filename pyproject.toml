@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hybrid-graphrag"
+version = "1.0.0"
+description = "Domain-Agnostic Enterprise Hybrid GraphRAG Engine: Directed Knowledge Graphs, Vector Retrieval, Leiden Community Detection, and Verifiable Citation Grounding"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "Hybrid GraphRAG Team" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Database",
+]
+dependencies = [
+    "pydantic>=2.10.0",
+    "pyyaml>=6.0.2",
+    "pypdf>=5.1.0",
+    "requests>=2.32.3",
+    "numpy>=2.1.0",
+    "chromadb>=0.6.0",
+    "igraph>=0.11.8",
+    "leidenalg>=0.10.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-cov>=4.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hybrid_graphrag*", "src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"

@@ -17,6 +17,16 @@ class Citation(BaseModel):
     text_snippet: Optional[str] = Field(default=None, description="Excerpt of the cited chunk text")
     valid: bool = Field(default=True, description="Whether the citation is verified against retrieved chunks")
 
+    @property
+    def citation_id(self) -> str:
+        """Alias for chunk_id for backward compatibility."""
+        return self.chunk_id
+
+    @property
+    def text(self) -> Optional[str]:
+        """Alias for text_snippet for backward compatibility."""
+        return self.text_snippet
+
     def __str__(self) -> str:
         parts = [self.chunk_id]
         if self.filename or self.doc_id:
@@ -41,6 +51,11 @@ class QueryResult(BaseModel):
     latency_seconds: float = 0.0
     timing: Dict[str, float] = Field(default_factory=dict)
     raw_result: Optional[RetrievalResult] = None
+
+    @property
+    def route(self) -> str:
+        """Alias for mode for backward compatibility."""
+        return self.mode
 
     def __str__(self) -> str:
         if self.abstained:

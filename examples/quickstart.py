@@ -75,7 +75,7 @@ def run_quickstart():
         with HybridGraphRAG.from_existing(persisted_kb_path) as restored_engine:
             print(f"Successfully reopened KB at {restored_engine.kb_dir}")
             restored_stats = restored_engine.get_kb_stats()
-            print(f"Restored KB Document count: {restored_stats.get('document_count')}")
+            print(f"Restored KB Document count: {restored_stats.get('documents')}")
 
 
 if __name__ == "__main__":

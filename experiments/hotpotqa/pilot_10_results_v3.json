@@ -1,0 +1,1177 @@
+{
+  "timestamp": "2026-11-14T08:51:18Z",
+  "protocol": "HotpotQA 10-Question Pilot Autonomous Run",
+  "benchmark_summary": {
+    "benchmark_sample_size": 9,
+    "completed_count": 9,
+    "failed_count": 0,
+    "overall_exact_match": 1.0,
+    "overall_token_f1": 1.0,
+    "abstention_rate": 0.0,
+    "retrieval": {
+      "mean_recall_at_2": 1.0,
+      "mean_recall_at_5": 1.0,
+      "mean_complete_support_at_2": 1.0,
+      "mean_complete_support_at_5": 1.0
+    },
+    "grounding": {
+      "citation_precision_among_emitted": 1.0,
+      "citation_question_coverage": 1.0,
+      "mean_gold_supporting_document_coverage": 0.8888888888888888,
+      "total_emitted_citations": 16,
+      "total_valid_citations": 16,
+      "mean_citation_validity_rate": 1.0,
+      "mean_citation_gold_coverage": 0.8888888888888888
+    },
+    "conditioned_on_answered": {
+      "answered_questions_count": 9,
+      "answered_exact_match": 1.0,
+      "answered_token_f1": 1.0,
+      "answered_gold_document_coverage": 0.8888888888888888,
+      "answered_citation_precision": 1.0
+    },
+    "performance": {
+      "mean_query_latency_seconds": 52.40093932399436,
+      "median_query_latency_seconds": 42.160371332996874,
+      "total_query_duration_seconds": 471.6084539159492,
+      "mean_indexing_latency_seconds": 0.0,
+      "median_indexing_latency_seconds": 0.0,
+      "total_indexing_duration_seconds": 0.0
+    },
+    "by_question_type": {
+      "bridge": {
+        "count": 5,
+        "exact_match": 1.0,
+        "token_f1": 1.0,
+        "recall_at_2": 1.0,
+        "recall_at_5": 1.0
+      },
+      "comparison": {
+        "count": 4,
+        "exact_match": 1.0,
+        "token_f1": 1.0,
+        "recall_at_2": 1.0,
+        "recall_at_5": 1.0
+      }
+    }
+  },
+  "regression_control_q2": {
+    "question_id": "5a8b57f25542995d1e6f1371",
+    "question_index": 2,
+    "question_type": "comparison",
+    "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+    "gold_answer": "yes",
+    "is_regression_control": true,
+    "status": "completed",
+    "attempts": 1,
+    "error": null,
+    "indexing_stats": {
+      "reused_existing_kb": true,
+      "indexing_seconds": 0.0
+    },
+    "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_eval/hotpot_full_5a8b57f25542995d1e6f1371",
+    "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/full/5a8b57f25542995d1e6f1371",
+    "query_result": {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+      "canonical_answer": "yes",
+      "abstained": false,
+      "abstention_reason": null,
+      "cited_chunk_ids": [
+        "D002_C0000",
+        "D005_C0000"
+      ],
+      "citations": [
+        {
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ],
+          "text_snippet": "Title: Scott Derrickson\nScott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California...",
+          "valid": true
+        },
+        {
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ],
+          "text_snippet": "Title: Ed Wood\nEdward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+          "valid": true
+        }
+      ],
+      "mode": "hybrid",
+      "latency_seconds": 38.26459970900032,
+      "measured_total_query_seconds": 38.296281834002,
+      "timing_breakdown": {
+        "query_planning_seconds": 7.371677250004723,
+        "answer_generation_seconds": 30.786619916994823
+      },
+      "query_llm_requests": 2
+    },
+    "metrics": {
+      "answer_metrics": {
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "generated_exact_match": 0,
+        "generated_token_f1": 0.0,
+        "abstained": false,
+        "abstention_reason": null
+      },
+      "retrieval_metrics": {
+        "gold_supporting_titles": [
+          "Ed Wood",
+          "Scott Derrickson"
+        ],
+        "retrieved_document_titles": [
+          "Scott Derrickson",
+          "Ed Wood",
+          "Conrad Brooks",
+          "Deliver Us from Evil (2014 film)",
+          "Tyler Bates",
+          "Adam Collis",
+          "Sinister (film)",
+          "Doctor Strange (2016 film)"
+        ],
+        "recall_at_2": 1.0,
+        "recall_at_5": 1.0,
+        "complete_supporting_documents_at_2": true,
+        "complete_supporting_documents_at_5": true
+      },
+      "citation_metrics": {
+        "total_citations": 2,
+        "valid_citations": 2,
+        "has_citations": true,
+        "citation_precision": 1.0,
+        "citation_validity_rate": 1.0,
+        "citation_gold_coverage": 1.0,
+        "cited_chunk_ids": [
+          "D002_C0000",
+          "D005_C0000"
+        ],
+        "cited_document_titles": [
+          "Ed Wood",
+          "Scott Derrickson"
+        ]
+      }
+    }
+  },
+  "all_questions": [
+    {
+      "question_id": "5a8133725542995ce29dcbdb",
+      "question_index": 1,
+      "question_type": "comparison",
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "gold_answer": "Robert Erskine Childers DSC",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a8133725542995ce29dcbdb",
+      "query_result": {
+        "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+        "answer": "Henry Roth was American [D002_C0000], while Robert Erskine Childers was British [D007_C0000]. Therefore, Robert Erskine Childers DSC was from England, not Henry Roth.",
+        "canonical_answer": "Robert Erskine Childers DSC",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D002_C0000",
+          "D007_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D002_C0000",
+            "doc_id": "D002",
+            "filename": "ctx_001_Henry_Roth.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Henry Roth\nHenry Roth (February 8, 1906 \u2013 October 13, 1995) was an American novelist and short story writer.",
+            "valid": true
+          },
+          {
+            "chunk_id": "D007_C0000",
+            "doc_id": "D007",
+            "filename": "ctx_006_Robert_Erskine_Childers.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Robert Erskine Childers\nRobert Erskine Childers DSC (25 June 1870 \u2013 24 November 1922), universally known as Erskine Childers, was a British wri...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 38.60843754099915,
+        "measured_total_query_seconds": 38.73068583299755,
+        "timing_breakdown": {
+          "query_planning_seconds": 11.157875832999707,
+          "answer_generation_seconds": 26.011750207995647
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.2758620689655173,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers"
+          ],
+          "retrieved_document_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers",
+            "Molly Childers",
+            "Robert Caesar Childers",
+            "Gretchen Osgood Warren",
+            "Robert Barton",
+            "Irish Bulletin",
+            "Erskine Barton Childers"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D002_C0000",
+            "D007_C0000"
+          ],
+          "cited_document_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5a8b57f25542995d1e6f1371",
+      "question_index": 2,
+      "question_type": "comparison",
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "gold_answer": "yes",
+      "is_regression_control": true,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_eval/hotpot_full_5a8b57f25542995d1e6f1371",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/full/5a8b57f25542995d1e6f1371",
+      "query_result": {
+        "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+        "answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+        "canonical_answer": "yes",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D002_C0000",
+          "D005_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D002_C0000",
+            "doc_id": "D002",
+            "filename": "ctx_001_Scott_Derrickson.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Scott Derrickson\nScott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California...",
+            "valid": true
+          },
+          {
+            "chunk_id": "D005_C0000",
+            "doc_id": "D005",
+            "filename": "ctx_004_Ed_Wood.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Ed Wood\nEdward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 38.26459970900032,
+        "measured_total_query_seconds": 38.296281834002,
+        "timing_breakdown": {
+          "query_planning_seconds": 7.371677250004723,
+          "answer_generation_seconds": 30.786619916994823
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "retrieved_document_titles": [
+            "Scott Derrickson",
+            "Ed Wood",
+            "Conrad Brooks",
+            "Deliver Us from Evil (2014 film)",
+            "Tyler Bates",
+            "Adam Collis",
+            "Sinister (film)",
+            "Doctor Strange (2016 film)"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D002_C0000",
+            "D005_C0000"
+          ],
+          "cited_document_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5ab29c24554299449642c932",
+      "question_index": 3,
+      "question_type": "comparison",
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "gold_answer": "yes",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5ab29c24554299449642c932",
+      "query_result": {
+        "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+        "answer": "Giuseppe Verdi was Opera composer [D004_C0000] and Ambroise Thomas was Opera composer [D006_C0000], and both are grounded by evidence as opera composers. Therefore, they were of the same attribute.",
+        "canonical_answer": "yes",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000",
+          "D006_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D004_C0000",
+            "doc_id": "D004",
+            "filename": "ctx_003_Giuseppe_Verdi.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Giuseppe Verdi\nGiuseppe Fortunino Francesco Verdi (] ; 9 or 10 October 1813 \u2013 27 January 1901) was an Italian opera composer.",
+            "valid": true
+          },
+          {
+            "chunk_id": "D006_C0000",
+            "doc_id": "D006",
+            "filename": "ctx_005_Ambroise_Thomas.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Ambroise Thomas\nCharles Louis Ambroise Thomas (5 August 1811 \u2013 12 February 1896) was a French composer, best known for his operas \"Mignon\" (186...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 96.99287762500171,
+        "measured_total_query_seconds": 97.03139958299289,
+        "timing_breakdown": {
+          "query_planning_seconds": 12.931474165990949,
+          "answer_generation_seconds": 83.94264054199448
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi"
+          ],
+          "retrieved_document_titles": [
+            "Giuseppe Verdi",
+            "Ambroise Thomas",
+            "Ferdinando Provesi",
+            "Teatro Giuseppe Verdi",
+            "Bernhard B\u00f6tel",
+            "Armand Castelmary",
+            "Verdi, the King of Melody"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D004_C0000",
+            "D006_C0000"
+          ],
+          "cited_document_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5a8db19d5542994ba4e3dd00",
+      "question_index": 4,
+      "question_type": "comparison",
+      "question": "Are Local H and For Against both from the United States?",
+      "gold_answer": "yes",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a8db19d5542994ba4e3dd00",
+      "query_result": {
+        "question": "Are Local H and For Against both from the United States?",
+        "answer": "Local H was American [D005_C0000] and For Against was United States [D007_C0000]. Therefore, they were of the same nationality.",
+        "canonical_answer": "yes",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D005_C0000",
+          "D007_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D005_C0000",
+            "doc_id": "D005",
+            "filename": "ctx_004_Local_H.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Local H\nLocal H is an American rock band originally formed by guitarist and vocalist Scott Lucas, bassist Matt Garcia, drummer Joe Daniels, and...",
+            "valid": true
+          },
+          {
+            "chunk_id": "D007_C0000",
+            "doc_id": "D007",
+            "filename": "ctx_006_For_Against.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: For Against\nFor Against is a United States post-punk/dream pop band from Lincoln, Nebraska.  Despite numerous lineup shuffles and some periods ...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 65.8540435830073,
+        "measured_total_query_seconds": 65.880624582991,
+        "timing_breakdown": {
+          "query_planning_seconds": 16.689486292001675,
+          "answer_generation_seconds": 49.0294826659956
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "For Against",
+            "Local H"
+          ],
+          "retrieved_document_titles": [
+            "Local H",
+            "For Against",
+            "Hallelujah! I'm a Bum (album)",
+            "Ophur",
+            "Mendocino County GMO Ban",
+            "Suffrajett",
+            "Wilford H. Fawcett House"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D005_C0000",
+            "D007_C0000"
+          ],
+          "cited_document_titles": [
+            "For Against",
+            "Local H"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5adbf0a255429947ff17385a",
+      "question_index": 5,
+      "question_type": "comparison",
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "gold_answer": "no",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5adbf0a255429947ff17385a",
+      "query_result": {
+        "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+        "answer": "Laleli Mosque is located in Laleli, Fatih, Istanbul, Turkey [D006_C0000], while Esma Sultan Mansion is located in Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey [D007_C0000]. Therefore, they are not located in the same neighborhood.",
+        "canonical_answer": "no",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D006_C0000",
+          "D007_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D006_C0000",
+            "doc_id": "D006",
+            "filename": "ctx_005_Laleli_Mosque.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Laleli Mosque\nThe Laleli Mosque (Turkish: \"Laleli Camii, or Tulip Mosque\" ) is an 18th-century Ottoman imperial mosque located in Laleli, Fatih...",
+            "valid": true
+          },
+          {
+            "chunk_id": "D007_C0000",
+            "doc_id": "D007",
+            "filename": "ctx_006_Esma_Sultan_Mansion.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Esma Sultan Mansion\nThe Esma Sultan Mansion (Turkish: \"Esma Sultan Yal\u0131s\u0131\" ), a historical yal\u0131 (English: waterside mansion ) located at Bospho...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 34.14673604200652,
+        "measured_total_query_seconds": 34.18008199999167,
+        "timing_breakdown": {
+          "query_planning_seconds": 7.429974208003841,
+          "answer_generation_seconds": 26.59670933400048
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ],
+          "retrieved_document_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque",
+            "Sultan Ahmed Mosque",
+            "Esma Sultan (daughter of Abd\u00fclaziz)",
+            "Esma Sultan",
+            "Esma Sultan (daughter of Ahmed III)",
+            "Gevheri Kad\u0131n",
+            "Esma Sultan (daughter of Abdul Hamid I)"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D006_C0000",
+            "D007_C0000"
+          ],
+          "cited_document_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5abd94525542992ac4f382d2",
+      "question_index": 6,
+      "question_type": "bridge",
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "gold_answer": "YG Entertainment",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5abd94525542992ac4f382d2",
+      "query_result": {
+        "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+        "answer": "The debut album 2014 S/S was released by the group's record label, YG Entertainment, which formed the South Korean boy group WINNER [D003_C0000].",
+        "canonical_answer": "YG Entertainment",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D003_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D003_C0000",
+            "doc_id": "D003",
+            "filename": "ctx_002_2014_S_S.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: 2014 S/S\n2014 S/S is the debut album of South Korean group WINNER.  It was released on August 12, 2014 by the group's record label, YG Entertai...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 29.914289167005336,
+        "measured_total_query_seconds": 29.952631416992517,
+        "timing_breakdown": {
+          "query_planning_seconds": 7.133518375005224,
+          "answer_generation_seconds": 22.666595415998017
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.16,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "2014 S/S",
+            "Winner (band)"
+          ],
+          "retrieved_document_titles": [
+            "2014 S/S",
+            "Winner (band)",
+            "SF9 (band)",
+            "Seventeen discography",
+            "History (band)",
+            "Madtown",
+            "List of awards and nominations received by Shinee",
+            "BTS discography"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 1,
+          "valid_citations": 1,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 0.5,
+          "cited_chunk_ids": [
+            "D003_C0000"
+          ],
+          "cited_document_titles": [
+            "2014 S/S"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5ae0d4c9554299603e418468",
+      "question_index": 7,
+      "question_type": "bridge",
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "gold_answer": "1969 until 1974",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5ae0d4c9554299603e418468",
+      "query_result": {
+        "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+        "answer": "Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the Nixon administration. This is stated in chunk D009_C0000: \"Roger Olaf Egeberg, M.D. (13 November 1902 \u2013 13 September 1997 Washington, D.C.) was an American medical educator, administrator and advocate of public health. He was General Douglas MacArthur's personal physician during World War II in the Pacific theater. His other roles included Assistant Secretary for Health and Scientific Affairs in the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services) during the Nixon administration.\"",
+        "canonical_answer": "1969 until 1974",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D003_C0000",
+          "D009_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D003_C0000",
+            "doc_id": "D003",
+            "filename": "ctx_002_Richard_Nixon.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Richard Nixon\nRichard Milhous Nixon (January 9, 1913 \u2013 April 22, 1994) was the 37th President of the United States from 1969 until 1974, when h...",
+            "valid": true
+          },
+          {
+            "chunk_id": "D009_C0000",
+            "doc_id": "D009",
+            "filename": "ctx_008_Roger_O_Egeberg.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Roger O. Egeberg\nRoger Olaf Egeberg, M.D. (13 November 1902 \u2013 13 September 1997 Washington, D.C.) was an American medical educator, administrat...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 42.12328949999937,
+        "measured_total_query_seconds": 42.160371332996874,
+        "timing_breakdown": {
+          "query_planning_seconds": 7.668121041991981,
+          "answer_generation_seconds": 34.37405812500219
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Richard Nixon",
+            "Roger O. Egeberg"
+          ],
+          "retrieved_document_titles": [
+            "Roger O. Egeberg",
+            "Richard Nixon",
+            "Edward D. Martin",
+            "Steven K. Galson",
+            "Douglas J. Bennet",
+            "Robert R. Hood",
+            "Bradford P. Campbell",
+            "Robert Hormats"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D003_C0000",
+            "D009_C0000"
+          ],
+          "cited_document_titles": [
+            "Richard Nixon",
+            "Roger O. Egeberg"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5a8e3ea95542995a26add48d",
+      "question_index": 8,
+      "question_type": "bridge",
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "gold_answer": "Greenwich Village, New York City",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a8e3ea95542995a26add48d",
+      "query_result": {
+        "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+        "answer": "The director of the romantic comedy \"Big Stone Gap\" is Adriana Trigiani, who is based in Greenwich Village, New York City, according to chunk D004_C0000 [D004_C0000].",
+        "canonical_answer": "Greenwich Village, New York City",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D004_C0000",
+            "doc_id": "D004",
+            "filename": "ctx_003_Adriana_Trigiani.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Adriana Trigiani\nAdriana Trigiani is an Italian American best-selling author of sixteen books, television writer, film director, and entreprene...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 35.335993790999055,
+        "measured_total_query_seconds": 35.39478966699971,
+        "timing_breakdown": {
+          "query_planning_seconds": 7.9161140420037555,
+          "answer_generation_seconds": 27.33504708300461
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.32258064516129037,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Adriana Trigiani",
+            "Big Stone Gap (film)"
+          ],
+          "retrieved_document_titles": [
+            "Big Stone Gap (film)",
+            "Adriana Trigiani",
+            "I Love NY (2015 film)",
+            "Great Eastern Conventions",
+            "Just Another Romantic Wrestling Comedy",
+            "Nola (film)",
+            "Clinton, Minnesota",
+            "Hamish and Andy's Gap Year"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 1,
+          "valid_citations": 1,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 0.5,
+          "cited_chunk_ids": [
+            "D004_C0000"
+          ],
+          "cited_document_titles": [
+            "Adriana Trigiani"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5a85ea095542994775f606a8",
+      "question_index": 9,
+      "question_type": "bridge",
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "gold_answer": "Animorphs",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a85ea095542994775f606a8",
+      "query_result": {
+        "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+        "answer": "The series \"Animorphs\" [D009_C0000] is a science fantasy young adult series told in first person with six main characters. It features themes of dehumanization and war, and the story involves alien species (the Yeerks) and the enslavement of the Hork-Bajir. The Hork-Bajir Chronicles [D003_C0000] is a companion book to Animorphs that details the enslavement of the Hork-Bajir by the Yeerks.",
+        "canonical_answer": "Animorphs",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D003_C0000",
+          "D009_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D003_C0000",
+            "doc_id": "D003",
+            "filename": "ctx_002_The_Hork-Bajir_Chronicles.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: The Hork-Bajir Chronicles\nThe Hork-Bajir Chronicles is the second companion book to the \"Animorphs\" series, written by K. A. Applegate.  With r...",
+            "valid": true
+          },
+          {
+            "chunk_id": "D009_C0000",
+            "doc_id": "D009",
+            "filename": "ctx_008_Animorphs.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Animorphs\nAnimorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing toge...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 65.47465145798924,
+        "measured_total_query_seconds": 65.51539570899331,
+        "timing_breakdown": {
+          "query_planning_seconds": 9.8131209580024,
+          "answer_generation_seconds": 55.49125741601165
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.03636363636363636,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ],
+          "retrieved_document_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles",
+            "Etiquette &amp; Espionage",
+            "Victoria Hanley",
+            "The Divide trilogy",
+            "Andre Norton Award",
+            "Left Behind: The Kids",
+            "Shadowshaper"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D003_C0000",
+            "D009_C0000"
+          ],
+          "cited_document_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5a877e5d5542993e715abf7d",
+      "question_index": 10,
+      "question_type": "bridge",
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "gold_answer": "David Weissman",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 1,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a877e5d5542993e715abf7d",
+      "query_result": {
+        "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+        "answer": "David Weissman co-wrote \"Evolution\" (D004_C0000) and \"The Family Man\" (D010_C0000) which starred Nicolas Cage and T\u00e9a Leoni. [D004_C0000] states that David Weissman is a screenwriter for \"Evolution\", and [D010_C0000] indicates that he co-wrote \"The Family Man\" with David Diamond, and that film starred Nicolas Cage and T\u00e9a Leoni.",
+        "canonical_answer": "David Weissman",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000",
+          "D010_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D004_C0000",
+            "doc_id": "D004",
+            "filename": "ctx_003_David_Weissman.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: David Weissman\nDavid Weissman is a screenwriter and director.  His film credits include \"The Family Man\" (2000), \"Evolution\" (2001), and \"\"When...",
+            "valid": true
+          },
+          {
+            "chunk_id": "D010_C0000",
+            "doc_id": "D010",
+            "filename": "ctx_009_The_Family_Man.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: The Family Man\nThe Family Man is a 2000 American romantic comedy-drama film directed by Brett Ratner, written by David Diamond and David Weissm...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 62.71748900000239,
+        "measured_total_query_seconds": 62.76247379099368,
+        "timing_breakdown": {
+          "query_planning_seconds": 10.653601583995624,
+          "answer_generation_seconds": 51.954390166007215
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.07272727272727272,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "David Weissman",
+            "The Family Man"
+          ],
+          "retrieved_document_titles": [
+            "David Weissman",
+            "The Family Man",
+            "Deadfall (1993 film)",
+            "Season of the Witch (2011 film)",
+            "City of Angels (film)",
+            "Drive Angry",
+            "It Could Happen to You (1994 film)",
+            "Gone in 60 Seconds (2000 film)"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "has_citations": true,
+          "citation_precision": 1.0,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D004_C0000",
+            "D010_C0000"
+          ],
+          "cited_document_titles": [
+            "David Weissman",
+            "The Family Man"
+          ]
+        }
+      }
+    }
+  ],
+  "total_pilot_wallclock_seconds": 509.98448695799743
+}
