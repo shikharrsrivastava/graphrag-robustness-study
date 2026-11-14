@@ -426,17 +426,37 @@ class SeedEntityRetriever:
         # format: (entity_id, name, type, similarity, is_compatible, confidence_score)
 
         for cand in raw_candidates:
-            eid = cand["id"]
+            meta = cand.get("metadata") if isinstance(cand.get("metadata"), dict) else {}
+            eid = cand.get("id") or meta.get("entity_id")
             dist = cand.get("distance")
             sim = 1.0 - dist if dist is not None else 0.0
 
-            cand_name = cand.get("metadata", {}).get("name", "")
-            cand_type = cand.get("metadata", {}).get("entity_type", "")
-            if not cand_name or not cand_type:
-                ent_obj = entities_by_id.get(eid)
-                if ent_obj:
-                    cand_name = ent_obj.name
-                    cand_type = ent_obj.entity_type
+            cand_meta_name = str(meta.get("name", "Unknown")) if meta.get("name") is not None else "Unknown"
+            cand_meta_type = str(meta.get("entity_type", "UNKNOWN")) if meta.get("entity_type") is not None else "UNKNOWN"
+
+            # Validate that canonical entity exists in the knowledge base
+            ent_obj = entities_by_id.get(eid) if eid else None
+            if not ent_obj:
+                decisions.append(
+                    ResolutionDecision(
+                        seed_name=spec.name,
+                        expected_type=expected_type,
+                        candidate_id=eid or "UNKNOWN",
+                        candidate_name=cand_meta_name,
+                        candidate_type=cand_meta_type,
+                        matching_method="EMBEDDING",
+                        type_compatible=False,
+                        confidence_score=0.0,
+                        similarity_score=round(sim, 4),
+                        ranking=len(raw_candidates),
+                        status="REJECTED",
+                        reason="Canonical entity ID missing or absent from knowledge base document store",
+                    )
+                )
+                continue
+
+            cand_name = cand_meta_name if cand_meta_name != "Unknown" else ent_obj.name
+            cand_type = cand_meta_type if cand_meta_type != "UNKNOWN" else ent_obj.entity_type.upper()
 
             is_comp = (expected_type is None or cand_type.upper() == expected_type)
             score = sim if is_comp else (sim * 0.70)

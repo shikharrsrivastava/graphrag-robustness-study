@@ -583,3 +583,80 @@ def test_regression_missing_vertex_cannot_be_recovered(tmp_path: Path) -> None:
     assert result.resolved_entity_ids == []
     assert "Esma Sultan Mansion" in result.unresolved_seeds
     assert any(d.status == "UNRESOLVED" for d in result.resolution_diagnostics)
+
+
+# --- 17. Task 4 Canonical ID Validation: Phantom IDs absent from DocumentStore are rejected ---
+
+def test_task4_phantom_id_rejected_single_and_mixed(tmp_path: Path) -> None:
+    """Task 4 canonical-entity validation: ChromaDB records absent from DocumentStore are rejected.
+
+    Tests both single phantom (rejected -> UNRESOLVED) and mixed (phantom ranked 1st rejected,
+    valid canonical ranked 2nd above threshold is accepted).
+    """
+    kb_id = "test_t4_phantom"
+    ds = DocumentStore(kb_id=kb_id, processed_dir=tmp_path / "processed")
+    vstore = ChromaVectorStore(kb_id=kb_id, kb_vector_store_dir=tmp_path / "vstore")
+    embedder = MockDeterministicEmbedder(dim=4)
+
+    retriever = SeedEntityRetriever(
+        doc_store=ds,
+        vector_store=vstore,
+        embedding_provider=embedder,
+        similarity_threshold=0.82,
+    )
+
+    # 1. Single phantom case: ChromaDB returns ID absent from DocumentStore with sim >= 0.82
+    query_single = "Query Single Phantom"
+    embedder.set_vector(query_single, [1.0, 0.0, 0.0, 0.0])
+
+    phantom_single = _build_test_entity(kb_id, "E_PHANTOM_999", "Phantom Book", "BOOK")
+    embedder.set_vector("Phantom Book (BOOK): Description of Phantom Book", [1.0, 0.0, 0.0, 0.0])
+    vstore.upsert_entities([phantom_single], [embedder.embed_text("Phantom Book (BOOK): Description of Phantom Book")])
+    # Deliberately NOT saved to ds!
+
+    res_single = retriever.resolve_seeds([SeedEntitySpec(name=query_single, expected_type="BOOK")])
+    assert res_single.resolved_entity_ids == []
+    assert query_single in res_single.unresolved_seeds
+    phantom_decs = [d for d in res_single.resolution_diagnostics if d.candidate_id == "E_PHANTOM_999"]
+    assert len(phantom_decs) == 1
+    assert phantom_decs[0].status == "REJECTED"
+    assert "absent from knowledge base document store" in phantom_decs[0].reason
+
+    # 2. Mixed case: phantom ID ranked first (sim 0.95), valid canonical ID ranked second (sim 0.88 >= 0.82)
+    # The valid canonical entity must be chosen as the resolved seed.
+    query_mixed = "Query Mixed Phantom Valid"
+    embedder.set_vector(query_mixed, [0.0, 1.0, 0.0, 0.0])
+
+    phantom_mixed = _build_test_entity(kb_id, "E_PHANTOM_888", "Phantom Top", "BOOK")
+    valid_mixed = _build_test_entity(kb_id, "E_VALID_111", "Valid Second", "BOOK")
+    # Save ONLY the valid entity to DocumentStore
+    ds.save_canonical_entities([valid_mixed])
+
+    # Phantom dot product with [0, 1, 0, 0] = 0.95
+    sim_phantom = 0.95
+    embedder.set_vector("Phantom Top (BOOK): Description of Phantom Top", [0.0, sim_phantom, (1.0 - sim_phantom**2)**0.5, 0.0])
+    # Valid dot product with [0, 1, 0, 0] = 0.88
+    sim_valid = 0.88
+    embedder.set_vector("Valid Second (BOOK): Description of Valid Second", [0.0, sim_valid, (1.0 - sim_valid**2)**0.5, 0.0])
+
+    vstore.upsert_entities(
+        [phantom_mixed, valid_mixed],
+        [
+            embedder.embed_text("Phantom Top (BOOK): Description of Phantom Top"),
+            embedder.embed_text("Valid Second (BOOK): Description of Valid Second"),
+        ],
+    )
+
+    res_mixed = retriever.resolve_seeds([SeedEntitySpec(name=query_mixed, expected_type="BOOK")])
+    # Valid canonical entity is accepted
+    assert res_mixed.resolved_entity_ids == ["E_VALID_111"]
+    # Phantom is rejected
+    rej_phantom = [d for d in res_mixed.resolution_diagnostics if d.candidate_id == "E_PHANTOM_888"]
+    assert len(rej_phantom) == 1
+    assert rej_phantom[0].status == "REJECTED"
+    assert "absent from knowledge base document store" in rej_phantom[0].reason
+    # Valid is accepted
+    acc_valid = [d for d in res_mixed.resolution_diagnostics if d.candidate_id == "E_VALID_111"]
+    assert len(acc_valid) == 1
+    assert acc_valid[0].status == "ACCEPTED"
+
