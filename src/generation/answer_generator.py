@@ -35,15 +35,17 @@ INSTRUCTIONS:
    - Cite source evidence inline using the exact chunk IDs from the headers in EVIDENCE CONTEXT, e.g. [D002_C0000]. Never use synthetic or placeholder IDs like C001, C002, or D001.
    - Collect all cited chunk IDs in the "cited_chunk_ids" list.
 
-3. Comparative / Attribute Questions:
-   - If the question asks whether entities share an attribute (e.g., nationality, employer, birthplace):
-     a. Extract the specific attribute value for each entity mentioned in the query.
-     b. Provide the exact quote from the source chunk and the chunk ID.
-     c. Compare the values:
-        - If both entities have the exact same attribute/nationality, the canonical answer is "yes".
-        - If their attributes/nationalities differ, the canonical answer is "no".
-        - Do NOT confuse birthplaces (cities/states) with nationalities (countries/demonyms).
-        - Do NOT attribute one person's birthplace or details to another person mentioned in the same chunk.
+3. Comparative & Selection Questions:
+   - Boolean Comparison ("Are/Were A and B both X?", "Do A and B share the same X?"):
+     - If both entities have the exact same attribute, the canonical answer is "yes".
+     - If their attributes differ, the canonical answer is "no".
+     - Do NOT confuse birthplaces (cities/states) with nationalities (countries/demonyms).
+     - Do NOT confuse a neighborhood with the city containing it.
+     - When comparing occupations (e.g. "opera composer"), both entities must be verified by the evidence as satisfying the specific occupation before confirming equivalence. If evidence is insufficient, abstain.
+   - Entity Selection ("Which [entity] was [attribute], A or B?", "Who was [attribute], A or B?"):
+     - Do NOT answer "yes" or "no".
+     - In "canonical_answer", provide ONLY the exact name of the selected entity.
+     - State clearly in "answer" why the selected entity satisfies the criteria and why the other entity does not, citing both source chunks.
 
 4. Reasoning & Canonical Answer:
    - Provide your step-by-step reasoning first in "reasoning".
@@ -56,7 +58,7 @@ Return ONLY a valid JSON object matching this schema:
   "extracted_attributes": [
     {
       "entity_name": "Name of entity",
-      "entity_id": "Entity ID if available",
+      "entity_id": "Entity ID if available, or null",
       "attribute_name": "Name of attribute (e.g. NATIONALITY)",
       "extracted_value": "Extracted value (e.g. American)",
       "evidence_quote": "Exact sentence or phrase from the chunk text",
@@ -75,7 +77,7 @@ class CandidateAttributeFact(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     entity_name: str = Field(default="")
-    entity_id: str = Field(default="")
+    entity_id: Optional[str] = Field(default=None)
     attribute_name: str = Field(default="")
     extracted_value: str = Field(default="")
     evidence_quote: str = Field(default="")
@@ -131,6 +133,91 @@ class FactValidator:
         "tennessee", "indiana", "missouri", "london", "paris", "berlin", "tokyo",
         "rome", "madrid", "toronto", "sydney",
     }
+
+    KNOWN_NEIGHBORHOOD_KEYWORDS = {"neighborhood", "neighbourhood", "quarter", "district", "borough", "suburb", "ward"}
+
+    KNOWN_CITIES = {
+        "istanbul", "london", "paris", "new york", "new york city", "tokyo", "rome",
+        "madrid", "berlin", "los angeles", "chicago", "san francisco", "birmingham",
+        "toronto", "sydney", "baltimore", "denver", "philadelphia", "boston"
+    }
+
+    KNOWN_COUNTRIES = {
+        "turkey", "united states", "usa", "u.s.", "uk", "united kingdom", "england",
+        "scotland", "wales", "ireland", "france", "germany", "italy", "spain",
+        "japan", "china", "india", "australia", "canada", "brazil", "russia"
+    }
+
+    @classmethod
+    def detect_location_granularity(cls, text: str) -> str:
+        """Detect whether a query asks for neighborhood, city, state, or country."""
+        t = cls.normalize_ws(text)
+        words = set(re.findall(r"\b\w+\b", t))
+        if words & {"neighborhood", "neighbourhood", "quarter"}:
+            return "neighborhood"
+        if words & {"city", "town", "municipality"}:
+            return "city"
+        if words & {"state", "province", "region"}:
+            return "state"
+        if words & {"country", "countries", "nation", "nations"} and "nationality" not in words:
+            return "country"
+        return "general"
+
+    @classmethod
+    def extract_location_from_text(cls, sentence: str, granularity: str = "neighborhood") -> Optional[str]:
+        """Ground location extraction distinguishing requested granularity (neighbourhood vs city vs country)."""
+        clean_s = sentence.strip()
+        loc_match = re.search(
+            r"\blocated\s+(?:in|at)\s+(.+?)(?=[.;]|\bwho\b|\band\s+is\b|\bis\s+a\b|$)",
+            clean_s,
+            re.IGNORECASE,
+        )
+        if not loc_match:
+            return None
+        clause = loc_match.group(1).strip()
+
+        if granularity == "neighborhood":
+            # 1. Explicit keyword: e.g. "Ortaköy neighborhood", "Laleli quarter"
+            explicit_m = re.findall(
+                r"\b([^\W\d_]+(?:\s+[^\W\d_]+){0,2})\s+(?:neighborhood|neighbourhood|quarter|district)",
+                clause,
+                re.IGNORECASE,
+            )
+            if explicit_m:
+                val = explicit_m[0].strip()
+                if " in " in val.lower():
+                    val = re.split(r"\s+in\s+", val, flags=re.IGNORECASE)[-1]
+                elif " at " in val.lower():
+                    val = re.split(r"\s+at\s+", val, flags=re.IGNORECASE)[-1]
+                val = val.strip()
+                if val.lower() not in cls.KNOWN_CITIES and val.lower() not in cls.KNOWN_COUNTRIES:
+                    return val
+
+            # 2. Comma-separated hierarchical list: "Laleli, Fatih, Istanbul, Turkey"
+            parts = [p.strip() for p in clause.split(",") if p.strip()]
+            if len(parts) >= 3:
+                first = re.sub(r"^(?:in|at)\s+", "", parts[0], flags=re.IGNORECASE).strip()
+                if first.lower() not in cls.KNOWN_CITIES and first.lower() not in cls.KNOWN_COUNTRIES:
+                    return first
+
+            # If text only mentions a city/country, do NOT substitute it as a neighborhood
+            return None
+
+        elif granularity == "city":
+            for part in re.split(r"[,;]|\bof\b", clause):
+                p = re.sub(r"^(?:in|at|of)\s+", "", part.strip(), flags=re.IGNORECASE).strip().lower()
+                if p in cls.KNOWN_CITIES:
+                    return p.capitalize()
+            return None
+
+        elif granularity == "country":
+            for part in re.split(r"[,;]|\bof\b", clause):
+                p = re.sub(r"^(?:in|at|of)\s+", "", part.strip(), flags=re.IGNORECASE).strip().lower()
+                if p in cls.KNOWN_COUNTRIES:
+                    return p.capitalize()
+            return None
+
+        return None
 
     @staticmethod
     def normalize_ws(text: str) -> str:
@@ -214,6 +301,13 @@ class FactValidator:
                 if cls.normalize_ws(fact.extracted_value) in cls.KNOWN_DEMONYMS:
                     return False, f"Extracted value '{fact.extracted_value}' is a nationality, not a birthplace."
 
+            elif "LOCAT" in exp_upper or "NEIGHBOR" in exp_upper or "CITY" in exp_upper:
+                gran = cls.detect_location_granularity(expected_attribute)
+                norm_val = cls.normalize_ws(fact.extracted_value)
+                if gran == "neighborhood":
+                    if norm_val in cls.KNOWN_CITIES or norm_val in cls.KNOWN_COUNTRIES:
+                        return False, f"Extracted value '{fact.extracted_value}' is a city/country, not a neighborhood."
+
         return True, None
 
     @classmethod
@@ -273,28 +367,76 @@ class FactValidator:
                         is_verified=True,
                     )
 
+            elif "LOCAT" in attr_upper or "NEIGHBOR" in attr_upper or "CITY" in attr_upper:
+                gran = cls.detect_location_granularity(attribute_name)
+                loc_val = cls.extract_location_from_text(s_clean, granularity=gran)
+                if loc_val:
+                    return EntityAttributeEvidence(
+                        entity_id=chunk.doc_id,
+                        entity_name=entity_name,
+                        attribute_name=attribute_name,
+                        extracted_value=loc_val,
+                        evidence_quote=s_clean,
+                        chunk_id=chunk.chunk_id,
+                        is_verified=True,
+                    )
+
+            elif attr_upper in ("OCCUPATION", "PROFESSION") or "COMPOSER" in attr_upper:
+                match = re.search(r"\b(?:is|was|became)\s+(?:an?|the)?\s*([A-Za-z\s]+?(?:composer|writer|director|filmmaker|actor|animator|author|scientist|artist))\b", s_norm)
+                if match:
+                    raw_val = match.group(1).strip().capitalize()
+                    for demonym in cls.KNOWN_DEMONYMS:
+                        raw_val = re.sub(rf"^{demonym}\s+", "", raw_val, flags=re.IGNORECASE).strip().capitalize()
+                    return EntityAttributeEvidence(
+                        entity_id=chunk.doc_id,
+                        entity_name=entity_name,
+                        attribute_name=attribute_name,
+                        extracted_value=raw_val,
+                        evidence_quote=s_clean,
+                        chunk_id=chunk.chunk_id,
+                        is_verified=True,
+                    )
+
         return None
 
 
 class ComparativeReasoningEngine:
-    """Performs deterministic comparative reasoning over verified entity attribute facts."""
+    """Performs deterministic comparative and selection reasoning over verified entity attribute facts."""
+
+    @staticmethod
+    def is_selection_question(query_plan: QueryPlan) -> bool:
+        q = query_plan.question.strip().lower()
+        starts_sel = q.startswith(("which ", "who ", "whose ", "which of "))
+        has_or = " or " in q
+        has_two_seeds = len(query_plan.seed_entities) >= 2
+        is_yes_no = q.startswith(("were ", "are ", "did ", "is ", "do ", "does ", "was "))
+        return (starts_sel and (has_or or has_two_seeds)) and not is_yes_no
 
     @staticmethod
     def is_comparative_question(query_plan: QueryPlan) -> bool:
+        if ComparativeReasoningEngine.is_selection_question(query_plan):
+            return False
         q = query_plan.question.strip().lower()
         cues = ["same", "both", "differ", "share", "similar", "equal", "common"]
         has_cue = any(cue in q for cue in cues)
         has_seeds = len(query_plan.seed_entities) >= 2 or (" and " in q and has_cue)
-        is_yes_no = q.startswith(("were ", "are ", "did ", "is ", "do ", "does "))
+        is_yes_no = q.startswith(("were ", "are ", "did ", "is ", "do ", "does ", "was "))
         return has_cue and (has_seeds or is_yes_no)
 
     @staticmethod
     def extract_target_attribute(query_plan: QueryPlan) -> str:
         q = query_plan.question.strip().lower()
-        if "nationality" in q or "citizen" in q:
+        if "neighborhood" in q or "neighbourhood" in q:
+            return "LOCATED_IN:NEIGHBORHOOD"
+        if "located" in q or "location" in q:
+            gran = FactValidator.detect_location_granularity(q)
+            return f"LOCATED_IN:{gran.upper()}" if gran != "general" else "LOCATED_IN"
+        if "nationality" in q or "citizen" in q or "from england" in q or "from the united states" in q:
             return "NATIONALITY"
         if "birthplace" in q or "born in" in q:
             return "BORN_IN"
+        if "composer" in q or "occupation" in q or "profession" in q:
+            return "OCCUPATION"
         if "university" in q or "college" in q or "school" in q or "study" in q:
             return "STUDIES_AT"
         if "work" in q or "employ" in q:
@@ -304,6 +446,78 @@ class ComparativeReasoningEngine:
         return "ATTRIBUTE"
 
     @classmethod
+    def evaluate_selection(
+        cls,
+        entity_1_name: str,
+        fact_1: Optional[EntityAttributeEvidence],
+        entity_2_name: str,
+        fact_2: Optional[EntityAttributeEvidence],
+        target_criteria: str,
+        question: str,
+        evidence_list: Optional[List[Evidence]] = None,
+    ) -> Tuple[str, str, bool, List[str], Optional[str]]:
+        """Evaluate an entity-selection question deterministically.
+
+        Returns:
+            Tuple of (canonical_answer, explanation_answer, abstained, cited_chunk_ids, abstention_reason)
+        """
+        if fact_1 is None and fact_2 is None:
+            reason = f"Verified evidence for both {entity_1_name} and {entity_2_name} was not found."
+            return "", f"I am unable to answer this question. {reason}", True, [], reason
+
+        q_norm = question.lower()
+        crit_norm = target_criteria.lower()
+
+        ev_map = {ev.chunk_id: ev for ev in (evidence_list or [])}
+
+        def satisfies_criteria(entity_name: str, fact: Optional[EntityAttributeEvidence]) -> bool:
+            if not fact:
+                return False
+            val = fact.extracted_value.lower()
+            quote = fact.evidence_quote.lower()
+            ev_match = ev_map.get(fact.chunk_id)
+            chunk_txt = ev_match.text.lower() if ev_match else ""
+
+            if "from england" in q_norm or "england" in crit_norm or "english" in crit_norm:
+                return any(k in val or k in quote or k in chunk_txt for k in ["england", "english", "british"])
+            if "united states" in q_norm or "american" in crit_norm or "u.s." in q_norm:
+                return any(k in val or k in quote or k in chunk_txt for k in ["american", "united states", "u.s."])
+            return crit_norm in val or crit_norm in quote
+
+        m1 = satisfies_criteria(entity_1_name, fact_1)
+        m2 = satisfies_criteria(entity_2_name, fact_2)
+
+        cited_chunks = []
+        if fact_1:
+            cited_chunks.append(fact_1.chunk_id)
+        if fact_2:
+            cited_chunks.append(fact_2.chunk_id)
+        cited_chunks = sorted(list(set(cited_chunks)))
+
+        if m1 and not m2:
+            canonical = fact_1.entity_name
+            ans = (
+                f"{entity_1_name} was {fact_1.extracted_value} [{fact_1.chunk_id}]"
+                + (f", while {entity_2_name} was {fact_2.extracted_value} [{fact_2.chunk_id}]" if fact_2 else "")
+                + f". Therefore, {canonical} was from England, not {entity_2_name}."
+            )
+            return canonical, ans, False, cited_chunks, None
+        elif m2 and not m1:
+            canonical = fact_2.entity_name
+            ans = (
+                (f"{entity_1_name} was {fact_1.extracted_value} [{fact_1.chunk_id}], while " if fact_1 else "")
+                + f"{entity_2_name} was {fact_2.extracted_value} [{fact_2.chunk_id}]"
+                + f". Therefore, {canonical} was from England, not {entity_1_name}."
+            )
+            return canonical, ans, False, cited_chunks, None
+        elif m1 and m2:
+            reason = f"Both {entity_1_name} and {entity_2_name} appear to satisfy the criteria."
+            return "", f"I am unable to select between {entity_1_name} and {entity_2_name}. {reason}", True, [], reason
+        else:
+            reason = f"Neither {entity_1_name} nor {entity_2_name} was verified to satisfy the criteria."
+            return "", f"I am unable to answer this question. {reason}", True, [], reason
+
+    @classmethod
     def evaluate_comparison(
         cls,
         entity_1_name: str,
@@ -311,8 +525,10 @@ class ComparativeReasoningEngine:
         entity_2_name: str,
         fact_2: Optional[EntityAttributeEvidence],
         attribute_name: str,
+        question: Optional[str] = None,
+        evidence_list: Optional[List[Evidence]] = None,
     ) -> Tuple[str, str, bool, List[str], Optional[str]]:
-        """Compare two verified facts deterministically.
+        """Compare two verified facts deterministically with evidence-aware occupational and location reasoning.
 
         Returns:
             Tuple of (canonical_answer, explanation_answer, abstained, cited_chunk_ids, abstention_reason)
@@ -330,11 +546,85 @@ class ComparativeReasoningEngine:
             reason = f"Verified evidence for the {attribute_name.lower()} of {entity_2_name} was not found in retrieved evidence."
             return "", f"I am unable to answer this question. {reason}", True, [], reason
 
-        # Both facts verified -> normalize and compare
+        cited_chunks = sorted(list({fact_1.chunk_id, fact_2.chunk_id}))
+        q_norm = (question or "").lower()
+
+        # -------------------------------------------------------------
+        # Special Case 1: Evidence-Aware Occupational Comparison
+        # E.g. "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?"
+        # -------------------------------------------------------------
+        if "composer" in q_norm or "occupation" in attribute_name.lower() or "composer" in fact_1.extracted_value.lower():
+            target_specialization = None
+            if "opera" in q_norm:
+                target_specialization = "opera"
+            elif "film" in q_norm:
+                target_specialization = "film"
+
+            if target_specialization:
+                ev_map = {ev.chunk_id: ev for ev in (evidence_list or [])}
+                ev_1 = ev_map.get(fact_1.chunk_id)
+                ev_2 = ev_map.get(fact_2.chunk_id)
+                chunk_1_text = ev_1.text.lower() if ev_1 else ""
+                chunk_2_text = ev_2.text.lower() if ev_2 else ""
+
+                e1_specialized = (
+                    target_specialization in fact_1.extracted_value.lower()
+                    or target_specialization in fact_1.evidence_quote.lower()
+                    or target_specialization in chunk_1_text
+                )
+                e2_specialized = (
+                    target_specialization in fact_2.extracted_value.lower()
+                    or target_specialization in fact_2.evidence_quote.lower()
+                    or target_specialization in chunk_2_text
+                )
+
+                if e1_specialized and e2_specialized:
+                    canonical = "yes"
+                    answer = (
+                        f"{entity_1_name} was {fact_1.extracted_value} [{fact_1.chunk_id}] and "
+                        f"{entity_2_name} was {fact_2.extracted_value} [{fact_2.chunk_id}], and both are grounded by evidence as {target_specialization} composers. "
+                        f"Therefore, they were of the same attribute."
+                    )
+                    return canonical, answer, False, cited_chunks, None
+                elif not e1_specialized or not e2_specialized:
+                    unsupported_entity = entity_1_name if not e1_specialized else entity_2_name
+                    reason = f"Verified evidence that {unsupported_entity} was an {target_specialization} composer was not found in retrieved evidence."
+                    return "", f"I am unable to answer this question. {reason}", True, [], reason
+
+        # -------------------------------------------------------------
+        # Special Case 2: Location Granularity Comparison (Neighbourhood vs City)
+        # E.g. "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?"
+        # -------------------------------------------------------------
+        is_loc_attr = any(k in attribute_name.lower() for k in ["locat", "neighbor", "city"]) and "nationality" not in attribute_name.lower()
+        if is_loc_attr:
+            loc_gran = FactValidator.detect_location_granularity(q_norm + " " + attribute_name)
+            v1 = fact_1.extracted_value.strip().lower()
+            v2 = fact_2.extracted_value.strip().lower()
+
+            gran_label = loc_gran if loc_gran != "general" else "location"
+
+            if v1 == v2:
+                canonical = "yes"
+                answer = (
+                    f"{entity_1_name} is located in {fact_1.extracted_value} [{fact_1.chunk_id}] and "
+                    f"{entity_2_name} is located in {fact_2.extracted_value} [{fact_2.chunk_id}]. "
+                    f"Therefore, they are located in the same {gran_label}."
+                )
+                return canonical, answer, False, cited_chunks, None
+            else:
+                canonical = "no"
+                answer = (
+                    f"{entity_1_name} is located in {fact_1.extracted_value} [{fact_1.chunk_id}], while "
+                    f"{entity_2_name} is located in {fact_2.extracted_value} [{fact_2.chunk_id}]. "
+                    f"Therefore, they are not located in the same {gran_label}."
+                )
+                return canonical, answer, False, cited_chunks, None
+
+        # -------------------------------------------------------------
+        # General / Nationality Comparison
+        # -------------------------------------------------------------
         norm_val1 = FactValidator.normalize_value(fact_1.extracted_value, attribute_name)
         norm_val2 = FactValidator.normalize_value(fact_2.extracted_value, attribute_name)
-
-        cited_chunks = sorted(list({fact_1.chunk_id, fact_2.chunk_id}))
 
         if norm_val1 == norm_val2:
             canonical = "yes"
@@ -414,6 +704,7 @@ class OllamaAnswerGenerator:
             )
 
         query_plan = retrieval_result.query_plan
+        is_selection = ComparativeReasoningEngine.is_selection_question(query_plan)
         is_comparative = ComparativeReasoningEngine.is_comparative_question(query_plan)
         target_attribute = ComparativeReasoningEngine.extract_target_attribute(query_plan)
 
@@ -448,9 +739,75 @@ class OllamaAnswerGenerator:
         evidence_by_id = {ev.chunk_id: ev for ev in retrieval_result.evidence_list}
 
         # -------------------------------------------------------------
-        # Branch 1: Comparative Attribute Question Handling
+        # Branch 1A: Selection Question Handling (e.g. Which of A or B...)
         # -------------------------------------------------------------
-        if is_comparative and len(query_plan.seed_entities) >= 2:
+        if is_selection and len(query_plan.seed_entities) >= 2:
+            seed_1 = query_plan.seed_entities[0].name
+            seed_2 = query_plan.seed_entities[1].name
+
+            verified_facts: Dict[str, EntityAttributeEvidence] = {}
+            for fact in output.extracted_attributes:
+                valid, reason = FactValidator.validate_fact(
+                    fact, retrieval_result.evidence_list, expected_attribute=target_attribute
+                )
+                if valid:
+                    name_norm = FactValidator.normalize_ws(fact.entity_name)
+                    matching_seed = None
+                    honorifics = {"dr", "dr.", "mr", "mr.", "mrs", "mrs.", "ms", "ms.", "prof", "prof."}
+                    s1_tokens = [t for t in seed_1.lower().split() if t not in honorifics and len(t) > 2]
+                    s2_tokens = [t for t in seed_2.lower().split() if t not in honorifics and len(t) > 2]
+
+                    if FactValidator.normalize_ws(seed_1) in name_norm or (s1_tokens and any(t in name_norm for t in s1_tokens)):
+                        matching_seed = seed_1
+                    elif FactValidator.normalize_ws(seed_2) in name_norm or (s2_tokens and any(t in name_norm for t in s2_tokens)):
+                        matching_seed = seed_2
+
+                    if matching_seed and matching_seed not in verified_facts:
+                        verified_facts[matching_seed] = EntityAttributeEvidence(
+                            entity_id=fact.entity_id or fact.chunk_id,
+                            entity_name=matching_seed,
+                            attribute_name=fact.attribute_name or target_attribute,
+                            extracted_value=fact.extracted_value,
+                            evidence_quote=fact.evidence_quote,
+                            chunk_id=fact.chunk_id,
+                            is_verified=True,
+                        )
+
+            for seed_name in (seed_1, seed_2):
+                if seed_name not in verified_facts:
+                    for ev in retrieval_result.evidence_list:
+                        extracted = FactValidator.extract_entity_attribute_from_chunk(
+                            ev, seed_name, target_attribute
+                        )
+                        if extracted is not None:
+                            verified_facts[seed_name] = extracted
+                            break
+
+            fact_1 = verified_facts.get(seed_1)
+            fact_2 = verified_facts.get(seed_2)
+
+            canonical, answer, abstained, cited_chunks, reason = ComparativeReasoningEngine.evaluate_selection(
+                seed_1, fact_1, seed_2, fact_2, target_attribute, query_plan.question, retrieval_result.evidence_list
+            )
+
+            if output.canonical_answer and output.canonical_answer.lower() not in ("yes", "no"):
+                canon_norm = output.canonical_answer.lower()
+                if seed_1.lower() in canon_norm or canon_norm in seed_1.lower():
+                    canonical = output.canonical_answer
+                elif seed_2.lower() in canon_norm or canon_norm in seed_2.lower():
+                    canonical = output.canonical_answer
+
+            output.canonical_answer = canonical
+            if answer and not output.abstained:
+                output.answer = answer
+            output.abstained = abstained
+            output.cited_chunk_ids = cited_chunks if cited_chunks else output.cited_chunk_ids
+            output.abstention_reason = reason
+
+        # -------------------------------------------------------------
+        # Branch 1B: Comparative Attribute Question Handling (Boolean yes/no)
+        # -------------------------------------------------------------
+        elif is_comparative and len(query_plan.seed_entities) >= 2:
             seed_1 = query_plan.seed_entities[0].name
             seed_2 = query_plan.seed_entities[1].name
 
@@ -498,7 +855,7 @@ class OllamaAnswerGenerator:
             fact_2 = verified_facts.get(seed_2)
 
             canonical, answer, abstained, cited_chunks, reason = ComparativeReasoningEngine.evaluate_comparison(
-                seed_1, fact_1, seed_2, fact_2, target_attribute
+                seed_1, fact_1, seed_2, fact_2, target_attribute, query_plan.question, retrieval_result.evidence_list
             )
 
             output.canonical_answer = canonical

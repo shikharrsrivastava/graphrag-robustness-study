@@ -1,0 +1,1500 @@
+{
+  "timestamp": "2026-11-14T02:40:41Z",
+  "protocol": "HotpotQA 10-Question Pilot Autonomous Run",
+  "benchmark_summary": {
+    "benchmark_sample_size": 9,
+    "completed_count": 9,
+    "failed_count": 0,
+    "overall_exact_match": 0.2222222222222222,
+    "overall_token_f1": 0.2222222222222222,
+    "abstention_rate": 0.5555555555555556,
+    "retrieval": {
+      "mean_recall_at_2": 1.0,
+      "mean_recall_at_5": 1.0,
+      "mean_complete_support_at_2": 1.0,
+      "mean_complete_support_at_5": 1.0
+    },
+    "grounding": {
+      "mean_citation_validity_rate": 0.4444444444444444,
+      "mean_citation_gold_coverage": 0.3333333333333333
+    },
+    "performance": {
+      "mean_query_latency_seconds": 96.57005672677607,
+      "median_query_latency_seconds": 93.04584929200064,
+      "total_query_duration_seconds": 869.1305105409847,
+      "mean_indexing_latency_seconds": 1165.1473482915526,
+      "median_indexing_latency_seconds": 1202.2100996669906,
+      "total_indexing_duration_seconds": 10486.326134623974
+    },
+    "by_question_type": {
+      "bridge": {
+        "count": 5,
+        "exact_match": 0.2,
+        "token_f1": 0.2,
+        "recall_at_2": 1.0,
+        "recall_at_5": 1.0
+      },
+      "comparison": {
+        "count": 4,
+        "exact_match": 0.25,
+        "token_f1": 0.25,
+        "recall_at_2": 1.0,
+        "recall_at_5": 1.0
+      }
+    }
+  },
+  "regression_control_q2": {
+    "question_id": "5a8b57f25542995d1e6f1371",
+    "question_index": 2,
+    "question_type": "comparison",
+    "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+    "gold_answer": "yes",
+    "is_regression_control": true,
+    "status": "completed",
+    "attempts": 0,
+    "error": null,
+    "indexing_stats": {
+      "reused_existing_kb": true,
+      "indexing_seconds": 0.0
+    },
+    "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_eval/hotpot_full_5a8b57f25542995d1e6f1371",
+    "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/full/5a8b57f25542995d1e6f1371",
+    "query_result": {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+      "canonical_answer": "yes",
+      "abstained": false,
+      "abstention_reason": null,
+      "cited_chunk_ids": [
+        "D002_C0000",
+        "D005_C0000"
+      ],
+      "citations": [
+        {
+          "chunk_id": "D002_C0000",
+          "doc_id": "D002",
+          "filename": "ctx_001_Scott_Derrickson.txt",
+          "page_numbers": [
+            1
+          ],
+          "text_snippet": "Title: Scott Derrickson\nScott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California...",
+          "valid": true
+        },
+        {
+          "chunk_id": "D005_C0000",
+          "doc_id": "D005",
+          "filename": "ctx_004_Ed_Wood.txt",
+          "page_numbers": [
+            1
+          ],
+          "text_snippet": "Title: Ed Wood\nEdward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+          "valid": true
+        }
+      ],
+      "mode": "hybrid",
+      "latency_seconds": 48.561063249988365,
+      "measured_total_query_seconds": 48.618848708996666,
+      "timing_breakdown": {
+        "query_planning_seconds": 12.318033167000976,
+        "answer_generation_seconds": 36.17413374999887
+      },
+      "query_llm_requests": 2
+    },
+    "metrics": {
+      "answer_metrics": {
+        "exact_match": 1,
+        "token_f1": 1.0,
+        "generated_exact_match": 0,
+        "generated_token_f1": 0.0,
+        "abstained": false,
+        "abstention_reason": null
+      },
+      "retrieval_metrics": {
+        "gold_supporting_titles": [
+          "Ed Wood",
+          "Scott Derrickson"
+        ],
+        "retrieved_document_titles": [
+          "Scott Derrickson",
+          "Ed Wood",
+          "Conrad Brooks",
+          "Deliver Us from Evil (2014 film)",
+          "Tyler Bates",
+          "Adam Collis",
+          "Sinister (film)",
+          "Doctor Strange (2016 film)"
+        ],
+        "recall_at_2": 1.0,
+        "recall_at_5": 1.0,
+        "complete_supporting_documents_at_2": true,
+        "complete_supporting_documents_at_5": true
+      },
+      "citation_metrics": {
+        "total_citations": 2,
+        "valid_citations": 2,
+        "citation_validity_rate": 1.0,
+        "citation_gold_coverage": 1.0,
+        "cited_chunk_ids": [
+          "D002_C0000",
+          "D005_C0000"
+        ],
+        "cited_document_titles": [
+          "Ed Wood",
+          "Scott Derrickson"
+        ]
+      }
+    }
+  },
+  "all_questions": [
+    {
+      "question_id": "5a8133725542995ce29dcbdb",
+      "question_index": 1,
+      "question_type": "comparison",
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "gold_answer": "Robert Erskine Childers DSC",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "indexing_seconds": 707.3294704589935,
+        "indexing_llm_requests": 29,
+        "ingest_summary": {
+          "kb_id": "5a8133725542995ce29dcbdb",
+          "documents": 10,
+          "pages": 10,
+          "chunks": 10,
+          "entities": 42,
+          "relationships": 34,
+          "extracted_relationships": 43,
+          "validated_relationships": 35,
+          "rejected_relationships": 8,
+          "rejected_relationships_by_reason": {
+            "REJECTED_ONTOLOGY": 3,
+            "REJECTED_QUOTE_MISMATCH": 5
+          },
+          "entity_mentions": 61,
+          "canonical_entities": 42,
+          "communities": 20,
+          "community_reports": 20,
+          "graph_vertices": 42,
+          "graph_edges": 34,
+          "graph_connected_components": 14,
+          "graph_isolated_nodes": 13,
+          "graph_degree_min": 0,
+          "graph_degree_mean": 1.619047619047619,
+          "graph_degree_max": 9,
+          "relationship_type_distribution": {
+            "PART_OF": 3,
+            "LOCATED_IN": 9,
+            "AFFILIATED_WITH": 5,
+            "WORKS_UNDER": 2,
+            "RELATED_TO": 1,
+            "COLLABORATED_WITH": 9,
+            "AUTHORED": 1,
+            "WORKS_ON": 1,
+            "NATIONALITY": 2,
+            "PARTICIPATED_IN": 1
+          },
+          "extraction_failures": [],
+          "stage_seconds": {
+            "document_loading": 0.0015365419967565686,
+            "chunking": 0.0002939160040114075,
+            "entity_extraction": 164.4144926679728,
+            "relationship_extraction": 350.0997884170065,
+            "entity_resolution": 21.86835516699648,
+            "embedding_and_vector_indexing": 0.9868431250069989,
+            "graph_construction_and_validation": 0.006097999998019077,
+            "community_detection": 0.005795374992885627,
+            "community_summarization": 169.86180016600701,
+            "total_indexing": 707.2509290000016
+          },
+          "llm_requests": 29,
+          "llm_failed_requests": 0,
+          "llm_failed_generations": 0,
+          "manifest_fingerprint": "4104e32cefc52b2fba9ac93a17052dee59435b35ff629adeecea880d0f81678d"
+        }
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a8133725542995ce29dcbdb",
+      "query_result": {
+        "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+        "answer": "Henry Roth was an American novelist and short story writer [D002_C0000], while Robert Erskine Childers was a British writer [D007_C0000]. Therefore, Robert Erskine Childers was from England, not Henry Roth.",
+        "canonical_answer": "no",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D002_C0000",
+          "D007_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D002_C0000",
+            "doc_id": "D002",
+            "filename": "ctx_001_Henry_Roth.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Henry Roth\nHenry Roth (February 8, 1906 \u2013 October 13, 1995) was an American novelist and short story writer.",
+            "valid": true
+          },
+          {
+            "chunk_id": "D007_C0000",
+            "doc_id": "D007",
+            "filename": "ctx_006_Robert_Erskine_Childers.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Robert Erskine Childers\nRobert Erskine Childers DSC (25 June 1870 \u2013 24 November 1922), universally known as Erskine Childers, was a British wri...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 52.409168208992924,
+        "measured_total_query_seconds": 52.49039408299723,
+        "timing_breakdown": {
+          "query_planning_seconds": 12.342268917011097,
+          "answer_generation_seconds": 39.99847929099633
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 0,
+          "token_f1": 0.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.17647058823529416,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers"
+          ],
+          "retrieved_document_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers",
+            "Molly Childers",
+            "Robert Caesar Childers",
+            "Gretchen Osgood Warren",
+            "Robert Barton",
+            "Irish Bulletin",
+            "Erskine Barton Childers"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D002_C0000",
+            "D007_C0000"
+          ],
+          "cited_document_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5a8b57f25542995d1e6f1371",
+      "question_index": 2,
+      "question_type": "comparison",
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "gold_answer": "yes",
+      "is_regression_control": true,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "reused_existing_kb": true,
+        "indexing_seconds": 0.0
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_eval/hotpot_full_5a8b57f25542995d1e6f1371",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/full/5a8b57f25542995d1e6f1371",
+      "query_result": {
+        "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+        "answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+        "canonical_answer": "yes",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D002_C0000",
+          "D005_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D002_C0000",
+            "doc_id": "D002",
+            "filename": "ctx_001_Scott_Derrickson.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Scott Derrickson\nScott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California...",
+            "valid": true
+          },
+          {
+            "chunk_id": "D005_C0000",
+            "doc_id": "D005",
+            "filename": "ctx_004_Ed_Wood.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Ed Wood\nEdward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 48.561063249988365,
+        "measured_total_query_seconds": 48.618848708996666,
+        "timing_breakdown": {
+          "query_planning_seconds": 12.318033167000976,
+          "answer_generation_seconds": 36.17413374999887
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "retrieved_document_titles": [
+            "Scott Derrickson",
+            "Ed Wood",
+            "Conrad Brooks",
+            "Deliver Us from Evil (2014 film)",
+            "Tyler Bates",
+            "Adam Collis",
+            "Sinister (film)",
+            "Doctor Strange (2016 film)"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D002_C0000",
+            "D005_C0000"
+          ],
+          "cited_document_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5ab29c24554299449642c932",
+      "question_index": 3,
+      "question_type": "comparison",
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "gold_answer": "yes",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "indexing_seconds": 1242.082608124998,
+        "indexing_llm_requests": 34,
+        "ingest_summary": {
+          "kb_id": "5ab29c24554299449642c932",
+          "documents": 10,
+          "pages": 10,
+          "chunks": 11,
+          "entities": 90,
+          "relationships": 38,
+          "extracted_relationships": 57,
+          "validated_relationships": 38,
+          "rejected_relationships": 19,
+          "rejected_relationships_by_reason": {
+            "REJECTED_QUOTE_MISMATCH": 10,
+            "REJECTED_ONTOLOGY": 9
+          },
+          "entity_mentions": 108,
+          "canonical_entities": 90,
+          "communities": 60,
+          "community_reports": 60,
+          "graph_vertices": 90,
+          "graph_edges": 38,
+          "graph_connected_components": 58,
+          "graph_isolated_nodes": 53,
+          "graph_degree_min": 0,
+          "graph_degree_mean": 0.8444444444444444,
+          "graph_degree_max": 6,
+          "relationship_type_distribution": {
+            "RELATED_TO": 10,
+            "DIRECTED": 2,
+            "ACTED_IN": 4,
+            "PART_OF": 4,
+            "LOCATED_IN": 6,
+            "AFFILIATED_WITH": 5,
+            "NATIONALITY": 2,
+            "AUTHORED": 2,
+            "WORKS_AT": 1,
+            "COLLABORATED_WITH": 1,
+            "PARTICIPATED_IN": 1
+          },
+          "extraction_failures": [
+            {
+              "chunk_id": "D001_C0000",
+              "stage": "relationship_extraction",
+              "error": "Failed to generate valid JSON matching RawRelationshipExtractionOutput after 3 attempts. Last error: Expecting value: line 1 column 1 (char 0)"
+            }
+          ],
+          "stage_seconds": {
+            "document_loading": 0.00974375000805594,
+            "chunking": 0.0008248750091297552,
+            "entity_extraction": 315.97490329205175,
+            "relationship_extraction": 615.2489309569937,
+            "entity_resolution": 34.74487570799829,
+            "embedding_and_vector_indexing": 2.384244667002349,
+            "graph_construction_and_validation": 0.015860208004596643,
+            "community_detection": 0.010464124992722645,
+            "community_summarization": 273.631582624992,
+            "total_indexing": 1242.0434380840015
+          },
+          "llm_requests": 34,
+          "llm_failed_requests": 0,
+          "llm_failed_generations": 3,
+          "manifest_fingerprint": "a8f81e64b984ee8f1fdcd7b5d5c4d8d72a05c6795839172b0cf13e7613ff98b6"
+        }
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5ab29c24554299449642c932",
+      "query_result": {
+        "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+        "answer": "Giuseppe Verdi was Opera composer [D004_C0000], while Ambroise Thomas was Composer [D006_C0000]. Therefore, they were not of the same attribute.",
+        "canonical_answer": "no",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000",
+          "D006_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D004_C0000",
+            "doc_id": "D004",
+            "filename": "ctx_003_Giuseppe_Verdi.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Giuseppe Verdi\nGiuseppe Fortunino Francesco Verdi (] ; 9 or 10 October 1813 \u2013 27 January 1901) was an Italian opera composer.",
+            "valid": true
+          },
+          {
+            "chunk_id": "D006_C0000",
+            "doc_id": "D006",
+            "filename": "ctx_005_Ambroise_Thomas.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Ambroise Thomas\nCharles Louis Ambroise Thomas (5 August 1811 \u2013 12 February 1896) was a French composer, best known for his operas \"Mignon\" (186...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 54.42820650000067,
+        "measured_total_query_seconds": 54.483769458995084,
+        "timing_breakdown": {
+          "query_planning_seconds": 11.396058375001303,
+          "answer_generation_seconds": 42.952808875008486
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 0,
+          "token_f1": 0.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi"
+          ],
+          "retrieved_document_titles": [
+            "Giuseppe Verdi",
+            "Ambroise Thomas",
+            "Ferdinando Provesi",
+            "Teatro Giuseppe Verdi",
+            "Bernhard B\u00f6tel",
+            "Armand Castelmary",
+            "Verdi, the King of Melody"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 2,
+          "valid_citations": 2,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 1.0,
+          "cited_chunk_ids": [
+            "D004_C0000",
+            "D006_C0000"
+          ],
+          "cited_document_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5a8db19d5542994ba4e3dd00",
+      "question_index": 4,
+      "question_type": "comparison",
+      "question": "Are Local H and For Against both from the United States?",
+      "gold_answer": "yes",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "indexing_seconds": 1666.5058415409876,
+        "indexing_llm_requests": 46,
+        "ingest_summary": {
+          "kb_id": "5a8db19d5542994ba4e3dd00",
+          "documents": 10,
+          "pages": 10,
+          "chunks": 11,
+          "entities": 84,
+          "relationships": 33,
+          "extracted_relationships": 55,
+          "validated_relationships": 36,
+          "rejected_relationships": 19,
+          "rejected_relationships_by_reason": {
+            "REJECTED_NEGATION": 6,
+            "REJECTED_QUOTE_MISMATCH": 4,
+            "REJECTED_ONTOLOGY": 9
+          },
+          "entity_mentions": 96,
+          "canonical_entities": 84,
+          "communities": 53,
+          "community_reports": 53,
+          "graph_vertices": 84,
+          "graph_edges": 33,
+          "graph_connected_components": 53,
+          "graph_isolated_nodes": 45,
+          "graph_degree_min": 0,
+          "graph_degree_mean": 0.7857142857142857,
+          "graph_degree_max": 5,
+          "relationship_type_distribution": {
+            "AFFILIATED_WITH": 8,
+            "PART_OF": 7,
+            "COLLABORATED_WITH": 3,
+            "AUTHORED": 2,
+            "PARTICIPATED_IN": 1,
+            "WORKS_ON": 1,
+            "LOCATED_IN": 9,
+            "WORKS_AT": 1,
+            "USES": 1
+          },
+          "extraction_failures": [
+            {
+              "chunk_id": "D008_C0000",
+              "stage": "relationship_extraction",
+              "error": "Failed to generate valid JSON matching RawRelationshipExtractionOutput after 3 attempts. Last error: Expecting value: line 1 column 1 (char 0)"
+            },
+            {
+              "chunk_id": "D009_C0000",
+              "stage": "relationship_extraction",
+              "error": "Failed to generate valid JSON matching RawRelationshipExtractionOutput after 3 attempts. Last error: Expecting value: line 1 column 1 (char 0)"
+            }
+          ],
+          "stage_seconds": {
+            "document_loading": 0.006234833010239527,
+            "chunking": 0.00043033299152739346,
+            "entity_extraction": 265.8685739589855,
+            "relationship_extraction": 1090.9463026669982,
+            "entity_resolution": 76.55050933400344,
+            "embedding_and_vector_indexing": 1.775387125002453,
+            "graph_construction_and_validation": 0.016307208003127016,
+            "community_detection": 0.010116624995134771,
+            "community_summarization": 231.25900133300456,
+            "total_indexing": 1666.4589213750005
+          },
+          "llm_requests": 46,
+          "llm_failed_requests": 0,
+          "llm_failed_generations": 6,
+          "manifest_fingerprint": "754798c5db092c911432c12acd1bde83b2a9cb38f33f25ba90b313708f21528f"
+        }
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a8db19d5542994ba4e3dd00",
+      "query_result": {
+        "question": "Are Local H and For Against both from the United States?",
+        "answer": "Local H was American [D005_C0000] and For Against was American [D005_C0000]. Therefore, they were of the same nationality.",
+        "canonical_answer": "yes",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D005_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D005_C0000",
+            "doc_id": "D005",
+            "filename": "ctx_004_Local_H.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Local H\nLocal H is an American rock band originally formed by guitarist and vocalist Scott Lucas, bassist Matt Garcia, drummer Joe Daniels, and...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 92.99343479100207,
+        "measured_total_query_seconds": 93.04584929200064,
+        "timing_breakdown": {
+          "query_planning_seconds": 10.750064207997639,
+          "answer_generation_seconds": 82.13368420899496
+        },
+        "query_llm_requests": 4
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "For Against",
+            "Local H"
+          ],
+          "retrieved_document_titles": [
+            "Local H",
+            "For Against",
+            "Hallelujah! I'm a Bum (album)",
+            "Ophur",
+            "Mendocino County GMO Ban",
+            "Suffrajett",
+            "Wilford H. Fawcett House"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 1,
+          "valid_citations": 1,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 0.5,
+          "cited_chunk_ids": [
+            "D005_C0000"
+          ],
+          "cited_document_titles": [
+            "Local H"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5adbf0a255429947ff17385a",
+      "question_index": 5,
+      "question_type": "comparison",
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "gold_answer": "no",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "indexing_seconds": 712.4460513750091,
+        "indexing_llm_requests": 26,
+        "ingest_summary": {
+          "kb_id": "5adbf0a255429947ff17385a",
+          "documents": 10,
+          "pages": 10,
+          "chunks": 10,
+          "entities": 41,
+          "relationships": 36,
+          "extracted_relationships": 43,
+          "validated_relationships": 36,
+          "rejected_relationships": 7,
+          "rejected_relationships_by_reason": {
+            "REJECTED_ONTOLOGY": 4,
+            "REJECTED_QUOTE_MISMATCH": 3
+          },
+          "entity_mentions": 54,
+          "canonical_entities": 41,
+          "communities": 14,
+          "community_reports": 14,
+          "graph_vertices": 41,
+          "graph_edges": 36,
+          "graph_connected_components": 12,
+          "graph_isolated_nodes": 10,
+          "graph_degree_min": 0,
+          "graph_degree_mean": 1.7560975609756098,
+          "graph_degree_max": 10,
+          "relationship_type_distribution": {
+            "AFFILIATED_WITH": 9,
+            "RELATED_TO": 7,
+            "LOCATED_IN": 13,
+            "PART_OF": 4,
+            "COLLABORATED_WITH": 1,
+            "WORKS_UNDER": 2
+          },
+          "extraction_failures": [],
+          "stage_seconds": {
+            "document_loading": 0.007150042001740076,
+            "chunking": 0.0005024580023018643,
+            "entity_extraction": 151.4663389150228,
+            "relationship_extraction": 326.26983945802203,
+            "entity_resolution": 19.625404125006753,
+            "embedding_and_vector_indexing": 1.037067749988637,
+            "graph_construction_and_validation": 0.007124875002773479,
+            "community_detection": 0.006870375000289641,
+            "community_summarization": 213.9686876670021,
+            "total_indexing": 712.3971585419931
+          },
+          "llm_requests": 26,
+          "llm_failed_requests": 0,
+          "llm_failed_generations": 0,
+          "manifest_fingerprint": "be878ded87d3f85b7054a4ebfe98ad5b5ce629f75781cb071ebc91c770e0eeae"
+        }
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5adbf0a255429947ff17385a",
+      "query_result": {
+        "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+        "answer": "I am unable to answer this question. Verified evidence for the located_in of both Laleli Mosque and Esma Sultan Mansion was not found.",
+        "canonical_answer": "",
+        "abstained": true,
+        "abstention_reason": "Verified evidence for the located_in of both Laleli Mosque and Esma Sultan Mansion was not found.",
+        "cited_chunk_ids": [],
+        "citations": [],
+        "mode": "hybrid",
+        "latency_seconds": 105.16131466599472,
+        "measured_total_query_seconds": 105.18818208298762,
+        "timing_breakdown": {
+          "query_planning_seconds": 11.266828708001412,
+          "answer_generation_seconds": 93.78241320799862
+        },
+        "query_llm_requests": 4
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 0,
+          "token_f1": 0.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": true,
+          "abstention_reason": "Verified evidence for the located_in of both Laleli Mosque and Esma Sultan Mansion was not found."
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ],
+          "retrieved_document_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque",
+            "Sultan Ahmed Mosque",
+            "Esma Sultan (daughter of Abd\u00fclaziz)",
+            "Esma Sultan",
+            "Esma Sultan (daughter of Ahmed III)",
+            "Gevheri Kad\u0131n",
+            "Esma Sultan (daughter of Abdul Hamid I)"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 0,
+          "valid_citations": 0,
+          "citation_validity_rate": 0.0,
+          "citation_gold_coverage": 0.0,
+          "cited_chunk_ids": [],
+          "cited_document_titles": []
+        }
+      }
+    },
+    {
+      "question_id": "5abd94525542992ac4f382d2",
+      "question_index": 6,
+      "question_type": "bridge",
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "gold_answer": "YG Entertainment",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "indexing_seconds": 1102.4861025830032,
+        "indexing_llm_requests": 40,
+        "ingest_summary": {
+          "kb_id": "5abd94525542992ac4f382d2",
+          "documents": 10,
+          "pages": 10,
+          "chunks": 11,
+          "entities": 66,
+          "relationships": 49,
+          "extracted_relationships": 73,
+          "validated_relationships": 50,
+          "rejected_relationships": 23,
+          "rejected_relationships_by_reason": {
+            "REJECTED_ONTOLOGY": 18,
+            "REJECTED_QUOTE_MISMATCH": 5
+          },
+          "entity_mentions": 73,
+          "canonical_entities": 66,
+          "communities": 22,
+          "community_reports": 22,
+          "graph_vertices": 66,
+          "graph_edges": 49,
+          "graph_connected_components": 22,
+          "graph_isolated_nodes": 14,
+          "graph_degree_min": 0,
+          "graph_degree_mean": 1.4848484848484849,
+          "graph_degree_max": 10,
+          "relationship_type_distribution": {
+            "AFFILIATED_WITH": 21,
+            "AUTHORED": 1,
+            "WORKS_ON": 4,
+            "PARTICIPATED_IN": 2,
+            "PART_OF": 5,
+            "WORKS_AT": 1,
+            "LOCATED_IN": 1,
+            "WORKS_UNDER": 4,
+            "MEMBER_OF": 8,
+            "COLLABORATED_WITH": 1,
+            "NATIONALITY": 1
+          },
+          "extraction_failures": [],
+          "stage_seconds": {
+            "document_loading": 0.003806417007581331,
+            "chunking": 0.0005623750039376318,
+            "entity_extraction": 198.12432974998956,
+            "relationship_extraction": 541.5659224150295,
+            "entity_resolution": 59.56075883300218,
+            "embedding_and_vector_indexing": 1.3939834590128157,
+            "graph_construction_and_validation": 0.00510045800183434,
+            "community_detection": 0.005223042011493817,
+            "community_summarization": 301.7724326669995,
+            "total_indexing": 1102.438624167
+          },
+          "llm_requests": 40,
+          "llm_failed_requests": 0,
+          "llm_failed_generations": 0,
+          "manifest_fingerprint": "66fcfde6f666901c5cc9450eca9c2c9ebbd4e4f621d097f63c1833b2f4819a6a"
+        }
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5abd94525542992ac4f382d2",
+      "query_result": {
+        "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+        "answer": "Error generating answer: Failed to generate valid JSON matching AnswerGenerationOutput after 3 attempts. Last error: 1 validation error for AnswerGenerationOutput\nextracted_attributes.0.entity_id\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type",
+        "canonical_answer": "",
+        "abstained": true,
+        "abstention_reason": "LLM invocation failed.",
+        "cited_chunk_ids": [],
+        "citations": [],
+        "mode": "hybrid",
+        "latency_seconds": 62.485364541003946,
+        "measured_total_query_seconds": 62.53488487499999,
+        "timing_breakdown": {
+          "query_planning_seconds": 10.33103858299728,
+          "answer_generation_seconds": 52.07348904199898
+        },
+        "query_llm_requests": 4
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 0,
+          "token_f1": 0.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": true,
+          "abstention_reason": "LLM invocation failed."
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "2014 S/S",
+            "Winner (band)"
+          ],
+          "retrieved_document_titles": [
+            "2014 S/S",
+            "Winner (band)",
+            "SF9 (band)",
+            "Seventeen discography",
+            "History (band)",
+            "Madtown",
+            "List of awards and nominations received by Shinee",
+            "BTS discography"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 0,
+          "valid_citations": 0,
+          "citation_validity_rate": 0.0,
+          "citation_gold_coverage": 0.0,
+          "cited_chunk_ids": [],
+          "cited_document_titles": []
+        }
+      }
+    },
+    {
+      "question_id": "5ae0d4c9554299603e418468",
+      "question_index": 7,
+      "question_type": "bridge",
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "gold_answer": "1969 until 1974",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "indexing_seconds": 1202.2100996669906,
+        "indexing_llm_requests": 43,
+        "ingest_summary": {
+          "kb_id": "5ae0d4c9554299603e418468",
+          "documents": 10,
+          "pages": 10,
+          "chunks": 11,
+          "entities": 87,
+          "relationships": 52,
+          "extracted_relationships": 71,
+          "validated_relationships": 52,
+          "rejected_relationships": 19,
+          "rejected_relationships_by_reason": {
+            "REJECTED_ONTOLOGY": 15,
+            "REJECTED_QUOTE_MISMATCH": 4
+          },
+          "entity_mentions": 92,
+          "canonical_entities": 87,
+          "communities": 36,
+          "community_reports": 36,
+          "graph_vertices": 87,
+          "graph_edges": 52,
+          "graph_connected_components": 35,
+          "graph_isolated_nodes": 25,
+          "graph_degree_min": 0,
+          "graph_degree_mean": 1.1954022988505748,
+          "graph_degree_max": 10,
+          "relationship_type_distribution": {
+            "AFFILIATED_WITH": 19,
+            "WORKS_UNDER": 3,
+            "LOCATED_IN": 5,
+            "WORKS_AT": 9,
+            "NATIONALITY": 1,
+            "PART_OF": 5,
+            "STUDIES_AT": 2,
+            "COLLABORATED_WITH": 4,
+            "BORN_IN": 1,
+            "RELATED_TO": 3
+          },
+          "extraction_failures": [],
+          "stage_seconds": {
+            "document_loading": 0.013008499998250045,
+            "chunking": 0.0011952909990213811,
+            "entity_extraction": 251.43854024796747,
+            "relationship_extraction": 534.1916627510072,
+            "entity_resolution": 66.82167233299697,
+            "embedding_and_vector_indexing": 1.7541068330028793,
+            "graph_construction_and_validation": 0.007245959001011215,
+            "community_detection": 0.00944845900812652,
+            "community_summarization": 347.90969433299324,
+            "total_indexing": 1202.1532804169983
+          },
+          "llm_requests": 43,
+          "llm_failed_requests": 0,
+          "llm_failed_generations": 0,
+          "manifest_fingerprint": "4386710787e828729c33db0d320e4059c717cc42c3566438c391b1ca1986c7e1"
+        }
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5ae0d4c9554299603e418468",
+      "query_result": {
+        "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+        "answer": "Error generating answer: Failed to generate valid JSON matching AnswerGenerationOutput after 3 attempts. Last error: 1 validation error for AnswerGenerationOutput\nextracted_attributes.1.entity_id\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type",
+        "canonical_answer": "",
+        "abstained": true,
+        "abstention_reason": "LLM invocation failed.",
+        "cited_chunk_ids": [],
+        "citations": [],
+        "mode": "hybrid",
+        "latency_seconds": 109.8989881669986,
+        "measured_total_query_seconds": 109.94784887500282,
+        "timing_breakdown": {
+          "query_planning_seconds": 11.333229708005092,
+          "answer_generation_seconds": 98.50022870799876
+        },
+        "query_llm_requests": 4
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 0,
+          "token_f1": 0.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": true,
+          "abstention_reason": "LLM invocation failed."
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Richard Nixon",
+            "Roger O. Egeberg"
+          ],
+          "retrieved_document_titles": [
+            "Roger O. Egeberg",
+            "Richard Nixon",
+            "Edward D. Martin",
+            "Steven K. Galson",
+            "Douglas J. Bennet",
+            "Robert R. Hood",
+            "Bradford P. Campbell",
+            "Robert Hormats"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 0,
+          "valid_citations": 0,
+          "citation_validity_rate": 0.0,
+          "citation_gold_coverage": 0.0,
+          "cited_chunk_ids": [],
+          "cited_document_titles": []
+        }
+      }
+    },
+    {
+      "question_id": "5a8e3ea95542995a26add48d",
+      "question_index": 8,
+      "question_type": "bridge",
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "gold_answer": "Greenwich Village, New York City",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "indexing_seconds": 1309.7204066660051,
+        "indexing_llm_requests": 45,
+        "ingest_summary": {
+          "kb_id": "5a8e3ea95542995a26add48d",
+          "documents": 10,
+          "pages": 10,
+          "chunks": 12,
+          "entities": 90,
+          "relationships": 59,
+          "extracted_relationships": 77,
+          "validated_relationships": 59,
+          "rejected_relationships": 18,
+          "rejected_relationships_by_reason": {
+            "REJECTED_ONTOLOGY": 15,
+            "REJECTED_QUOTE_MISMATCH": 3
+          },
+          "entity_mentions": 106,
+          "canonical_entities": 90,
+          "communities": 37,
+          "community_reports": 37,
+          "graph_vertices": 90,
+          "graph_edges": 59,
+          "graph_connected_components": 34,
+          "graph_isolated_nodes": 25,
+          "graph_degree_min": 0,
+          "graph_degree_mean": 1.3111111111111111,
+          "graph_degree_max": 11,
+          "relationship_type_distribution": {
+            "LOCATED_IN": 23,
+            "PART_OF": 21,
+            "MEMBER_OF": 1,
+            "WORKS_ON": 1,
+            "COLLABORATED_WITH": 2,
+            "AFFILIATED_WITH": 6,
+            "PARTICIPATED_IN": 2,
+            "WORKS_AT": 1,
+            "RELATED_TO": 1,
+            "AUTHORED": 1
+          },
+          "extraction_failures": [],
+          "stage_seconds": {
+            "document_loading": 0.006660291997832246,
+            "chunking": 0.0009703329997137189,
+            "entity_extraction": 281.3585885820503,
+            "relationship_extraction": 582.5463017069997,
+            "entity_resolution": 56.99235337499704,
+            "embedding_and_vector_indexing": 1.7850874580035452,
+            "graph_construction_and_validation": 0.02766358299413696,
+            "community_detection": 0.01113016699673608,
+            "community_summarization": 386.9239569170022,
+            "total_indexing": 1309.6586036250083
+          },
+          "llm_requests": 45,
+          "llm_failed_requests": 0,
+          "llm_failed_generations": 0,
+          "manifest_fingerprint": "97d883311c4ab4fa3553fa45c3a74f62787e2dea751187141f0a1d54ec076dbc"
+        }
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a8e3ea95542995a26add48d",
+      "query_result": {
+        "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+        "answer": "The director of the romantic comedy \"Big Stone Gap\" is Adriana Trigiani, who is based in Greenwich Village, New York City [D004_C0000].",
+        "canonical_answer": "Greenwich Village, New York City",
+        "abstained": false,
+        "abstention_reason": null,
+        "cited_chunk_ids": [
+          "D004_C0000"
+        ],
+        "citations": [
+          {
+            "chunk_id": "D004_C0000",
+            "doc_id": "D004",
+            "filename": "ctx_003_Adriana_Trigiani.txt",
+            "page_numbers": [
+              1
+            ],
+            "text_snippet": "Title: Adriana Trigiani\nAdriana Trigiani is an Italian American best-selling author of sixteen books, television writer, film director, and entreprene...",
+            "valid": true
+          }
+        ],
+        "mode": "hybrid",
+        "latency_seconds": 38.22993716700876,
+        "measured_total_query_seconds": 38.28334191600152,
+        "timing_breakdown": {
+          "query_planning_seconds": 10.31238858299912,
+          "answer_generation_seconds": 27.8580114159995
+        },
+        "query_llm_requests": 2
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 1,
+          "token_f1": 1.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.3846153846153846,
+          "abstained": false,
+          "abstention_reason": null
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Adriana Trigiani",
+            "Big Stone Gap (film)"
+          ],
+          "retrieved_document_titles": [
+            "Big Stone Gap (film)",
+            "Adriana Trigiani",
+            "I Love NY (2015 film)",
+            "Great Eastern Conventions",
+            "Just Another Romantic Wrestling Comedy",
+            "Nola (film)",
+            "Clinton, Minnesota",
+            "Hamish and Andy's Gap Year"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 1,
+          "valid_citations": 1,
+          "citation_validity_rate": 1.0,
+          "citation_gold_coverage": 0.5,
+          "cited_chunk_ids": [
+            "D004_C0000"
+          ],
+          "cited_document_titles": [
+            "Adriana Trigiani"
+          ]
+        }
+      }
+    },
+    {
+      "question_id": "5a85ea095542994775f606a8",
+      "question_index": 9,
+      "question_type": "bridge",
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "gold_answer": "Animorphs",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "indexing_seconds": 1418.0771577079868,
+        "indexing_llm_requests": 50,
+        "ingest_summary": {
+          "kb_id": "5a85ea095542994775f606a8",
+          "documents": 10,
+          "pages": 10,
+          "chunks": 10,
+          "entities": 93,
+          "relationships": 57,
+          "extracted_relationships": 75,
+          "validated_relationships": 57,
+          "rejected_relationships": 18,
+          "rejected_relationships_by_reason": {
+            "REJECTED_ONTOLOGY": 12,
+            "REJECTED_QUOTE_MISMATCH": 6
+          },
+          "entity_mentions": 97,
+          "canonical_entities": 93,
+          "communities": 40,
+          "community_reports": 40,
+          "graph_vertices": 93,
+          "graph_edges": 57,
+          "graph_connected_components": 40,
+          "graph_isolated_nodes": 26,
+          "graph_degree_min": 0,
+          "graph_degree_mean": 1.2258064516129032,
+          "graph_degree_max": 13,
+          "relationship_type_distribution": {
+            "AFFILIATED_WITH": 22,
+            "AUTHORED": 5,
+            "RELATED_TO": 1,
+            "PART_OF": 15,
+            "WORKS_ON": 1,
+            "LOCATED_IN": 10,
+            "COLLABORATED_WITH": 2,
+            "PARTICIPATED_IN": 1
+          },
+          "extraction_failures": [],
+          "stage_seconds": {
+            "document_loading": 0.005048833001637831,
+            "chunking": 0.0016399170126533136,
+            "entity_extraction": 257.1852963760175,
+            "relationship_extraction": 565.578942498978,
+            "entity_resolution": 78.8638439589995,
+            "embedding_and_vector_indexing": 1.7869654999958584,
+            "graph_construction_and_validation": 0.009532290991046466,
+            "community_detection": 0.013573125004768372,
+            "community_summarization": 514.5540965420078,
+            "total_indexing": 1418.0069610410137
+          },
+          "llm_requests": 50,
+          "llm_failed_requests": 0,
+          "llm_failed_generations": 3,
+          "manifest_fingerprint": "668e708da8daffc57bf46a83beb3a2bd3e55568ed489a1255284cfd691da7f30"
+        }
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a85ea095542994775f606a8",
+      "query_result": {
+        "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+        "answer": "Error generating answer: Failed to generate valid JSON matching AnswerGenerationOutput after 3 attempts. Last error: 2 validation errors for AnswerGenerationOutput\nextracted_attributes.0.entity_id\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type\nextracted_attributes.1.entity_id\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type",
+        "canonical_answer": "",
+        "abstained": true,
+        "abstention_reason": "LLM invocation failed.",
+        "cited_chunk_ids": [],
+        "citations": [],
+        "mode": "hybrid",
+        "latency_seconds": 161.65666237501136,
+        "measured_total_query_seconds": 161.70113674999448,
+        "timing_breakdown": {
+          "query_planning_seconds": 10.883961458996055,
+          "answer_generation_seconds": 150.68721462499525
+        },
+        "query_llm_requests": 4
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 0,
+          "token_f1": 0.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": true,
+          "abstention_reason": "LLM invocation failed."
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ],
+          "retrieved_document_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles",
+            "Etiquette &amp; Espionage",
+            "Victoria Hanley",
+            "The Divide trilogy",
+            "Andre Norton Award",
+            "Left Behind: The Kids",
+            "Shadowshaper"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 0,
+          "valid_citations": 0,
+          "citation_validity_rate": 0.0,
+          "citation_gold_coverage": 0.0,
+          "cited_chunk_ids": [],
+          "cited_document_titles": []
+        }
+      }
+    },
+    {
+      "question_id": "5a877e5d5542993e715abf7d",
+      "question_index": 10,
+      "question_type": "bridge",
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "gold_answer": "David Weissman",
+      "is_regression_control": false,
+      "status": "completed",
+      "attempts": 0,
+      "error": null,
+      "indexing_stats": {
+        "indexing_seconds": 1125.4683965000004,
+        "indexing_llm_requests": 32,
+        "ingest_summary": {
+          "kb_id": "5a877e5d5542993e715abf7d",
+          "documents": 10,
+          "pages": 10,
+          "chunks": 11,
+          "entities": 85,
+          "relationships": 40,
+          "extracted_relationships": 77,
+          "validated_relationships": 40,
+          "rejected_relationships": 37,
+          "rejected_relationships_by_reason": {
+            "REJECTED_ONTOLOGY": 19,
+            "REJECTED_NEGATION": 1,
+            "REJECTED_QUOTE_MISMATCH": 17
+          },
+          "entity_mentions": 99,
+          "canonical_entities": 85,
+          "communities": 54,
+          "community_reports": 54,
+          "graph_vertices": 85,
+          "graph_edges": 40,
+          "graph_connected_components": 48,
+          "graph_isolated_nodes": 44,
+          "graph_degree_min": 0,
+          "graph_degree_mean": 0.9411764705882353,
+          "graph_degree_max": 8,
+          "relationship_type_distribution": {
+            "AFFILIATED_WITH": 1,
+            "ACTED_IN": 16,
+            "RELATED_TO": 10,
+            "PART_OF": 4,
+            "DIRECTED": 5,
+            "COLLABORATED_WITH": 2,
+            "AUTHORED": 1,
+            "LOCATED_IN": 1
+          },
+          "extraction_failures": [],
+          "stage_seconds": {
+            "document_loading": 0.008282666996819898,
+            "chunking": 0.0013905840023653582,
+            "entity_extraction": 255.2908110000426,
+            "relationship_extraction": 594.8003747899929,
+            "entity_resolution": 17.847837667010026,
+            "embedding_and_vector_indexing": 1.5193009999929927,
+            "graph_construction_and_validation": 0.00831662499695085,
+            "community_detection": 0.010172166003030725,
+            "community_summarization": 255.84922887499852,
+            "total_indexing": 1125.3426375420095
+          },
+          "llm_requests": 32,
+          "llm_failed_requests": 0,
+          "llm_failed_generations": 0,
+          "manifest_fingerprint": "5eb9e49bbe6d4218be9d7926e7881c7414d80d7ac2fa16e50f1f4db6c1467a8c"
+        }
+      },
+      "kb_path": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d",
+      "raw_docs_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/hotpotqa/inputs/pilot/5a877e5d5542993e715abf7d",
+      "query_result": {
+        "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+        "answer": "Error generating answer: Failed to generate valid JSON matching AnswerGenerationOutput after 3 attempts. Last error: 4 validation errors for AnswerGenerationOutput\nextracted_attributes.0.entity_id\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type\nextracted_attributes.1.entity_id\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type\nextracted_attributes.2.entity_id\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type\nextracted_attributes.3.entity_id\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type",
+        "canonical_answer": "",
+        "abstained": true,
+        "abstention_reason": "LLM invocation failed.",
+        "cited_chunk_ids": [],
+        "citations": [],
+        "mode": "hybrid",
+        "latency_seconds": 191.40818170900457,
+        "measured_total_query_seconds": 191.4551032080053,
+        "timing_breakdown": {
+          "query_planning_seconds": 16.453348041992285,
+          "answer_generation_seconds": 174.8862806249963
+        },
+        "query_llm_requests": 4
+      },
+      "metrics": {
+        "answer_metrics": {
+          "exact_match": 0,
+          "token_f1": 0.0,
+          "generated_exact_match": 0,
+          "generated_token_f1": 0.0,
+          "abstained": true,
+          "abstention_reason": "LLM invocation failed."
+        },
+        "retrieval_metrics": {
+          "gold_supporting_titles": [
+            "David Weissman",
+            "The Family Man"
+          ],
+          "retrieved_document_titles": [
+            "David Weissman",
+            "The Family Man",
+            "Deadfall (1993 film)",
+            "Season of the Witch (2011 film)",
+            "City of Angels (film)",
+            "Drive Angry",
+            "It Could Happen to You (1994 film)",
+            "Gone in 60 Seconds (2000 film)"
+          ],
+          "recall_at_2": 1.0,
+          "recall_at_5": 1.0,
+          "complete_supporting_documents_at_2": true,
+          "complete_supporting_documents_at_5": true
+        },
+        "citation_metrics": {
+          "total_citations": 0,
+          "valid_citations": 0,
+          "citation_validity_rate": 0.0,
+          "citation_gold_coverage": 0.0,
+          "cited_chunk_ids": [],
+          "cited_document_titles": []
+        }
+      }
+    }
+  ],
+  "total_pilot_wallclock_seconds": 11404.477015125012
+}

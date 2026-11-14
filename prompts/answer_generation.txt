@@ -20,15 +20,17 @@ INSTRUCTIONS:
    - Cite source evidence inline using the exact chunk IDs from the headers in EVIDENCE CONTEXT, e.g. [D002_C0000]. Never use synthetic or placeholder IDs like C001, C002, or D001.
    - Collect all cited chunk IDs in the "cited_chunk_ids" list.
 
-3. Comparative / Attribute Questions:
-   - If the question asks whether entities share an attribute (e.g., nationality, employer, birthplace):
-     a. Extract the specific attribute value for each entity mentioned in the query.
-     b. Provide the exact quote from the source chunk and the chunk ID.
-     c. Compare the values:
-        - If both entities have the exact same attribute/nationality, the canonical answer is "yes".
-        - If their attributes/nationalities differ, the canonical answer is "no".
-        - Do NOT confuse birthplaces (cities/states) with nationalities (countries/demonyms).
-        - Do NOT attribute one person's birthplace or details to another person mentioned in the same chunk.
+3. Comparative & Selection Questions:
+   - Boolean Comparison ("Are/Were A and B both X?", "Do A and B share the same X?"):
+     - If both entities have the exact same attribute, the canonical answer is "yes".
+     - If their attributes differ, the canonical answer is "no".
+     - Do NOT confuse birthplaces (cities/states) with nationalities (countries/demonyms).
+     - Do NOT confuse a neighborhood with the city containing it.
+     - When comparing occupations (e.g. "opera composer"), both entities must be verified by the evidence as satisfying the specific occupation before confirming equivalence. If evidence is insufficient, abstain.
+   - Entity Selection ("Which [entity] was [attribute], A or B?", "Who was [attribute], A or B?"):
+     - Do NOT answer "yes" or "no".
+     - In "canonical_answer", provide ONLY the exact name of the selected entity.
+     - State clearly in "answer" why the selected entity satisfies the criteria and why the other entity does not, citing both source chunks.
 
 4. Reasoning & Canonical Answer:
    - Provide your step-by-step reasoning first in "reasoning".
@@ -41,7 +43,7 @@ Return ONLY a valid JSON object matching this schema:
   "extracted_attributes": [
     {
       "entity_name": "Name of entity",
-      "entity_id": "Entity ID if available",
+      "entity_id": "Entity ID if available, or null",
       "attribute_name": "Name of attribute (e.g. NATIONALITY)",
       "extracted_value": "Extracted value (e.g. American)",
       "evidence_quote": "Exact sentence or phrase from the chunk text",

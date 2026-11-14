@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-11-13T23:01:09Z",
+  "test_name": "public_api_smoke_test",
+  "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+  "gold_answer": "yes",
+  "mode": "hybrid",
+  "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+  "kb_dir": "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/knowledge_bases/hotpotqa_eval/hotpot_full_5a8b57f25542995d1e6f1371",
+  "generated_answer": "Scott Derrickson was American [D002_C0000] and Ed Wood was American [D005_C0000]. Therefore, they were of the same nationality.",
+  "canonical_answer": "yes",
+  "exact_match": 1,
+  "abstained": false,
+  "abstention_reason": null,
+  "cited_chunk_ids": [
+    "D002_C0000",
+    "D005_C0000"
+  ],
+  "expected_chunks": [
+    "D002_C0000",
+    "D005_C0000"
+  ],
+  "expected_chunks_present": true,
+  "citations": [
+    {
+      "chunk_id": "D002_C0000",
+      "doc_id": "D002",
+      "filename": "ctx_001_Scott_Derrickson.txt",
+      "page_numbers": [
+        1
+      ],
+      "text_snippet": "Title: Scott Derrickson\nScott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  He lives in Los Angeles, California...",
+      "valid": true
+    },
+    {
+      "chunk_id": "D005_C0000",
+      "doc_id": "D005",
+      "filename": "ctx_004_Ed_Wood.txt",
+      "page_numbers": [
+        1
+      ],
+      "text_snippet": "Title: Ed Wood\nEdward Davis Wood Jr. (October 10, 1924 \u2013 December 10, 1978) was an American filmmaker, actor, writer, producer, and director.",
+      "valid": true
+    }
+  ],
+  "all_citations_valid": true,
+  "latency_seconds": 20.95522775000427,
+  "measured_latency_seconds": 20.955292124999687,
+  "timing_breakdown": {
+    "query_planning_seconds": 5.197720500000287,
+    "answer_generation_seconds": 15.695230041994364
+  },
+  "kb_stats": {
+    "kb_id": "hotpot_full_5a8b57f25542995d1e6f1371",
+    "documents": 10,
+    "chunks": 10,
+    "entities": 87,
+    "relationships": 38,
+    "communities": 52,
+    "community_reports": 52,
+    "vector_store_counts": {
+      "chunks": 10,
+      "entities": 87,
+      "community_reports": 52
+    },
+    "graph": {
+      "vertices": 87,
+      "edges": 38
+    }
+  },
+  "kb_integrity": {
+    "intact": true,
+    "diffs": [],
+    "file_checksums": {
+      "data/processed/chunks.jsonl": "8e7368b69d9e0b2255bdb96f5b5e18d480c0c0817354ef4641c7d4a563dd39aa",
+      "data/processed/documents.jsonl": "51ee48e799b69ddfebcd27a320eafafbd611b7433e475c2f7de3c6b78aff0fce",
+      "graph/entities.jsonl": "4378f0a7a61a625c25abccde46559fba29904a26b43d00d9fed4e9fc76ea9bc8",
+      "graph/relationships.jsonl": "ae3daf78858e6332e7537ec987af38f62fffc24e5901a63b55a7da7c6db64e8a",
+      "graph/communities.jsonl": "03b0fa83c8a4a0f770061cd85f77b9f91f816b8bba7711eea73d7dd157fa978d",
+      "graph/community_reports.jsonl": "c15b246411e190acd7bf7996878fbcfa2f0931fd1f70e22908fc63adb85044e7",
+      "config_snapshot.yaml": "8fcbb687e81f82a6237b8e7fe59ad93e231d2e624f3b2ea1f158b79c7aad2356"
+    }
+  }
+}
