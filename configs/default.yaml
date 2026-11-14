@@ -42,3 +42,7 @@ retrieval:
   max_expanded_candidates_per_query: 10
   direct_seed_outranks_expanded: true
   max_candidates_per_seed: 5
+  document_title_discovery_enabled: false
+  max_title_matches_per_seed: 2
+  max_chunks_per_title_match: 3
+  max_title_candidates_per_query: 6

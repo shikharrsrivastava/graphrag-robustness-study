@@ -36,6 +36,25 @@ class GraphProvenanceType(str, Enum):
     GRAPH_SEED_PROVENANCE = "GRAPH_SEED_PROVENANCE"
     GRAPH_EDGE_PROVENANCE = "GRAPH_EDGE_PROVENANCE"
     ENTITY_CHUNK_COOCCURRENCE = "ENTITY_CHUNK_COOCCURRENCE"
+    DOCUMENT_TITLE_PROVENANCE = "DOCUMENT_TITLE_PROVENANCE"
+
+
+class DocumentTitleProvenance(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    seed_name: str = Field(..., min_length=1, description="Original seed entity query string")
+    document_title: str = Field(..., min_length=1, description="Authoritative matched document title")
+    doc_id: str = Field(..., min_length=1, description="Matched document identifier")
+    chunk_ids: List[str] = Field(default_factory=list, description="Discovered chunk IDs for this document")
+    matching_method: str = Field(
+        default="EXACT_NORMALIZED",
+        description="EXACT_NORMALIZED, PUNCTUATION_NORMALIZED, or ARTICLE_NORMALIZED",
+    )
+    is_ambiguous: bool = Field(default=False, description="True if multiple documents matched the title")
+    candidate_doc_ids: List[str] = Field(
+        default_factory=list,
+        description="All document IDs matching the title if ambiguous",
+    )
 
 
 class CooccurrenceProvenance(BaseModel):
@@ -272,6 +291,7 @@ class Evidence(BaseModel):
     community_ids: List[int] = Field(default_factory=list)
     graph_provenance_types: List[GraphProvenanceType] = Field(default_factory=list)
     cooccurrence_details: List[CooccurrenceProvenance] = Field(default_factory=list)
+    document_title_details: List[DocumentTitleProvenance] = Field(default_factory=list)
 
 
 class RetrievalResult(BaseModel):

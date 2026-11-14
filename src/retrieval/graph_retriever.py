@@ -9,6 +9,7 @@ from src.core.interfaces import Retriever
 from src.core.models import (
     CanonicalEntity,
     CooccurrenceProvenance,
+    DocumentTitleProvenance,
     Evidence,
     GraphProvenanceType,
     ProvenanceRoute,
@@ -16,6 +17,7 @@ from src.core.models import (
 )
 from src.graph.graph_builder import IGraphBuilder
 from src.graph.traversal import GraphTraverser, TraversedPath
+from src.retrieval.document_title_discoverer import DocumentTitleDiscoverer
 from src.retrieval.seed_retriever import SeedEntityRetriever
 from src.storage.document_store import DocumentStore
 
@@ -39,7 +41,12 @@ class GraphEvidenceRetriever:
         max_cooccurring_entities_per_chunk: int = 5,
         max_expanded_candidates_per_query: int = 10,
         direct_seed_outranks_expanded: bool = True,
+        document_title_discovery_enabled: bool = False,
+        max_title_matches_per_seed: int = 2,
+        max_chunks_per_title_match: int = 3,
+        max_title_candidates_per_query: int = 6,
         retrieval_config: Optional[RetrievalConfig] = None,
+        title_discoverer: Optional[DocumentTitleDiscoverer] = None,
     ) -> None:
         self.doc_store = doc_store
         self.seed_retriever = seed_retriever
@@ -53,6 +60,10 @@ class GraphEvidenceRetriever:
             self.max_cooccurring_entities_per_chunk = retrieval_config.max_cooccurring_entities_per_chunk
             self.max_expanded_candidates_per_query = retrieval_config.max_expanded_candidates_per_query
             self.direct_seed_outranks_expanded = retrieval_config.direct_seed_outranks_expanded
+            self.document_title_discovery_enabled = retrieval_config.document_title_discovery_enabled
+            self.max_title_matches_per_seed = retrieval_config.max_title_matches_per_seed
+            self.max_chunks_per_title_match = retrieval_config.max_chunks_per_title_match
+            self.max_title_candidates_per_query = retrieval_config.max_title_candidates_per_query
         else:
             self.max_candidates = max_candidates
             self.provenance_expansion_enabled = provenance_expansion_enabled
@@ -60,6 +71,17 @@ class GraphEvidenceRetriever:
             self.max_cooccurring_entities_per_chunk = max_cooccurring_entities_per_chunk
             self.max_expanded_candidates_per_query = max_expanded_candidates_per_query
             self.direct_seed_outranks_expanded = direct_seed_outranks_expanded
+            self.document_title_discovery_enabled = document_title_discovery_enabled
+            self.max_title_matches_per_seed = max_title_matches_per_seed
+            self.max_chunks_per_title_match = max_chunks_per_title_match
+            self.max_title_candidates_per_query = max_title_candidates_per_query
+
+        self.title_discoverer = title_discoverer or DocumentTitleDiscoverer(
+            doc_store=self.doc_store,
+            max_title_matches_per_seed=self.max_title_matches_per_seed,
+            max_chunks_per_title_match=self.max_chunks_per_title_match,
+            max_title_candidates_per_query=self.max_title_candidates_per_query,
+        )
 
         # In-memory bipartite index caches
         self._bipartite_indexed: bool = False
@@ -77,6 +99,14 @@ class GraphEvidenceRetriever:
             "candidate_fan_out": 0,
             "skipped_hub_entities": [],
             "fan_out_pruned": False,
+            "document_title_discovery_enabled": self.document_title_discovery_enabled,
+            "document_title_diagnostics": {
+                "enabled": self.document_title_discovery_enabled,
+                "matched_documents_count": 0,
+                "discovered_chunks_count": 0,
+                "ambiguous_titles_count": 0,
+                "matches": [],
+            },
         }
 
     def _ensure_bipartite_index(self, force: bool = False) -> None:
@@ -112,6 +142,14 @@ class GraphEvidenceRetriever:
             "candidate_fan_out": 0,
             "skipped_hub_entities": [],
             "fan_out_pruned": False,
+            "document_title_discovery_enabled": self.document_title_discovery_enabled,
+            "document_title_diagnostics": {
+                "enabled": self.document_title_discovery_enabled,
+                "matched_documents_count": 0,
+                "discovered_chunks_count": 0,
+                "ambiguous_titles_count": 0,
+                "matches": [],
+            },
         }
 
         if not plan.seed_entities:
@@ -127,35 +165,11 @@ class GraphEvidenceRetriever:
             d.model_dump() if hasattr(d, "model_dump") else d
             for d in getattr(seed_res, "resolution_diagnostics", ())
         ]
-        if not resolved_eids:
+        if not resolved_eids and not self.document_title_discovery_enabled:
             logger.info("No seed entities could be resolved for query: %s", question)
             return []
 
-        # Map each entity id back to its originating seed spec name and detect type conflicts
-        eid_to_spec_name: Dict[str, Set[str]] = {}
-        eid_to_type_conflict: Dict[str, Tuple[str, str]] = {}
-        for d in getattr(seed_res, "resolution_diagnostics", ()):
-            if hasattr(d, "candidate_id") and d.candidate_id and hasattr(d, "status") and d.status in ("ACCEPTED", "AMBIGUOUS"):
-                eid_to_spec_name.setdefault(d.candidate_id, set()).add(d.seed_name)
-                if not d.type_compatible and d.expected_type and d.candidate_type:
-                    eid_to_type_conflict[d.candidate_id] = (d.expected_type, d.candidate_type)
-
-        entities = self.doc_store.load_canonical_entities()
-        for spec in plan.seed_entities:
-            spec_eids, _ = self.seed_retriever._resolve_single_spec(spec, entities)
-            for eid in spec_eids:
-                eid_to_spec_name.setdefault(eid, set()).add(spec.name)
-
-        # 2. Traverse graph
-        traversed_paths = self.traverser.traverse(
-            graph=self.graph,
-            seed_entity_ids=resolved_eids,
-            relationship_path=plan.relationship_path,
-            scope_id=scope_id,
-        )
-        self.last_diagnostics["valid_path_count"] = len(traversed_paths)
-
-        # 3. Aggregate supporting chunks
+        # Tracking structures for evidence aggregation
         chunk_path_map: Dict[str, List[str]] = {}
         chunk_edge_map: Dict[str, List[str]] = {}
         chunk_min_hop: Dict[str, int] = {}
@@ -164,178 +178,261 @@ class GraphEvidenceRetriever:
         chunk_specs_map: Dict[str, Set[str]] = {}
         chunk_provenance_types: Dict[str, List[GraphProvenanceType]] = {}
         chunk_cooccurrence_details: Dict[str, List[CooccurrenceProvenance]] = {}
+        chunk_title_details: Dict[str, List[DocumentTitleProvenance]] = {}
 
-        for path in traversed_paths:
-            path_str = path.to_path_string()
-            labeled_path_str = f"GRAPH_EDGE_PROVENANCE: {path_str}"
-            start_eid = path.node_ids[0] if path.node_ids else ""
-            path_specs = eid_to_spec_name.get(start_eid, set())
+        if resolved_eids:
+            # Map each entity id back to its originating seed spec name and detect type conflicts
+            eid_to_spec_name: Dict[str, Set[str]] = {}
+            eid_to_type_conflict: Dict[str, Tuple[str, str]] = {}
+            for d in getattr(seed_res, "resolution_diagnostics", ()):
+                if hasattr(d, "candidate_id") and d.candidate_id and hasattr(d, "status") and d.status in ("ACCEPTED", "AMBIGUOUS"):
+                    eid_to_spec_name.setdefault(d.candidate_id, set()).add(d.seed_name)
+                    if not d.type_compatible and d.expected_type and d.candidate_type:
+                        eid_to_type_conflict[d.candidate_id] = (d.expected_type, d.candidate_type)
 
-            for cid in path.chunk_ids:
-                chunk_path_map.setdefault(cid, []).append(labeled_path_str)
-                chunk_edge_map.setdefault(cid, []).extend(path.edge_ids)
-                chunk_support_count[cid] = chunk_support_count.get(cid, 0) + 1
-                if path_specs:
-                    chunk_specs_map.setdefault(cid, set()).update(path_specs)
+            entities = self.doc_store.load_canonical_entities()
+            for spec in plan.seed_entities:
+                spec_eids, _ = self.seed_retriever._resolve_single_spec(spec, entities)
+                for eid in spec_eids:
+                    eid_to_spec_name.setdefault(eid, set()).add(spec.name)
 
-                if cid not in chunk_min_hop or path.hop_count < chunk_min_hop[cid]:
-                    chunk_min_hop[cid] = path.hop_count
-                if (
-                    cid not in chunk_best_alignment
-                    or path.alignment_score > chunk_best_alignment[cid]
-                ):
-                    chunk_best_alignment[cid] = path.alignment_score
-                chunk_provenance_types.setdefault(cid, []).append(
-                    GraphProvenanceType.GRAPH_EDGE_PROVENANCE
-                )
+            # 2. Traverse graph
+            traversed_paths = self.traverser.traverse(
+                graph=self.graph,
+                seed_entity_ids=resolved_eids,
+                relationship_path=plan.relationship_path,
+                scope_id=scope_id,
+            )
+            self.last_diagnostics["valid_path_count"] = len(traversed_paths)
 
-        # Direct chunks from seed entity vertices
-        seed_direct_chunks_map: Dict[str, List[str]] = {}
-        for eid in resolved_eids:
-            v_label = eid
-            direct_chunks: List[str] = []
-            if eid in self.graph.vs["name"]:
-                v = self.graph.vs.find(name=eid)
-                v_label = v.attributes().get("label") or eid
-                direct_chunks = list(v.attributes().get("source_chunk_ids") or [])
-            if not direct_chunks and hasattr(self.doc_store, "get_canonical_entity"):
-                ent = self.doc_store.get_canonical_entity(eid)
-                if ent:
-                    v_label = ent.name
-                    direct_chunks = list(ent.source_chunk_ids)
+            # 3. Aggregate supporting chunks from graph traversal
+            for path in traversed_paths:
+                path_str = path.to_path_string()
+                labeled_path_str = f"GRAPH_EDGE_PROVENANCE: {path_str}"
+                start_eid = path.node_ids[0] if path.node_ids else ""
+                path_specs = eid_to_spec_name.get(start_eid, set())
 
-            seed_direct_chunks_map[eid] = direct_chunks
-            seed_specs = eid_to_spec_name.get(eid, set())
-            conflict = eid_to_type_conflict.get(eid)
-            conflict_suffix = f" [Type Conflict: expected {conflict[0]}, actual {conflict[1]}]" if conflict else ""
-            for cid in direct_chunks:
-                direct_path_str = f"GRAPH_SEED_PROVENANCE: Seed Entity [{v_label} ({eid})]{conflict_suffix}"
-                chunk_path_map.setdefault(cid, []).append(direct_path_str)
-                chunk_support_count[cid] = chunk_support_count.get(cid, 0) + 1
-                chunk_min_hop[cid] = 0
-                chunk_best_alignment[cid] = max(chunk_best_alignment.get(cid, 0.0), 1.0)
-                if seed_specs:
-                    chunk_specs_map.setdefault(cid, set()).update(seed_specs)
-                chunk_provenance_types.setdefault(cid, []).append(
-                    GraphProvenanceType.GRAPH_SEED_PROVENANCE
-                )
+                for cid in path.chunk_ids:
+                    chunk_path_map.setdefault(cid, []).append(labeled_path_str)
+                    chunk_edge_map.setdefault(cid, []).extend(path.edge_ids)
+                    chunk_support_count[cid] = chunk_support_count.get(cid, 0) + 1
+                    if path_specs:
+                        chunk_specs_map.setdefault(cid, set()).update(path_specs)
 
-        # 3b. One-hop Entity-Chunk-Entity bipartite provenance expansion
-        if self.provenance_expansion_enabled:
-            self._ensure_bipartite_index()
-            cooccurring_entities_seen: Set[str] = set()
-            expanded_chunks_seen: Set[str] = set()
-            skipped_hubs: List[str] = []
-            fan_out_pruned = False
-            total_expanded_added = 0
-            existing_cids = set(chunk_path_map.keys())
+                    if cid not in chunk_min_hop or path.hop_count < chunk_min_hop[cid]:
+                        chunk_min_hop[cid] = path.hop_count
+                    if (
+                        cid not in chunk_best_alignment
+                        or path.alignment_score > chunk_best_alignment[cid]
+                    ):
+                        chunk_best_alignment[cid] = path.alignment_score
+                    chunk_provenance_types.setdefault(cid, []).append(
+                        GraphProvenanceType.GRAPH_EDGE_PROVENANCE
+                    )
 
-            for seed_eid in resolved_eids:
-                seed_name = seed_eid
-                if seed_eid in self._entities_by_id:
-                    seed_name = self._entities_by_id[seed_eid].name
-                elif seed_eid in self.graph.vs["name"]:
-                    seed_name = self.graph.vs.find(name=seed_eid).attributes().get("label") or seed_eid
+            # Direct chunks from seed entity vertices
+            seed_direct_chunks_map: Dict[str, List[str]] = {}
+            for eid in resolved_eids:
+                v_label = eid
+                direct_chunks: List[str] = []
+                if eid in self.graph.vs["name"]:
+                    v = self.graph.vs.find(name=eid)
+                    v_label = v.attributes().get("label") or eid
+                    direct_chunks = list(v.attributes().get("source_chunk_ids") or [])
+                if not direct_chunks and hasattr(self.doc_store, "get_canonical_entity"):
+                    ent = self.doc_store.get_canonical_entity(eid)
+                    if ent:
+                        v_label = ent.name
+                        direct_chunks = list(ent.source_chunk_ids)
 
-                direct_cids = seed_direct_chunks_map.get(seed_eid, [])
-                seed_specs = eid_to_spec_name.get(seed_eid, set())
+                seed_direct_chunks_map[eid] = direct_chunks
+                seed_specs = eid_to_spec_name.get(eid, set())
+                conflict = eid_to_type_conflict.get(eid)
+                conflict_suffix = f" [Type Conflict: expected {conflict[0]}, actual {conflict[1]}]" if conflict else ""
+                for cid in direct_chunks:
+                    direct_path_str = f"GRAPH_SEED_PROVENANCE: Seed Entity [{v_label} ({eid})]{conflict_suffix}"
+                    chunk_path_map.setdefault(cid, []).append(direct_path_str)
+                    chunk_support_count[cid] = chunk_support_count.get(cid, 0) + 1
+                    chunk_min_hop[cid] = 0
+                    chunk_best_alignment[cid] = max(chunk_best_alignment.get(cid, 0.0), 1.0)
+                    if seed_specs:
+                        chunk_specs_map.setdefault(cid, set()).update(seed_specs)
+                    chunk_provenance_types.setdefault(cid, []).append(
+                        GraphProvenanceType.GRAPH_SEED_PROVENANCE
+                    )
 
-                for direct_cid in direct_cids:
-                    # Find entities co-occurring in this direct chunk
-                    cooccur_eids = sorted([
-                        e for e in self._chunk_to_entity_ids.get(direct_cid, [])
-                        if e != seed_eid
-                    ])
+            # 3b. One-hop Entity-Chunk-Entity bipartite provenance expansion
+            if self.provenance_expansion_enabled:
+                self._ensure_bipartite_index()
+                cooccurring_entities_seen: Set[str] = set()
+                expanded_chunks_seen: Set[str] = set()
+                skipped_hubs: List[str] = []
+                fan_out_pruned = False
+                total_expanded_added = 0
+                existing_cids = set(chunk_path_map.keys())
 
-                    # Cap per direct chunk
-                    if len(cooccur_eids) > self.max_cooccurring_entities_per_chunk:
-                        cooccur_eids = cooccur_eids[: self.max_cooccurring_entities_per_chunk]
+                for seed_eid in resolved_eids:
+                    seed_name = seed_eid
+                    if seed_eid in self._entities_by_id:
+                        seed_name = self._entities_by_id[seed_eid].name
+                    elif seed_eid in self.graph.vs["name"]:
+                        seed_name = self.graph.vs.find(name=seed_eid).attributes().get("label") or seed_eid
 
-                    for cooccur_eid in cooccur_eids:
-                        cooccurring_entities_seen.add(cooccur_eid)
-                        cooccur_ent = self._entities_by_id.get(cooccur_eid)
-                        cooccur_name = cooccur_ent.name if cooccur_ent else cooccur_eid
+                    direct_cids = seed_direct_chunks_map.get(seed_eid, [])
+                    seed_specs = eid_to_spec_name.get(seed_eid, set())
 
-                        other_cids = sorted(self._entity_to_chunk_ids.get(cooccur_eid, []))
-                        # Hub suppression
-                        if len(other_cids) > self.max_chunks_per_cooccurring_entity:
-                            if cooccur_eid not in skipped_hubs:
-                                skipped_hubs.append(cooccur_eid)
-                            continue
+                    for direct_cid in direct_cids:
+                        # Find entities co-occurring in this direct chunk
+                        cooccur_eids = sorted([
+                            e for e in self._chunk_to_entity_ids.get(direct_cid, [])
+                            if e != seed_eid
+                        ])
 
-                        # Expanded chunks excluding direct_cid and chunks already in direct/traversal candidate set
-                        expanded_cids = [
-                            c for c in other_cids
-                            if c != direct_cid and c not in existing_cids
-                        ]
-                        for exp_cid in expanded_cids:
-                            if scope_id:
-                                chunk_obj = self.doc_store.get_chunk(exp_cid)
-                                if chunk_obj and chunk_obj.scope_id and chunk_obj.scope_id != scope_id:
-                                    continue
+                        # Cap per direct chunk
+                        if len(cooccur_eids) > self.max_cooccurring_entities_per_chunk:
+                            cooccur_eids = cooccur_eids[: self.max_cooccurring_entities_per_chunk]
 
-                            if total_expanded_added >= self.max_expanded_candidates_per_query:
-                                fan_out_pruned = True
+                        for cooccur_eid in cooccur_eids:
+                            cooccurring_entities_seen.add(cooccur_eid)
+                            cooccur_ent = self._entities_by_id.get(cooccur_eid)
+                            cooccur_name = cooccur_ent.name if cooccur_ent else cooccur_eid
+
+                            other_cids = sorted(self._entity_to_chunk_ids.get(cooccur_eid, []))
+                            # Hub suppression
+                            if len(other_cids) > self.max_chunks_per_cooccurring_entity:
+                                if cooccur_eid not in skipped_hubs:
+                                    skipped_hubs.append(cooccur_eid)
+                                continue
+
+                            # Expanded chunks excluding direct_cid and chunks already in direct/traversal candidate set
+                            expanded_cids = [
+                                c for c in other_cids
+                                if c != direct_cid and c not in existing_cids
+                            ]
+                            for exp_cid in expanded_cids:
+                                if scope_id:
+                                    chunk_obj = self.doc_store.get_chunk(exp_cid)
+                                    if chunk_obj and chunk_obj.scope_id and chunk_obj.scope_id != scope_id:
+                                        continue
+
+                                if total_expanded_added >= self.max_expanded_candidates_per_query:
+                                    fan_out_pruned = True
+                                    break
+
+                                expanded_chunks_seen.add(exp_cid)
+                                total_expanded_added += 1
+
+                                cooccur_path_str = (
+                                    f"ENTITY_CHUNK_COOCCURRENCE: Seed [{seed_name} ({seed_eid})] "
+                                    f"-> Chunk [{direct_cid}] -> Co-occur [{cooccur_name} ({cooccur_eid})] "
+                                    f"-> Chunk [{exp_cid}]"
+                                )
+                                chunk_path_map.setdefault(exp_cid, []).append(cooccur_path_str)
+                                chunk_support_count[exp_cid] = chunk_support_count.get(exp_cid, 0) + 1
+
+                                alignment_val = 0.85 if self.direct_seed_outranks_expanded else 1.0
+                                if (
+                                    exp_cid not in chunk_best_alignment
+                                    or alignment_val > chunk_best_alignment[exp_cid]
+                                ):
+                                    chunk_best_alignment[exp_cid] = alignment_val
+
+                                if exp_cid not in chunk_min_hop or 1 < chunk_min_hop[exp_cid]:
+                                    chunk_min_hop[exp_cid] = 1
+
+                                if seed_specs:
+                                    chunk_specs_map.setdefault(exp_cid, set()).update(seed_specs)
+
+                                chunk_provenance_types.setdefault(exp_cid, []).append(
+                                    GraphProvenanceType.ENTITY_CHUNK_COOCCURRENCE
+                                )
+
+                                prov_detail = CooccurrenceProvenance(
+                                    seed_entity_id=seed_eid,
+                                    direct_chunk_id=direct_cid,
+                                    cooccurring_entity_id=cooccur_eid,
+                                    expanded_chunk_id=exp_cid,
+                                    expansion_depth=1,
+                                    skipped_hub_entities=list(skipped_hubs),
+                                    fan_out_pruned=fan_out_pruned,
+                                )
+                                chunk_cooccurrence_details.setdefault(exp_cid, []).append(prov_detail)
+
+                            if fan_out_pruned:
                                 break
-
-                            expanded_chunks_seen.add(exp_cid)
-                            total_expanded_added += 1
-
-                            cooccur_path_str = (
-                                f"ENTITY_CHUNK_COOCCURRENCE: Seed [{seed_name} ({seed_eid})] "
-                                f"-> Chunk [{direct_cid}] -> Co-occur [{cooccur_name} ({cooccur_eid})] "
-                                f"-> Chunk [{exp_cid}]"
-                            )
-                            chunk_path_map.setdefault(exp_cid, []).append(cooccur_path_str)
-                            chunk_support_count[exp_cid] = chunk_support_count.get(exp_cid, 0) + 1
-
-                            alignment_val = 0.85 if self.direct_seed_outranks_expanded else 1.0
-                            if (
-                                exp_cid not in chunk_best_alignment
-                                or alignment_val > chunk_best_alignment[exp_cid]
-                            ):
-                                chunk_best_alignment[exp_cid] = alignment_val
-
-                            if exp_cid not in chunk_min_hop or 1 < chunk_min_hop[exp_cid]:
-                                chunk_min_hop[exp_cid] = 1
-
-                            if seed_specs:
-                                chunk_specs_map.setdefault(exp_cid, set()).update(seed_specs)
-
-                            chunk_provenance_types.setdefault(exp_cid, []).append(
-                                GraphProvenanceType.ENTITY_CHUNK_COOCCURRENCE
-                            )
-
-                            prov_detail = CooccurrenceProvenance(
-                                seed_entity_id=seed_eid,
-                                direct_chunk_id=direct_cid,
-                                cooccurring_entity_id=cooccur_eid,
-                                expanded_chunk_id=exp_cid,
-                                expansion_depth=1,
-                                skipped_hub_entities=list(skipped_hubs),
-                                fan_out_pruned=fan_out_pruned,
-                            )
-                            chunk_cooccurrence_details.setdefault(exp_cid, []).append(prov_detail)
-
                         if fan_out_pruned:
                             break
                     if fan_out_pruned:
                         break
+
                 if fan_out_pruned:
-                    break
+                    for details_list in chunk_cooccurrence_details.values():
+                        for d in details_list:
+                            d.fan_out_pruned = True
 
-            if fan_out_pruned:
-                for details_list in chunk_cooccurrence_details.values():
-                    for d in details_list:
-                        d.fan_out_pruned = True
+                self.last_diagnostics.update({
+                    "cooccurring_entities_count": len(cooccurring_entities_seen),
+                    "expanded_chunks_count": len(expanded_chunks_seen),
+                    "candidate_fan_out": total_expanded_added,
+                    "skipped_hub_entities": skipped_hubs,
+                    "fan_out_pruned": fan_out_pruned,
+                })
 
-            self.last_diagnostics.update({
-                "cooccurring_entities_count": len(cooccurring_entities_seen),
-                "expanded_chunks_count": len(expanded_chunks_seen),
-                "candidate_fan_out": total_expanded_added,
-                "skipped_hub_entities": skipped_hubs,
-                "fan_out_pruned": fan_out_pruned,
-            })
+        # 3c. Document-title metadata-based seed discovery
+        if self.document_title_discovery_enabled:
+            title_candidates = self.title_discoverer.discover_title_candidates(
+                seed_specs=plan.seed_entities,
+                scope_id=scope_id,
+            )
+            matched_doc_ids: Set[str] = set()
+            discovered_cids: Set[str] = set()
+            ambig_count = 0
+            for cand in title_candidates:
+                matched_doc_ids.add(cand.doc_id)
+                if cand.is_ambiguous:
+                    ambig_count += 1
+                for cid in cand.chunk_ids:
+                    discovered_cids.add(cid)
+                    path_str = f"DOCUMENT_TITLE_PROVENANCE: Document Title [{cand.matched_title} ({cand.doc_id})]"
+                    chunk_path_map.setdefault(cid, []).append(path_str)
+                    chunk_support_count[cid] = chunk_support_count.get(cid, 0) + 1
+
+                    if cid not in chunk_best_alignment or 0.80 > chunk_best_alignment[cid]:
+                        chunk_best_alignment[cid] = 0.80
+                    if cid not in chunk_min_hop or 1 < chunk_min_hop[cid]:
+                        chunk_min_hop[cid] = 1
+
+                    chunk_specs_map.setdefault(cid, set()).add(cand.seed_name)
+                    chunk_provenance_types.setdefault(cid, []).append(
+                        GraphProvenanceType.DOCUMENT_TITLE_PROVENANCE
+                    )
+
+                    dt_prov = DocumentTitleProvenance(
+                        seed_name=cand.seed_name,
+                        document_title=cand.matched_title,
+                        doc_id=cand.doc_id,
+                        chunk_ids=list(cand.chunk_ids),
+                        matching_method=cand.matching_method,
+                        is_ambiguous=cand.is_ambiguous,
+                        candidate_doc_ids=list(cand.candidate_doc_ids),
+                    )
+                    chunk_title_details.setdefault(cid, []).append(dt_prov)
+
+            self.last_diagnostics["document_title_diagnostics"] = {
+                "enabled": True,
+                "matched_documents_count": len(matched_doc_ids),
+                "discovered_chunks_count": len(discovered_cids),
+                "ambiguous_titles_count": ambig_count,
+                "matches": [cand.model_dump() for cand in title_candidates],
+            }
+        else:
+            self.last_diagnostics["document_title_diagnostics"] = {
+                "enabled": False,
+                "matched_documents_count": 0,
+                "discovered_chunks_count": 0,
+                "ambiguous_titles_count": 0,
+                "matches": [],
+            }
 
         if not chunk_path_map:
             return []
@@ -396,6 +493,7 @@ class GraphEvidenceRetriever:
             unique_edges = list(dict.fromkeys(chunk_edge_map.get(cid, [])))
             unique_prov_types = list(dict.fromkeys(chunk_provenance_types.get(cid, [])))
             cooccur_details = chunk_cooccurrence_details.get(cid, [])
+            title_details = chunk_title_details.get(cid, [])
 
             ev = Evidence(
                 kb_id=kb_id,
@@ -414,6 +512,7 @@ class GraphEvidenceRetriever:
                 community_ids=[],
                 graph_provenance_types=unique_prov_types,
                 cooccurrence_details=cooccur_details,
+                document_title_details=title_details,
             )
             evidence_list.append(ev)
             rank += 1

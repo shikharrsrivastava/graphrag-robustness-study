@@ -299,15 +299,21 @@ Retrieval options configured in `configs/default.yaml` or programmatically via `
 | `max_cooccurring_entities_per_chunk`| `int` | `5` | Maximum co-occurring entities expanded per direct seed chunk. |
 | `max_expanded_candidates_per_query` | `int` | `10` | Maximum total expanded chunk candidates per query. |
 | `direct_seed_outranks_expanded` | `bool` | `True` | Direct seed chunks (`alignment=1.0`) strictly outrank expanded chunks (`alignment=0.85`). |
+| `max_candidates_per_seed` | `int` | `5` | Maximum ambiguous canonical entity candidates to retain per seed in confidence-aware resolution (`ge=1`). |
+| `document_title_discovery_enabled` | `bool` | `False` | Enable document-metadata-based entity discovery in graph retrieval. |
+| `max_title_matches_per_seed` | `int` | `2` | Maximum document titles to match per seed specification (`ge=1`). |
+| `max_chunks_per_title_match` | `int` | `3` | Maximum chunks to retrieve per matched document title (`ge=1`). |
+| `max_title_candidates_per_query` | `int` | `6` | Maximum total chunks to admit via document-title discovery per query (`ge=1`). |
 
 ### Provenance Attribution Models
 
-Retrieval evidence items explicitly distinguish between direct seed matches, traversed multigraph edges, and documentary co-occurrence:
+Retrieval evidence items explicitly distinguish between direct seed matches, traversed multigraph edges, documentary co-occurrence, and document title discovery:
 
 - **`GraphProvenanceType`** (`Enum`):
   - `GRAPH_SEED_PROVENANCE`: Chunk directly contains a resolved query seed entity.
   - `GRAPH_EDGE_PROVENANCE`: Chunk supports an edge along a validated graph traversal path.
   - `ENTITY_CHUNK_COOCCURRENCE`: Chunk recovered through 1-hop documentary co-occurrence (`Seed -> Chunk A -> Cooccur Entity -> Chunk B`).
+  - `DOCUMENT_TITLE_PROVENANCE`: Chunk recovered through authoritative document title matching (`DOCUMENT_TITLE_PROVENANCE: Document Title [Title (doc_id)]`).
 
 - **`CooccurrenceProvenance`** (`BaseModel`):
   - `seed_entity_id`: Resolved query seed entity ID.
@@ -317,3 +323,12 @@ Retrieval evidence items explicitly distinguish between direct seed matches, tra
   - `expansion_depth`: Strictly fixed at `1` (one-hop constraint).
   - `skipped_hub_entities`: List of generic hub entity IDs pruned during expansion.
   - `fan_out_pruned`: Whether expansion was bounded by query fan-out limits.
+
+- **`DocumentTitleProvenance`** (`BaseModel`):
+  - `seed_name`: Original seed entity query string.
+  - `document_title`: Authoritative matched document title.
+  - `doc_id`: Matched document identifier.
+  - `chunk_ids`: Discovered chunk IDs for this document.
+  - `matching_method`: Matching technique (`EXACT_NORMALIZED`, `PUNCTUATION_NORMALIZED`, or `ARTICLE_NORMALIZED`).
+  - `is_ambiguous`: True if multiple documents shared the normalized title.
+  - `candidate_doc_ids`: List of all document IDs matching the title if ambiguous.

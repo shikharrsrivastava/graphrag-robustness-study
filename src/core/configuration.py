@@ -94,6 +94,25 @@ class RetrievalConfig(BaseModel):
         ge=1,
         description="Maximum ambiguous canonical entity candidates to retain per seed specification in confidence-aware resolution",
     )
+    document_title_discovery_enabled: bool = Field(
+        default=False,
+        description="Enable document-metadata-based entity discovery in graph retrieval",
+    )
+    max_title_matches_per_seed: int = Field(
+        default=2,
+        ge=1,
+        description="Maximum document titles to match per seed specification",
+    )
+    max_chunks_per_title_match: int = Field(
+        default=3,
+        ge=1,
+        description="Maximum chunks to retrieve per matched document title",
+    )
+    max_title_candidates_per_query: int = Field(
+        default=6,
+        ge=1,
+        description="Maximum total chunks to admit via document-title discovery per query",
+    )
 
 
 class PromptVersions(BaseModel):

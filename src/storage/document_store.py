@@ -255,6 +255,71 @@ class DocumentStore:
 
         return [c for c in self._chunk_index.values() if c.kb_id == self.kb_id]
 
+    def get_chunks_for_doc(
+        self, doc_id: str, scope_id: Optional[str] = None
+    ) -> List[Chunk]:
+        """Return all chunks belonging to a given doc_id sorted ascending by chunk_index,
+        enforcing KB isolation and optional scope_id filtering.
+        """
+        if not self._chunk_index and self.chunks_path.exists():
+            self.load_chunks()
+
+        chunks = [
+            c
+            for c in self._chunk_index.values()
+            if c.kb_id == self.kb_id and c.doc_id == doc_id
+        ]
+        if scope_id is not None:
+            chunks = [
+                c for c in chunks if c.scope_id is None or c.scope_id == scope_id
+            ]
+        chunks.sort(key=lambda c: c.chunk_index)
+        return chunks
+
+    def get_document_title(self, doc_id: str) -> Optional[str]:
+        """Get authoritative title for a document from metadata or structured chunk header.
+
+        Strictly enforces:
+        1. Explicit document metadata ('title' or 'document_title').
+        2. Structured content header in first chunk ('Title: <Title>').
+        Never infers title from filesystem paths or raw filenames.
+        """
+        if not self._doc_index and self.documents_path.exists():
+            self.load_documents()
+
+        doc = self.get_document(doc_id)
+        if doc is None:
+            return None
+
+        # Priority 1: Document metadata
+        for key in ("title", "document_title"):
+            val = doc.metadata.get(key)
+            if isinstance(val, str) and val.strip():
+                return val.strip()
+
+        # Priority 2: Structured header in chunk 0: 'Title: <Title>'
+        chunks = self.get_chunks_for_doc(doc_id)
+        if chunks:
+            first_line = chunks[0].text.split("\n", 1)[0].strip()
+            if first_line.startswith("Title:"):
+                cand = first_line[len("Title:") :].strip()
+                if cand:
+                    return cand
+
+        return None
+
+    def load_document_titles(self) -> Dict[str, str]:
+        """Return a mapping of doc_id -> authoritative document title for all documents in this store."""
+        if not self._doc_index and self.documents_path.exists():
+            self.load_documents()
+
+        titles: Dict[str, str] = {}
+        for doc_id in sorted(self._doc_index.keys()):
+            title = self.get_document_title(doc_id)
+            if title:
+                titles[doc_id] = title
+        return titles
+
     def save_all(
         self,
         documents: List[Document],

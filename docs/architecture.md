@@ -122,12 +122,21 @@ flowchart TD
    - **Hub Entity Suppression**: Co-occurring entities appearing in $> K$ chunks (default $K=2$) are skipped to avoid generic hub pollution (e.g., countries, common years).
    - **Precedence & Ranking Policy**: Direct seed chunks (`alignment=1.0, min_hop=0`) strictly outrank expanded chunks (`alignment=0.85, min_hop=1`) when `direct_seed_outranks_expanded: true`. Existing direct seed and traversed chunks are never displaced or inflated.
    - **Transparency & Attribution**: Every retrieved chunk explicitly distinguishes its provenance route (`GRAPH_SEED_PROVENANCE`, `GRAPH_EDGE_PROVENANCE`, or `ENTITY_CHUNK_COOCCURRENCE`) with structured `CooccurrenceProvenance` metadata.
-5. **Dense Vector Retrieval**: HNSW cosine similarity lookup over text chunk embeddings.
-6. **Hierarchical Community Retrieval**: Semantic discovery across macro-thematic community reports for global context.
-7. **Reciprocal Rank Fusion (RRF)**: Merges candidates across retrieval channels with formula:
+5. **Document-Metadata-Based Entity Discovery**: When `document_title_discovery_enabled: true`, recovers documents whose primary subject was referenced in a query seed specification but was not successfully extracted as a canonical entity vertex during indexing (e.g., *Esma Sultan Mansion* in Q5, *2014 S/S* in Q6):
+   - **Conservative Exact & Punctuation Matching**: Checks authoritative document titles (from document metadata or structured `Title: ` chunk headers) against seed specifications using Unicode NFKC exact normalized matching, punctuation-normalized matching, and article-normalized matching. Substring matching is strictly forbidden.
+   - **Generic Title & Stopword Suppression**: Rejects overly broad titles or single generic stopwords (e.g., *The*, *Document*, *A*, *Article*) to prevent catastrophic fan-out.
+   - **Ambiguity Tracking & Candidate Bounds**: When multiple documents share the same title, retains all candidates up to `max_title_matches_per_seed` (default 2, `ge=1`) while explicitly setting `is_ambiguous=True` and populating `candidate_doc_ids`. Retrieved chunks per title match are bounded by `max_chunks_per_title_match` (default 3, `ge=1`), and total query-level discovered chunks are bounded by `max_title_candidates_per_query` (default 6, `ge=1`).
+   - **Ranking Precedence & Clean Deduplication**: Direct seed vertices (`alignment=1.0, min_hop=0`), graph edges, and co-occurrence paths (`alignment=0.85, min_hop=1`) strictly outrank title-discovered chunks (`alignment=0.80, min_hop=1`). If a chunk is reached by both graph traversal and document-title discovery, it appears exactly once, retains its best alignment and hop, and accumulates all provenance paths.
+   - **Provenance Attribution**: Never creates fake entity vertices or graph edges. Attributed exclusively under `DOCUMENT_TITLE_PROVENANCE` with structured `DocumentTitleProvenance` records.
+   - **Empirical Integration Findings & Known Limitations**:
+     - *Q5 (Laleli Mosque / Esma Sultan Mansion)*: *Esma Sultan Mansion* is successfully recovered and balanced alongside *Laleli Mosque*.
+     - *Q6 (2014 S/S / Winner)*: *2014 S/S* album document is successfully recovered via `DOCUMENT_TITLE_PROVENANCE`. However, *Winner (band)* remains unretrieved because it was not in the QueryPlan seed entities and there are no semantic edges between *2014 S/S* and *Winner (band)*. In the entity graph, `E024` (*WINNER*, `PERSON` in `D003`) and `E030` (*Winner*, `FILM` in `D005`) are separate unlinked vertices that both link to `E025` (*YG Entertainment*).
+6. **Dense Vector Retrieval**: HNSW cosine similarity lookup over text chunk embeddings.
+7. **Hierarchical Community Retrieval**: Semantic discovery across macro-thematic community reports for global context.
+8. **Reciprocal Rank Fusion (RRF)**: Merges candidates across retrieval channels with formula:
    $$\text{RRF}(d) = \sum_{m \in \{\text{graph}, \text{vector}\}} \frac{1}{k + r_m(d)} \quad (k=60)$$
    Ties are broken deterministically by graph supporting edge count, graph presence, and chunk ID.
-8. **Context Construction**: Formats Community Overviews, Directed Graph Paths, and Text Chunks within a strict $12,000$ character window budget.
+9. **Context Construction**: Formats Community Overviews, Directed Graph Paths, and Text Chunks within a strict $12,000$ character window budget.
 
 ---
 
