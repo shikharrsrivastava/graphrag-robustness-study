@@ -91,7 +91,7 @@ def test_a_same_nationality_returns_yes() -> None:
         "cited_chunk_ids": ["D002_C0000", "D005_C0000"],
     }))
 
-    gen = OllamaAnswerGenerator(llm)
+    gen = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce")
     output = gen.generate_structured(result)
 
     assert output.canonical_answer == "yes"
@@ -131,7 +131,7 @@ def test_b_different_nationalities_returns_no() -> None:
         "abstained": False,
     }))
 
-    gen = OllamaAnswerGenerator(llm)
+    gen = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce")
     output = gen.generate_structured(result)
 
     assert output.canonical_answer == "no"
@@ -171,7 +171,7 @@ def test_c_different_birthplace_cities_same_nationality_returns_yes() -> None:
         "answer": "Both are American.",
     }))
 
-    output = OllamaAnswerGenerator(llm).generate_structured(result)
+    output = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce").generate_structured(result)
     assert output.canonical_answer == "yes"
     assert "same nationality" in output.answer
 
@@ -245,7 +245,7 @@ def test_f_missing_attribute_causes_clean_abstention() -> None:
         "abstained": True,
     }))
 
-    output = OllamaAnswerGenerator(llm).generate_structured(result)
+    output = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce").generate_structured(result)
     assert output.abstained is True
     assert output.canonical_answer == ""
     assert "unable to answer" in output.answer.lower()
@@ -273,7 +273,7 @@ def test_g_synthetic_citation_ids_never_survive() -> None:
         "cited_chunk_ids": ["C001", "C002"],
     }))
 
-    output = OllamaAnswerGenerator(llm).generate_structured(result)
+    output = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce").generate_structured(result)
     assert "C001" not in output.cited_chunk_ids
     assert "C002" not in output.cited_chunk_ids
 
@@ -298,7 +298,7 @@ def test_h_real_supporting_chunk_id_preserved() -> None:
         "cited_chunk_ids": ["REAL_CHUNK_999"],
     }))
 
-    output = OllamaAnswerGenerator(llm).generate_structured(result)
+    output = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce").generate_structured(result)
     assert output.cited_chunk_ids == ["REAL_CHUNK_999"]
     assert len(output.citation_references) == 1
     assert output.citation_references[0]["chunk_id"] == "REAL_CHUNK_999"
@@ -361,7 +361,7 @@ def test_k_non_comparative_factual_questions_continue_to_work() -> None:
         "cited_chunk_ids": ["CHUNK_001"],
     }))
 
-    output = OllamaAnswerGenerator(llm).generate_structured(result)
+    output = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce").generate_structured(result)
     assert output.canonical_answer == "November 2016"
     assert "November 2016" in output.answer
     assert output.cited_chunk_ids == ["CHUNK_001"]
@@ -398,7 +398,7 @@ def test_l_arbitrary_domain_and_relation_types() -> None:
         "answer": "Both worked at IIT Delhi.",
     }))
 
-    output = OllamaAnswerGenerator(llm).generate_structured(result)
+    output = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce").generate_structured(result)
     assert output.canonical_answer == "yes"
     assert "same works_at" in output.answer or "same institution" in output.answer or "same" in output.answer
     assert set(output.cited_chunk_ids) == {"C_UNIV_1", "C_UNIV_2"}
@@ -455,7 +455,7 @@ def test_m_explicit_question_attribute_priority_over_incorrect_relationship_path
         "cited_chunk_ids": ["D002_C0000", "D005_C0000"],
     }))
 
-    gen = OllamaAnswerGenerator(llm)
+    gen = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce")
     output = gen.generate_structured(result)
 
     assert output.canonical_answer == "yes"

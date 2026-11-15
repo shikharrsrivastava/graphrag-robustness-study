@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 import logging
-from typing import List
+from typing import List, Union
 from src.core.models import RetrievalResult
 
 logger = logging.getLogger(__name__)
@@ -13,19 +13,29 @@ TRUSTED_COMMUNITY_STATUSES = frozenset({"VERIFIED", "FALLBACK"})
 class ContextBuilder:
     """Formats community summaries, graph paths, and chunk evidence within a strict character budget."""
 
-    def __init__(self, max_chars: int = 12000, allow_unverified_communities: bool = False) -> None:
+    def __init__(
+        self,
+        max_chars: int = 12000,
+        allow_unverified_communities: bool = False,
+        graph_context_mode: Union[bool, str] = False,
+    ) -> None:
         if max_chars < 500:
             raise ValueError("max_chars must be at least 500 characters.")
         self.max_chars = max_chars
         self.allow_unverified_communities = allow_unverified_communities
+        self.graph_context_mode = graph_context_mode
 
     def build_context(self, retrieval_result: RetrievalResult) -> str:
         """Construct structured markdown context from a RetrievalResult within max_chars."""
         sections: List[str] = []
         current_len = 0
 
+        mode_str = str(self.graph_context_mode).strip().lower()
+        is_none_mode = mode_str == "none"
+        is_fix_e_mode = (self.graph_context_mode is True) or (mode_str in ("true", "fix_e", "edges"))
+
         # 1. Community Summaries (filtered using allowlist: only VERIFIED and FALLBACK trusted by default)
-        if retrieval_result.community_reports:
+        if not is_none_mode and retrieval_result.community_reports:
             comm_lines: List[str] = []
             for rep in retrieval_result.community_reports:
                 status = getattr(rep, "verification_status", None)
@@ -45,21 +55,50 @@ class ContextBuilder:
                     sections.append(comm_block)
                     current_len += len(comm_block) + 2
 
-        # 2. Supporting Graph Traversal Paths
-        all_paths: List[str] = []
-        for ev in retrieval_result.evidence_list:
-            for p in ev.supporting_graph_paths:
-                if p not in all_paths:
-                    all_paths.append(p)
+        # 2. Supporting Graph Traversal Paths / Extracted Graph Relationships
+        if is_none_mode:
+            # Mode "none": graph is used to retrieve evidence chunks, but NO graph section is sent to generator.
+            pass
+        elif is_fix_e_mode:
+            # Fix E(a): Include ONLY actual relationship edges, each with its chunk ID,
+            # labeled as extracted facts that may be incomplete. Clarify missing facts do not mean false.
+            # Omit GRAPH_SEED_PROVENANCE and other bookkeeping lines.
+            edge_lines: List[str] = []
+            seen_edges = set()
+            for ev in retrieval_result.evidence_list:
+                for p in ev.supporting_graph_paths:
+                    if "-[" in p and "]->" in p:
+                        # Actual edge
+                        entry = f"- [Chunk: {ev.chunk_id}] {p}"
+                        if entry not in seen_edges:
+                            seen_edges.add(entry)
+                            edge_lines.append(entry)
 
-        if all_paths:
-            path_lines = ["### Supporting Graph Traversal Paths"]
-            for path in all_paths:
-                path_lines.append(f"- {path}")
-            path_block = "\n".join(path_lines)
-            if current_len + len(path_block) + 2 <= self.max_chars:
-                sections.append(path_block)
-                current_len += len(path_block) + 2
+            if edge_lines:
+                path_block = (
+                    "### Extracted Graph Relationships (Incomplete Extracted Facts)\n"
+                    "Note: The knowledge graph contains extracted relationship edges which may be incomplete. "
+                    "A fact not present in the graph does NOT mean it is false; primary evidence chunks remain authoritative.\n"
+                    + "\n".join(edge_lines)
+                )
+                if current_len + len(path_block) + 2 <= self.max_chars:
+                    sections.append(path_block)
+                    current_len += len(path_block) + 2
+        else:
+            all_paths: List[str] = []
+            for ev in retrieval_result.evidence_list:
+                for p in ev.supporting_graph_paths:
+                    if p not in all_paths:
+                        all_paths.append(p)
+
+            if all_paths:
+                path_lines = ["### Supporting Graph Traversal Paths"]
+                for path in all_paths:
+                    path_lines.append(f"- {path}")
+                path_block = "\n".join(path_lines)
+                if current_len + len(path_block) + 2 <= self.max_chars:
+                    sections.append(path_block)
+                    current_len += len(path_block) + 2
 
         # 3. Primary Evidence Chunks (ordered by RRF score)
         chunk_blocks: List[str] = []

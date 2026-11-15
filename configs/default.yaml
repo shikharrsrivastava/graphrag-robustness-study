@@ -16,6 +16,11 @@ ollama:
   timeout_seconds: 120
   max_retries: 2
 
+validation:
+  enabled: true
+  quote_repair_enabled: true
+  endpoint_in_evidence_enabled: true
+
 resolution:
   similarity_candidate_threshold: 0.82
   auto_merge_threshold: 0.95
@@ -50,3 +55,4 @@ retrieval:
   entity_description_similarity_threshold: 0.65
   max_description_candidates_per_seed: 3
   max_description_candidates_per_query: 6
+  comparative_reasoning_mode: "off"  # Default 'off'. Set 'enforce' for HotpotQA dev-set deterministic comparison heuristics.

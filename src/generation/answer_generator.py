@@ -5,7 +5,7 @@ import logging
 from pathlib import Path
 import re
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from src.core.interfaces import AnswerGenerator
 from src.core.models import EntityAttributeEvidence, Evidence, QueryPlan, RetrievalResult
 from src.extraction.schemas import OllamaLLMClient
@@ -13,7 +13,7 @@ from src.retrieval.context_builder import ContextBuilder
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_ANSWER_GENERATION_PROMPT = """You are an expert factual answer generator for an enterprise Hybrid GraphRAG system.
+DEFAULT_ANSWER_GENERATION_PROMPT_V1_0 = """You are an expert factual answer generator for an enterprise Hybrid GraphRAG system.
 Your job is to answer the user's question accurately and objectively, strictly grounded in the provided evidence.
 
 EVIDENCE CONTEXT:
@@ -78,29 +78,113 @@ Return ONLY a valid JSON object matching this schema:
 }
 """
 
+DEFAULT_ANSWER_GENERATION_PROMPT_V1_1 = """You are an expert factual answer generator for an enterprise Hybrid GraphRAG system.
+Your job is to answer the user's question accurately and objectively, strictly grounded in the provided evidence.
+
+EVIDENCE CONTEXT:
+{formatted_context}
+
+QUERY METADATA:
+{query_plan_info}
+
+USER QUESTION:
+{question}
+
+INSTRUCTIONS:
+1. Grounding & Strict Factual Alignment:
+   - Chunk text is the primary authority. If the primary evidence chunks contain the facts necessary to answer the question, answer it directly using those facts.
+   - Do NOT abstain merely because the graph section lacks a relationship edge; extracted graph relationships may be incomplete.
+   - Answer the question using ONLY the facts explicitly stated in the EVIDENCE CONTEXT above.
+   - Do NOT infer facts from unrelated dates, events, or affiliations (e.g. a joining date, founding date, or previous employer does NOT imply leadership, supervision, or membership during unrelated years).
+   - If the exact requested facts are not stated in the chunks, set "abstained" to true, explain in "answer" why the evidence is insufficient, and return an empty list for "cited_chunk_ids".
+
+2. Citations:
+   - Cite source evidence inline using the exact chunk IDs from the headers in EVIDENCE CONTEXT, e.g. [D002_C0000]. Never use synthetic or placeholder IDs like C001, C002, or D001.
+   - Collect all cited chunk IDs in the "cited_chunk_ids" list.
+
+3. Comparative & Selection Questions:
+   - Boolean Comparison ("Are/Were A and B both X?", "Do A and B share the same X?"):
+     - If both entities have the exact same attribute, the canonical answer is "yes".
+     - If their attributes differ, the canonical answer is "no".
+     - Do NOT confuse birthplaces (cities/states) with nationalities (countries/demonyms).
+     - Do NOT confuse a neighborhood with the city containing it.
+     - When comparing occupations (e.g. "opera composer"), both entities must be verified by the evidence as satisfying the specific occupation before confirming equivalence. If evidence is insufficient, abstain.
+   - Entity Selection ("Which [entity] was [attribute], A or B?", "Who was [attribute], A or B?"):
+     - Do NOT answer "yes" or "no".
+     - In "canonical_answer", provide ONLY the exact name of the selected entity.
+     - State clearly in "answer" why the selected entity satisfies the criteria and why the other entity does not, citing both source chunks.
+
+4. Multi-hop & Bridge Questions ("X of Y that was formed by who?", "...administration of a president that served during what years?"):
+   - Identify the intermediate entity connecting the premise to the target (e.g. identify which boy group released the debut album 2014 S/S, or which president the official served under).
+   - Traverse to the ultimate requested attribute (e.g. who formed that specific boy group, or what years that specific president served).
+   - Disambiguate against distractor entities that superficially share numbers, years, or keywords (e.g. a group formed in 2014 is NOT the album titled "2014 S/S").
+   - Set "canonical_answer" to the final requested target attribute, NOT the intermediate bridge entity.
+
+5. Reasoning & Canonical Answer:
+   - Provide your step-by-step reasoning first in "reasoning".
+   - In "canonical_answer", provide ONLY the concise direct answer (e.g. "yes", "no", entity name, number, or short phrase). If abstaining, return "".
+   - Ensure "canonical_answer" and "answer" are completely consistent and never contradict each other.
+
+Return ONLY a valid JSON object matching this schema:
+{
+  "reasoning": "Step-by-step evaluation of the evidence and attributes.",
+  "extracted_attributes": [
+    {
+      "entity_name": "Name of entity",
+      "entity_id": "Entity ID if available, or null",
+      "attribute_name": "Name of attribute (e.g. NATIONALITY)",
+      "extracted_value": "Extracted value (e.g. American)",
+      "evidence_quote": "Exact sentence or phrase from the chunk text",
+      "chunk_id": "Exact chunk ID where quote appears"
+    }
+  ],
+  "canonical_answer": "Short direct answer (e.g. 'yes', 'no', entity name) or empty if abstaining.",
+  "answer": "Direct answer to the question with inline citations [D002_C0000] or explanation if abstaining.",
+  "abstained": false,
+  "cited_chunk_ids": ["D002_C0000"]
+}
+"""
+
+DEFAULT_ANSWER_GENERATION_PROMPT = DEFAULT_ANSWER_GENERATION_PROMPT_V1_0
+
 
 class CandidateAttributeFact(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
-    entity_name: str = Field(default="")
+    entity_name: Optional[str] = Field(default="")
     entity_id: Optional[str] = Field(default=None)
-    attribute_name: str = Field(default="")
-    extracted_value: str = Field(default="")
-    evidence_quote: str = Field(default="")
-    chunk_id: str = Field(default="")
+    attribute_name: Optional[str] = Field(default="")
+    extracted_value: Optional[str] = Field(default="")
+    evidence_quote: Optional[str] = Field(default="")
+    chunk_id: Optional[str] = Field(default="")
+
+    @field_validator("entity_name", "attribute_name", "extracted_value", "evidence_quote", "chunk_id", mode="before")
+    @classmethod
+    def coerce_none_to_empty(cls, v: Any) -> Optional[str]:
+        if v is None:
+            return ""
+        return str(v)
 
 
 class AnswerGenerationOutput(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     reasoning: Optional[str] = None
-    extracted_attributes: List[CandidateAttributeFact] = Field(default_factory=list)
+    extracted_attributes: Optional[List[CandidateAttributeFact]] = Field(default_factory=list)
     canonical_answer: str = Field(default="")
     answer: str
     abstained: bool = False
     cited_chunk_ids: List[str] = Field(default_factory=list)
     abstention_reason: Optional[str] = None
     citation_references: List[dict] = Field(default_factory=list)
+    generation_error: bool = Field(default=False)
+
+    @field_validator("extracted_attributes", mode="before")
+    @classmethod
+    def coerce_none_list(cls, v: Any) -> List[Any]:
+        if v is None:
+            return []
+        return v
 
 
 class FactValidator:
@@ -226,7 +310,9 @@ class FactValidator:
         return None
 
     @staticmethod
-    def normalize_ws(text: str) -> str:
+    def normalize_ws(text: Optional[str]) -> str:
+        if not text:
+            return ""
         return " ".join(text.split()).strip().lower()
 
     @classmethod
@@ -672,18 +758,33 @@ class OllamaAnswerGenerator:
         llm_client: OllamaLLMClient,
         prompt_path: Optional[Union[str, Path]] = None,
         context_builder: Optional[ContextBuilder] = None,
+        prompt_version: str = "v1.0",
+        comparative_reasoning_mode: str = "off",
     ) -> None:
         self.llm_client = llm_client
         self.context_builder = context_builder or ContextBuilder()
+        self.prompt_version = prompt_version.strip().lower() if prompt_version else "v1.0"
+        self.comparative_reasoning_mode = (
+            comparative_reasoning_mode.strip().lower() if comparative_reasoning_mode else "off"
+        )
 
         if prompt_path is not None and Path(prompt_path).exists():
             self.prompt_template = Path(prompt_path).read_text(encoding="utf-8")
+        elif self.prompt_version == "v1.1":
+            v1_1_path = Path("prompts/answer_generation_v1_1.txt")
+            if v1_1_path.exists():
+                self.prompt_template = v1_1_path.read_text(encoding="utf-8")
+            else:
+                self.prompt_template = DEFAULT_ANSWER_GENERATION_PROMPT_V1_1
         else:
+            v1_0_path = Path("prompts/answer_generation_v1_0.txt")
             default_path = Path("prompts/answer_generation.txt")
-            if default_path.exists():
+            if v1_0_path.exists():
+                self.prompt_template = v1_0_path.read_text(encoding="utf-8")
+            elif default_path.exists():
                 self.prompt_template = default_path.read_text(encoding="utf-8")
             else:
-                self.prompt_template = DEFAULT_ANSWER_GENERATION_PROMPT
+                self.prompt_template = DEFAULT_ANSWER_GENERATION_PROMPT_V1_0
 
     def _format_query_plan_info(self, query_plan: QueryPlan, resolved_ids: List[str]) -> str:
         """Format QueryPlan metadata for prompt injection."""
@@ -748,7 +849,11 @@ class OllamaAnswerGenerator:
                 abstained=True,
                 cited_chunk_ids=[],
                 abstention_reason="LLM invocation failed.",
+                generation_error=True,
             )
+
+        if output.extracted_attributes is None:
+            output.extracted_attributes = []
 
         if "[abstained]" in output.answer.lower():
             output.abstained = True
@@ -761,7 +866,7 @@ class OllamaAnswerGenerator:
         # -------------------------------------------------------------
         # Branch 1A: Selection Question Handling (e.g. Which of A or B...)
         # -------------------------------------------------------------
-        if is_selection and len(query_plan.seed_entities) >= 2:
+        if self.comparative_reasoning_mode == "enforce" and is_selection and len(query_plan.seed_entities) >= 2:
             seed_1 = query_plan.seed_entities[0].name
             seed_2 = query_plan.seed_entities[1].name
 
@@ -830,7 +935,7 @@ class OllamaAnswerGenerator:
         # -------------------------------------------------------------
         # Branch 1B: Comparative Attribute Question Handling (Boolean yes/no)
         # -------------------------------------------------------------
-        elif is_comparative and len(query_plan.seed_entities) >= 2:
+        elif self.comparative_reasoning_mode == "enforce" and is_comparative and len(query_plan.seed_entities) >= 2:
             seed_1 = query_plan.seed_entities[0].name
             seed_2 = query_plan.seed_entities[1].name
 
@@ -946,6 +1051,7 @@ class OllamaAnswerGenerator:
         retrieval_result.abstained = output.abstained
         retrieval_result.abstention_reason = output.abstention_reason if output.abstained else None
         retrieval_result.cited_chunk_ids = output.cited_chunk_ids
+        retrieval_result.generation_error = output.generation_error
         retrieval_result.citation_references = [
             {
                 "chunk_id": cid,

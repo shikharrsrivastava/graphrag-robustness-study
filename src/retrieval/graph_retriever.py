@@ -20,7 +20,7 @@ from src.graph.graph_builder import IGraphBuilder
 from src.graph.traversal import GraphTraverser, TraversedPath
 from src.retrieval.document_title_discoverer import DocumentTitleDiscoverer
 from src.retrieval.entity_description_discoverer import EntityDescriptionCandidate
-from src.retrieval.seed_retriever import SeedEntityRetriever
+from src.retrieval.seed_retriever import SeedEntityRetriever, SeedResolutionResult
 from src.storage.document_store import DocumentStore
 
 logger = logging.getLogger(__name__)
@@ -161,6 +161,7 @@ class GraphEvidenceRetriever:
         plan: QueryPlan,
         kb_id: str,
         scope_id: Optional[str] = None,
+        seed_resolution_result: Optional[SeedResolutionResult] = None,
     ) -> List[Evidence]:
         """Retrieve graph evidence for the query plan, satisfying the Retriever protocol."""
         self.last_diagnostics = {
@@ -186,8 +187,11 @@ class GraphEvidenceRetriever:
         if not plan.seed_entities:
             return []
 
-        # 1. Resolve seed entities
-        seed_res = self.seed_retriever.resolve_seeds(plan.seed_entities)
+        # 1. Resolve seed entities (or reuse passed seed_resolution_result)
+        if seed_resolution_result is not None:
+            seed_res = seed_resolution_result
+        else:
+            seed_res = self.seed_retriever.resolve_seeds(plan.seed_entities)
         resolved_eids = seed_res.resolved_entity_ids
         self.last_diagnostics["resolved_seed_count"] = len(resolved_eids)
         self.last_diagnostics["ambiguous_seeds"] = dict(seed_res.ambiguous_seeds)

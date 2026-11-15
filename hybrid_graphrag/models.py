@@ -51,6 +51,7 @@ class QueryResult(BaseModel):
     latency_seconds: float = 0.0
     timing: Dict[str, float] = Field(default_factory=dict)
     raw_result: Optional[RetrievalResult] = None
+    generation_error: bool = False
 
     @property
     def route(self) -> str:

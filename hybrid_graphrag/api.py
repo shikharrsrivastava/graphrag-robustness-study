@@ -221,6 +221,7 @@ class HybridGraphRAG:
         mode: str = "hybrid",
         route: Optional[str] = None,
         scope_id: Optional[str] = None,
+        comparative_reasoning_mode: Optional[str] = None,
     ) -> QueryResult:
         """Execute retrieval and answer generation for a user question.
 
@@ -229,6 +230,7 @@ class HybridGraphRAG:
             mode: Retrieval mode: 'hybrid' (default), 'vector_only', 'graph_only', or 'community_aware'.
             route: Alias for mode parameter for backward compatibility.
             scope_id: Optional tenant or document scope filter.
+            comparative_reasoning_mode: Optional comparative reasoning mode ('enforce' or 'off').
 
         Returns:
             QueryResult containing the generated answer, canonical answer, citations, and metadata.
@@ -253,6 +255,7 @@ class HybridGraphRAG:
                 question=question,
                 mode=mode_clean,
                 scope_id=scope_id,
+                comparative_reasoning_mode=comparative_reasoning_mode,
             )
         except Exception as e:
             raise QueryError(f"Query execution failed: {e}") from e
@@ -297,6 +300,7 @@ class HybridGraphRAG:
             latency_seconds=total_latency,
             timing=timing_data,
             raw_result=retrieval_result,
+            generation_error=getattr(retrieval_result, "generation_error", False),
         )
 
     def get_kb_stats(self) -> Dict[str, Any]:

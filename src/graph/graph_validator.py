@@ -48,6 +48,7 @@ class GraphValidator:
         ontology: Optional[DomainOntology] = None,
         manifest_path: Optional[Path] = None,
         kb_id: Optional[str] = None,
+        prompt_versions: Optional[Dict[str, str]] = None,
     ) -> Dict[str, Any]:
         """Validate graph invariants and write manifest.json."""
         invalid_records: List[Dict[str, Any]] = []
@@ -110,6 +111,7 @@ class GraphValidator:
         report: Dict[str, Any] = {
             "kb_id": target_kb_id or "unknown",
             "is_valid": is_valid,
+            "prompt_versions": prompt_versions or {},
             "node_count": node_count,
             "edge_count": edge_count,
             "connected_components_count": connected_components_count,

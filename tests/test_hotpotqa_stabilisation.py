@@ -113,7 +113,7 @@ def test_1_selection_question_returns_entity_name() -> None:
         })
     )
 
-    gen = OllamaAnswerGenerator(llm)
+    gen = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce")
     output = gen.generate_structured(result)
 
     assert output.canonical_answer in ("Robert Erskine Childers", "Robert Erskine Childers DSC")
@@ -266,7 +266,7 @@ def test_4_unsupported_occupational_equivalence_causes_abstention() -> None:
         })
     )
 
-    output = OllamaAnswerGenerator(llm).generate_structured(result)
+    output = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce").generate_structured(result)
     # Must NOT return yes because John Williams is not verified as an opera composer
     assert output.abstained is True
     assert "opera composer was not found" in (output.abstention_reason or "")
@@ -629,7 +629,7 @@ def test_12_grounded_post_nominal_suffix_preservation() -> None:
         })
     )
 
-    gen = OllamaAnswerGenerator(llm)
+    gen = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce")
     output = gen.generate_structured(retrieval_result)
 
     assert output.canonical_answer == "Robert Erskine Childers DSC"
@@ -689,7 +689,7 @@ def test_13_multi_hop_boy_group_record_label_bridge() -> None:
         })
     )
 
-    gen = OllamaAnswerGenerator(llm)
+    gen = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce")
     output = gen.generate_structured(retrieval_result)
 
     assert output.canonical_answer == "YG Entertainment"
@@ -746,7 +746,7 @@ def test_14_multi_hop_presidential_term_bridge() -> None:
         })
     )
 
-    gen = OllamaAnswerGenerator(llm)
+    gen = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce")
     output = gen.generate_structured(retrieval_result)
 
     assert output.canonical_answer == "1969 until 1974"
@@ -802,7 +802,7 @@ def test_15_synthetic_multi_hop_domain_invariance() -> None:
         })
     )
 
-    gen = OllamaAnswerGenerator(llm)
+    gen = OllamaAnswerGenerator(llm, comparative_reasoning_mode="enforce")
     output = gen.generate_structured(retrieval_result)
 
     assert output.canonical_answer == "West Bengal"

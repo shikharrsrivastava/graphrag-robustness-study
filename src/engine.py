@@ -116,7 +116,11 @@ class HybridGraphRAGEngine:
 
         logger.info("Stage 4: Extracting entity mentions and relationships from %d chunks...", len(chunks))
         entity_extractor = OllamaEntityExtractor(ontology=self.config.ontology, llm_client=self.llm_client)
-        rel_extractor = OllamaRelationshipExtractor(ontology=self.config.ontology, llm_client=self.llm_client)
+        rel_extractor = OllamaRelationshipExtractor(
+            ontology=self.config.ontology,
+            llm_client=self.llm_client,
+            validation_config=self.config.validation,
+        )
 
         all_mentions: List[EntityMention] = []
         all_triples: List[Relationship] = []
@@ -199,6 +203,7 @@ class HybridGraphRAGEngine:
             ontology=self.config.ontology,
             manifest_path=manifest_path,
             kb_id=self.kb_id,
+            prompt_versions=self.config.prompt_versions.model_dump(),
         )
         stage_seconds["graph_construction_and_validation"] = time.perf_counter() - stage_started
 
@@ -276,6 +281,7 @@ class HybridGraphRAGEngine:
         question: str,
         mode: str = "hybrid",
         scope_id: Optional[str] = None,
+        comparative_reasoning_mode: Optional[str] = None,
     ) -> Tuple[str, RetrievalResult]:
         """Execute Stages 11-19 of the online retrieval and answer generation pipeline.
 
@@ -329,14 +335,38 @@ class HybridGraphRAGEngine:
             final_context_chunks=self.config.retrieval.final_context_chunks,
         )
         query_planner = OllamaQueryPlanner(ontology=self.config.ontology, llm_client=self.llm_client)
-        context_builder = ContextBuilder(max_chars=self.config.retrieval.max_context_chars)
-        answer_generator = OllamaAnswerGenerator(llm_client=self.llm_client, context_builder=context_builder)
+        context_builder = ContextBuilder(
+            max_chars=self.config.retrieval.max_context_chars,
+            graph_context_mode=self.config.retrieval.graph_context_mode,
+        )
+        effective_comp_mode = (
+            comparative_reasoning_mode.strip().lower()
+            if comparative_reasoning_mode is not None
+            else getattr(self.config.retrieval, "comparative_reasoning_mode", "off")
+        )
+        prompt_ver = getattr(self.config.prompt_versions, "answer_generation", "v1.0")
+        answer_generator = OllamaAnswerGenerator(
+            llm_client=self.llm_client,
+            context_builder=context_builder,
+            prompt_version=prompt_ver,
+            comparative_reasoning_mode=effective_comp_mode,
+        )
 
         mode_clean = mode.strip().lower()
         planner_seconds = 0.0
 
         if mode_clean == "vector_only":
-            plan = QueryPlan(question=clean_question, intent=QueryIntent.LOCAL)
+            if effective_comp_mode == "enforce":
+                planner_started = time.perf_counter()
+                try:
+                    plan = query_planner.plan(clean_question)
+                except Exception as exc:
+                    logger.warning("Query planner failed in vector_only enforce mode: %s", exc)
+                    plan = QueryPlan(question=clean_question, intent=QueryIntent.LOCAL)
+                planner_seconds = time.perf_counter() - planner_started
+            else:
+                plan = QueryPlan(question=clean_question, intent=QueryIntent.LOCAL)
+
             vector_ev = vector_retriever.retrieve(clean_question, plan, kb_id=self.kb_id, scope_id=scope_id)
             retrieval_result = RetrievalResult(
                 kb_id=self.kb_id,
@@ -346,10 +376,16 @@ class HybridGraphRAGEngine:
                 community_reports=[],
                 abstained=(len(vector_ev) == 0),
                 abstention_reason="No relevant text chunks found." if len(vector_ev) == 0 else None,
-                route_diagnostics={"vector_candidates": len(vector_ev), "graph_candidates": 0,
-                                   "community_candidates": 0, "seed_entity_count": 0,
-                                   "invalid_relation_count": 0, "evidence_after_merge": len(vector_ev),
-                                   "evidence_after_reranking": len(vector_ev), "route_errors": {}},
+                route_diagnostics={
+                    "vector_candidates": len(vector_ev),
+                    "graph_candidates": 0,
+                    "community_candidates": 0,
+                    "seed_entity_count": len(plan.seed_entities),
+                    "invalid_relation_count": 0,
+                    "evidence_after_merge": len(vector_ev),
+                    "evidence_after_reranking": len(vector_ev),
+                    "route_errors": {},
+                },
             )
 
         elif mode_clean == "graph_only":
@@ -357,7 +393,9 @@ class HybridGraphRAGEngine:
             plan = query_planner.plan(clean_question)
             planner_seconds = time.perf_counter() - planner_started
             seed_res = seed_retriever.resolve_seeds(plan.seed_entities)
-            graph_ev = graph_retriever.retrieve(clean_question, plan, kb_id=self.kb_id, scope_id=scope_id)
+            graph_ev = graph_retriever.retrieve(
+                clean_question, plan, kb_id=self.kb_id, scope_id=scope_id, seed_resolution_result=seed_res
+            )
             retrieval_result = RetrievalResult(
                 kb_id=self.kb_id,
                 question=clean_question,
@@ -414,4 +452,5 @@ class HybridGraphRAGEngine:
         retrieval_result.abstention_reason = structured_answer.abstention_reason
         retrieval_result.cited_chunk_ids = structured_answer.cited_chunk_ids
         retrieval_result.citation_references = structured_answer.citation_references
+        retrieval_result.generation_error = getattr(structured_answer, "generation_error", False)
         return answer, retrieval_result

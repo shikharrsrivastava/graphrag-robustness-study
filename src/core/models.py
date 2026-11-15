@@ -17,6 +17,8 @@ class ValidationStatus(str, Enum):
     REJECTED_QUOTE_MISMATCH = "REJECTED_QUOTE_MISMATCH"
     REJECTED_ONTOLOGY = "REJECTED_ONTOLOGY"
     REJECTED_NEGATION = "REJECTED_NEGATION"
+    REJECTED_ENDPOINT_NOT_IN_EVIDENCE = "REJECTED_ENDPOINT_NOT_IN_EVIDENCE"
+    REJECTED_UNCERTAIN = "REJECTED_UNCERTAIN"
     PENDING = "PENDING"
 
 
@@ -191,6 +193,8 @@ class Relationship(BaseModel):
     validation_status: ValidationStatus = Field(default=ValidationStatus.PENDING)
     uncalibrated_confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
     scope_id: Optional[str] = Field(default=None)
+    repaired_quote: bool = Field(default=False)
+    quote_starts_with_pronoun: bool = Field(default=False)
 
     @field_validator("relation_type")
     @classmethod
@@ -334,3 +338,4 @@ class RetrievalResult(BaseModel):
     answer_abstained: Optional[bool] = None
     cited_chunk_ids: List[str] = Field(default_factory=list)
     citation_references: List[Dict[str, Any]] = Field(default_factory=list)
+    generation_error: bool = False

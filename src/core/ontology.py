@@ -39,6 +39,10 @@ class DomainOntology(BaseModel):
         default_factory=dict,
         description="Optional domain-specific canonical name -> list of known aliases",
     )
+    generic_descriptors: Dict[str, List[str]] = Field(
+        default_factory=dict,
+        description="Optional entity type -> list of generic descriptors (e.g. PROJECT: ['project', 'program'])",
+    )
 
     @field_validator("entity_types")
     @classmethod

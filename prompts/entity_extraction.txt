@@ -10,10 +10,11 @@ TEXT:
 
 INSTRUCTIONS:
 1. Identify all salient entity mentions in the text that strictly match the allowed entity types.
-2. Do not extract entity types not listed above.
-3. surface_name must be the exact text span from the text.
-4. description should be a concise summary of the entity's role or context in this text.
-5. Return ONLY a valid JSON object matching this schema, with no preamble, markdown code blocks, or extra text:
+2. Extract every named entity, including named labs, groups, institutes, and projects, as its own mention even when it appears only inside a descriptive phrase about another entity.
+3. Do not extract entity types not listed above.
+4. surface_name must be the exact text span from the text.
+5. description should be a concise summary of the entity's role or context in this text.
+6. Return ONLY a valid JSON object matching this schema, with no preamble, markdown code blocks, or extra text:
 
 {
   "entities": [

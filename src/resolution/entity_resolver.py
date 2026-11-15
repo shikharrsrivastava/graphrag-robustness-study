@@ -203,6 +203,38 @@ class ConservativeEntityResolver:
                 mention_to_entity[mention.mention_id] = new_id
                 canonical_counter += 1
 
+        # Rule C2 Post-pass: Handle single-token PERSON canonicals created before multi-token ones
+        if getattr(self.resolution_config, "enable_single_token_person_merge", True):
+            single_token_persons = [
+                c for c in canonical_entities
+                if c.entity_type == "PERSON"
+                and len(normalize_entity_name(strip_honorifics(c.name)).split()) == 1
+            ]
+            multi_token_persons = [
+                c for c in canonical_entities
+                if c.entity_type == "PERSON"
+                and len(normalize_entity_name(strip_honorifics(c.name)).split()) >= 2
+            ]
+
+            merged_single_ids: Set[str] = set()
+            for s_c in single_token_persons:
+                s_m = extract_name_suffix(s_c.name) or extract_name_suffix(s_c.normalized_name)
+                s_surname = normalize_entity_name(strip_honorifics(s_c.name)).split()[0]
+                matches = [
+                    m_c for m_c in multi_token_persons
+                    if (extract_name_suffix(m_c.name) or extract_name_suffix(m_c.normalized_name)) == s_m
+                    and normalize_entity_name(strip_honorifics(m_c.name)).split()[-1] == s_surname
+                ]
+                if len(matches) == 1:
+                    target_c = matches[0]
+                    self._merge_canonical_into_canonical(target_c, s_c)
+                    for m_id in s_c.source_mention_ids:
+                        mention_to_entity[m_id] = target_c.entity_id
+                    merged_single_ids.add(s_c.entity_id)
+
+            if merged_single_ids:
+                canonical_entities = [c for c in canonical_entities if c.entity_id not in merged_single_ids]
+
         return canonical_entities, mention_to_entity
 
     def resolve_and_remap(
@@ -297,6 +329,28 @@ class ConservativeEntityResolver:
 
             if self._is_exact_or_alias_match(mention, canonical):
                 return canonical
+
+        # Rule C2 (PERSON single-token surname merge during sequential pass)
+        if (
+            getattr(self.resolution_config, "enable_single_token_person_merge", True)
+            and mention.entity_type == "PERSON"
+        ):
+            s_m = extract_name_suffix(mention.surface_name) or extract_name_suffix(mention.normalized_name)
+            m_toks = normalize_entity_name(strip_honorifics(mention.surface_name)).split()
+            if len(m_toks) == 1:
+                surname = m_toks[0]
+                matching_canonicals = []
+                for c in canonical_entities:
+                    if c.entity_type != "PERSON":
+                        continue
+                    s_c = extract_name_suffix(c.name) or extract_name_suffix(c.normalized_name)
+                    if s_m != s_c:
+                        continue
+                    c_toks = normalize_entity_name(strip_honorifics(c.name)).split()
+                    if len(c_toks) >= 2 and c_toks[-1] == surname:
+                        matching_canonicals.append(c)
+                if len(matching_canonicals) == 1:
+                    return matching_canonicals[0]
 
         # Step 17C: Embedding Candidate Discovery
         if not canonical_entities or self.embedding_provider is None:
@@ -441,6 +495,36 @@ class ConservativeEntityResolver:
                     if m_core and m_core == c_core and len(m_core.split()) >= 2:
                         return True
 
+        # 5. Type-specific generic-descriptor normalization for non-PERSON (Rule C1)
+        if (
+            getattr(self.resolution_config, "enable_descriptor_normalization", True)
+            and mention.entity_type != "PERSON"
+            and canonical.entity_type != "PERSON"
+            and mention.entity_type == canonical.entity_type
+        ):
+            descriptors = []
+            if hasattr(self.ontology, "generic_descriptors") and self.ontology.generic_descriptors:
+                descriptors = self.ontology.generic_descriptors.get(mention.entity_type, [])
+            if not descriptors and mention.entity_type == "PROJECT":
+                descriptors = ["project", "program", "programme", "initiative"]
+
+            if descriptors:
+                def strip_generic_descriptor(norm_name: str) -> str:
+                    toks = norm_name.split()
+                    if len(toks) > 1 and toks[-1] in descriptors:
+                        return " ".join(toks[:-1])
+                    return norm_name
+
+                m_stripped = strip_generic_descriptor(mention.normalized_name)
+                c_stripped = strip_generic_descriptor(canonical.normalized_name)
+                if m_stripped != mention.normalized_name or c_stripped != canonical.normalized_name:
+                    if (
+                        m_stripped == canonical.normalized_name
+                        or c_stripped == mention.normalized_name
+                        or (m_stripped == c_stripped and m_stripped)
+                    ):
+                        return True
+
         return False
 
     def _verify_ambiguous_with_llm(
@@ -501,3 +585,27 @@ class ConservativeEntityResolver:
                 canonical.description = f"{canonical.description}; {mention.description}"
             else:
                 canonical.description = mention.description
+
+    def _merge_canonical_into_canonical(
+        self, target: CanonicalEntity, source: CanonicalEntity
+    ) -> None:
+        """Merge a single-token canonical entity into a target multi-token canonical entity."""
+        if source.name != target.name and source.name not in target.aliases:
+            target.aliases.append(source.name)
+        for a in source.aliases:
+            if a != target.name and a not in target.aliases:
+                target.aliases.append(a)
+        for m in source.source_mention_ids:
+            if m not in target.source_mention_ids:
+                target.source_mention_ids.append(m)
+        for c in source.source_chunk_ids:
+            if c not in target.source_chunk_ids:
+                target.source_chunk_ids.append(c)
+        for d in source.source_doc_ids:
+            if d not in target.source_doc_ids:
+                target.source_doc_ids.append(d)
+        if source.description and source.description not in target.description:
+            if target.description:
+                target.description = f"{target.description}; {source.description}"
+            else:
+                target.description = source.description

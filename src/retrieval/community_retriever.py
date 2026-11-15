@@ -160,12 +160,15 @@ class HybridRetrieverOrchestrator:
 
         # 2. Dispatch by intent
         if plan.intent == QueryIntent.LOCAL:
+            seed_res = None
             if plan.seed_entities:
                 seed_res = self.seed_retriever.resolve_seeds(plan.seed_entities)
                 resolved_seed_ids = seed_res.resolved_entity_ids
-            if resolved_seed_ids:
+            if resolved_seed_ids or getattr(self.graph_retriever, "document_title_discovery_enabled", False):
                 try:
-                    graph_ev = self.graph_retriever.retrieve(question, plan, kb_id, scope_id=scope_id)
+                    graph_ev = self.graph_retriever.retrieve(
+                        question, plan, kb_id, scope_id=scope_id, seed_resolution_result=seed_res
+                    )
                 except Exception as exc:
                     route_errors["graph"] = str(exc)
             try:
@@ -224,13 +227,18 @@ class HybridRetrieverOrchestrator:
             )
 
         else:  # MIXED intent
+            seed_res = None
             if plan.seed_entities:
                 seed_res = self.seed_retriever.resolve_seeds(plan.seed_entities)
                 resolved_seed_ids = seed_res.resolved_entity_ids
 
-            if resolved_seed_ids:
-                try: graph_ev = self.graph_retriever.retrieve(question, plan, kb_id, scope_id=scope_id)
-                except Exception as exc: route_errors["graph"] = str(exc)
+            if resolved_seed_ids or getattr(self.graph_retriever, "document_title_discovery_enabled", False):
+                try:
+                    graph_ev = self.graph_retriever.retrieve(
+                        question, plan, kb_id, scope_id=scope_id, seed_resolution_result=seed_res
+                    )
+                except Exception as exc:
+                    route_errors["graph"] = str(exc)
             try: comm_reports, comm_ev = self.community_retriever.retrieve_communities(question, kb_id, scope_id)
             except Exception as exc: route_errors["community"] = str(exc)
             try: vector_ev = self.vector_retriever.retrieve(question, plan, kb_id, scope_id=scope_id)

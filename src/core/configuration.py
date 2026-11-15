@@ -4,9 +4,9 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 import yaml
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from src.core.ontology import DomainOntology
 
 
@@ -38,6 +38,31 @@ class OllamaConfig(BaseModel):
     max_retries: int = Field(default=2, ge=0)
 
 
+class ValidationConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool = Field(default=True)
+    negation_cues: list[str] = Field(
+        default_factory=lambda: [
+            "not", "n't", "never", "no longer", "neither", "nor", "without",
+            "cannot", "denies", "denied", "rejects", "rejected", "fails to", "failed to",
+        ]
+    )
+    uncertainty_cues: list[str] = Field(
+        default_factory=lambda: [
+            "may", "might", "possibly", "reportedly", "allegedly", "perhaps",
+            "uncertain", "claims", "claimed", "unconfirmed",
+        ]
+    )
+    quote_repair_enabled: bool = Field(default=False)
+    endpoint_in_evidence_enabled: bool = Field(default=True)
+    honorifics: list[str] = Field(
+        default_factory=lambda: [
+            "prof", "prof.", "professor", "dr", "dr.", "mr", "mr.", "mrs", "mrs.", "ms", "ms.",
+        ]
+    )
+
+
 class ResolutionConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -45,6 +70,8 @@ class ResolutionConfig(BaseModel):
     auto_merge_threshold: float = Field(default=0.95, ge=0.0, le=1.0)
     require_type_match: bool = True
     use_llm_verification_for_ambiguous: bool = True
+    enable_descriptor_normalization: bool = Field(default=True)
+    enable_single_token_person_merge: bool = Field(default=True)
 
 
 class LeidenConfig(BaseModel):
@@ -133,17 +160,41 @@ class RetrievalConfig(BaseModel):
         ge=1,
         description="Maximum total entity description candidates to admit per query",
     )
+    graph_context_mode: Union[bool, str] = Field(
+        default=False,
+        description="Format graph context: False/'off' (legacy paths), True/'fix_e' (Fix E edges with chunk IDs and disclaimer), or 'none' (chunks only, no graph text)",
+    )
+    comparative_reasoning_mode: str = Field(
+        default="off",
+        description="Comparative reasoning evaluation mode: 'enforce' (deterministic attribute validation) or 'off' (pass LLM output through)",
+    )
+
+    @field_validator("comparative_reasoning_mode")
+    @classmethod
+    def validate_comparative_reasoning_mode(cls, v: str) -> str:
+        v_clean = str(v).strip().lower()
+        if v_clean not in ("enforce", "off"):
+            raise ValueError(f"Invalid comparative_reasoning_mode: '{v}'. Must be 'enforce' or 'off'.")
+        return v_clean
 
 
 class PromptVersions(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    entity_extraction: str = Field(default="v1.0")
-    relationship_extraction: str = Field(default="v1.0")
+    entity_extraction: str = Field(default="v1.1")
+    relationship_extraction: str = Field(default="v1.1")
     entity_resolution: str = Field(default="v1.0")
     community_summary: str = Field(default="v1.0")
     query_planning: str = Field(default="v1.0")
     answer_generation: str = Field(default="v1.0")
+
+    @field_validator("answer_generation")
+    @classmethod
+    def validate_answer_generation(cls, v: str) -> str:
+        v_clean = str(v).strip().lower()
+        if v_clean not in ("v1.0", "v1.1"):
+            raise ValueError(f"Invalid answer_generation prompt version: '{v}'. Must be 'v1.0' or 'v1.1'.")
+        return v_clean
 
 
 class EngineConfig(BaseModel):
@@ -155,6 +206,7 @@ class EngineConfig(BaseModel):
     prompts_dir: str = Field(default="prompts")
     chunking: ChunkingConfig = Field(default_factory=ChunkingConfig)
     ollama: OllamaConfig = Field(default_factory=OllamaConfig)
+    validation: ValidationConfig = Field(default_factory=ValidationConfig)
     resolution: ResolutionConfig = Field(default_factory=ResolutionConfig)
     leiden: LeidenConfig = Field(default_factory=LeidenConfig)
     retrieval: RetrievalConfig = Field(default_factory=RetrievalConfig)
