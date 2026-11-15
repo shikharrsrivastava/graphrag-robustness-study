@@ -1,0 +1,1 @@
+Professor Ravi Dhillon leads the Urban Air Lab at the Kestrel Institute of Technology. Professor Dhillon supervises the CityBreath project. CityBreath measures city air pollution with low-cost sensors and a convolutional neural network.

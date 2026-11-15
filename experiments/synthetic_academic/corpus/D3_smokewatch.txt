@@ -1,0 +1,1 @@
+SmokeWatch is a research project that forecasts smoke plumes. SmokeWatch uses satellite imagery and a gradient boosting model. The project is funded by the Coastal Resilience Fund.
