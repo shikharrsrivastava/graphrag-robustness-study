@@ -1,0 +1,31 @@
+==================================================
+RUN EVALUATION: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synthetic_academic/runs/20261115_180541_kb03_final_run3_graph/results.jsonl
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon is a doctoral student at the Kestrel.. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | According to chunk D002_C0000, "Professor Leela .. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | PASS  | 1.00   | The SmokeWatch project uses a gradient boosting .. |
+| Q5   | multi-hop            | NO   | PASS  | 1.00   | The evidence shows that Arjun Menon works under .. |
+| Q6   | multi-hop            | NO   | PASS  | 1.00   | According to [D004_C0000], Professor Ravi Dhillo.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | Professor Leela Varghese supervises the SmokeWat.. |
+| Q8   | semantic_wording     | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q9   | semantic_description | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q10  | comparison           | NO   | PASS  | 1.00   | CityBreath uses a convolutional neural network, .. |
+| Q11  | negation             | YES  | FAIL  | 1.00   | The evidence indicates that Tomas Lindqvist work.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | According to chunk D005_C0000, Maria Okafor work.. |
+| Q13  | global               | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q14  | unanswerable         | YES  | PASS  | N/A    | The evidence provided does not contain informati.. |
+| Q15  | unanswerable         | YES  | PASS  | N/A    | The evidence does not state when the Aerosol Dyn.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | I am unable to answer this question. Reason: No .. |
+
+### Per-Run Summary
+- Total Accuracy: 12/16 (75.0%)
+- Answerable Correctness: 9/13 (69.2%)
+- Abstention Correctness: 3/3 (100.0%)
+- Error Count: 0/16 (0.0%)
+- Mean Required-Doc Recall: 0.7692 (76.9%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 11/11 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)

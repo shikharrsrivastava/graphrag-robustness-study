@@ -1,0 +1,31 @@
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_131226_kb02_run_c_graph_compoff/results.jsonl
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon is a doctoral student at the Kestrel.. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | According to chunk D002_C0000, "Professor Leela .. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | FAIL  | 0.67   | Arjun Menon works under Professor Leela Varghese.. |
+| Q5   | multi-hop            | NO   | FAIL  | 0.67   | Professor Ravi Dhillon leads the CityBreath proj.. |
+| Q6   | multi-hop            | NO   | PASS  | 1.00   | Maria Okafor's supervisor, Professor Ravi Dhillo.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | Professor Leela Varghese supervises the SmokeWat.. |
+| Q8   | semantic_wording     | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q9   | semantic_description | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q10  | comparison           | NO   | PASS  | 1.00   | CityBreath uses a convolutional neural network, .. |
+| Q11  | negation             | YES  | FAIL  | 1.00   | The evidence indicates that Tomas Lindqvist work.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | According to chunk D005_C0000, Maria Okafor work.. |
+| Q13  | global               | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q14  | unanswerable         | YES  | PASS  | N/A    | The evidence provided does not contain informati.. |
+| Q15  | unanswerable         | YES  | ERROR | N/A    | Error generating answer: Failed to generate vali.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | I am unable to answer this question. Reason: No .. |
+
+### Per-Run Summary
+- Total Accuracy: 9/16 (56.2%)
+- Answerable Correctness: 7/13 (53.8%)
+- Abstention Correctness: 2/3 (66.7%)
+- Error Count: 1/16 (6.2%)
+- Mean Required-Doc Recall: 0.7179 (71.8%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 13/13 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)

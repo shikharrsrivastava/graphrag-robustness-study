@@ -1,0 +1,12 @@
+{
+  "run_name": "kb02_run_b_e_fix_e",
+  "timestamp": "20261115_035649",
+  "kb_dir": "knowledge_bases/synthetic_academic/synthetic_academic_02",
+  "mode": "hybrid",
+  "questions_count": 16,
+  "vector_top_k": 2,
+  "final_context_chunks": 3,
+  "task6_enabled": false,
+  "graph_context_mode": true,
+  "results_path": "experiments/synthetic_academic/runs/20261115_035649_kb02_run_b_e_fix_e/results.jsonl"
+}

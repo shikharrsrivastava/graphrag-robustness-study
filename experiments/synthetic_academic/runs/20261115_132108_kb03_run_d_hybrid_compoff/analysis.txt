@@ -1,0 +1,31 @@
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_132108_kb03_run_d_hybrid_compoff/results.jsonl
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon is a doctoral student at the Kestrel.. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | Professor Leela Varghese leads the Aerosol Dynam.. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | PASS  | 1.00   | The SmokeWatch project uses a gradient boosting .. |
+| Q5   | multi-hop            | NO   | PASS  | 1.00   | The SmokeWatch project, supervised by Arjun Meno.. |
+| Q6   | multi-hop            | NO   | PASS  | 1.00   | According to [D004_C0000], Professor Ravi Dhillo.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | According to chunk [D002_C0000], Professor Leela.. |
+| Q8   | semantic_wording     | NO   | PASS  | 1.00   | SmokeWatch is a research project that forecasts .. |
+| Q9   | semantic_description | NO   | PASS  | 1.00   | The Urban Air Lab, led by Professor Ravi Dhillon.. |
+| Q10  | comparison           | NO   | PASS  | 1.00   | CityBreath uses a convolutional neural network, .. |
+| Q11  | negation             | YES  | FAIL  | 1.00   | The evidence indicates that Tomas Lindqvist work.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | According to chunk D005_C0000, Maria Okafor work.. |
+| Q13  | global               | NO   | FAIL  | 0.33   | The main research themes across these documents .. |
+| Q14  | unanswerable         | YES  | ERROR | N/A    | Error generating answer: Failed to generate vali.. |
+| Q15  | unanswerable         | NO   | FAIL  | N/A    | The Aerosol Dynamics Lab was founded when Profes.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | The evidence does not contain information about .. |
+
+### Per-Run Summary
+- Total Accuracy: 12/16 (75.0%)
+- Answerable Correctness: 11/13 (84.6%)
+- Abstention Correctness: 1/3 (33.3%)
+- Error Count: 1/16 (6.2%)
+- Mean Required-Doc Recall: 0.9487 (94.9%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 16/16 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)

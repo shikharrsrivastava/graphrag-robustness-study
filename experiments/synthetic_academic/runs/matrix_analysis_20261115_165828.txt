@@ -1,0 +1,291 @@
+Run    | Description                                        | Correct    | Answerable   | Abstention   | Errors   | Doc Recall
+------------------------------------------------------------------------------------------------------------------------
+kb02_r | Part 4(a): KB_02, hybrid, comparative_reasoning_mo | 14/16 (87.5%) | 12/13           | 2/3            | 0        | 0.949
+kb02_r | Part 4(b): KB_02, vector_only, comparative_reasoni | 14/16 (87.5%) | 12/13           | 2/3            | 1        | 0.833
+kb02_r | Part 4(c): KB_02, graph_only, comparative_reasonin | 9/16 (56.2%) | 7/13           | 2/3            | 1        | 0.718
+kb03_r | Part 4(d): KB_03, hybrid, comparative_reasoning_mo | 12/16 (75.0%) | 11/13           | 1/3            | 1        | 0.949
+kb03_r | Part 4(e): KB_03, graph_only, comparative_reasonin | 11/16 (68.8%) | 9/13           | 2/3            | 1        | 0.769
+kb03_r | Part 4(f): KB_03, community_aware, comparative_rea | 12/16 (75.0%) | 12/13           | 0/3            | 1        | 0.949
+kb02_r | Part 4(g): KB_02, hybrid, comparative_reasoning_mo | 12/16 (75.0%) | 10/13           | 2/3            | 0        | 0.949
+kb02_r | Part 4(h): KB_02, vector_only, comparative_reasoni | 11/16 (68.8%) | 10/13           | 1/3            | 2        | 0.833
+
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_125807_kb02_run_a_hybrid_compoff
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon is a doctoral student at the Kestrel.. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | Professor Leela Varghese leads the Aerosol Dynam.. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | PASS  | 1.00   | The SmokeWatch project uses a gradient boosting .. |
+| Q5   | multi-hop            | NO   | PASS  | 1.00   | The project supervised by Arjun Menon (who works.. |
+| Q6   | multi-hop            | NO   | PASS  | 1.00   | Maria Okafor's supervisor, Professor Ravi Dhillo.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | Professor Leela Varghese supervises the SmokeWat.. |
+| Q8   | semantic_wording     | NO   | PASS  | 1.00   | SmokeWatch is a research project that forecasts .. |
+| Q9   | semantic_description | NO   | PASS  | 1.00   | The Urban Air Lab, led by Professor Ravi Dhillon.. |
+| Q10  | comparison           | NO   | PASS  | 1.00   | CityBreath uses a convolutional neural network, .. |
+| Q11  | negation             | NO   | PASS  | 1.00   | According to chunk D005_C0000 [D005_C0000], Toma.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | According to chunk D005_C0000, Maria Okafor work.. |
+| Q13  | global               | NO   | FAIL  | 0.33   | The main research themes are identified in the p.. |
+| Q14  | unanswerable         | YES  | PASS  | N/A    | The evidence provided does not contain informati.. |
+| Q15  | unanswerable         | NO   | FAIL  | N/A    | The Aerosol Dynamics Lab was founded when Profes.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | The evidence does not contain information about .. |
+
+### Per-Run Summary
+- Total Accuracy: 14/16 (87.5%)
+- Answerable Correctness: 12/13 (92.3%)
+- Abstention Correctness: 2/3 (66.7%)
+- Error Count: 0/16 (0.0%)
+- Mean Required-Doc Recall: 0.9487 (94.9%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 15/15 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)
+
+
+================================================================================
+
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_130600_kb02_run_b_vector_compoff
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon studies at the Kestrel Institute of .. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | Professor Leela Varghese leads the Aerosol Dynam.. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | PASS  | 0.67   | The project supervised by Arjun Menon uses a gra.. |
+| Q5   | multi-hop            | NO   | PASS  | 0.67   | The project supervised by Arjun Menon’s professo.. |
+| Q6   | multi-hop            | NO   | PASS  | 0.50   | According to [D005_C0000], Maria Okafor works un.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | Professor Leela Varghese supervises the SmokeWat.. |
+| Q8   | semantic_wording     | NO   | PASS  | 1.00   | SmokeWatch is a research project that forecasts .. |
+| Q9   | semantic_description | NO   | PASS  | 1.00   | Professor Dhillon leads the Urban Air Lab at the.. |
+| Q10  | comparison           | NO   | PASS  | 1.00   | CityBreath uses a convolutional neural network, .. |
+| Q11  | negation             | NO   | PASS  | 1.00   | Tomas Lindqvist works under Professor Dhillon, a.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | Maria Okafor works under Professor Ravi Dhillon,.. |
+| Q13  | global               | NO   | FAIL  | 0.00   | The main research theme is wildfire smoke foreca.. |
+| Q14  | unanswerable         | YES  | PASS  | N/A    | The evidence provided does not contain informati.. |
+| Q15  | unanswerable         | YES  | ERROR | N/A    | Error generating answer: Failed to generate vali.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | The evidence provided does not contain informati.. |
+
+### Per-Run Summary
+- Total Accuracy: 14/16 (87.5%)
+- Answerable Correctness: 12/13 (92.3%)
+- Abstention Correctness: 2/3 (66.7%)
+- Error Count: 1/16 (6.2%)
+- Mean Required-Doc Recall: 0.8333 (83.3%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 15/15 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)
+
+
+================================================================================
+
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_131226_kb02_run_c_graph_compoff
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon is a doctoral student at the Kestrel.. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | According to chunk D002_C0000, "Professor Leela .. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | FAIL  | 0.67   | Arjun Menon works under Professor Leela Varghese.. |
+| Q5   | multi-hop            | NO   | FAIL  | 0.67   | Professor Ravi Dhillon leads the CityBreath proj.. |
+| Q6   | multi-hop            | NO   | PASS  | 1.00   | Maria Okafor's supervisor, Professor Ravi Dhillo.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | Professor Leela Varghese supervises the SmokeWat.. |
+| Q8   | semantic_wording     | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q9   | semantic_description | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q10  | comparison           | NO   | PASS  | 1.00   | CityBreath uses a convolutional neural network, .. |
+| Q11  | negation             | YES  | FAIL  | 1.00   | The evidence indicates that Tomas Lindqvist work.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | According to chunk D005_C0000, Maria Okafor work.. |
+| Q13  | global               | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q14  | unanswerable         | YES  | PASS  | N/A    | The evidence provided does not contain informati.. |
+| Q15  | unanswerable         | YES  | ERROR | N/A    | Error generating answer: Failed to generate vali.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | I am unable to answer this question. Reason: No .. |
+
+### Per-Run Summary
+- Total Accuracy: 9/16 (56.2%)
+- Answerable Correctness: 7/13 (53.8%)
+- Abstention Correctness: 2/3 (66.7%)
+- Error Count: 1/16 (6.2%)
+- Mean Required-Doc Recall: 0.7179 (71.8%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 13/13 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)
+
+
+================================================================================
+
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_132108_kb03_run_d_hybrid_compoff
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon is a doctoral student at the Kestrel.. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | Professor Leela Varghese leads the Aerosol Dynam.. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | PASS  | 1.00   | The SmokeWatch project uses a gradient boosting .. |
+| Q5   | multi-hop            | NO   | PASS  | 1.00   | The SmokeWatch project, supervised by Arjun Meno.. |
+| Q6   | multi-hop            | NO   | PASS  | 1.00   | According to [D004_C0000], Professor Ravi Dhillo.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | According to chunk [D002_C0000], Professor Leela.. |
+| Q8   | semantic_wording     | NO   | PASS  | 1.00   | SmokeWatch is a research project that forecasts .. |
+| Q9   | semantic_description | NO   | PASS  | 1.00   | The Urban Air Lab, led by Professor Ravi Dhillon.. |
+| Q10  | comparison           | NO   | PASS  | 1.00   | CityBreath uses a convolutional neural network, .. |
+| Q11  | negation             | YES  | FAIL  | 1.00   | The evidence indicates that Tomas Lindqvist work.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | According to chunk D005_C0000, Maria Okafor work.. |
+| Q13  | global               | NO   | FAIL  | 0.33   | The main research themes across these documents .. |
+| Q14  | unanswerable         | YES  | ERROR | N/A    | Error generating answer: Failed to generate vali.. |
+| Q15  | unanswerable         | NO   | FAIL  | N/A    | The Aerosol Dynamics Lab was founded when Profes.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | The evidence does not contain information about .. |
+
+### Per-Run Summary
+- Total Accuracy: 12/16 (75.0%)
+- Answerable Correctness: 11/13 (84.6%)
+- Abstention Correctness: 1/3 (33.3%)
+- Error Count: 1/16 (6.2%)
+- Mean Required-Doc Recall: 0.9487 (94.9%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 16/16 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)
+
+
+================================================================================
+
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_133129_kb03_run_e_graph_compoff
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon is a doctoral student at the Kestrel.. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | According to chunk D002_C0000, "Professor Leela .. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | PASS  | 1.00   | The SmokeWatch project uses a gradient boosting .. |
+| Q5   | multi-hop            | NO   | PASS  | 1.00   | The evidence shows that Arjun Menon works under .. |
+| Q6   | multi-hop            | NO   | PASS  | 1.00   | According to [D004_C0000], Professor Ravi Dhillo.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | Professor Leela Varghese supervises the SmokeWat.. |
+| Q8   | semantic_wording     | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q9   | semantic_description | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q10  | comparison           | NO   | PASS  | 1.00   | CityBreath uses a convolutional neural network, .. |
+| Q11  | negation             | YES  | FAIL  | 1.00   | The evidence indicates that Tomas Lindqvist work.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | According to chunk D005_C0000, Maria Okafor work.. |
+| Q13  | global               | YES  | FAIL  | 0.00   | I am unable to answer this question. Reason: No .. |
+| Q14  | unanswerable         | YES  | PASS  | N/A    | The evidence provided does not contain informati.. |
+| Q15  | unanswerable         | YES  | ERROR | N/A    | Error generating answer: Failed to generate vali.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | I am unable to answer this question. Reason: No .. |
+
+### Per-Run Summary
+- Total Accuracy: 11/16 (68.8%)
+- Answerable Correctness: 9/13 (69.2%)
+- Abstention Correctness: 2/3 (66.7%)
+- Error Count: 1/16 (6.2%)
+- Mean Required-Doc Recall: 0.7692 (76.9%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 11/11 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)
+
+
+================================================================================
+
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_134015_kb03_run_f_comm_compoff
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon studies at the Kestrel Institute of .. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | Professor Leela Varghese leads the Aerosol Dynam.. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | PASS  | 1.00   | The project supervised by Arjun Menon (through L.. |
+| Q5   | multi-hop            | NO   | PASS  | 1.00   | The Coastal Resilience Fund finances the SmokeWa.. |
+| Q6   | multi-hop            | NO   | PASS  | 1.00   | Maria Okafor's supervisor, Professor Ravi Dhillo.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | According to chunk D002_C0000, 'Prof. Varghese s.. |
+| Q8   | semantic_wording     | NO   | PASS  | 1.00   | SmokeWatch is a research project that forecasts .. |
+| Q9   | semantic_description | NO   | PASS  | 1.00   | The Urban Air Lab at the Kestrel Institute of Te.. |
+| Q10  | comparison           | NO   | PASS  | 1.00   | CityBreath uses a convolutional neural network, .. |
+| Q11  | negation             | NO   | PASS  | 1.00   | Tomas Lindqvist does not work under Professor Va.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | According to chunk D004_C0000, Maria Okafor work.. |
+| Q13  | global               | NO   | FAIL  | 0.33   | The main research themes are wildfire smoke fore.. |
+| Q14  | unanswerable         | YES  | ERROR | N/A    | Error generating answer: Failed to generate vali.. |
+| Q15  | unanswerable         | NO   | FAIL  | N/A    | The Aerosol Dynamics Lab was founded when Profes.. |
+| Q16  | unanswerable         | NO   | FAIL  | N/A    | The Zephyr project uses a gradient boosting mode.. |
+
+### Per-Run Summary
+- Total Accuracy: 12/16 (75.0%)
+- Answerable Correctness: 12/13 (92.3%)
+- Abstention Correctness: 0/3 (0.0%)
+- Error Count: 1/16 (6.2%)
+- Mean Required-Doc Recall: 0.9487 (94.9%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 23/23 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)
+
+
+================================================================================
+
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_135137_kb02_run_g_hybrid_compenforce
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon is a doctoral student at the Kestrel.. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | Professor Leela Varghese leads the Aerosol Dynam.. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | PASS  | 1.00   | The SmokeWatch project uses a gradient boosting .. |
+| Q5   | multi-hop            | NO   | PASS  | 1.00   | The project supervised by Arjun Menon (who works.. |
+| Q6   | multi-hop            | NO   | PASS  | 1.00   | Maria Okafor's supervisor, Professor Ravi Dhillo.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | Professor Leela Varghese supervises the SmokeWat.. |
+| Q8   | semantic_wording     | NO   | PASS  | 1.00   | SmokeWatch is a research project that forecasts .. |
+| Q9   | semantic_description | YES  | FAIL  | 1.00   | I am unable to answer this question. Neither lab.. |
+| Q10  | comparison           | YES  | FAIL  | 1.00   | I am unable to answer this question. Neither Smo.. |
+| Q11  | negation             | NO   | PASS  | 1.00   | According to chunk D005_C0000 [D005_C0000], Toma.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | According to chunk D005_C0000, Maria Okafor work.. |
+| Q13  | global               | NO   | FAIL  | 0.33   | The main research themes are identified in the p.. |
+| Q14  | unanswerable         | YES  | PASS  | N/A    | The evidence provided does not contain informati.. |
+| Q15  | unanswerable         | NO   | FAIL  | N/A    | The Aerosol Dynamics Lab was founded when Profes.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | The evidence does not contain information about .. |
+
+### Per-Run Summary
+- Total Accuracy: 12/16 (75.0%)
+- Answerable Correctness: 10/13 (76.9%)
+- Abstention Correctness: 2/3 (66.7%)
+- Error Count: 0/16 (0.0%)
+- Mean Required-Doc Recall: 0.9487 (94.9%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 15/15 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)
+
+
+================================================================================
+
+==================================================
+RUN EVALUATION: experiments/synthetic_academic/runs/20261115_165004_kb02_run_h_vector_compenforce
+==================================================
+
+### Per-Question Table
+| ID   | Category             | Abst | Corr | DocRec | Answer (truncated)                                 |
+| ---- | -------------------- | ---- | ---- | ------ | -------------------------------------------------- |
+| Q1   | single-hop           | NO   | PASS  | 1.00   | Arjun Menon studies at the Kestrel Institute of .. |
+| Q2   | single-hop           | NO   | PASS  | 1.00   | Professor Leela Varghese leads the Aerosol Dynam.. |
+| Q3   | single-hop           | NO   | PASS  | 1.00   | The SmokeWatch project is funded by the Coastal .. |
+| Q4   | multi-hop            | NO   | PASS  | 0.67   | The project supervised by Arjun Menon uses a gra.. |
+| Q5   | multi-hop            | NO   | PASS  | 0.67   | The project supervised by Arjun Menon is SmokeWa.. |
+| Q6   | multi-hop            | NO   | PASS  | 0.50   | The question asks at which institution is the la.. |
+| Q7   | alias                | NO   | PASS  | 1.00   | According to [D002_C0000], Professor Leela Vargh.. |
+| Q8   | semantic_wording     | NO   | PASS  | 1.00   | SmokeWatch is a research project that forecasts .. |
+| Q9   | semantic_description | YES  | FAIL  | 1.00   | I am unable to answer this question. Neither lab.. |
+| Q10  | comparison           | YES  | FAIL  | 1.00   | I am unable to answer this question. Neither Smo.. |
+| Q11  | negation             | NO   | PASS  | 1.00   | Tomas Lindqvist does not work under Professor Va.. |
+| Q12  | distractor           | NO   | PASS  | 1.00   | Maria Okafor works under Professor Ravi Dhillon,.. |
+| Q13  | global               | NO   | FAIL  | 0.00   | The main research themes are wildfire smoke fore.. |
+| Q14  | unanswerable         | YES  | ERROR | N/A    | Error generating answer: Failed to generate vali.. |
+| Q15  | unanswerable         | YES  | ERROR | N/A    | Error generating answer: Failed to generate vali.. |
+| Q16  | unanswerable         | YES  | PASS  | N/A    | The evidence does not contain information about .. |
+
+### Per-Run Summary
+- Total Accuracy: 11/16 (68.8%)
+- Answerable Correctness: 10/13 (76.9%)
+- Abstention Correctness: 1/3 (33.3%)
+- Error Count: 2/16 (12.5%)
+- Mean Required-Doc Recall: 0.8333 (83.3%) [Denominator: 13 answerable questions]
+- Citation-ID Validity: 17/17 (100.0%) valid chunk IDs (Invalid/Hallucinated: 0)
+
+
+================================================================================
+

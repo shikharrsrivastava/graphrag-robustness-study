@@ -1,0 +1,12 @@
+{
+  "run_name": "run_d_graph_only",
+  "timestamp": "20261115_020755",
+  "kb_dir": "knowledge_bases/synthetic_academic/synthetic_academic_02",
+  "mode": "graph_only",
+  "questions_count": 16,
+  "vector_top_k": 10,
+  "final_context_chunks": 4,
+  "task6_enabled": false,
+  "graph_context_mode": false,
+  "results_path": "experiments/synthetic_academic/runs/20261115_020755_run_d_graph_only/results.jsonl"
+}

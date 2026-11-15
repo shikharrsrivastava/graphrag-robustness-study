@@ -1,0 +1,11 @@
+{
+  "run_name": "Run_Task6_enabled",
+  "timestamp": "20261114_234023",
+  "kb_dir": "knowledge_bases/synthetic_academic/synthetic_academic_01",
+  "mode": "hybrid",
+  "questions_count": 16,
+  "vector_top_k": 10,
+  "final_context_chunks": 8,
+  "task6_enabled": true,
+  "results_path": "experiments/synthetic_academic/runs/20261114_234023_Run_Task6_enabled/results.jsonl"
+}

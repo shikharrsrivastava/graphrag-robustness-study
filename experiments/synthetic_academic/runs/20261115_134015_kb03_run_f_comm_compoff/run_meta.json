@@ -1,0 +1,21 @@
+{
+  "run_name": "kb03_run_f_comm_compoff",
+  "timestamp": "20261115_134015",
+  "kb_dir": "knowledge_bases/synthetic_academic/synthetic_academic_03",
+  "mode": "community_aware",
+  "questions_count": 16,
+  "vector_top_k": 2,
+  "final_context_chunks": 3,
+  "task6_enabled": false,
+  "graph_context_mode": false,
+  "comparative_reasoning_mode": "off",
+  "prompt_versions": {
+    "entity_extraction": "v1.1",
+    "relationship_extraction": "v1.1",
+    "entity_resolution": "v1.0",
+    "community_summary": "v1.0",
+    "query_planning": "v1.0",
+    "answer_generation": "v1.1"
+  },
+  "results_path": "experiments/synthetic_academic/runs/20261115_134015_kb03_run_f_comm_compoff/results.jsonl"
+}
