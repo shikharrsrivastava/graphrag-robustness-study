@@ -1,0 +1,762 @@
+{
+  "meta": {
+    "kb": "experiments/synth_kg_fix/kb_dev/synth_company_kb",
+    "rule": "QUESTION SELECTION RULE (fixed, applied to retrieval_seed7_after.jsonl, question-id order):\n  1. first 2 hop1 questions\n  2. first 2 hop2 questions where hybrid retrieved ALL gold docs and vector_only did not\n  3. first 1 hop2 question where BOTH modes failed to retrieve all gold docs\n  4. first 1 hop3 question\n  5. first 1 unanswerable question (the recorded file has no unanswerable rows; first by id in questions.jsonl)\n\"gold retrieved\" = every gold supporting doc id is among the 4 context docs.",
+    "recorded_at": "2026-11-19 03:06:07",
+    "answer_prompt": "v1.1",
+    "planner": "live OllamaQueryPlanner (not the cached plans used in retrieval_eval.py)"
+  },
+  "questions": [
+    {
+      "id": "Q_0001",
+      "group": "hop1",
+      "why_selected": "hop1",
+      "question": "What product is developed by Durnalnok Analytics Laboratory?",
+      "gold_answer": "Maelengath Hub",
+      "gold_doc_ids": [
+        "D033"
+      ],
+      "modes": {
+        "vector_only": {
+          "error": null,
+          "answer": "Durnalnok Analytics Laboratory designs and engineers Maelengath Hub, according to [D033_C0000].",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D033_C0000"
+          ],
+          "cited_doc_ids": [
+            "D033"
+          ],
+          "context_chunk_ids": [
+            "D033_C0000",
+            "D031_C0000",
+            "D038_C0000",
+            "D028_C0000"
+          ],
+          "context_doc_ids": [
+            "D033",
+            "D031",
+            "D038",
+            "D028"
+          ],
+          "context_routes": [
+            "VECTOR",
+            "VECTOR",
+            "VECTOR",
+            "VECTOR"
+          ],
+          "seed_entities": [],
+          "graph_paths": [],
+          "generation_error": false,
+          "wall_seconds": 20.8,
+          "correct_strict": true,
+          "gold_retrieved": true
+        },
+        "hybrid": {
+          "error": null,
+          "answer": "Durnalnok Analytics Laboratory designs and engineers Maelengath Hub, according to [D033_C0000].",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D033_C0000"
+          ],
+          "cited_doc_ids": [
+            "D033"
+          ],
+          "context_chunk_ids": [
+            "D033_C0000",
+            "D012_C0000",
+            "D031_C0000",
+            "D027_C0000"
+          ],
+          "context_doc_ids": [
+            "D033",
+            "D012",
+            "D031",
+            "D027"
+          ],
+          "context_routes": [
+            "GRAPH+VECTOR",
+            "GRAPH",
+            "VECTOR",
+            "GRAPH"
+          ],
+          "seed_entities": [
+            "Durnalnok Analytics Laboratory (DEPARTMENT)"
+          ],
+          "graph_paths": [
+            {
+              "doc": "D033",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks",
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Durnalnok Analytics Laboratory (E030)]"
+              ]
+            },
+            {
+              "doc": "D012",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks",
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Durnalnok Analytics Laboratory (E030)]"
+              ]
+            },
+            {
+              "doc": "D027",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks"
+              ]
+            }
+          ],
+          "generation_error": false,
+          "wall_seconds": 22.3,
+          "correct_strict": true,
+          "gold_retrieved": true
+        }
+      }
+    },
+    {
+      "id": "Q_0002",
+      "group": "hop1",
+      "why_selected": "hop1",
+      "question": "What entity or unit is managed by Gryxethvath Nebikvane?",
+      "gold_answer": "Zantonnax Infrastructure Group",
+      "gold_doc_ids": [
+        "D002"
+      ],
+      "modes": {
+        "vector_only": {
+          "error": null,
+          "answer": "According to [D002_C0000], Gryxethvath Nebikvane actively manages and directs Zantonnax Infrastructure Group.",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D002_C0000"
+          ],
+          "cited_doc_ids": [
+            "D002"
+          ],
+          "context_chunk_ids": [
+            "D002_C0000",
+            "D013_C0000",
+            "D018_C0000",
+            "D015_C0000"
+          ],
+          "context_doc_ids": [
+            "D002",
+            "D013",
+            "D018",
+            "D015"
+          ],
+          "context_routes": [
+            "VECTOR",
+            "VECTOR",
+            "VECTOR",
+            "VECTOR"
+          ],
+          "seed_entities": [],
+          "graph_paths": [],
+          "generation_error": false,
+          "wall_seconds": 15.8,
+          "correct_strict": true,
+          "gold_retrieved": true
+        },
+        "hybrid": {
+          "error": null,
+          "answer": "According to [D002_C0000], Gryxethvath Nebikvane is an official organizational part of Zantonnax Infrastructure Group and actively manages and directs Zantonnax Infrastructure Group.",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D002_C0000"
+          ],
+          "cited_doc_ids": [
+            "D002"
+          ],
+          "context_chunk_ids": [
+            "D002_C0000",
+            "D017_C0000",
+            "D013_C0000",
+            "D023_C0000"
+          ],
+          "context_doc_ids": [
+            "D002",
+            "D017",
+            "D013",
+            "D023"
+          ],
+          "context_routes": [
+            "GRAPH+VECTOR",
+            "GRAPH",
+            "VECTOR",
+            "GRAPH"
+          ],
+          "seed_entities": [
+            "Gryxethvath Nebikvane (EMPLOYEE)"
+          ],
+          "graph_paths": [
+            {
+              "doc": "D002",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group",
+                "GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group -[SERVES]-> Ulxathlok Logistics",
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Gryxethvath Nebikvane (E003)]"
+              ]
+            },
+            {
+              "doc": "D017",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group",
+                "GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group -[SERVES]-> Ulxathlok Logistics"
+              ]
+            },
+            {
+              "doc": "D023",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group",
+                "GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group -[SERVES]-> Ulxathlok Logistics"
+              ]
+            }
+          ],
+          "generation_error": false,
+          "wall_seconds": 23.8,
+          "correct_strict": true,
+          "gold_retrieved": true
+        }
+      }
+    },
+    {
+      "id": "Q_0032",
+      "group": "hop2",
+      "why_selected": "hop2: hybrid retrieved all gold, vector_only did not",
+      "question": "Which client is served by the department that Taelanfen Wyrusnok belongs to?",
+      "gold_answer": "Brynandor Networks",
+      "gold_doc_ids": [
+        "D012",
+        "D033"
+      ],
+      "modes": {
+        "vector_only": {
+          "error": null,
+          "answer": "The evidence does not state which client is served by the department that Taelanfen Wyrusnok belongs to. Chunk D012_C0000 describes Taelanfen Wyrusnok's management of Nebothnok Styxinvath, and Chunk D011_C0000 describes Fennikvath Quenindyn's management of Taelanfen Wyrusnok, but neither provides information about client relationships.",
+          "abstained": true,
+          "abstention_reason": null,
+          "cited_chunk_ids": [],
+          "cited_doc_ids": [],
+          "context_chunk_ids": [
+            "D012_C0000",
+            "D011_C0000",
+            "D018_C0000",
+            "D014_C0000"
+          ],
+          "context_doc_ids": [
+            "D012",
+            "D011",
+            "D018",
+            "D014"
+          ],
+          "context_routes": [
+            "VECTOR",
+            "VECTOR",
+            "VECTOR",
+            "VECTOR"
+          ],
+          "seed_entities": [],
+          "graph_paths": [],
+          "generation_error": false,
+          "wall_seconds": 16.3,
+          "correct_strict": false,
+          "gold_retrieved": false
+        },
+        "hybrid": {
+          "error": null,
+          "answer": "Taelanfen Wyrusnok manages Durnalnok Analytics Laboratory, and Durnalnok Analytics Laboratory delivers dedicated platform support to Brynandor Networks [D012_C0000, D033_C0000]. Therefore, Brynandor Networks is the client served by the department that Taelanfen Wyrusnok belongs to.",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D012_C0000",
+            "D033_C0000"
+          ],
+          "cited_doc_ids": [
+            "D012",
+            "D033"
+          ],
+          "context_chunk_ids": [
+            "D011_C0000",
+            "D012_C0000",
+            "D033_C0000",
+            "D018_C0000"
+          ],
+          "context_doc_ids": [
+            "D011",
+            "D012",
+            "D033",
+            "D018"
+          ],
+          "context_routes": [
+            "GRAPH+VECTOR",
+            "GRAPH+VECTOR",
+            "GRAPH",
+            "VECTOR"
+          ],
+          "seed_entities": [
+            "Taelanfen Wyrusnok (EMPLOYEE)"
+          ],
+          "graph_paths": [
+            {
+              "doc": "D011",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory",
+                "GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks",
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Taelanfen Wyrusnok (E028)]"
+              ]
+            },
+            {
+              "doc": "D012",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory",
+                "GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks",
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Taelanfen Wyrusnok (E028)]"
+              ]
+            },
+            {
+              "doc": "D033",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory",
+                "GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks"
+              ]
+            }
+          ],
+          "generation_error": false,
+          "wall_seconds": 31.0,
+          "correct_strict": true,
+          "gold_retrieved": true
+        }
+      }
+    },
+    {
+      "id": "Q_0039",
+      "group": "hop2",
+      "why_selected": "hop2: hybrid retrieved all gold, vector_only did not",
+      "question": "What product is developed by the department managed by Krenostis Thalithvath?",
+      "gold_answer": "Haelenrix Gateway",
+      "gold_doc_ids": [
+        "D004",
+        "D025"
+      ],
+      "modes": {
+        "vector_only": {
+          "error": null,
+          "answer": "The evidence does not state what product is developed by the department managed by Krenostis Thalithvath. It only indicates that she is structurally integrated into Synethgath Systems Engineering Unit and that she handles executive oversight of that unit [D004_C0000].",
+          "abstained": true,
+          "abstention_reason": null,
+          "cited_chunk_ids": [],
+          "cited_doc_ids": [],
+          "context_chunk_ids": [
+            "D004_C0000",
+            "D003_C0000",
+            "D012_C0000",
+            "D007_C0000"
+          ],
+          "context_doc_ids": [
+            "D004",
+            "D003",
+            "D012",
+            "D007"
+          ],
+          "context_routes": [
+            "VECTOR",
+            "VECTOR",
+            "VECTOR",
+            "VECTOR"
+          ],
+          "seed_entities": [],
+          "graph_paths": [],
+          "generation_error": false,
+          "wall_seconds": 18.4,
+          "correct_strict": false,
+          "gold_retrieved": false
+        },
+        "hybrid": {
+          "error": null,
+          "answer": "Krenostis Thalithvath manages Synethgath Systems Engineering Unit, and according to [D025_C0000], Synethgath Systems Engineering Unit builds and maintains the Haelenrix Gateway. Therefore, Krenostis Thalithvath is involved in the development of the Haelenrix Gateway.",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D004_C0000",
+            "D025_C0000"
+          ],
+          "cited_doc_ids": [
+            "D004",
+            "D025"
+          ],
+          "context_chunk_ids": [
+            "D004_C0000",
+            "D019_C0000",
+            "D003_C0000",
+            "D025_C0000"
+          ],
+          "context_doc_ids": [
+            "D004",
+            "D019",
+            "D003",
+            "D025"
+          ],
+          "context_routes": [
+            "GRAPH+VECTOR",
+            "GRAPH",
+            "VECTOR",
+            "GRAPH"
+          ],
+          "seed_entities": [
+            "Krenostis Thalithvath (EMPLOYEE)"
+          ],
+          "graph_paths": [
+            {
+              "doc": "D004",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Krenostis Thalithvath -[MANAGES]-> Synethgath Systems Engineering Unit",
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Krenostis Thalithvath (E008)]"
+              ]
+            },
+            {
+              "doc": "D019",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Krenostis Thalithvath -[MANAGES]-> Synethgath Systems Engineering Unit"
+              ]
+            },
+            {
+              "doc": "D025",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Krenostis Thalithvath -[MANAGES]-> Synethgath Systems Engineering Unit"
+              ]
+            }
+          ],
+          "generation_error": false,
+          "wall_seconds": 28.5,
+          "correct_strict": true,
+          "gold_retrieved": true
+        }
+      }
+    },
+    {
+      "id": "Q_0031",
+      "group": "hop2",
+      "why_selected": "hop2: both modes failed to retrieve all gold",
+      "question": "Which client is served by the product developed by Zanistis Infrastructure Group?",
+      "gold_answer": "Brynandor Networks",
+      "gold_doc_ids": [
+        "D022",
+        "D037"
+      ],
+      "modes": {
+        "vector_only": {
+          "error": null,
+          "answer": "Zanistis Infrastructure Group serves Durnonvor Aerospace as stated in [D022_C0000] and Ulxathlok Logistics as stated in [D023_C0000].",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D022_C0000",
+            "D023_C0000"
+          ],
+          "cited_doc_ids": [
+            "D022",
+            "D023"
+          ],
+          "context_chunk_ids": [
+            "D022_C0000",
+            "D001_C0000",
+            "D023_C0000",
+            "D042_C0000"
+          ],
+          "context_doc_ids": [
+            "D022",
+            "D001",
+            "D023",
+            "D042"
+          ],
+          "context_routes": [
+            "VECTOR",
+            "VECTOR",
+            "VECTOR",
+            "VECTOR"
+          ],
+          "seed_entities": [],
+          "graph_paths": [],
+          "generation_error": false,
+          "wall_seconds": 25.5,
+          "correct_strict": false,
+          "gold_retrieved": false
+        },
+        "hybrid": {
+          "error": null,
+          "answer": "According to [D022_C0000], Zanistis Infrastructure Group provides specialized commercial solutions for Durnonvor Aerospace, indicating that Durnonvor Aerospace is the client served by Zanistis Infrastructure Group.",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D022_C0000"
+          ],
+          "cited_doc_ids": [
+            "D022"
+          ],
+          "context_chunk_ids": [
+            "D001_C0000",
+            "D022_C0000",
+            "D016_C0000",
+            "D023_C0000"
+          ],
+          "context_doc_ids": [
+            "D001",
+            "D022",
+            "D016",
+            "D023"
+          ],
+          "context_routes": [
+            "GRAPH+VECTOR",
+            "GRAPH+VECTOR",
+            "GRAPH",
+            "VECTOR"
+          ],
+          "seed_entities": [
+            "Zanistis Infrastructure Group (DEPARTMENT)"
+          ],
+          "graph_paths": [
+            {
+              "doc": "D001",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Zanistis Infrastructure Group -[SERVES]-> Durnonvor Aerospace",
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Zanistis Infrastructure Group (E002)]"
+              ]
+            },
+            {
+              "doc": "D022",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Zanistis Infrastructure Group -[SERVES]-> Durnonvor Aerospace",
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Zanistis Infrastructure Group (E002)]"
+              ]
+            },
+            {
+              "doc": "D016",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Zanistis Infrastructure Group -[SERVES]-> Durnonvor Aerospace",
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Zanistis Infrastructure Group (E002)]"
+              ]
+            }
+          ],
+          "generation_error": false,
+          "wall_seconds": 27.7,
+          "correct_strict": false,
+          "gold_retrieved": false
+        }
+      }
+    },
+    {
+      "id": "Q_0061",
+      "group": "hop3",
+      "why_selected": "hop3",
+      "question": "Which department does the employee managed by the staff under Xanithzar Jorarnok belong to?",
+      "gold_answer": "Aetharkest Systems Engineering Unit",
+      "gold_doc_ids": [
+        "D019",
+        "D020",
+        "D021"
+      ],
+      "modes": {
+        "vector_only": {
+          "error": null,
+          "answer": "Tarniklan Raelonrak is managed by Xanithzar Jorarnok, and according to [D018_C0000], Tarniklan Raelonrak belongs to Oryxonvath Systems Engineering Unit.",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D018_C0000"
+          ],
+          "cited_doc_ids": [
+            "D018"
+          ],
+          "context_chunk_ids": [
+            "D019_C0000",
+            "D018_C0000",
+            "D013_C0000",
+            "D015_C0000"
+          ],
+          "context_doc_ids": [
+            "D019",
+            "D018",
+            "D013",
+            "D015"
+          ],
+          "context_routes": [
+            "VECTOR",
+            "VECTOR",
+            "VECTOR",
+            "VECTOR"
+          ],
+          "seed_entities": [],
+          "graph_paths": [],
+          "generation_error": false,
+          "wall_seconds": 26.7,
+          "correct_strict": false,
+          "gold_retrieved": false
+        },
+        "hybrid": {
+          "error": null,
+          "answer": "Rynartor Aldislan belongs to the Kronanvek Core Platform Division because the evidence states that Rynartor Aldislan operates as a key component under this division, and Xanithzar Jorarnok manages Rynartor Aldislan [D020_C0000].",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D020_C0000"
+          ],
+          "cited_doc_ids": [
+            "D020"
+          ],
+          "context_chunk_ids": [
+            "D018_C0000",
+            "D019_C0000",
+            "D020_C0000",
+            "D013_C0000"
+          ],
+          "context_doc_ids": [
+            "D018",
+            "D019",
+            "D020",
+            "D013"
+          ],
+          "context_routes": [
+            "GRAPH+VECTOR",
+            "GRAPH+VECTOR",
+            "GRAPH",
+            "VECTOR"
+          ],
+          "seed_entities": [
+            "Xanithzar Jorarnok (EMPLOYEE)"
+          ],
+          "graph_paths": [
+            {
+              "doc": "D018",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan",
+                "GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division",
+                "GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyrithwyn Pipeline"
+              ]
+            },
+            {
+              "doc": "D019",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan",
+                "GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division",
+                "GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyrithwyn Pipeline"
+              ]
+            },
+            {
+              "doc": "D020",
+              "paths": [
+                "GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan",
+                "GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division",
+                "GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyrithwyn Pipeline"
+              ]
+            }
+          ],
+          "generation_error": false,
+          "wall_seconds": 43.6,
+          "correct_strict": false,
+          "gold_retrieved": false
+        }
+      }
+    },
+    {
+      "id": "Q_0106",
+      "group": "unanswerable",
+      "why_selected": "unanswerable",
+      "question": "What client organization is managed by Eldornax Infrastructure Group?",
+      "gold_answer": null,
+      "gold_doc_ids": [],
+      "modes": {
+        "vector_only": {
+          "error": null,
+          "answer": "Eldornax Infrastructure Group manages Quenentor Consortium as stated in [D032_C0000].",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D032_C0000"
+          ],
+          "cited_doc_ids": [
+            "D032"
+          ],
+          "context_chunk_ids": [
+            "D032_C0000",
+            "D023_C0000",
+            "D001_C0000",
+            "D047_C0000"
+          ],
+          "context_doc_ids": [
+            "D032",
+            "D023",
+            "D001",
+            "D047"
+          ],
+          "context_routes": [
+            "VECTOR",
+            "VECTOR",
+            "VECTOR",
+            "VECTOR"
+          ],
+          "seed_entities": [],
+          "graph_paths": [],
+          "generation_error": false,
+          "wall_seconds": 23.2,
+          "correct_strict": false,
+          "gold_retrieved": true
+        },
+        "hybrid": {
+          "error": null,
+          "answer": "Eldornax Infrastructure Group serves Quenentor Consortium. This is stated in chunk D032_C0000: \"It operates in production serving Quenentor Consortium.\"",
+          "abstained": false,
+          "abstention_reason": null,
+          "cited_chunk_ids": [
+            "D032_C0000"
+          ],
+          "cited_doc_ids": [
+            "D032"
+          ],
+          "context_chunk_ids": [
+            "D032_C0000",
+            "D011_C0000",
+            "D023_C0000",
+            "D001_C0000"
+          ],
+          "context_doc_ids": [
+            "D032",
+            "D011",
+            "D023",
+            "D001"
+          ],
+          "context_routes": [
+            "GRAPH+VECTOR",
+            "GRAPH",
+            "VECTOR",
+            "VECTOR"
+          ],
+          "seed_entities": [
+            "Eldornax Infrastructure Group (DEPARTMENT)"
+          ],
+          "graph_paths": [
+            {
+              "doc": "D032",
+              "paths": [
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Eldornax Infrastructure Group (E027)]"
+              ]
+            },
+            {
+              "doc": "D011",
+              "paths": [
+                "GRAPH_SEED_PROVENANCE: Seed Entity [Eldornax Infrastructure Group (E027)]"
+              ]
+            }
+          ],
+          "generation_error": false,
+          "wall_seconds": 34.5,
+          "correct_strict": false,
+          "gold_retrieved": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+QUESTION SELECTION RULE (fixed, applied to retrieval_seed7_after.jsonl, question-id order):
+  1. first 2 hop1 questions
+  2. first 2 hop2 questions where hybrid retrieved ALL gold docs and vector_only did not
+  3. first 1 hop2 question where BOTH modes failed to retrieve all gold docs
+  4. first 1 hop3 question
+  5. first 1 unanswerable question (the recorded file has no unanswerable rows; first by id in questions.jsonl)
+"gold retrieved" = every gold supporting doc id is among the 4 context docs. 
+Selected: ['Q_0001', 'Q_0002', 'Q_0032', 'Q_0039', 'Q_0031', 'Q_0061', 'Q_0106']
+  Q_0001 vector_only: 20.8s
+  Q_0001 hybrid: 22.3s
+  Q_0002 vector_only: 15.8s
+  Q_0002 hybrid: 23.8s
+  Q_0032 vector_only: 16.3s
+  Q_0032 hybrid: 31.0s
+  Q_0039 vector_only: 18.4s
+  Q_0039 hybrid: 28.5s
+  Q_0031 vector_only: 25.5s
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+  Q_0031 hybrid: 27.7s
+  Q_0061 vector_only: 26.7s
+  Q_0061 hybrid: 43.6s
+  Q_0106 vector_only: 23.2s
+  Q_0106 hybrid: 34.5s
+wrote /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/demo/precomputed.json
+====================================================================================================
+QUESTION SELECTION RULE (fixed, applied to retrieval_seed7_after.jsonl, question-id order):
+  1. first 2 hop1 questions
+  2. first 2 hop2 questions where hybrid retrieved ALL gold docs and vector_only did not
+  3. first 1 hop2 question where BOTH modes failed to retrieve all gold docs
+  4. first 1 hop3 question
+  5. first 1 unanswerable question (the recorded file has no unanswerable rows; first by id in questions.jsonl)
+"gold retrieved" = every gold supporting doc id is among the 4 context docs.
+KB: experiments/synth_kg_fix/kb_dev/synth_company_kb   recorded: 2026-11-19 03:06:07   answer prompt: v1.1
+Correctness uses the strict 'contains gold answer/alias' metric (understates); unanswerable: correct = abstain.
+====================================================================================================
+
+### Q_0001 [hop1] selected as: hop1
+Question:  What product is developed by Durnalnok Analytics Laboratory?
+Gold answer: Maelengath Hub    Gold supporting docs: D033
+  -- vector_only  (20.8 s)  strict-correct=True  gold-docs-retrieved=True
+     answer: 'Durnalnok Analytics Laboratory designs and engineers Maelengath Hub, according to [D033_C0000].'
+     cited chunk ids: ['D033_C0000']   cited docs: ['D033']
+     retrieved context docs: ['D033', 'D031', 'D038', 'D028']
+  -- hybrid  (22.3 s)  strict-correct=True  gold-docs-retrieved=True
+     answer: 'Durnalnok Analytics Laboratory designs and engineers Maelengath Hub, according to [D033_C0000].'
+     cited chunk ids: ['D033_C0000']   cited docs: ['D033']
+     retrieved context docs: ['D033', 'D012', 'D031', 'D027']
+     seed entities: ['Durnalnok Analytics Laboratory (DEPARTMENT)']
+     routes per context chunk: ['GRAPH+VECTOR', 'GRAPH', 'VECTOR', 'GRAPH']
+     graph path (D033): GRAPH_EDGE_PROVENANCE: Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks
+     graph path (D033): GRAPH_SEED_PROVENANCE: Seed Entity [Durnalnok Analytics Laboratory (E030)]
+     graph path (D012): GRAPH_EDGE_PROVENANCE: Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks
+     graph path (D012): GRAPH_SEED_PROVENANCE: Seed Entity [Durnalnok Analytics Laboratory (E030)]
+     graph path (D027): GRAPH_EDGE_PROVENANCE: Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks
+
+### Q_0002 [hop1] selected as: hop1
+Question:  What entity or unit is managed by Gryxethvath Nebikvane?
+Gold answer: Zantonnax Infrastructure Group    Gold supporting docs: D002
+  -- vector_only  (15.8 s)  strict-correct=True  gold-docs-retrieved=True
+     answer: 'According to [D002_C0000], Gryxethvath Nebikvane actively manages and directs Zantonnax Infrastructure Group.'
+     cited chunk ids: ['D002_C0000']   cited docs: ['D002']
+     retrieved context docs: ['D002', 'D013', 'D018', 'D015']
+  -- hybrid  (23.8 s)  strict-correct=True  gold-docs-retrieved=True
+     answer: 'According to [D002_C0000], Gryxethvath Nebikvane is an official organizational part of Zantonnax Infrastructure Group and actively manages and directs Zantonnax Infrastructure Group.'
+     cited chunk ids: ['D002_C0000']   cited docs: ['D002']
+     retrieved context docs: ['D002', 'D017', 'D013', 'D023']
+     seed entities: ['Gryxethvath Nebikvane (EMPLOYEE)']
+     routes per context chunk: ['GRAPH+VECTOR', 'GRAPH', 'VECTOR', 'GRAPH']
+     graph path (D002): GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group
+     graph path (D002): GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group -[SERVES]-> Ulxathlok Logistics
+     graph path (D002): GRAPH_SEED_PROVENANCE: Seed Entity [Gryxethvath Nebikvane (E003)]
+     graph path (D017): GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group
+     graph path (D017): GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group -[SERVES]-> Ulxathlok Logistics
+     graph path (D023): GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group
+     graph path (D023): GRAPH_EDGE_PROVENANCE: Gryxethvath Nebikvane -[MANAGES]-> Zantonnax Infrastructure Group -[SERVES]-> Ulxathlok Logistics
+
+### Q_0032 [hop2] selected as: hop2: hybrid retrieved all gold, vector_only did not
+Question:  Which client is served by the department that Taelanfen Wyrusnok belongs to?
+Gold answer: Brynandor Networks    Gold supporting docs: D012, D033
+  -- vector_only  (16.3 s)  strict-correct=False  gold-docs-retrieved=False
+     answer: "The evidence does not state which client is served by the department that Taelanfen Wyrusnok belongs to. Chunk D012_C0000 describes Taelanfen Wyrusnok's management of Nebothnok Styxinvath, and Chunk D011_C0000 describes Fennikvath Quenindyn's management of Taelanfen Wyrusnok, but neither provides information about client relationships."  [ABSTAINED]
+     cited chunk ids: []   cited docs: []
+     retrieved context docs: ['D012', 'D011', 'D018', 'D014']
+  -- hybrid  (31.0 s)  strict-correct=True  gold-docs-retrieved=True
+     answer: 'Taelanfen Wyrusnok manages Durnalnok Analytics Laboratory, and Durnalnok Analytics Laboratory delivers dedicated platform support to Brynandor Networks [D012_C0000, D033_C0000]. Therefore, Brynandor Networks is the client served by the department that Taelanfen Wyrusnok belongs to.'
+     cited chunk ids: ['D012_C0000', 'D033_C0000']   cited docs: ['D012', 'D033']
+     retrieved context docs: ['D011', 'D012', 'D033', 'D018']
+     seed entities: ['Taelanfen Wyrusnok (EMPLOYEE)']
+     routes per context chunk: ['GRAPH+VECTOR', 'GRAPH+VECTOR', 'GRAPH', 'VECTOR']
+     graph path (D011): GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory
+     graph path (D011): GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks
+     graph path (D011): GRAPH_SEED_PROVENANCE: Seed Entity [Taelanfen Wyrusnok (E028)]
+     graph path (D012): GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory
+     graph path (D012): GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks
+     graph path (D012): GRAPH_SEED_PROVENANCE: Seed Entity [Taelanfen Wyrusnok (E028)]
+     graph path (D033): GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory
+     graph path (D033): GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[MANAGES]-> Durnalnok Analytics Laboratory -[SERVES]-> Brynandor Networks
+
+### Q_0039 [hop2] selected as: hop2: hybrid retrieved all gold, vector_only did not
+Question:  What product is developed by the department managed by Krenostis Thalithvath?
+Gold answer: Haelenrix Gateway    Gold supporting docs: D004, D025
+  -- vector_only  (18.4 s)  strict-correct=False  gold-docs-retrieved=False
+     answer: 'The evidence does not state what product is developed by the department managed by Krenostis Thalithvath. It only indicates that she is structurally integrated into Synethgath Systems Engineering Unit and that she handles executive oversight of that unit [D004_C0000].'  [ABSTAINED]
+     cited chunk ids: []   cited docs: []
+     retrieved context docs: ['D004', 'D003', 'D012', 'D007']
+  -- hybrid  (28.5 s)  strict-correct=True  gold-docs-retrieved=True
+     answer: 'Krenostis Thalithvath manages Synethgath Systems Engineering Unit, and according to [D025_C0000], Synethgath Systems Engineering Unit builds and maintains the Haelenrix Gateway. Therefore, Krenostis Thalithvath is involved in the development of the Haelenrix Gateway.'
+     cited chunk ids: ['D004_C0000', 'D025_C0000']   cited docs: ['D004', 'D025']
+     retrieved context docs: ['D004', 'D019', 'D003', 'D025']
+     seed entities: ['Krenostis Thalithvath (EMPLOYEE)']
+     routes per context chunk: ['GRAPH+VECTOR', 'GRAPH', 'VECTOR', 'GRAPH']
+     graph path (D004): GRAPH_EDGE_PROVENANCE: Krenostis Thalithvath -[MANAGES]-> Synethgath Systems Engineering Unit
+     graph path (D004): GRAPH_SEED_PROVENANCE: Seed Entity [Krenostis Thalithvath (E008)]
+     graph path (D019): GRAPH_EDGE_PROVENANCE: Krenostis Thalithvath -[MANAGES]-> Synethgath Systems Engineering Unit
+     graph path (D025): GRAPH_EDGE_PROVENANCE: Krenostis Thalithvath -[MANAGES]-> Synethgath Systems Engineering Unit
+
+### Q_0031 [hop2] selected as: hop2: both modes failed to retrieve all gold
+Question:  Which client is served by the product developed by Zanistis Infrastructure Group?
+Gold answer: Brynandor Networks    Gold supporting docs: D022, D037
+  -- vector_only  (25.5 s)  strict-correct=False  gold-docs-retrieved=False
+     answer: 'Zanistis Infrastructure Group serves Durnonvor Aerospace as stated in [D022_C0000] and Ulxathlok Logistics as stated in [D023_C0000].'
+     cited chunk ids: ['D022_C0000', 'D023_C0000']   cited docs: ['D022', 'D023']
+     retrieved context docs: ['D022', 'D001', 'D023', 'D042']
+  -- hybrid  (27.7 s)  strict-correct=False  gold-docs-retrieved=False
+     answer: 'According to [D022_C0000], Zanistis Infrastructure Group provides specialized commercial solutions for Durnonvor Aerospace, indicating that Durnonvor Aerospace is the client served by Zanistis Infrastructure Group.'
+     cited chunk ids: ['D022_C0000']   cited docs: ['D022']
+     retrieved context docs: ['D001', 'D022', 'D016', 'D023']
+     seed entities: ['Zanistis Infrastructure Group (DEPARTMENT)']
+     routes per context chunk: ['GRAPH+VECTOR', 'GRAPH+VECTOR', 'GRAPH', 'VECTOR']
+     graph path (D001): GRAPH_EDGE_PROVENANCE: Zanistis Infrastructure Group -[SERVES]-> Durnonvor Aerospace
+     graph path (D001): GRAPH_SEED_PROVENANCE: Seed Entity [Zanistis Infrastructure Group (E002)]
+     graph path (D022): GRAPH_EDGE_PROVENANCE: Zanistis Infrastructure Group -[SERVES]-> Durnonvor Aerospace
+     graph path (D022): GRAPH_SEED_PROVENANCE: Seed Entity [Zanistis Infrastructure Group (E002)]
+     graph path (D016): GRAPH_EDGE_PROVENANCE: Zanistis Infrastructure Group -[SERVES]-> Durnonvor Aerospace
+     graph path (D016): GRAPH_SEED_PROVENANCE: Seed Entity [Zanistis Infrastructure Group (E002)]
+
+### Q_0061 [hop3] selected as: hop3
+Question:  Which department does the employee managed by the staff under Xanithzar Jorarnok belong to?
+Gold answer: Aetharkest Systems Engineering Unit    Gold supporting docs: D019, D020, D021
+  -- vector_only  (26.7 s)  strict-correct=False  gold-docs-retrieved=False
+     answer: 'Tarniklan Raelonrak is managed by Xanithzar Jorarnok, and according to [D018_C0000], Tarniklan Raelonrak belongs to Oryxonvath Systems Engineering Unit.'
+     cited chunk ids: ['D018_C0000']   cited docs: ['D018']
+     retrieved context docs: ['D019', 'D018', 'D013', 'D015']
+  -- hybrid  (43.6 s)  strict-correct=False  gold-docs-retrieved=False
+     answer: 'Rynartor Aldislan belongs to the Kronanvek Core Platform Division because the evidence states that Rynartor Aldislan operates as a key component under this division, and Xanithzar Jorarnok manages Rynartor Aldislan [D020_C0000].'
+     cited chunk ids: ['D020_C0000']   cited docs: ['D020']
+     retrieved context docs: ['D018', 'D019', 'D020', 'D013']
+     seed entities: ['Xanithzar Jorarnok (EMPLOYEE)']
+     routes per context chunk: ['GRAPH+VECTOR', 'GRAPH+VECTOR', 'GRAPH', 'VECTOR']
+     graph path (D018): GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan
+     graph path (D018): GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division
+     graph path (D018): GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyrithwyn Pipeline
+     graph path (D019): GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan
+     graph path (D019): GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division
+     graph path (D019): GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyrithwyn Pipeline
+     graph path (D020): GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan
+     graph path (D020): GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division
+     graph path (D020): GRAPH_EDGE_PROVENANCE: Xanithzar Jorarnok -[MANAGES]-> Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyrithwyn Pipeline
+
+### Q_0106 [unanswerable] selected as: unanswerable
+Question:  What client organization is managed by Eldornax Infrastructure Group?
+Gold answer: None    Gold supporting docs: (none)
+  -- vector_only  (23.2 s)  strict-correct=False  gold-docs-retrieved=True
+     answer: 'Eldornax Infrastructure Group manages Quenentor Consortium as stated in [D032_C0000].'
+     cited chunk ids: ['D032_C0000']   cited docs: ['D032']
+     retrieved context docs: ['D032', 'D023', 'D001', 'D047']
+  -- hybrid  (34.5 s)  strict-correct=False  gold-docs-retrieved=True
+     answer: 'Eldornax Infrastructure Group serves Quenentor Consortium. This is stated in chunk D032_C0000: "It operates in production serving Quenentor Consortium."'
+     cited chunk ids: ['D032_C0000']   cited docs: ['D032']
+     retrieved context docs: ['D032', 'D011', 'D023', 'D001']
+     seed entities: ['Eldornax Infrastructure Group (DEPARTMENT)']
+     routes per context chunk: ['GRAPH+VECTOR', 'GRAPH', 'VECTOR', 'VECTOR']
+     graph path (D032): GRAPH_SEED_PROVENANCE: Seed Entity [Eldornax Infrastructure Group (E027)]
+     graph path (D011): GRAPH_SEED_PROVENANCE: Seed Entity [Eldornax Infrastructure Group (E027)]
+
+====================================================================================================
+Questions where BOTH vector_only and hybrid answers are wrong (strict metric), kept in the demo: Q_0031, Q_0061, Q_0106
+Wall time per question (vector_only + hybrid): Q_0001=43s, Q_0002=40s, Q_0032=47s, Q_0039=47s, Q_0031=53s, Q_0061=70s, Q_0106=58s
