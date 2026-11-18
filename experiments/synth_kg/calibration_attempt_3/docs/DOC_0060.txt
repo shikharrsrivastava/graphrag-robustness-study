@@ -1,0 +1,1 @@
+Wyrokzar Relay is a proprietary enterprise software solution deployed across production clusters. Wyrokzar Relay utilizes HaelisnokDB for core functionality. Wyrokzar Relay directly serves the enterprise requirements of Styxolmar Technologies. In contrast, Wyrokzar Systems maintains entirely distinct non-production responsibilities.

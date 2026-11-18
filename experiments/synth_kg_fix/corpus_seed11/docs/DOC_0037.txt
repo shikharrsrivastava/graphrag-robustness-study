@@ -1,0 +1,1 @@
+Lorelrix Mesh is a proprietary enterprise software solution deployed across production clusters. It utilizes VeltusdorDB for core functionality. It directly serves the enterprise requirements of Eldarrak Aerospace. In contrast, Lorelrix Systems maintains entirely distinct non-production responsibilities.

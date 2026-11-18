@@ -1,0 +1,1 @@
+Ulxorreth Hub is a proprietary enterprise software solution deployed across production clusters. Ulxorreth Hub was constructed upon the PraxeldynDB framework. Ulxorreth Hub directly serves the enterprise requirements of Myriknax Networks.

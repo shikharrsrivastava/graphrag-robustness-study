@@ -1,0 +1,1 @@
+Jolunron Mesh is a proprietary enterprise software solution deployed across production clusters. Jolunron Mesh relies on JolelrakQL as its foundational technology stack. Jolunron Mesh directly serves the enterprise requirements of Jolethgon Syndicate. In contrast, Jolunron Systems maintains entirely distinct non-production responsibilities.

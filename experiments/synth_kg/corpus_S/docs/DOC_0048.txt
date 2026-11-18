@@ -1,0 +1,1 @@
+Maelengath Hub is a proprietary enterprise software solution deployed across production clusters. Maelengath Hub is engineered primarily using YvethnokRPC. Maelengath Hub directly serves the enterprise requirements of Quenentor Consortium. In contrast, Maelengath Systems maintains entirely distinct non-production responsibilities.

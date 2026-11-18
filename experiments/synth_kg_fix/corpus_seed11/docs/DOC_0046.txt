@@ -1,0 +1,1 @@
+Syniktex Mesh is a proprietary enterprise software solution deployed across production clusters. Syniktex Mesh relies on DurnokgathGraph as its foundational technology stack. It directly serves the enterprise requirements of Xanusvix Consortium.

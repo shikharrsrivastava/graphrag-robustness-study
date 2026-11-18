@@ -1,0 +1,1729 @@
+{
+  "seed": 7,
+  "entities": [
+    {
+      "id": "ENT_0001",
+      "canonical_name": "Pryxeldor Iskorlan",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "P. Iskorlan",
+        "Iskorlan"
+      ],
+      "doc_id": "DOC_0001"
+    },
+    {
+      "id": "ENT_0002",
+      "canonical_name": "Gryxethvath Nebikvane",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "G. Nebikvane",
+        "Nebikvane"
+      ],
+      "doc_id": "DOC_0002"
+    },
+    {
+      "id": "ENT_0003",
+      "canonical_name": "Jolikvath Krenorrak",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "J. Krenorrak",
+        "Krenorrak"
+      ],
+      "doc_id": "DOC_0003"
+    },
+    {
+      "id": "ENT_0004",
+      "canonical_name": "Krenostis Thalithvath",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "K. Thalithvath",
+        "Thalithvath"
+      ],
+      "doc_id": "DOC_0004"
+    },
+    {
+      "id": "ENT_0005",
+      "canonical_name": "Aldunwyn Kronosmoth",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "A. Kronosmoth",
+        "Kronosmoth"
+      ],
+      "doc_id": "DOC_0005"
+    },
+    {
+      "id": "ENT_0006",
+      "canonical_name": "Lorosmir Faelennax",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "L. Faelennax",
+        "Faelennax"
+      ],
+      "doc_id": "DOC_0006"
+    },
+    {
+      "id": "ENT_0007",
+      "canonical_name": "Thalusvix Fennisvane",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "T. Fennisvane",
+        "Fennisvane"
+      ],
+      "doc_id": "DOC_0007"
+    },
+    {
+      "id": "ENT_0008",
+      "canonical_name": "Loroklan Sarkithtex",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "L. Sarkithtex",
+        "Sarkithtex"
+      ],
+      "doc_id": "DOC_0008"
+    },
+    {
+      "id": "ENT_0009",
+      "canonical_name": "Krenuthreth Fennanvor",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "K. Fennanvor",
+        "Fennanvor"
+      ],
+      "doc_id": "DOC_0009"
+    },
+    {
+      "id": "ENT_0010",
+      "canonical_name": "Synorreth Aldathdyn",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "S. Aldathdyn",
+        "Aldathdyn"
+      ],
+      "doc_id": "DOC_0010"
+    },
+    {
+      "id": "ENT_0011",
+      "canonical_name": "Fennikvath Quenindyn",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "F. Quenindyn",
+        "Quenindyn"
+      ],
+      "doc_id": "DOC_0011"
+    },
+    {
+      "id": "ENT_0012",
+      "canonical_name": "Taelanfen Wyrusnok",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "T. Wyrusnok",
+        "Wyrusnok"
+      ],
+      "doc_id": "DOC_0012"
+    },
+    {
+      "id": "ENT_0013",
+      "canonical_name": "Nebothnok Styxinvath",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "N. Styxinvath",
+        "Styxinvath"
+      ],
+      "doc_id": "DOC_0013"
+    },
+    {
+      "id": "ENT_0014",
+      "canonical_name": "Krenokmoth Tarnonmar",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "K. Tarnonmar",
+        "Tarnonmar"
+      ],
+      "doc_id": "DOC_0014"
+    },
+    {
+      "id": "ENT_0015",
+      "canonical_name": "Durnenlok Noxornok",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "D. Noxornok",
+        "Noxornok"
+      ],
+      "doc_id": "DOC_0015"
+    },
+    {
+      "id": "ENT_0016",
+      "canonical_name": "Rynunvor Lyrontis",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "R. Lyrontis",
+        "Lyrontis"
+      ],
+      "doc_id": "DOC_0016"
+    },
+    {
+      "id": "ENT_0017",
+      "canonical_name": "Caelonwyn Praxungon",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "C. Praxungon",
+        "Praxungon"
+      ],
+      "doc_id": "DOC_0017"
+    },
+    {
+      "id": "ENT_0018",
+      "canonical_name": "Tarniklan Raelonrak",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "T. Raelonrak",
+        "Raelonrak"
+      ],
+      "doc_id": "DOC_0018"
+    },
+    {
+      "id": "ENT_0019",
+      "canonical_name": "Xanithzar Jorarnok",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "X. Jorarnok",
+        "Jorarnok"
+      ],
+      "doc_id": "DOC_0019"
+    },
+    {
+      "id": "ENT_0020",
+      "canonical_name": "Rynartor Aldislan",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "R. Aldislan",
+        "Aldislan"
+      ],
+      "doc_id": "DOC_0020"
+    },
+    {
+      "id": "ENT_0021",
+      "canonical_name": "Myrolvek Pryxelgath",
+      "type": "EMPLOYEE",
+      "aliases": [
+        "M. Pryxelgath",
+        "Pryxelgath"
+      ],
+      "doc_id": "DOC_0021"
+    },
+    {
+      "id": "ENT_0022",
+      "canonical_name": "Zanistis Infrastructure Group",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Zanistis Division",
+        "Zanistis"
+      ],
+      "doc_id": "DOC_0022"
+    },
+    {
+      "id": "ENT_0023",
+      "canonical_name": "Zantonnax Infrastructure Group",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Zantonnax Division",
+        "Zantonnax"
+      ],
+      "doc_id": "DOC_0023"
+    },
+    {
+      "id": "ENT_0024",
+      "canonical_name": "Oryxonvath Systems Engineering Unit",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Oryxonvath Division",
+        "Oryxonvath"
+      ],
+      "doc_id": "DOC_0024"
+    },
+    {
+      "id": "ENT_0025",
+      "canonical_name": "Synethgath Systems Engineering Unit",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Synethgath Division",
+        "Synethgath"
+      ],
+      "doc_id": "DOC_0025"
+    },
+    {
+      "id": "ENT_0026",
+      "canonical_name": "Kronanvek Core Platform Division",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Kronanvek Division",
+        "Kronanvek"
+      ],
+      "doc_id": "DOC_0026"
+    },
+    {
+      "id": "ENT_0027",
+      "canonical_name": "Aetharkest Systems Engineering Unit",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Aetharkest Division",
+        "Aetharkest"
+      ],
+      "doc_id": "DOC_0027"
+    },
+    {
+      "id": "ENT_0028",
+      "canonical_name": "Iskorlan Applied Automation Wing",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Iskorlan Division",
+        "Iskorlan"
+      ],
+      "doc_id": "DOC_0028"
+    },
+    {
+      "id": "ENT_0029",
+      "canonical_name": "Kaelinlux Systems Engineering Unit",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Kaelinlux Division",
+        "Kaelinlux"
+      ],
+      "doc_id": "DOC_0029"
+    },
+    {
+      "id": "ENT_0030",
+      "canonical_name": "Noxontor Foundational Services Unit",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Noxontor Division",
+        "Noxontor"
+      ],
+      "doc_id": "DOC_0030"
+    },
+    {
+      "id": "ENT_0031",
+      "canonical_name": "Morenvek Analytics Laboratory",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Morenvek Division",
+        "Morenvek"
+      ],
+      "doc_id": "DOC_0031"
+    },
+    {
+      "id": "ENT_0032",
+      "canonical_name": "Eldornax Infrastructure Group",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Eldornax Division",
+        "Eldornax"
+      ],
+      "doc_id": "DOC_0032"
+    },
+    {
+      "id": "ENT_0033",
+      "canonical_name": "Durnalnok Analytics Laboratory",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Durnalnok Division",
+        "Durnalnok"
+      ],
+      "doc_id": "DOC_0033"
+    },
+    {
+      "id": "ENT_0034",
+      "canonical_name": "Nebunnax Foundational Services Unit",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Nebunnax Division",
+        "Nebunnax"
+      ],
+      "doc_id": "DOC_0034"
+    },
+    {
+      "id": "ENT_0035",
+      "canonical_name": "Vandothnok Foundational Services Unit",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Vandothnok Division",
+        "Vandothnok"
+      ],
+      "doc_id": "DOC_0035"
+    },
+    {
+      "id": "ENT_0036",
+      "canonical_name": "Brecolron Systems Engineering Unit",
+      "type": "DEPARTMENT",
+      "aliases": [
+        "Brecolron Division",
+        "Brecolron"
+      ],
+      "doc_id": "DOC_0036"
+    },
+    {
+      "id": "ENT_0037",
+      "canonical_name": "Haelentor Hub",
+      "type": "PRODUCT",
+      "aliases": [
+        "Haelentor"
+      ],
+      "doc_id": "DOC_0037"
+    },
+    {
+      "id": "ENT_0038",
+      "canonical_name": "Iskardyn Pipeline",
+      "type": "PRODUCT",
+      "aliases": [
+        "Iskardyn"
+      ],
+      "doc_id": "DOC_0038"
+    },
+    {
+      "id": "ENT_0039",
+      "canonical_name": "Sarkinfen Matrix",
+      "type": "PRODUCT",
+      "aliases": [
+        "Sarkinfen"
+      ],
+      "doc_id": "DOC_0039"
+    },
+    {
+      "id": "ENT_0040",
+      "canonical_name": "Haelenrix Gateway",
+      "type": "PRODUCT",
+      "aliases": [
+        "Haelenrix"
+      ],
+      "doc_id": "DOC_0040"
+    },
+    {
+      "id": "ENT_0041",
+      "canonical_name": "Wyrithwyn Pipeline",
+      "type": "PRODUCT",
+      "aliases": [
+        "Wyrithwyn"
+      ],
+      "doc_id": "DOC_0041"
+    },
+    {
+      "id": "ENT_0042",
+      "canonical_name": "Zanolric Cluster",
+      "type": "PRODUCT",
+      "aliases": [
+        "Zanolric"
+      ],
+      "doc_id": "DOC_0042"
+    },
+    {
+      "id": "ENT_0043",
+      "canonical_name": "Jorustex Nexus",
+      "type": "PRODUCT",
+      "aliases": [
+        "Jorustex"
+      ],
+      "doc_id": "DOC_0043"
+    },
+    {
+      "id": "ENT_0044",
+      "canonical_name": "Lyronvor Nexus",
+      "type": "PRODUCT",
+      "aliases": [
+        "Lyronvor"
+      ],
+      "doc_id": "DOC_0044"
+    },
+    {
+      "id": "ENT_0045",
+      "canonical_name": "Faelolnok Protocol",
+      "type": "PRODUCT",
+      "aliases": [
+        "Faelolnok"
+      ],
+      "doc_id": "DOC_0045"
+    },
+    {
+      "id": "ENT_0046",
+      "canonical_name": "Ulxarron Matrix",
+      "type": "PRODUCT",
+      "aliases": [
+        "Ulxarron"
+      ],
+      "doc_id": "DOC_0046"
+    },
+    {
+      "id": "ENT_0047",
+      "canonical_name": "Eldothvix Hub",
+      "type": "PRODUCT",
+      "aliases": [
+        "Eldothvix"
+      ],
+      "doc_id": "DOC_0047"
+    },
+    {
+      "id": "ENT_0048",
+      "canonical_name": "Maelengath Hub",
+      "type": "PRODUCT",
+      "aliases": [
+        "Maelengath"
+      ],
+      "doc_id": "DOC_0048"
+    },
+    {
+      "id": "ENT_0049",
+      "canonical_name": "WyrendorQL",
+      "type": "TECHNOLOGY",
+      "aliases": [
+        "Wyrendor"
+      ],
+      "doc_id": "DOC_0049"
+    },
+    {
+      "id": "ENT_0050",
+      "canonical_name": "AethithnokQL",
+      "type": "TECHNOLOGY",
+      "aliases": [
+        "Aethithnok"
+      ],
+      "doc_id": "DOC_0050"
+    },
+    {
+      "id": "ENT_0051",
+      "canonical_name": "VandethnokStore",
+      "type": "TECHNOLOGY",
+      "aliases": [
+        "Vandethnok"
+      ],
+      "doc_id": "DOC_0051"
+    },
+    {
+      "id": "ENT_0052",
+      "canonical_name": "NoxarnokNet",
+      "type": "TECHNOLOGY",
+      "aliases": [
+        "Noxarnok"
+      ],
+      "doc_id": "DOC_0052"
+    },
+    {
+      "id": "ENT_0053",
+      "canonical_name": "PryxingonDB",
+      "type": "TECHNOLOGY",
+      "aliases": [
+        "Pryxingon"
+      ],
+      "doc_id": "DOC_0053"
+    },
+    {
+      "id": "ENT_0054",
+      "canonical_name": "YvethnokRPC",
+      "type": "TECHNOLOGY",
+      "aliases": [
+        "Yvethnok"
+      ],
+      "doc_id": "DOC_0054"
+    },
+    {
+      "id": "ENT_0055",
+      "canonical_name": "Brynandor Networks",
+      "type": "CLIENT",
+      "aliases": [
+        "Brynandor"
+      ],
+      "doc_id": "DOC_0055"
+    },
+    {
+      "id": "ENT_0056",
+      "canonical_name": "Durnonvor Aerospace",
+      "type": "CLIENT",
+      "aliases": [
+        "Durnonvor"
+      ],
+      "doc_id": "DOC_0056"
+    },
+    {
+      "id": "ENT_0057",
+      "canonical_name": "Ulxathlok Logistics",
+      "type": "CLIENT",
+      "aliases": [
+        "Ulxathlok"
+      ],
+      "doc_id": "DOC_0057"
+    },
+    {
+      "id": "ENT_0058",
+      "canonical_name": "Kaelunkest Syndicate",
+      "type": "CLIENT",
+      "aliases": [
+        "Kaelunkest"
+      ],
+      "doc_id": "DOC_0058"
+    },
+    {
+      "id": "ENT_0059",
+      "canonical_name": "Pryxunvek Syndicate",
+      "type": "CLIENT",
+      "aliases": [
+        "Pryxunvek"
+      ],
+      "doc_id": "DOC_0059"
+    },
+    {
+      "id": "ENT_0060",
+      "canonical_name": "Quenentor Consortium",
+      "type": "CLIENT",
+      "aliases": [
+        "Quenentor"
+      ],
+      "doc_id": "DOC_0060"
+    }
+  ],
+  "edges": [
+    {
+      "id": "EDGE_0001",
+      "source": "ENT_0022",
+      "source_name": "Zanistis Infrastructure Group",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0037",
+      "target_name": "Haelentor Hub",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0022",
+      "evidence_quote": "Zanistis Infrastructure Group is directly responsible for developing Haelentor Hub."
+    },
+    {
+      "id": "EDGE_0002",
+      "source": "ENT_0023",
+      "source_name": "Zantonnax Infrastructure Group",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0038",
+      "target_name": "Iskardyn Pipeline",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0023",
+      "evidence_quote": "Zantonnax Infrastructure Group is directly responsible for developing Iskardyn Pipeline."
+    },
+    {
+      "id": "EDGE_0003",
+      "source": "ENT_0024",
+      "source_name": "Oryxonvath Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0039",
+      "target_name": "Sarkinfen Matrix",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0024",
+      "evidence_quote": "It builds and maintains Sarkinfen Matrix."
+    },
+    {
+      "id": "EDGE_0004",
+      "source": "ENT_0025",
+      "source_name": "Synethgath Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0040",
+      "target_name": "Haelenrix Gateway",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0025",
+      "evidence_quote": "Synethgath Systems Engineering Unit builds and maintains Haelenrix Gateway."
+    },
+    {
+      "id": "EDGE_0005",
+      "source": "ENT_0026",
+      "source_name": "Kronanvek Core Platform Division",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0041",
+      "target_name": "Wyrithwyn Pipeline",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0026",
+      "evidence_quote": "Kronanvek Core Platform Division spearheads the technical development of Wyrithwyn Pipeline."
+    },
+    {
+      "id": "EDGE_0006",
+      "source": "ENT_0027",
+      "source_name": "Aetharkest Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0042",
+      "target_name": "Zanolric Cluster",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0027",
+      "evidence_quote": "It is directly responsible for developing Zanolric Cluster."
+    },
+    {
+      "id": "EDGE_0007",
+      "source": "ENT_0028",
+      "source_name": "Iskorlan Applied Automation Wing",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0043",
+      "target_name": "Jorustex Nexus",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0028",
+      "evidence_quote": "Iskorlan Applied Automation Wing spearheads the technical development of Jorustex Nexus."
+    },
+    {
+      "id": "EDGE_0008",
+      "source": "ENT_0029",
+      "source_name": "Kaelinlux Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0044",
+      "target_name": "Lyronvor Nexus",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0029",
+      "evidence_quote": "Kaelinlux Systems Engineering Unit builds and maintains Lyronvor Nexus."
+    },
+    {
+      "id": "EDGE_0009",
+      "source": "ENT_0030",
+      "source_name": "Noxontor Foundational Services Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0045",
+      "target_name": "Faelolnok Protocol",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0030",
+      "evidence_quote": "It builds and maintains Faelolnok Protocol."
+    },
+    {
+      "id": "EDGE_0010",
+      "source": "ENT_0031",
+      "source_name": "Morenvek Analytics Laboratory",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0046",
+      "target_name": "Ulxarron Matrix",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0031",
+      "evidence_quote": "Morenvek Analytics Laboratory spearheads the technical development of Ulxarron Matrix."
+    },
+    {
+      "id": "EDGE_0011",
+      "source": "ENT_0032",
+      "source_name": "Eldornax Infrastructure Group",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0047",
+      "target_name": "Eldothvix Hub",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0032",
+      "evidence_quote": "It builds and maintains Eldothvix Hub."
+    },
+    {
+      "id": "EDGE_0012",
+      "source": "ENT_0033",
+      "source_name": "Durnalnok Analytics Laboratory",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0048",
+      "target_name": "Maelengath Hub",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0033",
+      "evidence_quote": "Durnalnok Analytics Laboratory designs and engineers Maelengath Hub."
+    },
+    {
+      "id": "EDGE_0013",
+      "source": "ENT_0034",
+      "source_name": "Nebunnax Foundational Services Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0037",
+      "target_name": "Haelentor Hub",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0034",
+      "evidence_quote": "Nebunnax Foundational Services Unit is directly responsible for developing Haelentor Hub."
+    },
+    {
+      "id": "EDGE_0014",
+      "source": "ENT_0035",
+      "source_name": "Vandothnok Foundational Services Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0038",
+      "target_name": "Iskardyn Pipeline",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0035",
+      "evidence_quote": "It is directly responsible for developing Iskardyn Pipeline."
+    },
+    {
+      "id": "EDGE_0015",
+      "source": "ENT_0036",
+      "source_name": "Brecolron Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "DEVELOPS",
+      "target": "ENT_0039",
+      "target_name": "Sarkinfen Matrix",
+      "target_type": "PRODUCT",
+      "supporting_doc_id": "DOC_0036",
+      "evidence_quote": "Brecolron Systems Engineering Unit is directly responsible for developing Sarkinfen Matrix."
+    },
+    {
+      "id": "EDGE_0016",
+      "source": "ENT_0037",
+      "source_name": "Haelentor Hub",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0049",
+      "target_name": "WyrendorQL",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0037",
+      "evidence_quote": "Haelentor Hub utilizes WyrendorQL for core functionality."
+    },
+    {
+      "id": "EDGE_0017",
+      "source": "ENT_0038",
+      "source_name": "Iskardyn Pipeline",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0050",
+      "target_name": "AethithnokQL",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0038",
+      "evidence_quote": "Iskardyn Pipeline is engineered primarily using AethithnokQL."
+    },
+    {
+      "id": "EDGE_0018",
+      "source": "ENT_0039",
+      "source_name": "Sarkinfen Matrix",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0051",
+      "target_name": "VandethnokStore",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0039",
+      "evidence_quote": "Sarkinfen Matrix is engineered primarily using VandethnokStore."
+    },
+    {
+      "id": "EDGE_0019",
+      "source": "ENT_0040",
+      "source_name": "Haelenrix Gateway",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0052",
+      "target_name": "NoxarnokNet",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0040",
+      "evidence_quote": "Haelenrix Gateway is engineered primarily using NoxarnokNet."
+    },
+    {
+      "id": "EDGE_0020",
+      "source": "ENT_0041",
+      "source_name": "Wyrithwyn Pipeline",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0053",
+      "target_name": "PryxingonDB",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0041",
+      "evidence_quote": "Wyrithwyn Pipeline relies on PryxingonDB as its foundational technology stack."
+    },
+    {
+      "id": "EDGE_0021",
+      "source": "ENT_0042",
+      "source_name": "Zanolric Cluster",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0054",
+      "target_name": "YvethnokRPC",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0042",
+      "evidence_quote": "Zanolric Cluster is engineered primarily using YvethnokRPC."
+    },
+    {
+      "id": "EDGE_0022",
+      "source": "ENT_0043",
+      "source_name": "Jorustex Nexus",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0049",
+      "target_name": "WyrendorQL",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0043",
+      "evidence_quote": "Jorustex Nexus was constructed upon the WyrendorQL framework."
+    },
+    {
+      "id": "EDGE_0023",
+      "source": "ENT_0044",
+      "source_name": "Lyronvor Nexus",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0050",
+      "target_name": "AethithnokQL",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0044",
+      "evidence_quote": "It utilizes AethithnokQL for core functionality."
+    },
+    {
+      "id": "EDGE_0024",
+      "source": "ENT_0045",
+      "source_name": "Faelolnok Protocol",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0051",
+      "target_name": "VandethnokStore",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0045",
+      "evidence_quote": "Faelolnok Protocol is engineered primarily using VandethnokStore."
+    },
+    {
+      "id": "EDGE_0025",
+      "source": "ENT_0046",
+      "source_name": "Ulxarron Matrix",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0052",
+      "target_name": "NoxarnokNet",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0046",
+      "evidence_quote": "It relies on NoxarnokNet as its foundational technology stack."
+    },
+    {
+      "id": "EDGE_0026",
+      "source": "ENT_0047",
+      "source_name": "Eldothvix Hub",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0053",
+      "target_name": "PryxingonDB",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0047",
+      "evidence_quote": "Eldothvix Hub relies on PryxingonDB as its foundational technology stack."
+    },
+    {
+      "id": "EDGE_0027",
+      "source": "ENT_0048",
+      "source_name": "Maelengath Hub",
+      "source_type": "PRODUCT",
+      "relation": "BUILT_WITH",
+      "target": "ENT_0054",
+      "target_name": "YvethnokRPC",
+      "target_type": "TECHNOLOGY",
+      "supporting_doc_id": "DOC_0048",
+      "evidence_quote": "Maelengath Hub is engineered primarily using YvethnokRPC."
+    },
+    {
+      "id": "EDGE_0028",
+      "source": "ENT_0037",
+      "source_name": "Haelentor Hub",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0055",
+      "target_name": "Brynandor Networks",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0037",
+      "evidence_quote": "It operates in production serving Brynandor Networks."
+    },
+    {
+      "id": "EDGE_0029",
+      "source": "ENT_0038",
+      "source_name": "Iskardyn Pipeline",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0056",
+      "target_name": "Durnonvor Aerospace",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0038",
+      "evidence_quote": "Iskardyn Pipeline operates in production serving Durnonvor Aerospace."
+    },
+    {
+      "id": "EDGE_0030",
+      "source": "ENT_0039",
+      "source_name": "Sarkinfen Matrix",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0057",
+      "target_name": "Ulxathlok Logistics",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0039",
+      "evidence_quote": "It directly serves the enterprise requirements of Ulxathlok Logistics."
+    },
+    {
+      "id": "EDGE_0031",
+      "source": "ENT_0040",
+      "source_name": "Haelenrix Gateway",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0058",
+      "target_name": "Kaelunkest Syndicate",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0040",
+      "evidence_quote": "Haelenrix Gateway operates in production serving Kaelunkest Syndicate."
+    },
+    {
+      "id": "EDGE_0032",
+      "source": "ENT_0041",
+      "source_name": "Wyrithwyn Pipeline",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0059",
+      "target_name": "Pryxunvek Syndicate",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0041",
+      "evidence_quote": "Wyrithwyn Pipeline provides specialized commercial solutions for Pryxunvek Syndicate."
+    },
+    {
+      "id": "EDGE_0033",
+      "source": "ENT_0042",
+      "source_name": "Zanolric Cluster",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0060",
+      "target_name": "Quenentor Consortium",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0042",
+      "evidence_quote": "Zanolric Cluster provides specialized commercial solutions for Quenentor Consortium."
+    },
+    {
+      "id": "EDGE_0034",
+      "source": "ENT_0043",
+      "source_name": "Jorustex Nexus",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0055",
+      "target_name": "Brynandor Networks",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0043",
+      "evidence_quote": "Jorustex Nexus directly serves the enterprise requirements of Brynandor Networks."
+    },
+    {
+      "id": "EDGE_0035",
+      "source": "ENT_0044",
+      "source_name": "Lyronvor Nexus",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0056",
+      "target_name": "Durnonvor Aerospace",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0044",
+      "evidence_quote": "Lyronvor Nexus delivers dedicated platform support to Durnonvor Aerospace."
+    },
+    {
+      "id": "EDGE_0036",
+      "source": "ENT_0045",
+      "source_name": "Faelolnok Protocol",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0057",
+      "target_name": "Ulxathlok Logistics",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0045",
+      "evidence_quote": "Faelolnok Protocol delivers dedicated platform support to Ulxathlok Logistics."
+    },
+    {
+      "id": "EDGE_0037",
+      "source": "ENT_0046",
+      "source_name": "Ulxarron Matrix",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0058",
+      "target_name": "Kaelunkest Syndicate",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0046",
+      "evidence_quote": "Ulxarron Matrix provides specialized commercial solutions for Kaelunkest Syndicate."
+    },
+    {
+      "id": "EDGE_0038",
+      "source": "ENT_0047",
+      "source_name": "Eldothvix Hub",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0059",
+      "target_name": "Pryxunvek Syndicate",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0047",
+      "evidence_quote": "Eldothvix Hub delivers dedicated platform support to Pryxunvek Syndicate."
+    },
+    {
+      "id": "EDGE_0039",
+      "source": "ENT_0048",
+      "source_name": "Maelengath Hub",
+      "source_type": "PRODUCT",
+      "relation": "SERVES",
+      "target": "ENT_0060",
+      "target_name": "Quenentor Consortium",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0048",
+      "evidence_quote": "Maelengath Hub directly serves the enterprise requirements of Quenentor Consortium."
+    },
+    {
+      "id": "EDGE_0040",
+      "source": "ENT_0001",
+      "source_name": "Pryxeldor Iskorlan",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0022",
+      "target_name": "Zanistis Infrastructure Group",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0001",
+      "evidence_quote": "They formally belongs to Zanistis Infrastructure Group."
+    },
+    {
+      "id": "EDGE_0041",
+      "source": "ENT_0002",
+      "source_name": "Gryxethvath Nebikvane",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0023",
+      "target_name": "Zantonnax Infrastructure Group",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0002",
+      "evidence_quote": "Gryxethvath Nebikvane is an official organizational part of Zantonnax Infrastructure Group."
+    },
+    {
+      "id": "EDGE_0042",
+      "source": "ENT_0003",
+      "source_name": "Jolikvath Krenorrak",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0024",
+      "target_name": "Oryxonvath Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0003",
+      "evidence_quote": "Jolikvath Krenorrak operates as a key component under Oryxonvath Systems Engineering Unit."
+    },
+    {
+      "id": "EDGE_0043",
+      "source": "ENT_0004",
+      "source_name": "Krenostis Thalithvath",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0025",
+      "target_name": "Synethgath Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0004",
+      "evidence_quote": "Krenostis Thalithvath is structurally integrated into Synethgath Systems Engineering Unit."
+    },
+    {
+      "id": "EDGE_0044",
+      "source": "ENT_0005",
+      "source_name": "Aldunwyn Kronosmoth",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0026",
+      "target_name": "Kronanvek Core Platform Division",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0005",
+      "evidence_quote": "Aldunwyn Kronosmoth is an official organizational part of Kronanvek Core Platform Division."
+    },
+    {
+      "id": "EDGE_0045",
+      "source": "ENT_0006",
+      "source_name": "Lorosmir Faelennax",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0027",
+      "target_name": "Aetharkest Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0006",
+      "evidence_quote": "They is an official organizational part of Aetharkest Systems Engineering Unit."
+    },
+    {
+      "id": "EDGE_0046",
+      "source": "ENT_0007",
+      "source_name": "Thalusvix Fennisvane",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0028",
+      "target_name": "Iskorlan Applied Automation Wing",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0007",
+      "evidence_quote": "Thalusvix Fennisvane is structurally integrated into Iskorlan Applied Automation Wing."
+    },
+    {
+      "id": "EDGE_0047",
+      "source": "ENT_0008",
+      "source_name": "Loroklan Sarkithtex",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0029",
+      "target_name": "Kaelinlux Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0008",
+      "evidence_quote": "Loroklan Sarkithtex formally belongs to Kaelinlux Systems Engineering Unit."
+    },
+    {
+      "id": "EDGE_0048",
+      "source": "ENT_0009",
+      "source_name": "Krenuthreth Fennanvor",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0030",
+      "target_name": "Noxontor Foundational Services Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0009",
+      "evidence_quote": "Krenuthreth Fennanvor is structurally integrated into Noxontor Foundational Services Unit."
+    },
+    {
+      "id": "EDGE_0049",
+      "source": "ENT_0010",
+      "source_name": "Synorreth Aldathdyn",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0031",
+      "target_name": "Morenvek Analytics Laboratory",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0010",
+      "evidence_quote": "Synorreth Aldathdyn is structurally integrated into Morenvek Analytics Laboratory."
+    },
+    {
+      "id": "EDGE_0050",
+      "source": "ENT_0011",
+      "source_name": "Fennikvath Quenindyn",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0032",
+      "target_name": "Eldornax Infrastructure Group",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0011",
+      "evidence_quote": "Fennikvath Quenindyn operates as a key component under Eldornax Infrastructure Group."
+    },
+    {
+      "id": "EDGE_0051",
+      "source": "ENT_0012",
+      "source_name": "Taelanfen Wyrusnok",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0033",
+      "target_name": "Durnalnok Analytics Laboratory",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0012",
+      "evidence_quote": "Taelanfen Wyrusnok is structurally integrated into Durnalnok Analytics Laboratory."
+    },
+    {
+      "id": "EDGE_0052",
+      "source": "ENT_0013",
+      "source_name": "Nebothnok Styxinvath",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0034",
+      "target_name": "Nebunnax Foundational Services Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0013",
+      "evidence_quote": "Nebothnok Styxinvath formally belongs to Nebunnax Foundational Services Unit."
+    },
+    {
+      "id": "EDGE_0053",
+      "source": "ENT_0014",
+      "source_name": "Krenokmoth Tarnonmar",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0035",
+      "target_name": "Vandothnok Foundational Services Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0014",
+      "evidence_quote": "Krenokmoth Tarnonmar operates as a key component under Vandothnok Foundational Services Unit."
+    },
+    {
+      "id": "EDGE_0054",
+      "source": "ENT_0015",
+      "source_name": "Durnenlok Noxornok",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0036",
+      "target_name": "Brecolron Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0015",
+      "evidence_quote": "They is structurally integrated into Brecolron Systems Engineering Unit."
+    },
+    {
+      "id": "EDGE_0055",
+      "source": "ENT_0016",
+      "source_name": "Rynunvor Lyrontis",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0022",
+      "target_name": "Zanistis Infrastructure Group",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0016",
+      "evidence_quote": "Rynunvor Lyrontis operates as a key component under Zanistis Infrastructure Group."
+    },
+    {
+      "id": "EDGE_0056",
+      "source": "ENT_0017",
+      "source_name": "Caelonwyn Praxungon",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0023",
+      "target_name": "Zantonnax Infrastructure Group",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0017",
+      "evidence_quote": "Caelonwyn Praxungon is structurally integrated into Zantonnax Infrastructure Group."
+    },
+    {
+      "id": "EDGE_0057",
+      "source": "ENT_0018",
+      "source_name": "Tarniklan Raelonrak",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0024",
+      "target_name": "Oryxonvath Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0018",
+      "evidence_quote": "They formally belongs to Oryxonvath Systems Engineering Unit."
+    },
+    {
+      "id": "EDGE_0058",
+      "source": "ENT_0019",
+      "source_name": "Xanithzar Jorarnok",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0025",
+      "target_name": "Synethgath Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0019",
+      "evidence_quote": "Xanithzar Jorarnok formally belongs to Synethgath Systems Engineering Unit."
+    },
+    {
+      "id": "EDGE_0059",
+      "source": "ENT_0020",
+      "source_name": "Rynartor Aldislan",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0026",
+      "target_name": "Kronanvek Core Platform Division",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0020",
+      "evidence_quote": "Rynartor Aldislan operates as a key component under Kronanvek Core Platform Division."
+    },
+    {
+      "id": "EDGE_0060",
+      "source": "ENT_0021",
+      "source_name": "Myrolvek Pryxelgath",
+      "source_type": "EMPLOYEE",
+      "relation": "BELONGS_TO",
+      "target": "ENT_0027",
+      "target_name": "Aetharkest Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0021",
+      "evidence_quote": "Myrolvek Pryxelgath is an official organizational part of Aetharkest Systems Engineering Unit."
+    },
+    {
+      "id": "EDGE_0061",
+      "source": "ENT_0001",
+      "source_name": "Pryxeldor Iskorlan",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0022",
+      "target_name": "Zanistis Infrastructure Group",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0001",
+      "evidence_quote": "Pryxeldor Iskorlan serves as the primary manager of Zanistis Infrastructure Group."
+    },
+    {
+      "id": "EDGE_0062",
+      "source": "ENT_0002",
+      "source_name": "Gryxethvath Nebikvane",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0023",
+      "target_name": "Zantonnax Infrastructure Group",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0002",
+      "evidence_quote": "They actively manages and directs Zantonnax Infrastructure Group."
+    },
+    {
+      "id": "EDGE_0063",
+      "source": "ENT_0003",
+      "source_name": "Jolikvath Krenorrak",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0024",
+      "target_name": "Oryxonvath Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0003",
+      "evidence_quote": "Executive oversight of Oryxonvath Systems Engineering Unit is handled by Jolikvath Krenorrak."
+    },
+    {
+      "id": "EDGE_0064",
+      "source": "ENT_0004",
+      "source_name": "Krenostis Thalithvath",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0025",
+      "target_name": "Synethgath Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0004",
+      "evidence_quote": "Executive oversight of Synethgath Systems Engineering Unit is handled by Krenostis Thalithvath."
+    },
+    {
+      "id": "EDGE_0065",
+      "source": "ENT_0005",
+      "source_name": "Aldunwyn Kronosmoth",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0026",
+      "target_name": "Kronanvek Core Platform Division",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0005",
+      "evidence_quote": "Aldunwyn Kronosmoth serves as the primary manager of Kronanvek Core Platform Division."
+    },
+    {
+      "id": "EDGE_0066",
+      "source": "ENT_0006",
+      "source_name": "Lorosmir Faelennax",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0027",
+      "target_name": "Aetharkest Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0006",
+      "evidence_quote": "Executive oversight of Aetharkest Systems Engineering Unit is handled by Lorosmir Faelennax."
+    },
+    {
+      "id": "EDGE_0067",
+      "source": "ENT_0007",
+      "source_name": "Thalusvix Fennisvane",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0028",
+      "target_name": "Iskorlan Applied Automation Wing",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0007",
+      "evidence_quote": "Thalusvix Fennisvane serves as the primary manager of Iskorlan Applied Automation Wing."
+    },
+    {
+      "id": "EDGE_0068",
+      "source": "ENT_0008",
+      "source_name": "Loroklan Sarkithtex",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0029",
+      "target_name": "Kaelinlux Systems Engineering Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0008",
+      "evidence_quote": "Executive oversight of Kaelinlux Systems Engineering Unit is handled by Loroklan Sarkithtex."
+    },
+    {
+      "id": "EDGE_0069",
+      "source": "ENT_0009",
+      "source_name": "Krenuthreth Fennanvor",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0030",
+      "target_name": "Noxontor Foundational Services Unit",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0009",
+      "evidence_quote": "Krenuthreth Fennanvor actively manages and directs Noxontor Foundational Services Unit."
+    },
+    {
+      "id": "EDGE_0070",
+      "source": "ENT_0010",
+      "source_name": "Synorreth Aldathdyn",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0031",
+      "target_name": "Morenvek Analytics Laboratory",
+      "target_type": "DEPARTMENT",
+      "supporting_doc_id": "DOC_0010",
+      "evidence_quote": "Synorreth Aldathdyn actively manages and directs Morenvek Analytics Laboratory."
+    },
+    {
+      "id": "EDGE_0071",
+      "source": "ENT_0011",
+      "source_name": "Fennikvath Quenindyn",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0012",
+      "target_name": "Taelanfen Wyrusnok",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0011",
+      "evidence_quote": "Fennikvath Quenindyn actively manages and directs Taelanfen Wyrusnok."
+    },
+    {
+      "id": "EDGE_0072",
+      "source": "ENT_0012",
+      "source_name": "Taelanfen Wyrusnok",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0013",
+      "target_name": "Nebothnok Styxinvath",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0012",
+      "evidence_quote": "Taelanfen Wyrusnok actively manages and directs Nebothnok Styxinvath."
+    },
+    {
+      "id": "EDGE_0073",
+      "source": "ENT_0013",
+      "source_name": "Nebothnok Styxinvath",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0014",
+      "target_name": "Krenokmoth Tarnonmar",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0013",
+      "evidence_quote": "Nebothnok Styxinvath actively manages and directs Krenokmoth Tarnonmar."
+    },
+    {
+      "id": "EDGE_0074",
+      "source": "ENT_0014",
+      "source_name": "Krenokmoth Tarnonmar",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0015",
+      "target_name": "Durnenlok Noxornok",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0014",
+      "evidence_quote": "Executive oversight of Durnenlok Noxornok is handled by Krenokmoth Tarnonmar."
+    },
+    {
+      "id": "EDGE_0075",
+      "source": "ENT_0015",
+      "source_name": "Durnenlok Noxornok",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0016",
+      "target_name": "Rynunvor Lyrontis",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0015",
+      "evidence_quote": "They actively manages and directs Rynunvor Lyrontis."
+    },
+    {
+      "id": "EDGE_0076",
+      "source": "ENT_0016",
+      "source_name": "Rynunvor Lyrontis",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0017",
+      "target_name": "Caelonwyn Praxungon",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0016",
+      "evidence_quote": "Rynunvor Lyrontis oversees the day-to-day operations of Caelonwyn Praxungon."
+    },
+    {
+      "id": "EDGE_0077",
+      "source": "ENT_0017",
+      "source_name": "Caelonwyn Praxungon",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0018",
+      "target_name": "Tarniklan Raelonrak",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0017",
+      "evidence_quote": "Caelonwyn Praxungon serves as the primary manager of Tarniklan Raelonrak."
+    },
+    {
+      "id": "EDGE_0078",
+      "source": "ENT_0018",
+      "source_name": "Tarniklan Raelonrak",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0019",
+      "target_name": "Xanithzar Jorarnok",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0018",
+      "evidence_quote": "Tarniklan Raelonrak actively manages and directs Xanithzar Jorarnok."
+    },
+    {
+      "id": "EDGE_0079",
+      "source": "ENT_0019",
+      "source_name": "Xanithzar Jorarnok",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0020",
+      "target_name": "Rynartor Aldislan",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0019",
+      "evidence_quote": "Xanithzar Jorarnok actively manages and directs Rynartor Aldislan."
+    },
+    {
+      "id": "EDGE_0080",
+      "source": "ENT_0020",
+      "source_name": "Rynartor Aldislan",
+      "source_type": "EMPLOYEE",
+      "relation": "MANAGES",
+      "target": "ENT_0021",
+      "target_name": "Myrolvek Pryxelgath",
+      "target_type": "EMPLOYEE",
+      "supporting_doc_id": "DOC_0020",
+      "evidence_quote": "Executive oversight of Myrolvek Pryxelgath is handled by Rynartor Aldislan."
+    },
+    {
+      "id": "EDGE_0081",
+      "source": "ENT_0022",
+      "source_name": "Zanistis Infrastructure Group",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0056",
+      "target_name": "Durnonvor Aerospace",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0022",
+      "evidence_quote": "Zanistis Infrastructure Group provides specialized commercial solutions for Durnonvor Aerospace."
+    },
+    {
+      "id": "EDGE_0082",
+      "source": "ENT_0023",
+      "source_name": "Zantonnax Infrastructure Group",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0057",
+      "target_name": "Ulxathlok Logistics",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0023",
+      "evidence_quote": "Zantonnax Infrastructure Group delivers dedicated platform support to Ulxathlok Logistics."
+    },
+    {
+      "id": "EDGE_0083",
+      "source": "ENT_0024",
+      "source_name": "Oryxonvath Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0058",
+      "target_name": "Kaelunkest Syndicate",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0024",
+      "evidence_quote": "Oryxonvath Systems Engineering Unit directly serves the enterprise requirements of Kaelunkest Syndicate."
+    },
+    {
+      "id": "EDGE_0084",
+      "source": "ENT_0025",
+      "source_name": "Synethgath Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0059",
+      "target_name": "Pryxunvek Syndicate",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0025",
+      "evidence_quote": "Synethgath Systems Engineering Unit delivers dedicated platform support to Pryxunvek Syndicate."
+    },
+    {
+      "id": "EDGE_0085",
+      "source": "ENT_0026",
+      "source_name": "Kronanvek Core Platform Division",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0060",
+      "target_name": "Quenentor Consortium",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0026",
+      "evidence_quote": "Kronanvek Core Platform Division directly serves the enterprise requirements of Quenentor Consortium."
+    },
+    {
+      "id": "EDGE_0086",
+      "source": "ENT_0027",
+      "source_name": "Aetharkest Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0055",
+      "target_name": "Brynandor Networks",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0027",
+      "evidence_quote": "Aetharkest Systems Engineering Unit directly serves the enterprise requirements of Brynandor Networks."
+    },
+    {
+      "id": "EDGE_0087",
+      "source": "ENT_0028",
+      "source_name": "Iskorlan Applied Automation Wing",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0056",
+      "target_name": "Durnonvor Aerospace",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0028",
+      "evidence_quote": "Iskorlan Applied Automation Wing operates in production serving Durnonvor Aerospace."
+    },
+    {
+      "id": "EDGE_0088",
+      "source": "ENT_0029",
+      "source_name": "Kaelinlux Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0057",
+      "target_name": "Ulxathlok Logistics",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0029",
+      "evidence_quote": "Kaelinlux Systems Engineering Unit directly serves the enterprise requirements of Ulxathlok Logistics."
+    },
+    {
+      "id": "EDGE_0089",
+      "source": "ENT_0030",
+      "source_name": "Noxontor Foundational Services Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0058",
+      "target_name": "Kaelunkest Syndicate",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0030",
+      "evidence_quote": "Noxontor Foundational Services Unit delivers dedicated platform support to Kaelunkest Syndicate."
+    },
+    {
+      "id": "EDGE_0090",
+      "source": "ENT_0031",
+      "source_name": "Morenvek Analytics Laboratory",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0059",
+      "target_name": "Pryxunvek Syndicate",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0031",
+      "evidence_quote": "Morenvek Analytics Laboratory delivers dedicated platform support to Pryxunvek Syndicate."
+    },
+    {
+      "id": "EDGE_0091",
+      "source": "ENT_0032",
+      "source_name": "Eldornax Infrastructure Group",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0060",
+      "target_name": "Quenentor Consortium",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0032",
+      "evidence_quote": "It operates in production serving Quenentor Consortium."
+    },
+    {
+      "id": "EDGE_0092",
+      "source": "ENT_0033",
+      "source_name": "Durnalnok Analytics Laboratory",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0055",
+      "target_name": "Brynandor Networks",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0033",
+      "evidence_quote": "Durnalnok Analytics Laboratory delivers dedicated platform support to Brynandor Networks."
+    },
+    {
+      "id": "EDGE_0093",
+      "source": "ENT_0034",
+      "source_name": "Nebunnax Foundational Services Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0056",
+      "target_name": "Durnonvor Aerospace",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0034",
+      "evidence_quote": "Nebunnax Foundational Services Unit directly serves the enterprise requirements of Durnonvor Aerospace."
+    },
+    {
+      "id": "EDGE_0094",
+      "source": "ENT_0035",
+      "source_name": "Vandothnok Foundational Services Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0057",
+      "target_name": "Ulxathlok Logistics",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0035",
+      "evidence_quote": "Vandothnok Foundational Services Unit provides specialized commercial solutions for Ulxathlok Logistics."
+    },
+    {
+      "id": "EDGE_0095",
+      "source": "ENT_0036",
+      "source_name": "Brecolron Systems Engineering Unit",
+      "source_type": "DEPARTMENT",
+      "relation": "SERVES",
+      "target": "ENT_0058",
+      "target_name": "Kaelunkest Syndicate",
+      "target_type": "CLIENT",
+      "supporting_doc_id": "DOC_0036",
+      "evidence_quote": "Brecolron Systems Engineering Unit directly serves the enterprise requirements of Kaelunkest Syndicate."
+    }
+  ],
+  "stats": {
+    "num_entities": 60,
+    "num_edges": 95,
+    "num_documents": 60,
+    "num_questions": 120
+  }
+}

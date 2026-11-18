@@ -1,0 +1,1 @@
+python3 experiments/synth_kg/generate.py --seed 7 --n_docs 60 --alias_rate 0.3 --pronoun_rate 0.2 --distractor_rate 0.3 --out experiments/synth_kg/corpus_final

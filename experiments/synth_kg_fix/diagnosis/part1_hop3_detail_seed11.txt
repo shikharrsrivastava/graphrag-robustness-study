@@ -1,0 +1,270 @@
+--------------------------------------------------------------------------------------------------------------
+Q_0061 hop3 gold docs ['DOC_0017', 'DOC_0018', 'DOC_0024'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 10) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D016(e3), 2:D017*(e3), 3:D018*(e1), 4:D002(e2), 5:D023(e2), 6:D029(e2), 7:D035(e2), 8:D039(e2), 9:D045(e2), 10:D057(e2)
+  vector route list (rank, doc, gold?): 1:D017*(dist 0.5157), 2:D001(dist 0.6270), 3:D014(dist 0.6452), 4:D016(dist 0.6462)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D017[GRAPH+VECTOR g2 v1 0.03252]*; 2:D016[GRAPH+VECTOR g1 v4 0.03202]; 3:D001[VECTOR gNone v2 0.01613]; 4:D018[GRAPH g3 vNone 0.01587]*; 5:D014[VECTOR gNone v3 0.01587]; 6:D002[GRAPH g4 vNone 0.01562]; 7:D023[GRAPH g5 vNone 0.01538]; 8:D029[GRAPH g6 vNone 0.01515]; 9:D035[GRAPH g7 vNone 0.01493]; 10:D039[GRAPH g8 vNone 0.01471]
+  context (final 4): D017*, D016, D001, D018*
+    gold DOC_0017: graph-list rank 2, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0018: graph-list rank 3, vector-list rank None, merged position 4, in hybrid context True
+    gold DOC_0024: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0062 hop3 gold docs ['DOC_0016', 'DOC_0017', 'DOC_0023'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 9) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D015(e2), 2:D016*(e2), 3:D001(e2), 4:D022(e2), 5:D028(e2), 6:D034(e2), 7:D038(e2), 8:D044(e2), 9:D056(e2)
+  vector route list (rank, doc, gold?): 1:D016*(dist 0.4423), 2:D015(dist 0.4884), 3:D003(dist 0.5096), 4:D010(dist 0.5604)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D015[GRAPH+VECTOR g1 v2 0.03252]; 2:D016[GRAPH+VECTOR g2 v1 0.03252]*; 3:D001[GRAPH g3 vNone 0.01587]; 4:D003[VECTOR gNone v3 0.01587]; 5:D022[GRAPH g4 vNone 0.01562]; 6:D010[VECTOR gNone v4 0.01562]; 7:D028[GRAPH g5 vNone 0.01538]; 8:D034[GRAPH g6 vNone 0.01515]; 9:D038[GRAPH g7 vNone 0.01493]; 10:D044[GRAPH g8 vNone 0.01471]
+  context (final 4): D015, D016*, D001, D003
+    gold DOC_0016: graph-list rank 2, vector-list rank 1, merged position 2, in hybrid context True
+    gold DOC_0017: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0023: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0063 hop3 gold docs ['DOC_0001', 'DOC_0022', 'DOC_0037'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 8) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D001*(e2), 2:D016(e2), 3:D022*(e2), 4:D028(e2), 5:D034(e2), 6:D038(e2), 7:D044(e2), 8:D056(e2)
+  vector route list (rank, doc, gold?): 1:D001*(dist 0.5082), 2:D030(dist 0.5384), 3:D036(dist 0.5473), 4:D014(dist 0.5684)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D001[GRAPH+VECTOR g1 v1 0.03279]*; 2:D016[GRAPH g2 vNone 0.01613]; 3:D030[VECTOR gNone v2 0.01613]; 4:D022[GRAPH g3 vNone 0.01587]*; 5:D036[VECTOR gNone v3 0.01587]; 6:D028[GRAPH g4 vNone 0.01562]; 7:D014[VECTOR gNone v4 0.01562]; 8:D034[GRAPH g5 vNone 0.01538]; 9:D038[GRAPH g6 vNone 0.01515]; 10:D044[GRAPH g7 vNone 0.01493]
+  context (final 4): D001*, D016, D030, D022*
+    gold DOC_0001: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0022: graph-list rank 3, vector-list rank None, merged position 4, in hybrid context True
+    gold DOC_0037: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0064 hop3 gold docs ['DOC_0014', 'DOC_0035', 'DOC_0038'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 8) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D013(e2), 2:D014*(e2), 3:D035*(e2), 4:D023(e2), 5:D029(e2), 6:D039(e2), 7:D045(e2), 8:D057(e2)
+  vector route list (rank, doc, gold?): 1:D014*(dist 0.4704), 2:D026(dist 0.5237), 3:D036(dist 0.5359), 4:D005(dist 0.5653)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D014[GRAPH+VECTOR g2 v1 0.03252]*; 2:D013[GRAPH g1 vNone 0.01639]; 3:D026[VECTOR gNone v2 0.01613]; 4:D035[GRAPH g3 vNone 0.01587]*; 5:D036[VECTOR gNone v3 0.01587]; 6:D023[GRAPH g4 vNone 0.01562]; 7:D005[VECTOR gNone v4 0.01562]; 8:D029[GRAPH g5 vNone 0.01538]; 9:D039[GRAPH g6 vNone 0.01515]; 10:D045[GRAPH g7 vNone 0.01493]
+  context (final 4): D014*, D013, D026, D035*
+    gold DOC_0014: graph-list rank 2, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0035: graph-list rank 3, vector-list rank None, merged position 4, in hybrid context True
+    gold DOC_0038: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0065 hop3 gold docs ['DOC_0017', 'DOC_0018', 'DOC_0019'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 10) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D016(e3), 2:D017*(e3), 3:D018*(e1), 4:D002(e2), 5:D023(e2), 6:D029(e2), 7:D035(e2), 8:D039(e2), 9:D045(e2), 10:D057(e2)
+  vector route list (rank, doc, gold?): 1:D017*(dist 0.3369), 2:D016(dist 0.4923), 3:D019*(dist 0.5046), 4:D002(dist 0.5106)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D016[GRAPH+VECTOR g1 v2 0.03252]; 2:D017[GRAPH+VECTOR g2 v1 0.03252]*; 3:D002[GRAPH+VECTOR g4 v4 0.03125]; 4:D018[GRAPH g3 vNone 0.01587]*; 5:D019[VECTOR gNone v3 0.01587]*; 6:D023[GRAPH g5 vNone 0.01538]; 7:D029[GRAPH g6 vNone 0.01515]; 8:D035[GRAPH g7 vNone 0.01493]; 9:D039[GRAPH g8 vNone 0.01471]; 10:D045[GRAPH g9 vNone 0.01449]
+  context (final 4): D016, D017*, D002, D018*
+    gold DOC_0017: graph-list rank 2, vector-list rank 1, merged position 2, in hybrid context True
+    gold DOC_0018: graph-list rank 3, vector-list rank None, merged position 4, in hybrid context True
+    gold DOC_0019: graph-list rank None, vector-list rank 3, merged position 5, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0066 hop3 gold docs ['DOC_0020', 'DOC_0026', 'DOC_0041'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 2) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D019(e0), 2:D020*(e0)
+  vector route list (rank, doc, gold?): 1:D020*(dist 0.4044), 2:D030(dist 0.4844), 3:D024(dist 0.5048), 4:D036(dist 0.5058)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D020[GRAPH+VECTOR g2 v1 0.03252]*; 2:D019[GRAPH g1 vNone 0.01639]; 3:D030[VECTOR gNone v2 0.01613]; 4:D024[VECTOR gNone v3 0.01587]; 5:D036[VECTOR gNone v4 0.01562]
+  context (final 4): D020*, D019, D030, D024
+    gold DOC_0020: graph-list rank 2, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0026: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0041: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0067 hop3 gold docs ['DOC_0001', 'DOC_0022', 'DOC_0037'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 8) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D001*(e2), 2:D016(e2), 3:D022*(e2), 4:D028(e2), 5:D034(e2), 6:D038(e2), 7:D044(e2), 8:D056(e2)
+  vector route list (rank, doc, gold?): 1:D030(dist 0.4285), 2:D001*(dist 0.4303), 3:D036(dist 0.4740), 4:D014(dist 0.4841)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D001[GRAPH+VECTOR g1 v2 0.03252]*; 2:D030[VECTOR gNone v1 0.01639]; 3:D016[GRAPH g2 vNone 0.01613]; 4:D022[GRAPH g3 vNone 0.01587]*; 5:D036[VECTOR gNone v3 0.01587]; 6:D028[GRAPH g4 vNone 0.01562]; 7:D014[VECTOR gNone v4 0.01562]; 8:D034[GRAPH g5 vNone 0.01538]; 9:D038[GRAPH g6 vNone 0.01515]; 10:D044[GRAPH g7 vNone 0.01493]
+  context (final 4): D001*, D030, D016, D022*
+    gold DOC_0001: graph-list rank 1, vector-list rank 2, merged position 1, in hybrid context True
+    gold DOC_0022: graph-list rank 3, vector-list rank None, merged position 4, in hybrid context True
+    gold DOC_0037: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0068 hop3 gold docs ['DOC_0010', 'DOC_0031', 'DOC_0046'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 6) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D010*(e2), 2:D031*(e2), 3:D025(e2), 4:D041(e2), 5:D047(e2), 6:D059(e2)
+  vector route list (rank, doc, gold?): 1:D010*(dist 0.5251), 2:D023(dist 0.6330), 3:D036(dist 0.6387), 4:D039(dist 0.6411)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D010[GRAPH+VECTOR g1 v1 0.03279]*; 2:D031[GRAPH g2 vNone 0.01613]*; 3:D023[VECTOR gNone v2 0.01613]; 4:D025[GRAPH g3 vNone 0.01587]; 5:D036[VECTOR gNone v3 0.01587]; 6:D041[GRAPH g4 vNone 0.01562]; 7:D039[VECTOR gNone v4 0.01562]; 8:D047[GRAPH g5 vNone 0.01538]; 9:D059[GRAPH g6 vNone 0.01515]
+  context (final 4): D010*, D031*, D023, D025
+    gold DOC_0010: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0031: graph-list rank 2, vector-list rank None, merged position 2, in hybrid context True
+    gold DOC_0046: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0069 hop3 gold docs ['DOC_0002', 'DOC_0023', 'DOC_0038'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 8) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D002*(e2), 2:D017(e2), 3:D023*(e2), 4:D029(e2), 5:D035(e2), 6:D039(e2), 7:D045(e2), 8:D057(e2)
+  vector route list (rank, doc, gold?): 1:D002*(dist 0.4187), 2:D046(dist 0.5158), 3:D030(dist 0.5168), 4:D037(dist 0.5309)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D002[GRAPH+VECTOR g1 v1 0.03279]*; 2:D017[GRAPH g2 vNone 0.01613]; 3:D046[VECTOR gNone v2 0.01613]; 4:D023[GRAPH g3 vNone 0.01587]*; 5:D030[VECTOR gNone v3 0.01587]; 6:D029[GRAPH g4 vNone 0.01562]; 7:D037[VECTOR gNone v4 0.01562]; 8:D035[GRAPH g5 vNone 0.01538]; 9:D039[GRAPH g6 vNone 0.01515]; 10:D045[GRAPH g7 vNone 0.01493]
+  context (final 4): D002*, D017, D046, D023*
+    gold DOC_0002: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0023: graph-list rank 3, vector-list rank None, merged position 4, in hybrid context True
+    gold DOC_0038: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0070 hop3 gold docs ['DOC_0009', 'DOC_0030', 'DOC_0045'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 1) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D009*(e0)
+  vector route list (rank, doc, gold?): 1:D009*(dist 0.4314), 2:D046(dist 0.5595), 3:D040(dist 0.5867), 4:D024(dist 0.5930)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D009[GRAPH+VECTOR g1 v1 0.03279]*; 2:D046[VECTOR gNone v2 0.01613]; 3:D040[VECTOR gNone v3 0.01587]; 4:D024[VECTOR gNone v4 0.01562]
+  context (final 4): D009*, D046, D040, D024
+    gold DOC_0009: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0030: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0045: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0071 hop3 gold docs ['DOC_0012', 'DOC_0033', 'DOC_0048'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 2) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D011(e0), 2:D012*(e0)
+  vector route list (rank, doc, gold?): 1:D012*(dist 0.4528), 2:D011(dist 0.5510), 3:D023(dist 0.6106), 4:D030(dist 0.6117)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D011[GRAPH+VECTOR g1 v2 0.03252]; 2:D012[GRAPH+VECTOR g2 v1 0.03252]*; 3:D023[VECTOR gNone v3 0.01587]; 4:D030[VECTOR gNone v4 0.01562]
+  context (final 4): D011, D012*, D023, D030
+    gold DOC_0012: graph-list rank 2, vector-list rank 1, merged position 2, in hybrid context True
+    gold DOC_0033: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0048: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0072 hop3 gold docs ['DOC_0012', 'DOC_0013', 'DOC_0014'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 2) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D011(e0), 2:D012*(e0)
+  vector route list (rank, doc, gold?): 1:D012*(dist 0.3367), 2:D011(dist 0.3991), 3:D010(dist 0.4916), 4:D016(dist 0.5119)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D011[GRAPH+VECTOR g1 v2 0.03252]; 2:D012[GRAPH+VECTOR g2 v1 0.03252]*; 3:D010[VECTOR gNone v3 0.01587]; 4:D016[VECTOR gNone v4 0.01562]
+  context (final 4): D011, D012*, D010, D016
+    gold DOC_0012: graph-list rank 2, vector-list rank 1, merged position 2, in hybrid context True
+    gold DOC_0013: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0014: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0073 hop3 gold docs ['DOC_0005', 'DOC_0026', 'DOC_0041'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=True (len 4) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D005*(e2), 2:D020(e2), 3:D026*(e2), 4:D041*(e2)
+  vector route list (rank, doc, gold?): 1:D005*(dist 0.4365), 2:D026*(dist 0.5544), 3:D036(dist 0.5825), 4:D034(dist 0.5948)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D005[GRAPH+VECTOR g1 v1 0.03279]*; 2:D026[GRAPH+VECTOR g3 v2 0.03200]*; 3:D020[GRAPH g2 vNone 0.01613]; 4:D036[VECTOR gNone v3 0.01587]; 5:D041[GRAPH g4 vNone 0.01562]*; 6:D034[VECTOR gNone v4 0.01562]
+  context (final 4): D005*, D026*, D020, D036
+    gold DOC_0005: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0026: graph-list rank 3, vector-list rank 2, merged position 2, in hybrid context True
+    gold DOC_0041: graph-list rank 4, vector-list rank None, merged position 5, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0074 hop3 gold docs ['DOC_0012', 'DOC_0013', 'DOC_0034'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 2) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D011(e0), 2:D012*(e0)
+  vector route list (rank, doc, gold?): 1:D012*(dist 0.5378), 2:D011(dist 0.5957), 3:D014(dist 0.6455), 4:D001(dist 0.6514)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D011[GRAPH+VECTOR g1 v2 0.03252]; 2:D012[GRAPH+VECTOR g2 v1 0.03252]*; 3:D014[VECTOR gNone v3 0.01587]; 4:D001[VECTOR gNone v4 0.01562]
+  context (final 4): D011, D012*, D014, D001
+    gold DOC_0012: graph-list rank 2, vector-list rank 1, merged position 2, in hybrid context True
+    gold DOC_0013: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0034: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0075 hop3 gold docs ['DOC_0008', 'DOC_0029', 'DOC_0044'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 7) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D008*(e3), 2:D029*(e3), 3:D023(e3), 4:D035(e3), 5:D039(e3), 6:D045(e3), 7:D057(e3)
+  vector route list (rank, doc, gold?): 1:D008*(dist 0.3697), 2:D034(dist 0.5005), 3:D025(dist 0.5132), 4:D035(dist 0.5146)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D008[GRAPH+VECTOR g1 v1 0.03279]*; 2:D035[GRAPH+VECTOR g4 v4 0.03125]; 3:D029[GRAPH g2 vNone 0.01613]*; 4:D034[VECTOR gNone v2 0.01613]; 5:D023[GRAPH g3 vNone 0.01587]; 6:D025[VECTOR gNone v3 0.01587]; 7:D039[GRAPH g5 vNone 0.01538]; 8:D045[GRAPH g6 vNone 0.01515]; 9:D057[GRAPH g7 vNone 0.01493]
+  context (final 4): D008*, D035, D029*, D034
+    gold DOC_0008: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0029: graph-list rank 2, vector-list rank None, merged position 3, in hybrid context True
+    gold DOC_0044: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0076 hop3 gold docs ['DOC_0013', 'DOC_0014', 'DOC_0035'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 3) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D012(e1), 2:D013*(e1), 3:D011(e1)
+  vector route list (rank, doc, gold?): 1:D013*(dist 0.4077), 2:D012(dist 0.5142), 3:D021(dist 0.5186), 4:D006(dist 0.5234)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D012[GRAPH+VECTOR g1 v2 0.03252]; 2:D013[GRAPH+VECTOR g2 v1 0.03252]*; 3:D011[GRAPH g3 vNone 0.01587]; 4:D021[VECTOR gNone v3 0.01587]; 5:D006[VECTOR gNone v4 0.01562]
+  context (final 4): D012, D013*, D011, D021
+    gold DOC_0013: graph-list rank 2, vector-list rank 1, merged position 2, in hybrid context True
+    gold DOC_0014: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0035: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0077 hop3 gold docs ['DOC_0007', 'DOC_0028', 'DOC_0043'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 7) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D007*(e2), 2:D028*(e2), 3:D022(e2), 4:D034(e2), 5:D038(e2), 6:D044(e2), 7:D056(e2)
+  vector route list (rank, doc, gold?): 1:D007*(dist 0.4333), 2:D013(dist 0.5967), 3:D023(dist 0.5990), 4:D014(dist 0.6087)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D007[GRAPH+VECTOR g1 v1 0.03279]*; 2:D028[GRAPH g2 vNone 0.01613]*; 3:D013[VECTOR gNone v2 0.01613]; 4:D022[GRAPH g3 vNone 0.01587]; 5:D023[VECTOR gNone v3 0.01587]; 6:D034[GRAPH g4 vNone 0.01562]; 7:D014[VECTOR gNone v4 0.01562]; 8:D038[GRAPH g5 vNone 0.01538]; 9:D044[GRAPH g6 vNone 0.01515]; 10:D056[GRAPH g7 vNone 0.01493]
+  context (final 4): D007*, D028*, D013, D022
+    gold DOC_0007: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0028: graph-list rank 2, vector-list rank None, merged position 2, in hybrid context True
+    gold DOC_0043: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0078 hop3 gold docs ['DOC_0001', 'DOC_0022', 'DOC_0037'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 8) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D001*(e2), 2:D016(e2), 3:D022*(e2), 4:D028(e2), 5:D034(e2), 6:D038(e2), 7:D044(e2), 8:D056(e2)
+  vector route list (rank, doc, gold?): 1:D001*(dist 0.4923), 2:D036(dist 0.5534), 3:D030(dist 0.5619), 4:D026(dist 0.5707)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D001[GRAPH+VECTOR g1 v1 0.03279]*; 2:D016[GRAPH g2 vNone 0.01613]; 3:D036[VECTOR gNone v2 0.01613]; 4:D022[GRAPH g3 vNone 0.01587]*; 5:D030[VECTOR gNone v3 0.01587]; 6:D028[GRAPH g4 vNone 0.01562]; 7:D026[VECTOR gNone v4 0.01562]; 8:D034[GRAPH g5 vNone 0.01538]; 9:D038[GRAPH g6 vNone 0.01515]; 10:D044[GRAPH g7 vNone 0.01493]
+  context (final 4): D001*, D016, D036, D022*
+    gold DOC_0001: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0022: graph-list rank 3, vector-list rank None, merged position 4, in hybrid context True
+    gold DOC_0037: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0079 hop3 gold docs ['DOC_0014', 'DOC_0015', 'DOC_0016'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 8) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D013(e2), 2:D014*(e2), 3:D035(e2), 4:D023(e2), 5:D029(e2), 6:D039(e2), 7:D045(e2), 8:D057(e2)
+  vector route list (rank, doc, gold?): 1:D014*(dist 0.3190), 2:D013(dist 0.3980), 3:D005(dist 0.4170), 4:D001(dist 0.4280)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D013[GRAPH+VECTOR g1 v2 0.03252]; 2:D014[GRAPH+VECTOR g2 v1 0.03252]*; 3:D035[GRAPH g3 vNone 0.01587]; 4:D005[VECTOR gNone v3 0.01587]; 5:D023[GRAPH g4 vNone 0.01562]; 6:D001[VECTOR gNone v4 0.01562]; 7:D029[GRAPH g5 vNone 0.01538]; 8:D039[GRAPH g6 vNone 0.01515]; 9:D045[GRAPH g7 vNone 0.01493]; 10:D057[GRAPH g8 vNone 0.01471]
+  context (final 4): D013, D014*, D035, D005
+    gold DOC_0014: graph-list rank 2, vector-list rank 1, merged position 2, in hybrid context True
+    gold DOC_0015: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0016: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0080 hop3 gold docs ['DOC_0007', 'DOC_0028', 'DOC_0043'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 7) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D007*(e2), 2:D028*(e2), 3:D022(e2), 4:D034(e2), 5:D038(e2), 6:D044(e2), 7:D056(e2)
+  vector route list (rank, doc, gold?): 1:D007*(dist 0.3998), 2:D013(dist 0.5384), 3:D014(dist 0.5412), 4:D035(dist 0.5636)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D007[GRAPH+VECTOR g1 v1 0.03279]*; 2:D028[GRAPH g2 vNone 0.01613]*; 3:D013[VECTOR gNone v2 0.01613]; 4:D022[GRAPH g3 vNone 0.01587]; 5:D014[VECTOR gNone v3 0.01587]; 6:D034[GRAPH g4 vNone 0.01562]; 7:D035[VECTOR gNone v4 0.01562]; 8:D038[GRAPH g5 vNone 0.01538]; 9:D044[GRAPH g6 vNone 0.01515]; 10:D056[GRAPH g7 vNone 0.01493]
+  context (final 4): D007*, D028*, D013, D022
+    gold DOC_0007: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0028: graph-list rank 2, vector-list rank None, merged position 2, in hybrid context True
+    gold DOC_0043: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0081 hop3 gold docs ['DOC_0002', 'DOC_0023', 'DOC_0038'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 8) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D002*(e2), 2:D017(e2), 3:D023*(e2), 4:D029(e2), 5:D035(e2), 6:D039(e2), 7:D045(e2), 8:D057(e2)
+  vector route list (rank, doc, gold?): 1:D002*(dist 0.4616), 2:D046(dist 0.5672), 3:D037(dist 0.6016), 4:D030(dist 0.6037)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D002[GRAPH+VECTOR g1 v1 0.03279]*; 2:D017[GRAPH g2 vNone 0.01613]; 3:D046[VECTOR gNone v2 0.01613]; 4:D023[GRAPH g3 vNone 0.01587]*; 5:D037[VECTOR gNone v3 0.01587]; 6:D029[GRAPH g4 vNone 0.01562]; 7:D030[VECTOR gNone v4 0.01562]; 8:D035[GRAPH g5 vNone 0.01538]; 9:D039[GRAPH g6 vNone 0.01515]; 10:D045[GRAPH g7 vNone 0.01493]
+  context (final 4): D002*, D017, D046, D023*
+    gold DOC_0002: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0023: graph-list rank 3, vector-list rank None, merged position 4, in hybrid context True
+    gold DOC_0038: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0082 hop3 gold docs ['DOC_0007', 'DOC_0028', 'DOC_0043'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 7) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D007*(e2), 2:D028*(e2), 3:D022(e2), 4:D034(e2), 5:D038(e2), 6:D044(e2), 7:D056(e2)
+  vector route list (rank, doc, gold?): 1:D007*(dist 0.3882), 2:D014(dist 0.4843), 3:D030(dist 0.4905), 4:D035(dist 0.5030)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D007[GRAPH+VECTOR g1 v1 0.03279]*; 2:D028[GRAPH g2 vNone 0.01613]*; 3:D014[VECTOR gNone v2 0.01613]; 4:D022[GRAPH g3 vNone 0.01587]; 5:D030[VECTOR gNone v3 0.01587]; 6:D034[GRAPH g4 vNone 0.01562]; 7:D035[VECTOR gNone v4 0.01562]; 8:D038[GRAPH g5 vNone 0.01538]; 9:D044[GRAPH g6 vNone 0.01515]; 10:D056[GRAPH g7 vNone 0.01493]
+  context (final 4): D007*, D028*, D014, D022
+    gold DOC_0007: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0028: graph-list rank 2, vector-list rank None, merged position 2, in hybrid context True
+    gold DOC_0043: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0083 hop3 gold docs ['DOC_0011', 'DOC_0012', 'DOC_0033'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 1) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D011*(e0)
+  vector route list (rank, doc, gold?): 1:D011*(dist 0.5378), 2:D013(dist 0.6428), 3:D006(dist 0.6701), 4:D014(dist 0.6813)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D011[GRAPH+VECTOR g1 v1 0.03279]*; 2:D013[VECTOR gNone v2 0.01613]; 3:D006[VECTOR gNone v3 0.01587]; 4:D014[VECTOR gNone v4 0.01562]
+  context (final 4): D011*, D013, D006, D014
+    gold DOC_0011: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0012: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0033: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0084 hop3 gold docs ['DOC_0015', 'DOC_0016', 'DOC_0022'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 8) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D014(e2), 2:D015*(e2), 3:D036(e2), 4:D024(e2), 5:D030(e2), 6:D040(e2), 7:D046(e2), 8:D058(e2)
+  vector route list (rank, doc, gold?): 1:D015*(dist 0.5521), 2:D014(dist 0.5771), 3:D001(dist 0.6428), 4:D037(dist 0.6441)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D014[GRAPH+VECTOR g1 v2 0.03252]; 2:D015[GRAPH+VECTOR g2 v1 0.03252]*; 3:D036[GRAPH g3 vNone 0.01587]; 4:D001[VECTOR gNone v3 0.01587]; 5:D024[GRAPH g4 vNone 0.01562]; 6:D037[VECTOR gNone v4 0.01562]; 7:D030[GRAPH g5 vNone 0.01538]; 8:D040[GRAPH g6 vNone 0.01515]; 9:D046[GRAPH g7 vNone 0.01493]; 10:D058[GRAPH g8 vNone 0.01471]
+  context (final 4): D014, D015*, D036, D001
+    gold DOC_0015: graph-list rank 2, vector-list rank 1, merged position 2, in hybrid context True
+    gold DOC_0016: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0022: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0085 hop3 gold docs ['DOC_0018', 'DOC_0024', 'DOC_0039'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 2) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D017(e0), 2:D018*(e0)
+  vector route list (rank, doc, gold?): 1:D018*(dist 0.4376), 2:D031(dist 0.4951), 3:D046(dist 0.5053), 4:D037(dist 0.5134)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D018[GRAPH+VECTOR g2 v1 0.03252]*; 2:D017[GRAPH g1 vNone 0.01639]; 3:D031[VECTOR gNone v2 0.01613]; 4:D046[VECTOR gNone v3 0.01587]; 5:D037[VECTOR gNone v4 0.01562]
+  context (final 4): D018*, D017, D031, D046
+    gold DOC_0018: graph-list rank 2, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0024: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+    gold DOC_0039: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0086 hop3 gold docs ['DOC_0020', 'DOC_0026', 'DOC_0041'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 2) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D019(e0), 2:D020*(e0)
+  vector route list (rank, doc, gold?): 1:D020*(dist 0.4482), 2:D036(dist 0.5499), 3:D026*(dist 0.5607), 4:D030(dist 0.5643)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D020[GRAPH+VECTOR g2 v1 0.03252]*; 2:D019[GRAPH g1 vNone 0.01639]; 3:D036[VECTOR gNone v2 0.01613]; 4:D026[VECTOR gNone v3 0.01587]*; 5:D030[VECTOR gNone v4 0.01562]
+  context (final 4): D020*, D019, D036, D026*
+    gold DOC_0020: graph-list rank 2, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0026: graph-list rank None, vector-list rank 3, merged position 4, in hybrid context True
+    gold DOC_0041: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0087 hop3 gold docs ['DOC_0013', 'DOC_0014', 'DOC_0035'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 3) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D012(e1), 2:D013*(e1), 3:D011(e1)
+  vector route list (rank, doc, gold?): 1:D013*(dist 0.5123), 2:D012(dist 0.5939), 3:D047(dist 0.6405), 4:D014*(dist 0.6472)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D012[GRAPH+VECTOR g1 v2 0.03252]; 2:D013[GRAPH+VECTOR g2 v1 0.03252]*; 3:D011[GRAPH g3 vNone 0.01587]; 4:D047[VECTOR gNone v3 0.01587]; 5:D014[VECTOR gNone v4 0.01562]*
+  context (final 4): D012, D013*, D011, D047
+    gold DOC_0013: graph-list rank 2, vector-list rank 1, merged position 2, in hybrid context True
+    gold DOC_0014: graph-list rank None, vector-list rank 4, merged position 5, in hybrid context False
+    gold DOC_0035: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0088 hop3 gold docs ['DOC_0010', 'DOC_0031', 'DOC_0046'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 6) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D010*(e2), 2:D031*(e2), 3:D025(e2), 4:D041(e2), 5:D047(e2), 6:D059(e2)
+  vector route list (rank, doc, gold?): 1:D010*(dist 0.4546), 2:D039(dist 0.5254), 3:D031*(dist 0.5430), 4:D036(dist 0.5476)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D010[GRAPH+VECTOR g1 v1 0.03279]*; 2:D031[GRAPH+VECTOR g2 v3 0.03200]*; 3:D039[VECTOR gNone v2 0.01613]; 4:D025[GRAPH g3 vNone 0.01587]; 5:D041[GRAPH g4 vNone 0.01562]; 6:D036[VECTOR gNone v4 0.01562]; 7:D047[GRAPH g5 vNone 0.01538]; 8:D059[GRAPH g6 vNone 0.01515]
+  context (final 4): D010*, D031*, D039, D025
+    gold DOC_0010: graph-list rank 1, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0031: graph-list rank 2, vector-list rank 3, merged position 2, in hybrid context True
+    gold DOC_0046: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0089 hop3 gold docs ['DOC_0016', 'DOC_0022', 'DOC_0037'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 9) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D015(e2), 2:D016*(e2), 3:D001(e2), 4:D022*(e2), 5:D028(e2), 6:D034(e2), 7:D038(e2), 8:D044(e2), 9:D056(e2)
+  vector route list (rank, doc, gold?): 1:D016*(dist 0.5612), 2:D026(dist 0.5826), 3:D036(dist 0.5978), 4:D024(dist 0.6051)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D016[GRAPH+VECTOR g2 v1 0.03252]*; 2:D015[GRAPH g1 vNone 0.01639]; 3:D026[VECTOR gNone v2 0.01613]; 4:D001[GRAPH g3 vNone 0.01587]; 5:D036[VECTOR gNone v3 0.01587]; 6:D022[GRAPH g4 vNone 0.01562]*; 7:D024[VECTOR gNone v4 0.01562]; 8:D028[GRAPH g5 vNone 0.01538]; 9:D034[GRAPH g6 vNone 0.01515]; 10:D038[GRAPH g7 vNone 0.01493]
+  context (final 4): D016*, D015, D026, D001
+    gold DOC_0016: graph-list rank 2, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0022: graph-list rank 4, vector-list rank None, merged position 6, in hybrid context False
+    gold DOC_0037: graph-list rank None, vector-list rank None, merged position None, in hybrid context False
+--------------------------------------------------------------------------------------------------------------
+Q_0090 hop3 gold docs ['DOC_0017', 'DOC_0023', 'DOC_0038'] intent=LOCAL resolved seeds=1  hybrid_ok=False graph_only_ok=False (len 10) vector_only_ok=False
+  graph route list (rank, doc, edges, gold?): 1:D016(e3), 2:D017*(e3), 3:D002(e2), 4:D023*(e2), 5:D029(e2), 6:D035(e2), 7:D039(e2), 8:D045(e2), 9:D057(e2), 10:D018(e1)
+  vector route list (rank, doc, gold?): 1:D017*(dist 0.4578), 2:D023*(dist 0.5852), 3:D035(dist 0.6000), 4:D029(dist 0.6048)
+  merged RRF ranking (pos, doc, routes, graph_rank, vector_rank, score, gold?): 1:D017[GRAPH+VECTOR g2 v1 0.03252]*; 2:D023[GRAPH+VECTOR g4 v2 0.03175]*; 3:D035[GRAPH+VECTOR g6 v3 0.03102]; 4:D029[GRAPH+VECTOR g5 v4 0.03101]; 5:D016[GRAPH g1 vNone 0.01639]; 6:D002[GRAPH g3 vNone 0.01587]; 7:D039[GRAPH g7 vNone 0.01493]; 8:D045[GRAPH g8 vNone 0.01471]; 9:D057[GRAPH g9 vNone 0.01449]; 10:D018[GRAPH g10 vNone 0.01429]
+  context (final 4): D017*, D023*, D035, D029
+    gold DOC_0017: graph-list rank 2, vector-list rank 1, merged position 1, in hybrid context True
+    gold DOC_0023: graph-list rank 4, vector-list rank 2, merged position 2, in hybrid context True
+    gold DOC_0038: graph-list rank None, vector-list rank None, merged position None, in hybrid context False

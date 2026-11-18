@@ -1,0 +1,30 @@
+==============================================================================================================
+PHASE 3c - SEED 11 CONFIRMATION: ALL-GOLD EVIDENCE RECALL AT K=4 (retrieval only), Wilson 95% intervals
+answerable questions: 105 {'hop1': 30, 'hop2': 30, 'hop3': 30, 'alias': 15}
+| method | hop1 | hop2 | hop3 | alias | max distinct docs returned | ERROR |
+|---|---|---|---|---|---|---|
+| hybrid | 30/30 = 100.0% [88.6, 100.0] | 11/30 = 36.7% [21.9, 54.5] | 0/30 = 0.0% [0.0, 11.4] | 12/15 = 80.0% [54.8, 93.0] | 4 | 0 |
+| vector_only | 30/30 = 100.0% [88.6, 100.0] | 4/30 = 13.3% [5.3, 29.7] | 0/30 = 0.0% [0.0, 11.4] | 7/15 = 46.7% [24.8, 69.9] | 4 | 0 |
+| B1_dense_top4 | 30/30 = 100.0% [88.6, 100.0] | 4/30 = 13.3% [5.3, 29.7] | 0/30 = 0.0% [0.0, 11.4] | 7/15 = 46.7% [24.8, 69.9] | 4 | 0 |
+| B7_iter_dense | 30/30 = 100.0% [88.6, 100.0] | 17/30 = 56.7% [39.2, 72.6] | 1/30 = 3.3% [0.6, 16.7] | 9/15 = 60.0% [35.7, 80.2] | 4 | 0 |
+| B9_overlap_top1 | 30/30 = 100.0% [88.6, 100.0] | 23/30 = 76.7% [59.1, 88.2] | 0/30 = 0.0% [0.0, 11.4] | 11/15 = 73.3% [48.0, 89.1] | 4 | 0 |
+| B10_two_step | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 5/30 = 16.7% [7.3, 33.6] | 9/15 = 60.0% [35.7, 80.2] | 4 | 0 |
+planner failures (cached plans): 0 []; query ERRORs hybrid=[] vector_only=[] (an ERROR counts as not retrieved and is listed here separately)
+
+PRIMARY OUTCOMES (paired exact two-sided sign test on per-question success; Holm over the 3 tests; alpha 0.05)
+| outcome | group | baseline | N | hybrid | baseline | diff (points) | both | hybrid only | baseline only | neither | p (sign) | p (Holm) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| P1 | hop2 | B9_overlap_top1 | 30 | 11/30 (36.7%) | 23/30 (76.7%) | -40.0 | 11 | 0 | 12 | 7 | 0.0005 | 0.0015 |
+| P2 | hop3 | B10_two_step | 30 | 0/30 (0.0%) | 5/30 (16.7%) | -16.7 | 0 | 0 | 5 | 25 | 0.0625 | 0.1250 |
+| P3 | alias | B9_overlap_top1 | 15 | 12/15 (80.0%) | 11/15 (73.3%) | +6.7 | 10 | 2 | 1 | 2 | 1.0000 | 1.0000 |
+
+DECISION STATEMENTS (pre-registered rule)
+  P1 (hybrid vs B9_overlap_top1 on hop2): graph-free baseline matches or exceeds hybrid
+  P2 (hybrid vs B10_two_step on hop3): graph-free baseline matches or exceeds hybrid
+  P3 (hybrid vs B9_overlap_top1 on alias): inconclusive
+
+DESCRIPTIVE (no decision): hybrid vs vector_only per group
+  hop1: hybrid 30/30 = 100.0% [88.6, 100.0] | vector_only 30/30 = 100.0% [88.6, 100.0] | hybrid only 0, vector only 0, sign p=1.0000 (unadjusted)
+  hop2: hybrid 11/30 = 36.7% [21.9, 54.5] | vector_only 4/30 = 13.3% [5.3, 29.7] | hybrid only 7, vector only 0, sign p=0.0156 (unadjusted)
+  hop3: hybrid 0/30 = 0.0% [0.0, 11.4] | vector_only 0/30 = 0.0% [0.0, 11.4] | hybrid only 0, vector only 0, sign p=1.0000 (unadjusted)
+  alias: hybrid 12/15 = 80.0% [54.8, 93.0] | vector_only 7/15 = 46.7% [24.8, 69.9] | hybrid only 5, vector only 0, sign p=0.0625 (unadjusted)

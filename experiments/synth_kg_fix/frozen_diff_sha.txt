@@ -1,0 +1,5 @@
+frozen at 2026-11-16T19:59:13+0530 (before seed-11 corpus generation)
+HEAD=3877a4d02be92ca499fbb001e3a7afad971d4a4a
+git_diff_sha256=9f79ab6d30ead1b9332071374ba4794d5ed03f4d28ee82ca75a08e0499439ab4
+all_files_sha256=73e95fa2af0c6797537454f5bfbf9522ef3b7a2cacbd8364f4ecb4008276fe54
+note: git_diff_sha256 is the hash specified in the task (git diff -- src tests configs prompts | shasum -a 256); it does not cover untracked files (tests/test_synth_kg_fixes.py, prompts/relationship_extraction_v1_1.txt). all_files_sha256 is a supplementary hash over every file under src tests configs prompts.

@@ -1,0 +1,150 @@
+======================================================================================================================
+seed 11 (kb_seed11): corpus=corpus_seed11 KB=/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg_fix/kb_seed11/synth_company_kb
+ontology rule DEVELOPS: source in ['EMPLOYEE', 'DEPARTMENT'], target in ['PRODUCT']
+gold DEVELOPS edges: 15; gold (source type, target type) pairs: {('DEPARTMENT', 'PRODUCT'): 15}; pairs allowed by the DEVELOPS rule: 15/15
+
+TABLE A (seed 11 (kb_seed11)): per gold DEVELOPS edge
+| edge | doc | gold source (type) | gold target (type) | fate | mention types source / target | extracted relation (dir, mention types, status ML -> final) | cause |
+|---|---|---|---|---|---|---|---|
+| EDGE_0001 | DOC_0022 | Raelonmar Infrastructure Group (DEPARTMENT) | Lorelrix Mesh (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0002 | DOC_0023 | Maelinvane Core Platform Division (DEPARTMENT) | Eldenfen Matrix (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0003 | DOC_0024 | Aethorvath Applied Automation Wing (DEPARTMENT) | Zorarvek Cluster (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0004 | DOC_0025 | Morithvor Foundational Services Unit (DEPARTMENT) | Synaldor Hub (PRODUCT) | A | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) VALIDATED->VALIDATED | OK (validated exact) |
+| EDGE_0005 | DOC_0026 | Zantothvane Applied Automation Wing (DEPARTMENT) | Sarkantor Engine (PRODUCT) | A | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) VALIDATED->VALIDATED | OK (validated exact) |
+| EDGE_0006 | DOC_0027 | Fennuthreth Systems Engineering Unit (DEPARTMENT) | Synokwyn Protocol (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0007 | DOC_0028 | Ulxintor Systems Engineering Unit (DEPARTMENT) | Vaelelmar Hub (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0008 | DOC_0029 | Eldismir Applied Automation Wing (DEPARTMENT) | Vaeluntex Protocol (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0009 | DOC_0030 | Noxinzor Systems Engineering Unit (DEPARTMENT) | Wyrinzar Workspace (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0010 | DOC_0031 | Gorardor Analytics Laboratory (DEPARTMENT) | Syniktex Mesh (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0011 | DOC_0032 | Aldokrak Core Platform Division (DEPARTMENT) | Fennosron Relay (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0012 | DOC_0033 | Zorathmoth Analytics Laboratory (DEPARTMENT) | Quenontis Relay (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0013 | DOC_0034 | Haelostor Core Platform Division (DEPARTMENT) | Lorelrix Mesh (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) REJECTED_ENDPOINT_NOT_IN_EVIDENCE->REJECTED_ENDPOINT_NOT_IN_EVIDENCE | EVIDENCE_REJECT |
+| EDGE_0014 | DOC_0035 | Xylounmar Infrastructure Group (DEPARTMENT) | Eldenfen Matrix (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) REJECTED_QUOTE_MISMATCH->REJECTED_QUOTE_MISMATCH | EVIDENCE_REJECT |
+| EDGE_0015 | DOC_0036 | Vandolkest Systems Engineering Unit (DEPARTMENT) | Zorarvek Cluster (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+
+CAUSE COUNTS (seed 11 (kb_seed11)): {'REVERSED': 11, 'OK (validated exact)': 2, 'EVIDENCE_REJECT': 2}
+FATE COUNTS (seed 11 (kb_seed11)): {'C': 11, 'A': 2, 'D': 2}
+
+TABLE B (seed 11 (kb_seed11)): extracted (relation, source mention type -> target mention type) for triples joining the endpoints of a gold DEVELOPS edge
+| relation | direction vs gold | source mention type | target mention type | pair allowed by that relation's rule | status at mention level | final status | count |
+|---|---|---|---|---|---|---|---|
+| DEVELOPS | REV | PRODUCT | DEPARTMENT | False | REJECTED_ONTOLOGY | REJECTED_ONTOLOGY | 11 |
+| DEVELOPS | fwd | DEPARTMENT | PRODUCT | True | VALIDATED | VALIDATED | 2 |
+| DEVELOPS | fwd | DEPARTMENT | PRODUCT | True | REJECTED_ENDPOINT_NOT_IN_EVIDENCE | REJECTED_ENDPOINT_NOT_IN_EVIDENCE | 1 |
+| DEVELOPS | fwd | DEPARTMENT | PRODUCT | True | REJECTED_QUOTE_MISMATCH | REJECTED_QUOTE_MISMATCH | 1 |
+allowed pairs per relation in configs/domains/company.yaml: MANAGES: ['EMPLOYEE'] -> ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT']; BELONGS_TO: ['EMPLOYEE', 'PRODUCT'] -> ['DEPARTMENT']; DEVELOPS: ['EMPLOYEE', 'DEPARTMENT'] -> ['PRODUCT']; BUILT_WITH: ['PRODUCT'] -> ['TECHNOLOGY']; SERVES: ['PRODUCT', 'DEPARTMENT'] -> ['CLIENT']
+
+TABLE C (seed 11 (kb_seed11)): ALL triples whose mention-level status is REJECTED_ONTOLOGY: relation, mention type pair, canonical type pair, final status
+| relation | mention types | canonical types | canonical pair allowed | final status | count |
+|---|---|---|---|---|---|
+| DEVELOPS | PRODUCT->DEPARTMENT | PRODUCT->DEPARTMENT | canonical pair allowed=False | REJECTED_ONTOLOGY | 11 |
+| SERVES | EMPLOYEE->CLIENT | EMPLOYEE->EMPLOYEE | canonical pair allowed=False | REJECTED_ONTOLOGY | 3 |
+| MANAGES | DEPARTMENT->EMPLOYEE | DEPARTMENT->EMPLOYEE | canonical pair allowed=False | REJECTED_ONTOLOGY | 2 |
+| DEVELOPS | EMPLOYEE->DEPARTMENT | EMPLOYEE->DEPARTMENT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| SERVES | EMPLOYEE->DEPARTMENT | EMPLOYEE->DEPARTMENT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| MANAGES | PRODUCT->EMPLOYEE | EMPLOYEE->EMPLOYEE | canonical pair allowed=True | VALIDATED | 1 |
+| SERVES | DEPARTMENT->PRODUCT | DEPARTMENT->CLIENT | canonical pair allowed=True | VALIDATED | 1 |
+| BUILT_WITH | TECHNOLOGY->PRODUCT | PRODUCT->PRODUCT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| DEVELOPS | PRODUCT->TECHNOLOGY | PRODUCT->PRODUCT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| BUILT_WITH | TECHNOLOGY->PRODUCT | TECHNOLOGY->PRODUCT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| MAINTAINED | PRODUCT->DEPARTMENT | PRODUCT->DEPARTMENT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+REJECTED_ONTOLOGY at mention level: 24; canonical pair would be allowed: 2; final status VALIDATED (revived by revalidation): 2; still rejected: 22
+resolution_report.json revalidation summary: recomputed=69 validated_to_rejected=2 rejected_to_validated=2
+======================================================================================================================
+seed 7 (kb_dev, after fixes): corpus=corpus_final KB=/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg_fix/kb_dev/synth_company_kb
+ontology rule DEVELOPS: source in ['EMPLOYEE', 'DEPARTMENT'], target in ['PRODUCT']
+gold DEVELOPS edges: 15; gold (source type, target type) pairs: {('DEPARTMENT', 'PRODUCT'): 15}; pairs allowed by the DEVELOPS rule: 15/15
+
+TABLE A (seed 7 (kb_dev, after fixes)): per gold DEVELOPS edge
+| edge | doc | gold source (type) | gold target (type) | fate | mention types source / target | extracted relation (dir, mention types, status ML -> final) | cause |
+|---|---|---|---|---|---|---|---|
+| EDGE_0001 | DOC_0022 | Zanistis Infrastructure Group (DEPARTMENT) | Haelentor Hub (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0002 | DOC_0023 | Zantonnax Infrastructure Group (DEPARTMENT) | Iskardyn Pipeline (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0003 | DOC_0024 | Oryxonvath Systems Engineering Unit (DEPARTMENT) | Sarkinfen Matrix (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ENDPOINT_NOT_IN_EVIDENCE->REJECTED_ENDPOINT_NOT_IN_EVIDENCE | REVERSED |
+| EDGE_0004 | DOC_0025 | Synethgath Systems Engineering Unit (DEPARTMENT) | Haelenrix Gateway (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0005 | DOC_0026 | Kronanvek Core Platform Division (DEPARTMENT) | Wyrithwyn Pipeline (PRODUCT) | A | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) VALIDATED->VALIDATED | OK (validated exact) |
+| EDGE_0006 | DOC_0027 | Aetharkest Systems Engineering Unit (DEPARTMENT) | Zanolric Cluster (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ENDPOINT_NOT_IN_EVIDENCE->REJECTED_ENDPOINT_NOT_IN_EVIDENCE | REVERSED |
+| EDGE_0007 | DOC_0028 | Iskorlan Applied Automation Wing (DEPARTMENT) | Jorustex Nexus (PRODUCT) | A | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) VALIDATED->VALIDATED | OK (validated exact) |
+| EDGE_0008 | DOC_0029 | Kaelinlux Systems Engineering Unit (DEPARTMENT) | Lyronvor Nexus (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0009 | DOC_0030 | Noxontor Foundational Services Unit (DEPARTMENT) | Faelolnok Protocol (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ENDPOINT_NOT_IN_EVIDENCE->REJECTED_ENDPOINT_NOT_IN_EVIDENCE | REVERSED |
+| EDGE_0010 | DOC_0031 | Morenvek Analytics Laboratory (DEPARTMENT) | Ulxarron Matrix (PRODUCT) | A | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) VALIDATED->VALIDATED | OK (validated exact) |
+| EDGE_0011 | DOC_0032 | Eldornax Infrastructure Group (DEPARTMENT) | Eldothvix Hub (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_QUOTE_MISMATCH->REJECTED_QUOTE_MISMATCH | REVERSED |
+| EDGE_0012 | DOC_0033 | Durnalnok Analytics Laboratory (DEPARTMENT) | Maelengath Hub (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0013 | DOC_0034 | Nebunnax Foundational Services Unit (DEPARTMENT) | Haelentor Hub (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0014 | DOC_0035 | Vandothnok Foundational Services Unit (DEPARTMENT) | Iskardyn Pipeline (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_QUOTE_MISMATCH->REJECTED_QUOTE_MISMATCH | REVERSED |
+| EDGE_0015 | DOC_0036 | Brecolron Systems Engineering Unit (DEPARTMENT) | Sarkinfen Matrix (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+
+CAUSE COUNTS (seed 7 (kb_dev, after fixes)): {'REVERSED': 12, 'OK (validated exact)': 3}
+FATE COUNTS (seed 7 (kb_dev, after fixes)): {'C': 7, 'D': 5, 'A': 3}
+
+TABLE B (seed 7 (kb_dev, after fixes)): extracted (relation, source mention type -> target mention type) for triples joining the endpoints of a gold DEVELOPS edge
+| relation | direction vs gold | source mention type | target mention type | pair allowed by that relation's rule | status at mention level | final status | count |
+|---|---|---|---|---|---|---|---|
+| DEVELOPS | REV | PRODUCT | DEPARTMENT | False | REJECTED_ONTOLOGY | REJECTED_ONTOLOGY | 7 |
+| DEVELOPS | REV | PRODUCT | DEPARTMENT | False | REJECTED_ENDPOINT_NOT_IN_EVIDENCE | REJECTED_ENDPOINT_NOT_IN_EVIDENCE | 3 |
+| DEVELOPS | fwd | DEPARTMENT | PRODUCT | True | VALIDATED | VALIDATED | 3 |
+| DEVELOPS | REV | PRODUCT | DEPARTMENT | False | REJECTED_QUOTE_MISMATCH | REJECTED_QUOTE_MISMATCH | 2 |
+allowed pairs per relation in configs/domains/company.yaml: MANAGES: ['EMPLOYEE'] -> ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT']; BELONGS_TO: ['EMPLOYEE', 'PRODUCT'] -> ['DEPARTMENT']; DEVELOPS: ['EMPLOYEE', 'DEPARTMENT'] -> ['PRODUCT']; BUILT_WITH: ['PRODUCT'] -> ['TECHNOLOGY']; SERVES: ['PRODUCT', 'DEPARTMENT'] -> ['CLIENT']
+
+TABLE C (seed 7 (kb_dev, after fixes)): ALL triples whose mention-level status is REJECTED_ONTOLOGY: relation, mention type pair, canonical type pair, final status
+| relation | mention types | canonical types | canonical pair allowed | final status | count |
+|---|---|---|---|---|---|
+| DEVELOPS | PRODUCT->DEPARTMENT | PRODUCT->DEPARTMENT | canonical pair allowed=False | REJECTED_ONTOLOGY | 7 |
+| MANAGES | EMPLOYEE->CLIENT | EMPLOYEE->DEPARTMENT | canonical pair allowed=True | VALIDATED | 1 |
+| MANAGES | DEPARTMENT->EMPLOYEE | DEPARTMENT->EMPLOYEE | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| BELONGS_TO | DEPARTMENT->EMPLOYEE | DEPARTMENT->EMPLOYEE | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| SERVES | EMPLOYEE->CLIENT | EMPLOYEE->CLIENT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| SERVES | EMPLOYEE->CLIENT | EMPLOYEE->EMPLOYEE | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| BUILT_WITH | TECHNOLOGY->PRODUCT | TECHNOLOGY->PRODUCT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| MAINTAINES | DEPARTMENT->PRODUCT | DEPARTMENT->TECHNOLOGY | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| MAINTAINS | DEPARTMENT->PRODUCT | DEPARTMENT->TECHNOLOGY | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+REJECTED_ONTOLOGY at mention level: 15; canonical pair would be allowed: 1; final status VALIDATED (revived by revalidation): 1; still rejected: 14
+resolution_report.json revalidation summary: recomputed=70 validated_to_rejected=3 rejected_to_validated=1
+======================================================================================================================
+seed 7 (kb_before, original HEAD KB): corpus=corpus_final KB=/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg_fix/kb_before/synth_company_kb
+ontology rule DEVELOPS: source in ['EMPLOYEE', 'DEPARTMENT'], target in ['PRODUCT']
+gold DEVELOPS edges: 15; gold (source type, target type) pairs: {('DEPARTMENT', 'PRODUCT'): 15}; pairs allowed by the DEVELOPS rule: 15/15
+
+TABLE A (seed 7 (kb_before, original HEAD KB)): per gold DEVELOPS edge
+| edge | doc | gold source (type) | gold target (type) | fate | mention types source / target | extracted relation (dir, mention types, status ML -> final) | cause |
+|---|---|---|---|---|---|---|---|
+| EDGE_0001 | DOC_0022 | Zanistis Infrastructure Group (DEPARTMENT) | Haelentor Hub (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0002 | DOC_0023 | Zantonnax Infrastructure Group (DEPARTMENT) | Iskardyn Pipeline (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0003 | DOC_0024 | Oryxonvath Systems Engineering Unit (DEPARTMENT) | Sarkinfen Matrix (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ENDPOINT_NOT_IN_EVIDENCE->REJECTED_ENDPOINT_NOT_IN_EVIDENCE | REVERSED |
+| EDGE_0004 | DOC_0025 | Synethgath Systems Engineering Unit (DEPARTMENT) | Haelenrix Gateway (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0005 | DOC_0026 | Kronanvek Core Platform Division (DEPARTMENT) | Wyrithwyn Pipeline (PRODUCT) | E | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) VALIDATED->VALIDATED | OK (validated exact) |
+| EDGE_0006 | DOC_0027 | Aetharkest Systems Engineering Unit (DEPARTMENT) | Zanolric Cluster (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ENDPOINT_NOT_IN_EVIDENCE->REJECTED_ENDPOINT_NOT_IN_EVIDENCE | REVERSED |
+| EDGE_0007 | DOC_0028 | Iskorlan Applied Automation Wing (DEPARTMENT) | Jorustex Nexus (PRODUCT) | A | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) VALIDATED->VALIDATED | OK (validated exact) |
+| EDGE_0008 | DOC_0029 | Kaelinlux Systems Engineering Unit (DEPARTMENT) | Lyronvor Nexus (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0009 | DOC_0030 | Noxontor Foundational Services Unit (DEPARTMENT) | Faelolnok Protocol (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ENDPOINT_NOT_IN_EVIDENCE->REJECTED_ENDPOINT_NOT_IN_EVIDENCE | REVERSED |
+| EDGE_0010 | DOC_0031 | Morenvek Analytics Laboratory (DEPARTMENT) | Ulxarron Matrix (PRODUCT) | A | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS fwd (DEPARTMENT->PRODUCT) VALIDATED->VALIDATED | OK (validated exact) |
+| EDGE_0011 | DOC_0032 | Eldornax Infrastructure Group (DEPARTMENT) | Eldothvix Hub (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_QUOTE_MISMATCH->REJECTED_QUOTE_MISMATCH | REVERSED |
+| EDGE_0012 | DOC_0033 | Durnalnok Analytics Laboratory (DEPARTMENT) | Maelengath Hub (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0013 | DOC_0034 | Nebunnax Foundational Services Unit (DEPARTMENT) | Haelentor Hub (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+| EDGE_0014 | DOC_0035 | Vandothnok Foundational Services Unit (DEPARTMENT) | Iskardyn Pipeline (PRODUCT) | D | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_QUOTE_MISMATCH->REJECTED_QUOTE_MISMATCH | REVERSED |
+| EDGE_0015 | DOC_0036 | Brecolron Systems Engineering Unit (DEPARTMENT) | Sarkinfen Matrix (PRODUCT) | C | ['DEPARTMENT'] / ['PRODUCT'] | DEVELOPS REV (PRODUCT->DEPARTMENT) REJECTED_ONTOLOGY->REJECTED_ONTOLOGY | REVERSED |
+
+CAUSE COUNTS (seed 7 (kb_before, original HEAD KB)): {'REVERSED': 12, 'OK (validated exact)': 3}
+FATE COUNTS (seed 7 (kb_before, original HEAD KB)): {'C': 7, 'D': 5, 'E': 1, 'A': 2}
+
+TABLE B (seed 7 (kb_before, original HEAD KB)): extracted (relation, source mention type -> target mention type) for triples joining the endpoints of a gold DEVELOPS edge
+| relation | direction vs gold | source mention type | target mention type | pair allowed by that relation's rule | status at mention level | final status | count |
+|---|---|---|---|---|---|---|---|
+| DEVELOPS | REV | PRODUCT | DEPARTMENT | False | REJECTED_ONTOLOGY | REJECTED_ONTOLOGY | 7 |
+| DEVELOPS | REV | PRODUCT | DEPARTMENT | False | REJECTED_ENDPOINT_NOT_IN_EVIDENCE | REJECTED_ENDPOINT_NOT_IN_EVIDENCE | 3 |
+| DEVELOPS | fwd | DEPARTMENT | PRODUCT | True | VALIDATED | VALIDATED | 3 |
+| DEVELOPS | REV | PRODUCT | DEPARTMENT | False | REJECTED_QUOTE_MISMATCH | REJECTED_QUOTE_MISMATCH | 2 |
+allowed pairs per relation in configs/domains/company.yaml: MANAGES: ['EMPLOYEE'] -> ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT']; BELONGS_TO: ['EMPLOYEE', 'PRODUCT'] -> ['DEPARTMENT']; DEVELOPS: ['EMPLOYEE', 'DEPARTMENT'] -> ['PRODUCT']; BUILT_WITH: ['PRODUCT'] -> ['TECHNOLOGY']; SERVES: ['PRODUCT', 'DEPARTMENT'] -> ['CLIENT']
+
+TABLE C (seed 7 (kb_before, original HEAD KB)): ALL triples whose mention-level status is REJECTED_ONTOLOGY: relation, mention type pair, canonical type pair, final status
+| relation | mention types | canonical types | canonical pair allowed | final status | count |
+|---|---|---|---|---|---|
+| DEVELOPS | PRODUCT->DEPARTMENT | PRODUCT->DEPARTMENT | canonical pair allowed=False | REJECTED_ONTOLOGY | 7 |
+| SERVES | EMPLOYEE->CLIENT | EMPLOYEE->CLIENT | canonical pair allowed=False | REJECTED_ONTOLOGY | 2 |
+| MANAGES | EMPLOYEE->CLIENT | EMPLOYEE->CLIENT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| MANAGES | DEPARTMENT->EMPLOYEE | DEPARTMENT->EMPLOYEE | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| BELONGS_TO | DEPARTMENT->EMPLOYEE | DEPARTMENT->EMPLOYEE | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| BUILT_WITH | TECHNOLOGY->PRODUCT | TECHNOLOGY->PRODUCT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| MAINTAINES | DEPARTMENT->PRODUCT | DEPARTMENT->PRODUCT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+| MAINTAINS | DEPARTMENT->PRODUCT | DEPARTMENT->PRODUCT | canonical pair allowed=False | REJECTED_ONTOLOGY | 1 |
+REJECTED_ONTOLOGY at mention level: 15; canonical pair would be allowed: 0; final status VALIDATED (revived by revalidation): 0; still rejected: 15

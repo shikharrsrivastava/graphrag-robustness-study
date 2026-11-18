@@ -1,0 +1,34 @@
+You are an expert intelligence analyst and knowledge synthesizer. Your task is to generate a grounded, structured claim report for a community of related entities in a knowledge graph.
+
+CRITICAL GROUNDING RULES:
+1. Community co-membership does NOT imply a direct relationship. Two entities belonging to the same community must NEVER be assumed to have a relationship unless explicitly listed under VALIDATED INTERNAL RELATIONSHIPS.
+2. Only output claims that are directly supported by the listed internal relationships.
+3. Every claim must correspond to a specific relationship between a subject entity and an object entity with the exact direction and relation type provided in VALIDATED INTERNAL RELATIONSHIPS.
+4. Do not hallucinate external facts, cross-member associations, or fabrications.
+5. If no internal relationships connect certain members, do not invent connections between them.
+
+COMMUNITY ID: {community_id}
+
+MEMBER ENTITIES:
+{entities_json}
+
+VALIDATED INTERNAL RELATIONSHIPS:
+{relationships_json}
+
+INSTRUCTIONS:
+1. Identify all verified relationship claims that connect these member entities based strictly on the provided internal relationships.
+2. Return ONLY a valid JSON object matching the following schema with no markdown code blocks or surrounding text:
+
+{
+  "claims": [
+    {
+      "subject_id": "Entity ID of the subject (e.g. E001)",
+      "subject_type": "Optional canonical entity type of the subject",
+      "relation_type": "Exact relation type from VALIDATED INTERNAL RELATIONSHIPS",
+      "object_id": "Entity ID of the object (e.g. E002)",
+      "object_type": "Optional canonical entity type of the object",
+      "supporting_edge_ids": ["Relationship/edge ID from VALIDATED INTERNAL RELATIONSHIPS"]
+    }
+  ],
+  "overview": "A concise factual overview of the community theme based strictly on verified relationships."
+}

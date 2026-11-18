@@ -1,0 +1,146 @@
+[2026-11-16T03:15:56.737039] ================================================================================
+[2026-11-16T03:15:56.737165] SYNTHETIC KG BENCHMARK OVERNIGHT DRIVER LAUNCHED
+[2026-11-16T03:15:56.737184] Base Directory: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system
+[2026-11-16T03:15:56.737214] Experiment Directory: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg
+[2026-11-16T03:15:56.737224] ================================================================================
+[2026-11-16T03:15:56.737414] ================================================================================
+[2026-11-16T03:15:56.737429] STAGE 1: Building Knowledge Base 'synth_company_kb' from '/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/corpus_final/docs'
+[2026-11-16T03:15:56.737481] ================================================================================
+[2026-11-16T03:15:56.779320] Starting build attempt 1...
+Skipping relationship with unresolvable entities: src='Haelentor Hub', tgt='B037_C0000_M003'
+Skipping relationship with unresolvable entities: src='Jorustex Nexus', tgt='B043_C0000_M003'
+Rejected claim: supporting edge IDs ['REL_0039'] do not match valid edge IDs ['REL_0029'] for triple ('E045', 'SERVES', 'E060').
+[2026-11-16T03:51:01.250033] Build attempt 1 succeeded in 2104.44s.
+[2026-11-16T03:51:01.254473] ================================================================================
+[2026-11-16T03:51:01.254486] STAGE 2: Query Evaluation - Mode 'vector_only'
+[2026-11-16T03:51:01.254493] ================================================================================
+[2026-11-16T03:51:01.259823] Spawning subprocess: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/.venv/bin/python3 /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/run_overnight.py --worker_mode vector_only --run_dir /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/runs/20261116_035101_vector_only
+[2026-11-16T03:51:02.118690] Worker process started for mode 'vector_only' in '/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/runs/20261116_035101_vector_only'
+[2026-11-16T03:51:02.119606] Mode 'vector_only': 0/120 questions already completed.
+[2026-11-16T03:51:02.162347] Opening KB via HybridGraphRAG.from_existing('/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/kb/synth_company_kb')
+[2026-11-16T03:51:02.253749] Querying 120 remaining questions...
+[2026-11-16T03:55:38.320410] [10/120] vector_only | Q_0010 | latency: 29.20s | abstained: False
+[2026-11-16T04:00:14.819755] [20/120] vector_only | Q_0020 | latency: 30.36s | abstained: False
+[2026-11-16T04:05:03.577111] [30/120] vector_only | Q_0030 | latency: 25.79s | abstained: False
+[2026-11-16T04:10:13.536110] [40/120] vector_only | Q_0040 | latency: 23.98s | abstained: False
+[2026-11-16T04:15:25.676716] [50/120] vector_only | Q_0050 | latency: 40.21s | abstained: True
+[2026-11-16T04:20:41.922794] [60/120] vector_only | Q_0060 | latency: 24.53s | abstained: True
+[2026-11-16T04:26:33.629508] [70/120] vector_only | Q_0070 | latency: 42.84s | abstained: True
+[2026-11-16T04:31:51.871492] [80/120] vector_only | Q_0080 | latency: 32.78s | abstained: False
+[2026-11-16T04:37:36.976886] [90/120] vector_only | Q_0090 | latency: 28.67s | abstained: False
+[2026-11-16T04:43:03.786220] [100/120] vector_only | Q_0100 | latency: 23.21s | abstained: False
+[2026-11-16T04:47:53.068883] [110/120] vector_only | Q_0110 | latency: 35.77s | abstained: True
+[2026-11-16T04:53:27.777823] [120/120] vector_only | Q_0120 | latency: 39.63s | abstained: False
+[2026-11-16T04:53:27.791859] Worker for mode 'vector_only' completed all queries.
+[2026-11-16T04:53:28.366977] ================================================================================
+[2026-11-16T04:53:28.367552] STAGE 3: Query Evaluation - Mode 'hybrid'
+[2026-11-16T04:53:28.367582] ================================================================================
+[2026-11-16T04:53:28.388077] Spawning subprocess: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/.venv/bin/python3 /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/run_overnight.py --worker_mode hybrid --run_dir /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/runs/20261116_045328_hybrid
+[2026-11-16T04:53:29.354099] Worker process started for mode 'hybrid' in '/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/runs/20261116_045328_hybrid'
+[2026-11-16T04:53:29.354995] Mode 'hybrid': 0/120 questions already completed.
+[2026-11-16T04:53:29.390135] Opening KB via HybridGraphRAG.from_existing('/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/kb/synth_company_kb')
+[2026-11-16T04:53:29.493541] Querying 120 remaining questions...
+[2026-11-16T04:59:30.167821] [10/120] hybrid | Q_0010 | latency: 38.25s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOP'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOP'] not permitted by ontology; filtered out.
+[2026-11-16T05:05:56.898911] [20/120] hybrid | Q_0020 | latency: 38.67s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOP'] not permitted by ontology; filtered out.
+[2026-11-16T05:12:29.681090] [30/120] hybrid | Q_0030 | latency: 48.63s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+[2026-11-16T05:19:31.796253] [40/120] hybrid | Q_0040 | latency: 34.13s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+[2026-11-16T05:26:43.737843] [50/120] hybrid | Q_0050 | latency: 42.07s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+[2026-11-16T05:34:24.171577] [60/120] hybrid | Q_0060 | latency: 43.42s | abstained: False
+[2026-11-16T05:42:33.901184] [70/120] hybrid | Q_0070 | latency: 47.78s | abstained: False
+[2026-11-16T05:50:09.306357] [80/120] hybrid | Q_0080 | latency: 49.25s | abstained: False
+[2026-11-16T05:58:21.804675] [90/120] hybrid | Q_0090 | latency: 38.57s | abstained: True
+QueryPlan contained invalid relation types ['DEVELOPED_BY'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOPED_BY'] not permitted by ontology; filtered out.
+[2026-11-16T06:06:08.339794] [100/120] hybrid | Q_0100 | latency: 37.00s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPES'] not permitted by ontology; filtered out.
+[2026-11-16T06:12:36.836435] [110/120] hybrid | Q_0110 | latency: 33.90s | abstained: True
+QueryPlan contained invalid relation types ['DEVELOPES'] not permitted by ontology; filtered out.
+[2026-11-16T06:20:37.856054] [120/120] hybrid | Q_0120 | latency: 62.18s | abstained: True
+[2026-11-16T06:20:37.865738] Worker for mode 'hybrid' completed all queries.
+[2026-11-16T06:20:38.539895] ================================================================================
+[2026-11-16T06:20:38.540420] STAGE 4: Query Evaluation - Mode 'graph_only'
+[2026-11-16T06:20:38.540430] ================================================================================
+[2026-11-16T06:20:38.554363] Spawning subprocess: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/.venv/bin/python3 /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/run_overnight.py --worker_mode graph_only --run_dir /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/runs/20261116_062038_graph_only
+[2026-11-16T06:20:39.570442] Worker process started for mode 'graph_only' in '/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/runs/20261116_062038_graph_only'
+[2026-11-16T06:20:39.571402] Mode 'graph_only': 0/120 questions already completed.
+[2026-11-16T06:20:39.605148] Opening KB via HybridGraphRAG.from_existing('/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/kb/synth_company_kb')
+[2026-11-16T06:20:39.708778] Querying 120 remaining questions...
+[2026-11-16T06:27:30.540414] [10/120] graph_only | Q_0010 | latency: 44.75s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOP'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOP'] not permitted by ontology; filtered out.
+[2026-11-16T06:34:21.592502] [20/120] graph_only | Q_0020 | latency: 40.29s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOP'] not permitted by ontology; filtered out.
+[2026-11-16T06:41:47.112063] [30/120] graph_only | Q_0030 | latency: 59.96s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+[2026-11-16T06:49:31.031427] [40/120] graph_only | Q_0040 | latency: 33.08s | abstained: True
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+[2026-11-16T06:57:30.896175] [50/120] graph_only | Q_0050 | latency: 42.59s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+[2026-11-16T07:05:14.391905] [60/120] graph_only | Q_0060 | latency: 45.67s | abstained: False
+[2026-11-16T07:13:55.121365] [70/120] graph_only | Q_0070 | latency: 43.36s | abstained: False
+[2026-11-16T07:22:08.811170] [80/120] graph_only | Q_0080 | latency: 51.25s | abstained: False
+[2026-11-16T07:30:28.273300] [90/120] graph_only | Q_0090 | latency: 51.11s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED_BY'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOPED_BY'] not permitted by ontology; filtered out.
+[2026-11-16T07:32:23.489999] [100/120] graph_only | Q_0100 | latency: 10.45s | abstained: True
+QueryPlan contained invalid relation types ['DEVELOPES'] not permitted by ontology; filtered out.
+[2026-11-16T07:36:28.088875] [110/120] graph_only | Q_0110 | latency: 32.91s | abstained: True
+QueryPlan contained invalid relation types ['DEVELOPES'] not permitted by ontology; filtered out.
+[2026-11-16T07:44:05.205882] [120/120] graph_only | Q_0120 | latency: 36.84s | abstained: True
+[2026-11-16T07:44:05.218139] Worker for mode 'graph_only' completed all queries.
+[2026-11-16T07:44:05.847126] ================================================================================
+[2026-11-16T07:44:05.847160] STAGE 5: Query Evaluation - Mode 'community_aware'
+[2026-11-16T07:44:05.847170] ================================================================================
+[2026-11-16T07:44:05.861443] Spawning subprocess: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/.venv/bin/python3 /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/run_overnight.py --worker_mode community_aware --run_dir /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/runs/20261116_074405_community_aware
+[2026-11-16T07:44:06.796033] Worker process started for mode 'community_aware' in '/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/runs/20261116_074405_community_aware'
+[2026-11-16T07:44:06.797067] Mode 'community_aware': 0/120 questions already completed.
+[2026-11-16T07:44:06.834231] Opening KB via HybridGraphRAG.from_existing('/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/kb/synth_company_kb')
+[2026-11-16T07:44:06.938901] Querying 120 remaining questions...
+[2026-11-16T07:51:16.080155] [10/120] community_aware | Q_0010 | latency: 45.36s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOP'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOP'] not permitted by ontology; filtered out.
+[2026-11-16T07:57:56.524011] [20/120] community_aware | Q_0020 | latency: 38.91s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOP'] not permitted by ontology; filtered out.
+[2026-11-16T08:05:02.098119] [30/120] community_aware | Q_0030 | latency: 40.80s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+[2026-11-16T08:12:54.390014] [40/120] community_aware | Q_0040 | latency: 41.13s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+[2026-11-16T08:21:31.735141] [50/120] community_aware | Q_0050 | latency: 49.16s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED'] not permitted by ontology; filtered out.
+[2026-11-16T08:28:54.043727] [60/120] community_aware | Q_0060 | latency: 44.62s | abstained: False
+[2026-11-16T08:37:34.646317] [70/120] community_aware | Q_0070 | latency: 43.93s | abstained: True
+[2026-11-16T08:45:10.695858] [80/120] community_aware | Q_0080 | latency: 43.88s | abstained: False
+[2026-11-16T08:53:42.108869] [90/120] community_aware | Q_0090 | latency: 39.43s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPED_BY'] not permitted by ontology; filtered out.
+QueryPlan contained invalid relation types ['DEVELOPED_BY'] not permitted by ontology; filtered out.
+[2026-11-16T09:01:13.592769] [100/120] community_aware | Q_0100 | latency: 33.69s | abstained: False
+QueryPlan contained invalid relation types ['DEVELOPES'] not permitted by ontology; filtered out.
+[2026-11-16T09:08:32.650354] [110/120] community_aware | Q_0110 | latency: 37.23s | abstained: True
+QueryPlan contained invalid relation types ['DEVELOPES'] not permitted by ontology; filtered out.
+[2026-11-16T09:15:38.493310] [120/120] community_aware | Q_0120 | latency: 42.77s | abstained: True
+[2026-11-16T09:15:38.504118] Worker for mode 'community_aware' completed all queries.
+[2026-11-16T09:15:39.163366] ================================================================================
+[2026-11-16T09:15:39.163403] STAGE 6: Offline Scoring via score.py
+[2026-11-16T09:15:39.163413] ================================================================================
+Traceback (most recent call last):
+  File "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/run_overnight.py", line 476, in <module>
+    main()
+    ~~~~^^
+  File "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/run_overnight.py", line 465, in main
+    run_stage_scoring()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/run_overnight.py", line 350, in run_stage_scoring
+    from experiments.synth_kg.score import score_runs_against_disk
+ModuleNotFoundError: No module named 'experiments'

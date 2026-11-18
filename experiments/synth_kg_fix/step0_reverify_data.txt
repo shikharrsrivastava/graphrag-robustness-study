@@ -1,0 +1,250 @@
+====================================================================================================
+B1. RELATIONSHIP PROMPT ACTUALLY LOADED; COLLAPSING OF RELATION TYPES
+KB config_snapshot prompt_versions: {'entity_extraction': 'v1.1', 'relationship_extraction': 'v1.1', 'entity_resolution': 'v1.0', 'community_summary': 'v1.0', 'query_planning': 'v1.0', 'answer_generation': 'v1.1'}
+KB config_snapshot prompts_dir: prompts
+KB manifest prompt_versions: {'entity_extraction': 'v1.1', 'relationship_extraction': 'v1.1', 'entity_resolution': 'v1.0', 'community_summary': 'v1.0', 'query_planning': 'v1.0', 'answer_generation': 'v1.1'}
+run vector_only: prompt_versions.relationship_extraction=v1.1 graph_context_mode=False
+run hybrid: prompt_versions.relationship_extraction=v1.1 graph_context_mode=False
+run graph_only: prompt_versions.relationship_extraction=v1.1 graph_context_mode=False
+run community_aware: prompt_versions.relationship_extraction=v1.1 graph_context_mode=False
+HEAD src/engine.py:119-123:
+            rel_extractor = OllamaRelationshipExtractor(
+                ontology=self.config.ontology,
+                llm_client=self.llm_client,
+                validation_config=self.config.validation,
+            )
+HEAD src/extraction/relation_extractor.py:119: prompt_template_path: Optional[Union[str, Path]] = "prompts/relationship_extraction.txt",
+HEAD src/extraction/relation_extractor.py:141: elif prompt_template_path is not None and Path(prompt_template_path).exists():
+HEAD src/extraction/relation_extractor.py:142: self.prompt_template = Path(prompt_template_path).read_text(encoding="utf-8")
+prompts/relationship_extraction.txt mtime: 2026-11-15T01:29:06 sha256: d9c7a2a2ccb60b17 | equals HEAD blob: True
+KB triples.jsonl mtime: 2026-11-16T03:40:14
+NOTE: the label prompt_versions.relationship_extraction='v1.1' is metadata only at HEAD; no code selects a file from it (grep for 'prompt_versions' in HEAD src/ shows engine.py passing it to the manifest and reading answer_generation only).
+
+Raw triples in triples.jsonl: 98 {'VALIDATED': 55, 'REJECTED_ONTOLOGY': 15, 'REJECTED_ENDPOINT_NOT_IN_EVIDENCE': 25, 'REJECTED_QUOTE_MISMATCH': 3}
+Distinct ordered mention pairs: 96; with >1 relation type: 2
+Distinct unordered mention pairs: 94; with >1 relation type: 3
+   D001_C0000_M001 (Pryxeldor Iskorlan) <-> D001_C0000_M002 (Zanistis Infrastructure Group): ['BELONGS_TO', 'MANAGES']
+      D001_C0000_R001 Pryxeldor Iskorlan -MANAGES-> Zanistis Infrastructure Group [VALIDATED]
+      D001_C0000_R002 Pryxeldor Iskorlan -BELONGS_TO-> Zanistis Infrastructure Group [VALIDATED]
+   D003_C0000_M003 (Oryxonvath Systems Engineering Unit) <-> D003_C0000_M005 (Jolikvath Krenorrak): ['BELONGS_TO', 'MANAGES']
+      D003_C0000_R001 Jolikvath Krenorrak -BELONGS_TO-> Oryxonvath Systems Engineering Unit [REJECTED_ENDPOINT_NOT_IN_EVIDENCE]
+      D003_C0000_R002 Jolikvath Krenorrak -MANAGES-> Oryxonvath Systems Engineering Unit [VALIDATED]
+   D007_C0000_M001 (Thalusvix Fennisvane) <-> D007_C0000_M002 (Iskorlan Applied Automation Wing): ['BELONGS_TO', 'MANAGES']
+      D007_C0000_R001 Thalusvix Fennisvane -MANAGES-> Iskorlan Applied Automation Wing [VALIDATED]
+      D007_C0000_R002 Iskorlan Applied Automation Wing -BELONGS_TO-> Thalusvix Fennisvane [REJECTED_ONTOLOGY]
+Ordered mention pairs carrying more than one raw triple (any type): 2
+Graph relationships.jsonl: 55 | distinct (src,type,tgt): 55 | canonical pairs with >1 type: 1
+
+====================================================================================================
+B2. Q_0091 / Q_0094 AND THE 15 ALIAS STRINGS
+
+Q_0091: {"id": "Q_0091", "group": "alias", "hop_count": 1, "question": "What entity or unit is managed by G. Nebikvane?", "gold_answer": "Zantonnax Infrastructure Group", "gold_answer_aliases": ["Zantonnax Division", "Zantonnax"], "gold_supporting_doc_ids": ["DOC_0002"], "gold_path": ["EDGE_0062"]}
+  gold_kg entity of first gold-path source: {"id": "ENT_0002", "canonical_name": "Gryxethvath Nebikvane", "type": "EMPLOYEE", "aliases": ["G. Nebikvane", "Nebikvane"], "doc_id": "DOC_0002"}
+  alias string used in the question: 'G. Nebikvane'
+  docs containing full name 'Gryxethvath Nebikvane': ['DOC_0002']
+  docs containing given name 'Gryxethvath': ['DOC_0002']
+  docs containing surname 'Nebikvane': ['DOC_0002']
+  docs containing alias string 'G. Nebikvane': NONE
+  KB canonical entities containing surname: [('E003', 'Gryxethvath Nebikvane', 'EMPLOYEE')]
+
+Q_0094: {"id": "Q_0094", "group": "alias", "hop_count": 2, "question": "What product is developed by the department managed by L. Sarkithtex?", "gold_answer": "Lyronvor Nexus", "gold_answer_aliases": ["Lyronvor"], "gold_supporting_doc_ids": ["DOC_0008", "DOC_0029"], "gold_path": ["EDGE_0068", "EDGE_0008"]}
+  gold_kg entity of first gold-path source: {"id": "ENT_0008", "canonical_name": "Loroklan Sarkithtex", "type": "EMPLOYEE", "aliases": ["L. Sarkithtex", "Sarkithtex"], "doc_id": "DOC_0008"}
+  alias string used in the question: 'L. Sarkithtex'
+  docs containing full name 'Loroklan Sarkithtex': ['DOC_0008']
+  docs containing given name 'Loroklan': ['DOC_0008']
+  docs containing surname 'Sarkithtex': ['DOC_0008']
+  docs containing alias string 'L. Sarkithtex': NONE
+  KB canonical entities containing surname: [('E020', 'Loroklan Sarkithtex', 'EMPLOYEE')]
+  name from docs/NEXT_TASK.md 'Galthor Nebikvane': docs=NONE gold_kg=NONE questions=NONE
+  name from docs/NEXT_TASK.md 'Lorik Sarkithtex': docs=NONE gold_kg=NONE questions=NONE
+  name from docs/NEXT_TASK.md 'Galthor': docs=NONE gold_kg=NONE questions=NONE
+  name from docs/NEXT_TASK.md 'Lorik': docs=NONE gold_kg=NONE questions=NONE
+  origin of the wrong names: experiments/synth_kg_audit/followup/part_c_alias_audit.py:29: "Q_0091": ("G. Nebikvane", "Galthor Nebikvane", "PERSON", "Nebikvane"),
+  origin of the wrong names: experiments/synth_kg_audit/followup/part_c_alias_audit.py:32: "Q_0094": ("L. Sarkithtex", "Lorik Sarkithtex", "PERSON", "Sarkithtex"),
+
+Recount over the 15 alias questions (alias string = gold alias of the first gold-path source that occurs in the question):
+  Q_0091 alias='G. Nebikvane' gold='Gryxethvath Nebikvane' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+  Q_0092 alias='F. Quenindyn' gold='Fennikvath Quenindyn' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+  Q_0093 alias='Durnalnok Division' gold='Durnalnok Analytics Laboratory' (DEPARTMENT) docs_with_alias_string=NONE whole_word=NONE
+  Q_0094 alias='L. Sarkithtex' gold='Loroklan Sarkithtex' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+  Q_0095 alias='L. Faelennax' gold='Lorosmir Faelennax' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+  Q_0096 alias='A. Kronosmoth' gold='Aldunwyn Kronosmoth' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+  Q_0097 alias='K. Thalithvath' gold='Krenostis Thalithvath' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+  Q_0098 alias='M. Pryxelgath' gold='Myrolvek Pryxelgath' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+  Q_0099 alias='L. Faelennax' gold='Lorosmir Faelennax' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+  Q_0100 alias='Nebunnax Division' gold='Nebunnax Foundational Services Unit' (DEPARTMENT) docs_with_alias_string=NONE whole_word=NONE
+  Q_0101 alias='Oryxonvath Division' gold='Oryxonvath Systems Engineering Unit' (DEPARTMENT) docs_with_alias_string=NONE whole_word=NONE
+  Q_0102 alias='Zantonnax Division' gold='Zantonnax Infrastructure Group' (DEPARTMENT) docs_with_alias_string=NONE whole_word=NONE
+  Q_0103 alias='P. Iskorlan' gold='Pryxeldor Iskorlan' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+  Q_0104 alias='Haelenrix' gold='Haelenrix Gateway' (PRODUCT) docs_with_alias_string=['DOC_0025', 'DOC_0040'] whole_word=['DOC_0025', 'DOC_0040']
+  Q_0105 alias='T. Raelonrak' gold='Tarniklan Raelonrak' (EMPLOYEE) docs_with_alias_string=NONE whole_word=NONE
+Alias strings occurring in NO document: 14 of 15
+
+====================================================================================================
+B3. B4 DIFFERENCE (audit_part2_baselines.py vs followup/part_f_iterative_baselines.py), hop2
+doc vector norms min/max: 0.9999994039535522 1.0000007152557373 | question vector norms min/max: 0.9999995827674866 1.0000003576278687 (audit script re-normalizes, followup does not; both are unit norm so rankings agree)
+documents whose text changes under .strip(): 60
+  B4 audit (no question-name removal): hop2 9/30 = 30.0% [16.7, 47.9]
+  B4 followup (question names removed): hop2 11/30 = 36.7% [21.9, 54.5]
+  Per-question differences on hop2:
+    Q_0031: audit=False docs=[np.str_('DOC_0022'), np.str_('DOC_0001'), np.str_('DOC_0023'), np.str_('DOC_0016')] | followup=True docs=[np.str_('DOC_0022'), np.str_('DOC_0001'), np.str_('DOC_0038'), np.str_('DOC_0037')] | gold=['DOC_0022', 'DOC_0037']
+       question: Which client is served by the product developed by Zanistis Infrastructure Group?
+       seeds=[np.str_('DOC_0022'), np.str_('DOC_0001')]; names removed by the question filter: ['In', 'Zanistis Infrastructure Group']
+    Q_0052: audit=False docs=[np.str_('DOC_0028'), np.str_('DOC_0038'), np.str_('DOC_0007'), np.str_('DOC_0044')] | followup=True docs=[np.str_('DOC_0028'), np.str_('DOC_0038'), np.str_('DOC_0044'), np.str_('DOC_0043')] | gold=['DOC_0028', 'DOC_0043']
+       question: What technology is used in the product developed by Iskorlan Applied Automation Wing?
+       seeds=[np.str_('DOC_0028'), np.str_('DOC_0038')]; names removed by the question filter: ['Iskorlan Applied Automation Wing']
+  Stated in the two reports: audit_output.txt B4 hop2 and followup/output.txt B4 hop2:
+    audit_output.txt: | `B4_name_expansion_top4` | K=4 | 100.0% [88.6%, 100.0%] | 30.0% [16.7%, 47.9%] | 0.0% [0.0%, 11.4%] | 46.7% [24.8%, 69.9%] |
+    output.txt: | `B4_name_exp_top4` | 11/30 | 36.7% | [21.9%, 54.5%] |
+  Code-level differences (line refs):
+    audit_part2_baselines.py:139-146  names = all capitalized runs of the 2 seed docs, filter len>1, NO question filter
+    part_f_iterative_baselines.py:92-98 names exclude any run that is a case-insensitive substring of the question
+    seed count (2), regex, candidate ranking (cosine to question), backfill from dense ranking: identical
+    tie handling: both use a stable sort on cosine only; no explicit tie rule in either
+
+====================================================================================================
+B4. 'VALIDATED PATH EXISTS' (experiments/synth_kg/score.py:350-466 compute_path_coverage)
+Definition: undirected, untyped BFS over validated canonical relationships; start = canonical entities whose name/alias
+maps to the gold source of gold_path[0]; target = canonical entities mapping to the gold answer; flag = shortest path <= hop_count.
+stored evaluation_results.json question_path_coverage found at: ['/path_coverage_results/question_path_coverage']
+
+Q_0062 (hop3, hop_count=3): What product is developed by the department of the employee managed by Nebothnok Styxinvath?
+  flag recomputed with score.compute_path_coverage: True | stored: [True]
+  gold EDGE_0073: Nebothnok Styxinvath (ENT_0013,EMPLOYEE) -MANAGES-> Krenokmoth Tarnonmar (ENT_0014,EMPLOYEE) [DOC_0013] fate(score.py)=VALIDATED_CORRECT
+  gold EDGE_0053: Krenokmoth Tarnonmar (ENT_0014,EMPLOYEE) -BELONGS_TO-> Vandothnok Foundational Services Unit (ENT_0035,DEPARTMENT) [DOC_0014] fate(score.py)=EXTRACTED_BUT_DROPPED_IN_RESOLUTION
+  gold EDGE_0014: Vandothnok Foundational Services Unit (ENT_0035,DEPARTMENT) -DEVELOPS-> Iskardyn Pipeline (ENT_0038,PRODUCT) [DOC_0035] fate(score.py)=NEVER_EXTRACTED
+  start canonical ids: [('E033', 'Nebothnok Styxinvath', 'PRODUCT'), ('E034', 'Nebothnok Styxinvath', 'EMPLOYEE')]
+  target canonical ids: [('E059', 'Iskardyn Pipeline', 'PRODUCT')]
+  undirected shortest path (3 edges): E034:Nebothnok Styxinvath -- E035:Nebunnax Foundational Services Unit -- E057:Durnonvor Aerospace -- E059:Iskardyn Pipeline
+     stored edge REL_0016: Nebothnok Styxinvath -BELONGS_TO-> Nebunnax Foundational Services Unit | same endpoints as gold-path edge: no | exact gold-path edge: no
+     stored edge REL_0038: Nebunnax Foundational Services Unit -SERVES-> Durnonvor Aerospace | same endpoints as gold-path edge: no | exact gold-path edge: no
+     stored edge REL_0042: Iskardyn Pipeline -SERVES-> Durnonvor Aerospace | same endpoints as gold-path edge: no | exact gold-path edge: no
+
+Q_0063 (hop3, hop_count=3): Which client is served by the product developed by the department that Krenokmoth Tarnonmar belongs to?
+  flag recomputed with score.compute_path_coverage: True | stored: [True]
+  gold EDGE_0053: Krenokmoth Tarnonmar (ENT_0014,EMPLOYEE) -BELONGS_TO-> Vandothnok Foundational Services Unit (ENT_0035,DEPARTMENT) [DOC_0014] fate(score.py)=EXTRACTED_BUT_DROPPED_IN_RESOLUTION
+  gold EDGE_0014: Vandothnok Foundational Services Unit (ENT_0035,DEPARTMENT) -DEVELOPS-> Iskardyn Pipeline (ENT_0038,PRODUCT) [DOC_0035] fate(score.py)=NEVER_EXTRACTED
+  gold EDGE_0029: Iskardyn Pipeline (ENT_0038,PRODUCT) -SERVES-> Durnonvor Aerospace (ENT_0056,CLIENT) [DOC_0038] fate(score.py)=VALIDATED_CORRECT
+  start canonical ids: [('E036', 'Krenokmoth Tarnonmar', 'PRODUCT'), ('E037', 'Krenokmoth Tarnonmar', 'EMPLOYEE')]
+  target canonical ids: [('E057', 'Durnonvor Aerospace', 'CLIENT')]
+  undirected shortest path (3 edges): E036:Krenokmoth Tarnonmar -- E034:Nebothnok Styxinvath -- E035:Nebunnax Foundational Services Unit -- E057:Durnonvor Aerospace
+     stored edge REL_0015: Nebothnok Styxinvath -MANAGES-> Krenokmoth Tarnonmar | same endpoints as gold-path edge: no | exact gold-path edge: no
+     stored edge REL_0016: Nebothnok Styxinvath -BELONGS_TO-> Nebunnax Foundational Services Unit | same endpoints as gold-path edge: no | exact gold-path edge: no
+     stored edge REL_0038: Nebunnax Foundational Services Unit -SERVES-> Durnonvor Aerospace | same endpoints as gold-path edge: no | exact gold-path edge: no
+
+Q_0073 (hop3, hop_count=3): What product is developed by the department of the employee managed by Rynartor Aldislan?
+  flag recomputed with score.compute_path_coverage: True | stored: [True]
+  gold EDGE_0080: Rynartor Aldislan (ENT_0020,EMPLOYEE) -MANAGES-> Myrolvek Pryxelgath (ENT_0021,EMPLOYEE) [DOC_0020] fate(score.py)=REJECTED: REJECTED_ONTOLOGY
+  gold EDGE_0060: Myrolvek Pryxelgath (ENT_0021,EMPLOYEE) -BELONGS_TO-> Aetharkest Systems Engineering Unit (ENT_0027,DEPARTMENT) [DOC_0021] fate(score.py)=VALIDATED_CORRECT
+  gold EDGE_0006: Aetharkest Systems Engineering Unit (ENT_0027,DEPARTMENT) -DEVELOPS-> Zanolric Cluster (ENT_0042,PRODUCT) [DOC_0027] fate(score.py)=REJECTED: REJECTED_ENDPOINT_NOT_IN_EVIDENCE
+  start canonical ids: [('E050', 'Rynartor Aldislan', 'EMPLOYEE')]
+  target canonical ids: [('E067', 'Zanolric Cluster', 'PRODUCT')]
+  undirected shortest path (3 edges): E050:Rynartor Aldislan -- E012:Kronanvek Core Platform Division -- E066:Quenentor Consortium -- E067:Zanolric Cluster
+     stored edge REL_0026: Rynartor Aldislan -MANAGES-> Kronanvek Core Platform Division | same endpoints as gold-path edge: no | exact gold-path edge: no
+     stored edge REL_0032: Kronanvek Core Platform Division -SERVES-> Quenentor Consortium | same endpoints as gold-path edge: no | exact gold-path edge: no
+     stored edge REL_0048: Zanolric Cluster -SERVES-> Quenentor Consortium | same endpoints as gold-path edge: no | exact gold-path edge: no
+
+Q_0084 (hop3, hop_count=3): Which client is served by the product developed by the department that Tarniklan Raelonrak belongs to?
+  flag recomputed with score.compute_path_coverage: True | stored: [True]
+  gold EDGE_0057: Tarniklan Raelonrak (ENT_0018,EMPLOYEE) -BELONGS_TO-> Oryxonvath Systems Engineering Unit (ENT_0024,DEPARTMENT) [DOC_0018] fate(score.py)=REJECTED: REJECTED_QUOTE_MISMATCH
+  gold EDGE_0003: Oryxonvath Systems Engineering Unit (ENT_0024,DEPARTMENT) -DEVELOPS-> Sarkinfen Matrix (ENT_0039,PRODUCT) [DOC_0024] fate(score.py)=REJECTED: REJECTED_ENDPOINT_NOT_IN_EVIDENCE
+  gold EDGE_0030: Sarkinfen Matrix (ENT_0039,PRODUCT) -SERVES-> Ulxathlok Logistics (ENT_0057,CLIENT) [DOC_0039] fate(score.py)=REJECTED: REJECTED_ENDPOINT_NOT_IN_EVIDENCE
+  start canonical ids: [('E046', 'Tarniklan Raelonrak', 'EMPLOYEE')]
+  target canonical ids: [('E060', 'Ulxathlok Logistics', 'CLIENT')]
+  undirected shortest path (3 edges): E046:Tarniklan Raelonrak -- E044:Caelonwyn Praxungon -- E045:Zantonnax Infrastructure Group -- E060:Ulxathlok Logistics
+     stored edge REL_0022: Caelonwyn Praxungon -MANAGES-> Tarniklan Raelonrak | same endpoints as gold-path edge: no | exact gold-path edge: no
+     stored edge REL_0021: Caelonwyn Praxungon -BELONGS_TO-> Zantonnax Infrastructure Group | same endpoints as gold-path edge: no | exact gold-path edge: no
+     stored edge REL_0029: Zantonnax Infrastructure Group -SERVES-> Ulxathlok Logistics | same endpoints as gold-path edge: no | exact gold-path edge: no
+
+Fate of EDGE_0014 and EDGE_0080, with every raw triple touching the gold endpoints (by mention surface name):
+  EDGE_0014: Vandothnok Foundational Services Unit -DEVELOPS-> Iskardyn Pipeline [DOC_0035] | score.py fate: NEVER_EXTRACTED
+     doc text: Vandothnok Foundational Services Unit operates as a central functional division of the organization. It is directly responsible for developing Iskardyn Pipeline. Vandothnok Foundational Services Unit provides specialized commercial solutions for Ulxathlok Logistics. In contrast, Vandothnok Systems maintains entirely distinct non-production responsibilities.
+
+     triple D035_C0000_R001: Iskardyn Pipeline (PRODUCT) -DEVELOPS-> Vandothnok Foundational Services Unit (DEPARTMENT) [REJECTED_QUOTE_MISMATCH]
+     triple D035_C0000_R002: Vandothnok Foundational Services Unit (DEPARTMENT) -SERVES-> Ulxathlok Logistics (CLIENT) [VALIDATED]
+  EDGE_0080: Rynartor Aldislan -MANAGES-> Myrolvek Pryxelgath [DOC_0020] | score.py fate: REJECTED: REJECTED_ONTOLOGY
+     doc text: Rynartor Aldislan is a certified staff professional within the enterprise infrastructure. Rynartor Aldislan operates as a key component under Kronanvek Core Platform Division. Executive oversight of Myrolvek Pryxelgath is handled by Rynartor Aldislan. In contrast, Rynartor Kren maintains entirely distinct non-production responsibilities.
+
+     triple D020_C0000_R001: Rynartor Aldislan (EMPLOYEE) -MANAGES-> Kronanvek Core Platform Division (DEPARTMENT) [VALIDATED]
+     triple D020_C0000_R002: Rynartor Aldislan (EMPLOYEE) -SERVES-> Myrolvek Pryxelgath (CLIENT) [REJECTED_ONTOLOGY]
+
+====================================================================================================
+B5. PROVENANCE MARKER IN ANSWERS
+  vector_only: records=120 answers with 'GRAPH_EDGE_PROVENANCE'=0 'GRAPH_SEED_PROVENANCE'=0 any 'PROVENANCE'=0
+  hybrid: records=120 answers with 'GRAPH_EDGE_PROVENANCE'=7 'GRAPH_SEED_PROVENANCE'=0 any 'PROVENANCE'=7
+     question ids: ['Q_0027', 'Q_0028', 'Q_0034', 'Q_0045', 'Q_0073', 'Q_0086', 'Q_0116']
+     example Q_0027: 'Nebothnok Styxinvath actively manages and directs Krenokmoth Tarnonmar [GRAPH_EDGE_PROVENANCE: Nebothnok Styxinvath -[MANAGES]-> Krenokmoth Tarnonmar].'
+  graph_only: records=120 answers with 'GRAPH_EDGE_PROVENANCE'=8 'GRAPH_SEED_PROVENANCE'=0 any 'PROVENANCE'=8
+     question ids: ['Q_0027', 'Q_0034', 'Q_0041', 'Q_0051', 'Q_0073', 'Q_0076', 'Q_0086', 'Q_0116']
+     example Q_0027: 'Nebothnok Styxinvath actively manages and directs Krenokmoth Tarnonmar, as stated in [GRAPH_EDGE_PROVENANCE: Nebothnok Styxinvath -[MANAGES]-> Krenokmoth Tarnonmar].'
+  community_aware: records=120 answers with 'GRAPH_EDGE_PROVENANCE'=2 'GRAPH_SEED_PROVENANCE'=0 any 'PROVENANCE'=2
+     question ids: ['Q_0045', 'Q_0119']
+     example Q_0045: 'Rynartor Aldislan operates as a key component under Kronanvek Core Platform Division, according to [D020_C0000]. The graph traversal paths show that this division develops the Wyrithwyn Pipeline [GRAPH_EDGE_PROVENANCE: Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyr'
+  experiments/synth_kg/run_overnight.py:111: cfg.setdefault("retrieval", {})["graph_context_mode"] = False
+  src/retrieval/graph_retriever.py:275: labeled_path_str = f"GRAPH_EDGE_PROVENANCE: {path_str}"
+  src/retrieval/graph_retriever.py:330: direct_path_str = f"GRAPH_SEED_PROVENANCE: Seed Entity [{v_label} ({eid})]{conflict_suffix}"
+  src/retrieval/context_builder.py:34: is_none_mode = mode_str == "none"
+  src/retrieval/context_builder.py:35: is_fix_e_mode = (self.graph_context_mode is True) or (mode_str in ("true", "fix_e", "edges"))
+  src/retrieval/context_builder.py:69: for p in ev.supporting_graph_paths:
+  src/retrieval/context_builder.py:90: for p in ev.supporting_graph_paths:
+  src/retrieval/context_builder.py:95: path_lines = ["### Supporting Graph Traversal Paths"]
+  src/engine.py:340: graph_context_mode=self.config.retrieval.graph_context_mode,
+
+====================================================================================================
+B6. RECOUNTS
+score.py entity scoring on the stored KB: {'gold_entities_total': 60, 'extracted_entities_total': 97, 'recalled_gold_entities': 60, 'valid_extracted_entities': 75, 'precision': 0.7731958762886598, 'recall': 1.0, 'splits': 15, 'false_merges': 0}
+Gold entities whose canonical name maps to >1 KB canonical entity (exact normalized canonical name): 15
+   ENT_0012 Taelanfen Wyrusnok (EMPLOYEE): E029:PRODUCT(mentions=1), E031:EMPLOYEE(mentions=1)
+   ENT_0013 Nebothnok Styxinvath (EMPLOYEE): E033:PRODUCT(mentions=1), E034:EMPLOYEE(mentions=1)
+   ENT_0014 Krenokmoth Tarnonmar (EMPLOYEE): E036:PRODUCT(mentions=1), E037:EMPLOYEE(mentions=1)
+   ENT_0015 Durnenlok Noxornok (EMPLOYEE): E039:PRODUCT(mentions=1), E040:EMPLOYEE(mentions=1)
+   ENT_0017 Caelonwyn Praxungon (EMPLOYEE): E043:PRODUCT(mentions=1), E044:EMPLOYEE(mentions=1)
+   ENT_0019 Xanithzar Jorarnok (EMPLOYEE): E047:PRODUCT(mentions=1), E049:EMPLOYEE(mentions=1)
+   ENT_0021 Myrolvek Pryxelgath (EMPLOYEE): E052:CLIENT(mentions=1), E054:EMPLOYEE(mentions=1)
+   ENT_0023 Zantonnax Infrastructure Group (DEPARTMENT): E004:CLIENT(mentions=1), E045:DEPARTMENT(mentions=2)
+   ENT_0026 Kronanvek Core Platform Division (DEPARTMENT): E012:DEPARTMENT(mentions=3), E013:PRODUCT(mentions=1)
+   ENT_0049 WyrendorQL (TECHNOLOGY): E079:TECHNOLOGY(mentions=2), E089:PRODUCT(mentions=1)
+   ENT_0050 AethithnokQL (TECHNOLOGY): E080:TECHNOLOGY(mentions=2), E091:PRODUCT(mentions=1)
+   ENT_0051 VandethnokStore (TECHNOLOGY): E081:TECHNOLOGY(mentions=2), E092:PRODUCT(mentions=1)
+   ENT_0052 NoxarnokNet (TECHNOLOGY): E083:TECHNOLOGY(mentions=2), E093:PRODUCT(mentions=1)
+   ENT_0053 PryxingonDB (TECHNOLOGY): E084:TECHNOLOGY(mentions=2), E094:PRODUCT(mentions=1)
+   ENT_0054 YvethnokRPC (TECHNOLOGY): E086:TECHNOLOGY(mentions=2), E096:PRODUCT(mentions=1)
+   type-pair pattern of the splits: {'CLIENT vs DEPARTMENT': 1, 'DEPARTMENT vs PRODUCT': 1, 'EMPLOYEE vs PRODUCT': 6, 'CLIENT vs EMPLOYEE': 1, 'PRODUCT vs TECHNOLOGY': 6}
+KB canonical entities: 97; mapping to a gold canonical name: 75; gold entities with >=1 match: 60 of 60; extra (no gold canonical-name match): 22
+
+Gold MANAGES edges by endpoint types: {('EMPLOYEE', 'DEPARTMENT'): 10, ('EMPLOYEE', 'EMPLOYEE'): 10}
+   EDGE_0071 Fennikvath Quenindyn -MANAGES-> Taelanfen Wyrusnok [DOC_0011]: raw triples same direction = DEVELOPS[VALIDATED] tgt_mention_type=PRODUCT
+   EDGE_0072 Taelanfen Wyrusnok -MANAGES-> Nebothnok Styxinvath [DOC_0012]: raw triples same direction = DEVELOPS[VALIDATED] tgt_mention_type=PRODUCT
+   EDGE_0073 Nebothnok Styxinvath -MANAGES-> Krenokmoth Tarnonmar [DOC_0013]: raw triples same direction = MANAGES[VALIDATED] tgt_mention_type=PRODUCT
+   EDGE_0074 Krenokmoth Tarnonmar -MANAGES-> Durnenlok Noxornok [DOC_0014]: raw triples same direction = DEVELOPS[VALIDATED] tgt_mention_type=PRODUCT
+   EDGE_0075 Durnenlok Noxornok -MANAGES-> Rynunvor Lyrontis [DOC_0015]: raw triples same direction = NONE
+   EDGE_0076 Rynunvor Lyrontis -MANAGES-> Caelonwyn Praxungon [DOC_0016]: raw triples same direction = DEVELOPS[VALIDATED] tgt_mention_type=PRODUCT
+   EDGE_0077 Caelonwyn Praxungon -MANAGES-> Tarniklan Raelonrak [DOC_0017]: raw triples same direction = MANAGES[VALIDATED] tgt_mention_type=EMPLOYEE
+   EDGE_0078 Tarniklan Raelonrak -MANAGES-> Xanithzar Jorarnok [DOC_0018]: raw triples same direction = MANAGES[VALIDATED] tgt_mention_type=PRODUCT
+   EDGE_0079 Xanithzar Jorarnok -MANAGES-> Rynartor Aldislan [DOC_0019]: raw triples same direction = MANAGES[VALIDATED] tgt_mention_type=EMPLOYEE
+   EDGE_0080 Rynartor Aldislan -MANAGES-> Myrolvek Pryxelgath [DOC_0020]: raw triples same direction = SERVES[REJECTED_ONTOLOGY] tgt_mention_type=CLIENT
+Gold EMPLOYEE->EMPLOYEE MANAGES edges with a raw triple typed DEVELOPS between the same mentions: 4
+
+Gold (doc, entity pair) groups with >1 gold relation: 10 in 10 documents; entity pairs with >1 gold relation across any documents: 10
+   DOC_0001: EDGE_0040 Pryxeldor Iskorlan -BELONGS_TO-> Zanistis Infrastructure Group => VALIDATED_CORRECT | EDGE_0061 Pryxeldor Iskorlan -MANAGES-> Zanistis Infrastructure Group => VALIDATED_CORRECT
+   DOC_0002: EDGE_0041 Gryxethvath Nebikvane -BELONGS_TO-> Zantonnax Infrastructure Group => REJECTED: REJECTED_ONTOLOGY | EDGE_0062 Gryxethvath Nebikvane -MANAGES-> Zantonnax Infrastructure Group => REJECTED: REJECTED_ONTOLOGY
+   DOC_0003: EDGE_0042 Jolikvath Krenorrak -BELONGS_TO-> Oryxonvath Systems Engineering Unit => REJECTED: REJECTED_ENDPOINT_NOT_IN_EVIDENCE | EDGE_0063 Jolikvath Krenorrak -MANAGES-> Oryxonvath Systems Engineering Unit => VALIDATED_CORRECT
+   DOC_0004: EDGE_0043 Krenostis Thalithvath -BELONGS_TO-> Synethgath Systems Engineering Unit => EXTRACTED_BUT_DROPPED_IN_RESOLUTION | EDGE_0064 Krenostis Thalithvath -MANAGES-> Synethgath Systems Engineering Unit => VALIDATED_CORRECT
+   DOC_0005: EDGE_0044 Aldunwyn Kronosmoth -BELONGS_TO-> Kronanvek Core Platform Division => EXTRACTED_BUT_DROPPED_IN_RESOLUTION | EDGE_0065 Aldunwyn Kronosmoth -MANAGES-> Kronanvek Core Platform Division => VALIDATED_CORRECT
+   DOC_0006: EDGE_0045 Lorosmir Faelennax -BELONGS_TO-> Aetharkest Systems Engineering Unit => EXTRACTED_BUT_DROPPED_IN_RESOLUTION | EDGE_0066 Lorosmir Faelennax -MANAGES-> Aetharkest Systems Engineering Unit => VALIDATED_CORRECT
+   DOC_0007: EDGE_0046 Thalusvix Fennisvane -BELONGS_TO-> Iskorlan Applied Automation Wing => REJECTED: REJECTED_ONTOLOGY | EDGE_0067 Thalusvix Fennisvane -MANAGES-> Iskorlan Applied Automation Wing => VALIDATED_CORRECT
+   DOC_0008: EDGE_0047 Loroklan Sarkithtex -BELONGS_TO-> Kaelinlux Systems Engineering Unit => REJECTED: REJECTED_ONTOLOGY | EDGE_0068 Loroklan Sarkithtex -MANAGES-> Kaelinlux Systems Engineering Unit => VALIDATED_CORRECT
+   DOC_0009: EDGE_0048 Krenuthreth Fennanvor -BELONGS_TO-> Noxontor Foundational Services Unit => EXTRACTED_BUT_DROPPED_IN_RESOLUTION | EDGE_0069 Krenuthreth Fennanvor -MANAGES-> Noxontor Foundational Services Unit => VALIDATED_CORRECT
+   DOC_0010: EDGE_0049 Synorreth Aldathdyn -BELONGS_TO-> Morenvek Analytics Laboratory => EXTRACTED_BUT_DROPPED_IN_RESOLUTION | EDGE_0070 Synorreth Aldathdyn -MANAGES-> Morenvek Analytics Laboratory => VALIDATED_CORRECT
+score.py fate counts over all 95 gold edges: {'REJECTED: REJECTED_ONTOLOGY': 13, 'REJECTED: REJECTED_ENDPOINT_NOT_IN_EVIDENCE': 17, 'VALIDATED_CORRECT': 46, 'NEVER_EXTRACTED': 4, 'EXTRACTED_BUT_DROPPED_IN_RESOLUTION': 14, 'REJECTED: REJECTED_QUOTE_MISMATCH': 1}
+
+All-gold evidence recall recomputed from run records (context_doc_ids) and from dense_embeddings.npz:
+   vector_only: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 5/30 = 16.7% [7.3, 33.6] | hop3 0/30 = 0.0% [0.0, 11.4] | alias 6/15 = 40.0% [19.8, 64.3]
+   hybrid: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 17/30 = 56.7% [39.2, 72.6] | hop3 1/30 = 3.3% [0.6, 16.7] | alias 6/15 = 40.0% [19.8, 64.3]
+   graph_only: hop1 29/30 = 96.7% [83.3, 99.4] | hop2 16/30 = 53.3% [36.1, 69.8] | hop3 1/30 = 3.3% [0.6, 16.7] | alias 0/15 = 0.0% [0.0, 20.4]
+   community_aware: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 17/30 = 56.7% [39.2, 72.6] | hop3 1/30 = 3.3% [0.6, 16.7] | alias 6/15 = 40.0% [19.8, 64.3]
+   B1 (fixlib reimplementation, seed 7): hop1 30/30 = 100.0% [88.6, 100.0] | hop2 5/30 = 16.7% [7.3, 33.6] | hop3 0/30 = 0.0% [0.0, 11.4] | alias 6/15 = 40.0% [19.8, 64.3]
+   B7 (fixlib reimplementation, seed 7): hop1 30/30 = 100.0% [88.6, 100.0] | hop2 13/30 = 43.3% [27.4, 60.8] | hop3 0/30 = 0.0% [0.0, 11.4] | alias 8/15 = 53.3% [30.1, 75.2]
+   B9 (fixlib reimplementation, seed 7): hop1 30/30 = 100.0% [88.6, 100.0] | hop2 21/30 = 70.0% [52.1, 83.3] | hop3 0/30 = 0.0% [0.0, 11.4] | alias 10/15 = 66.7% [41.7, 84.8]
+   B10 (fixlib reimplementation, seed 7): hop1 30/30 = 100.0% [88.6, 100.0] | hop2 10/30 = 33.3% [19.2, 51.2] | hop3 10/30 = 33.3% [19.2, 51.2] | alias 8/15 = 53.3% [30.1, 75.2]
+   (B10 on seed 7 is shown for information; it was defined after the seed-7 data were seen.)

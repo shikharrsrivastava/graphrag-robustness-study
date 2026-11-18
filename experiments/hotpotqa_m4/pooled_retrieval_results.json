@@ -1,0 +1,6602 @@
+[
+  {
+    "qid": "5ab531cc5542990594ba9d23",
+    "type": "bridge",
+    "gold_ranks": [
+      5,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 5,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5a89e2ba5542992e4fca8441",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5adccdab5542994d58a2f6db",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      3
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      3
+    ]
+  },
+  {
+    "qid": "5adea83b55429975fa854f53",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      4
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      4
+    ]
+  },
+  {
+    "qid": "5a78f18855429974737f7915",
+    "type": "bridge",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ab7268b5542992aa3b8c7b1",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ac46a8b5542991943173980",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      5
+    ],
+    "r_easy": 1,
+    "r_hard": 5,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      4
+    ]
+  },
+  {
+    "qid": "5adf0e7c5542992d7e9f9297",
+    "type": "bridge",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5abf04ae5542993fe9a41dbf",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abbbaca55429931dba144ca",
+    "type": "bridge",
+    "gold_ranks": [
+      95,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 95,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": false
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": false
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      9,
+      1
+    ]
+  },
+  {
+    "qid": "5a7afdc85542992d025e672e",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5adc985e5542990d50227cb7",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5adbc9a4554299438c868caf",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ac3e0f7554299194317388b",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a8b6a5155429949d91db5a3",
+    "type": "bridge",
+    "gold_ranks": [
+      3,
+      2
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      2
+    ]
+  },
+  {
+    "qid": "5adf744d5542992d7e9f937e",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      5
+    ],
+    "r_easy": 1,
+    "r_hard": 5,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      5
+    ]
+  },
+  {
+    "qid": "5ac448185542995c82c4ad1b",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      4
+    ],
+    "r_easy": 2,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      2,
+      4
+    ]
+  },
+  {
+    "qid": "5a8367c1554299334474600e",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a77372b554299373536021c",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ab930c75542996be202043a",
+    "type": "bridge",
+    "gold_ranks": [
+      8,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 8,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5abe9cc95542993f32c2a184",
+    "type": "bridge",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ae0ce4e554299603e41845f",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7553a95542996c70cfaedf",
+    "type": "bridge",
+    "gold_ranks": [
+      13,
+      2
+    ],
+    "r_easy": 2,
+    "r_hard": 13,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      7,
+      2
+    ]
+  },
+  {
+    "qid": "5a888fe6554299206df2b2f7",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a874e9b554299211dda2bd3",
+    "type": "bridge",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5ae5d0b5554299546bf82f80",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      6
+    ],
+    "r_easy": 2,
+    "r_hard": 6,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      2,
+      6
+    ]
+  },
+  {
+    "qid": "5a90503755429916514e7470",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5adcfe5f5542992c1e3a24f0",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      13
+    ],
+    "r_easy": 1,
+    "r_hard": 13,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      9
+    ]
+  },
+  {
+    "qid": "5ae7882b554299540e5a55dd",
+    "type": "bridge",
+    "gold_ranks": [
+      4,
+      2
+    ],
+    "r_easy": 2,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      2
+    ]
+  },
+  {
+    "qid": "5a7da6cb5542990b8f5039ff",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a845d735542996488c2e52e",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a888a625542997e5c09a602",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a77e2095542995d8318131d",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ae52ba755429908b6326538",
+    "type": "bridge",
+    "gold_ranks": [
+      6,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 6,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      6,
+      1
+    ]
+  },
+  {
+    "qid": "5ade157e55429939a52fe802",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5ab66a3555429954757d3290",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      8
+    ],
+    "r_easy": 1,
+    "r_hard": 8,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      8
+    ]
+  },
+  {
+    "qid": "5a7bb7f2554299042af8f7b6",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5adf1b8a5542995534e8c750",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5adf8d275542993344016cfb",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      8
+    ],
+    "r_easy": 1,
+    "r_hard": 8,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ae791cf55429952e35ea978",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ae7945d5542997b22f6a7ba",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ab4bea15542990594ba9cae",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ae3287f5542991a06ce993b",
+    "type": "bridge",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5adf62d05542992d7e9f932d",
+    "type": "bridge",
+    "gold_ranks": [
+      20,
+      131
+    ],
+    "r_easy": 20,
+    "r_hard": 131,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": false
+    },
+    "at_least_one_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": false
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      7,
+      10
+    ]
+  },
+  {
+    "qid": "5ae5db98554299546bf82fa6",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5a7dedef5542995f4f40231a",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ab865ad5542992aa3b8c8dd",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abfc9bf5542993fe9a41e60",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abea6a05542993f32c2a18d",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      6
+    ],
+    "r_easy": 1,
+    "r_hard": 6,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      6
+    ]
+  },
+  {
+    "qid": "5a7265825542997f827839a3",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ab6c63755429953192ad38b",
+    "type": "bridge",
+    "gold_ranks": [
+      6,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 6,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      6,
+      1
+    ]
+  },
+  {
+    "qid": "5a78f05155429970f5fffde3",
+    "type": "bridge",
+    "gold_ranks": [
+      7,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 7,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      5,
+      1
+    ]
+  },
+  {
+    "qid": "5ab5dc44554299494045f089",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a8b2dc055429950cd6afc62",
+    "type": "bridge",
+    "gold_ranks": [
+      8,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 8,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      7,
+      1
+    ]
+  },
+  {
+    "qid": "5a74c1c05542996c70cfadd8",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a84e1095542997175ce1f25",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ae2e0fd55429928c4239524",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a78d01d55429974737f78b3",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5adc5b875542996e68525328",
+    "type": "bridge",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5a858dc85542997b5ce40002",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ab9b939554299743d22ebca",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abc2e1c554299700f9d7806",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a807f6a5542992bc0c4a737",
+    "type": "bridge",
+    "gold_ranks": [
+      8,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 8,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      7,
+      1
+    ]
+  },
+  {
+    "qid": "5ae4c35c55429913cc2044fb",
+    "type": "bridge",
+    "gold_ranks": [
+      13,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 13,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      5,
+      1
+    ]
+  },
+  {
+    "qid": "5a8ffd705542995651fb5096",
+    "type": "bridge",
+    "gold_ranks": [
+      9,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 9,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      9,
+      1
+    ]
+  },
+  {
+    "qid": "5ab2f4c95542991669774155",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7fc5875542992e7d278d67",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a849c135542992a431d1a7a",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a8f93f5554299458435d67e",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ae0850055429945ae959396",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      3
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      3
+    ]
+  },
+  {
+    "qid": "5abce9ca554299114383a193",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5ab94fa25542996be2020474",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      4
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      4
+    ]
+  },
+  {
+    "qid": "5a8026a05542992e7d278df8",
+    "type": "bridge",
+    "gold_ranks": [
+      16,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 16,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ab487f55542990594ba9c4f",
+    "type": "bridge",
+    "gold_ranks": [
+      4,
+      2
+    ],
+    "r_easy": 2,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      2
+    ]
+  },
+  {
+    "qid": "5ab827a555429934fafe6cf5",
+    "type": "bridge",
+    "gold_ranks": [
+      21,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 21,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": false
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": false
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      8,
+      1
+    ]
+  },
+  {
+    "qid": "5ae1c2d8554299234fd042ee",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abcfcf0554299114383a1b4",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abc17555542993a06baf858",
+    "type": "bridge",
+    "gold_ranks": [
+      5,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 5,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      5,
+      1
+    ]
+  },
+  {
+    "qid": "5ab928c255429934fafe6e6e",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5adcde255542992c1e3a243f",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abcf84d55429959677d6b86",
+    "type": "bridge",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5a7e43c9554299495941995a",
+    "type": "bridge",
+    "gold_ranks": [
+      8,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 8,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ae759b25542991e8301cc6b",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5aba5ea955429939ce03dca5",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a7f46115542994857a766d9",
+    "type": "bridge",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ac3a0b25542993915413838",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5ab4071955429976abd1bd38",
+    "type": "bridge",
+    "gold_ranks": [
+      9,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 9,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5abb30755542996cc5e49fd8",
+    "type": "bridge",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a8901a2554299515336125a",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a86eee85542994775f60787",
+    "type": "bridge",
+    "gold_ranks": [
+      5,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 5,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      5,
+      1
+    ]
+  },
+  {
+    "qid": "5adcf3a45542994ed6169c38",
+    "type": "bridge",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5a7c290c5542990527d55468",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5a8a6b625542996c9b8d5ed9",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ae1388e5542997b2ef7d13a",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5a76d15e55429966f1a36bfa",
+    "type": "bridge",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ae520315542993aec5ec152",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ae2f97555429928c4239582",
+    "type": "bridge",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ae527945542993aec5ec167",
+    "type": "bridge",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ae254565542992decbdccbb",
+    "type": "bridge",
+    "gold_ranks": [
+      1,
+      30
+    ],
+    "r_easy": 1,
+    "r_hard": 30,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": false
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": false
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      5
+    ]
+  },
+  {
+    "qid": "5a7730f255429972597f148c",
+    "type": "bridge",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5adbf84555429947ff17387c",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      2
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      2
+    ]
+  },
+  {
+    "qid": "5a84c6df5542997b5ce3ff61",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      7
+    ],
+    "r_easy": 1,
+    "r_hard": 7,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      5
+    ]
+  },
+  {
+    "qid": "5ab7f0995542995dae37e9fb",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5abdcad155429965af743e4d",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ae504a855429908b63264df",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5a80b4d1554299260e20a134",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ab3306a55429969a97a80fd",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      4
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5ac173295542994ab5c67d45",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ab51dae5542991779162d82",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7e08305542995f4f4023ab",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5adcc9f35542990d50227d20",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7bcbc8554299294a54aae2",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      3
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      3
+    ]
+  },
+  {
+    "qid": "5ab9b29c554299743d22ebae",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a89dfcc55429946c8d6e9f0",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5ade858a55429975fa854eea",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5ab95dd8554299743d22eb13",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a8841ee5542994846c1ce6b",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5abc17c25542993a06baf85b",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abfa0285542990832d3a171",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a758ba75542992db9473677",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5a7df6e65542995f4f402353",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ac005a15542997719eab6fc",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ab344fc55429969a97a811e",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5aba7e2c55429955dce3ee5a",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5abf44025542993fe9a41def",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a85a2845542997175ce1fe1",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      4
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      4
+    ]
+  },
+  {
+    "qid": "5ac4efa85542991943173a04",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a8b397955429971feec4674",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ac2a20055429967731025cb",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ae4758b5542995dadf24342",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a7c99d555429935c91b5254",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a8511185542992a431d1aca",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ae27df25542992decbdcd2a",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a78d35e55429974737f78c3",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ab2b7405542991669774069",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      3
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      3
+    ]
+  },
+  {
+    "qid": "5aba74ad55429955dce3ee35",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ade6acf554299728e26c71a",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ab81cff5542990e739ec827",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abd247e5542996e802b472f",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ab48f245542990594ba9c66",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7a6ee75542996c55b2ddac",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a8753d95542994846c1cd63",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a7f10e2554299306751360b",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ab4b2935542996a3a969fb5",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ae39fb85542990afbd1e197",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a82a1ae55429954d2e2eb89",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      4
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      4
+    ]
+  },
+  {
+    "qid": "5ab528a3554299637185c4e5",
+    "type": "comparison",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5a8f84505542992414482aef",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      4
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      4
+    ]
+  },
+  {
+    "qid": "5abc25b6554299700f9d77f9",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      2
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      2
+    ]
+  },
+  {
+    "qid": "5a8662da5542991e7718162f",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ab296a6554299194fa93415",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7a2dac5542990198eaf0b6",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a84b7db5542991dd0999db0",
+    "type": "comparison",
+    "gold_ranks": [
+      4,
+      2
+    ],
+    "r_easy": 2,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      2
+    ]
+  },
+  {
+    "qid": "5ac1218c55429964131be15c",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ab78e2e55429928e1fe387d",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a8a58f355429930ff3c0da3",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a73bcf055429978a71e909c",
+    "type": "comparison",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5ae588cb55429960a22e0300",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      2
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      2
+    ]
+  },
+  {
+    "qid": "5ae0504055429942ec259c6a",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5add10ca5542994ed6169c59",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7652435542992d0ec060a5",
+    "type": "comparison",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ae25ed15542992decbdccd2",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a7ec61a55429934daa2fc5f",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7a1d305542990783324e66",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      2
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      2
+    ]
+  },
+  {
+    "qid": "5a7c75045542990527d554b2",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5abba3255542996cc5e4a031",
+    "type": "comparison",
+    "gold_ranks": [
+      4,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      4,
+      1
+    ]
+  },
+  {
+    "qid": "5adc8c545542994734353734",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5add647a5542995b365fab26",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a72908f5542994cef4bc33b",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      5
+    ],
+    "r_easy": 1,
+    "r_hard": 5,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      5
+    ]
+  },
+  {
+    "qid": "5ab7fbbb5542990e739ec7b0",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a756b175542996c70cfaef7",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5ae2994d554299492dc91c31",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5adbe1c5554299438c868cc4",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ac14d0c5542991316484ae2",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abfde655542997719eab6f2",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a7dcdea5542990b8f503abc",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5add3a605542990dbb2f7ddb",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ae224da554299234fd043ee",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5adfed45554299603e4183c5",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ae095f055429924de1b7103",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      3,
+      1
+    ]
+  },
+  {
+    "qid": "5ae1d656554299234fd04322",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a88a8f4554299206df2b320",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5adff056554299603e4183cc",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      3
+    ],
+    "r_easy": 1,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      3
+    ]
+  },
+  {
+    "qid": "5a80a1b25542992bc0c4a78c",
+    "type": "comparison",
+    "gold_ranks": [
+      5,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 5,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      5,
+      1
+    ]
+  },
+  {
+    "qid": "5a85ebe75542996432c5712a",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a8340fd55429954d2e2ec6b",
+    "type": "comparison",
+    "gold_ranks": [
+      3,
+      11
+    ],
+    "r_easy": 3,
+    "r_hard": 11,
+    "both_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": false,
+      "10": false,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      3,
+      8
+    ]
+  },
+  {
+    "qid": "5a836a765542996488c2e446",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a834ed95542990548d0b1ca",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5ac1a5b45542991316484b8b",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5abfa2255542993fe9a41e18",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7a845755429941d65f2684",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5ab5e024554299494045f097",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5a74cfed5542993748c896ea",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5adf82945542993344016ca4",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5add60905542995b365fab1d",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  },
+  {
+    "qid": "5abf08985542997719eab625",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      3
+    ],
+    "r_easy": 2,
+    "r_hard": 3,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      3
+    ]
+  },
+  {
+    "qid": "5a7320ac5542991f9a20c620",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7aa0a55542990198eaf165",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      2
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      1,
+      2
+    ]
+  },
+  {
+    "qid": "5a7fd7a25542992e7d278dc3",
+    "type": "comparison",
+    "gold_ranks": [
+      1,
+      4
+    ],
+    "r_easy": 1,
+    "r_hard": 4,
+    "both_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": false,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": false,
+    "own_gold_ranks": [
+      1,
+      4
+    ]
+  },
+  {
+    "qid": "5a7e31c055429934daa2fbee",
+    "type": "comparison",
+    "gold_ranks": [
+      2,
+      1
+    ],
+    "r_easy": 1,
+    "r_hard": 2,
+    "both_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "at_least_one_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "hard_in_top": {
+      "3": true,
+      "5": true,
+      "10": true,
+      "20": true
+    },
+    "own_10_both_top3": true,
+    "own_gold_ranks": [
+      2,
+      1
+    ]
+  }
+]

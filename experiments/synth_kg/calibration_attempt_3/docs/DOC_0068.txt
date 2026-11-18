@@ -1,0 +1,1 @@
+HaelisnokDB is an internal software specification maintained for operational stability. All formal operational guidelines regarding HaelisnokDB are cataloged in internal records. All formal operational guidelines regarding HaelisnokDB are cataloged in internal records.

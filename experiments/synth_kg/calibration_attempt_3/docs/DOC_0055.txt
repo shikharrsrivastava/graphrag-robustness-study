@@ -1,0 +1,1 @@
+Myriklux Nexus is a proprietary enterprise software solution deployed across production clusters. Myriklux Nexus utilizes GryxokwynLang for core functionality. Myriklux Nexus directly serves the enterprise requirements of Caelandor Energy Group. In contrast, Myriklux Systems maintains entirely distinct non-production responsibilities.

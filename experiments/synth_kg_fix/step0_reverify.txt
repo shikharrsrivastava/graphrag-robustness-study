@@ -1,0 +1,155 @@
+PHASE 0 RE-VERIFICATION OF experiments/synth_kg_fix/step0.txt (prior agent, 12:33)
+Written by Claude, 2026-11-16. Every number below comes from
+  experiments/synth_kg_fix/step0_reverify.py  -> step0_reverify_data.txt   (B1-B6)
+  inline script saved in output                -> step0_b7_data.txt         (B7)
+Verdicts: CONFIRMED / REFUTED / IMPRECISE. File:line refer to HEAD 3877a4d unless stated.
+
+====================================================================================================
+SUMMARY TABLE
+====================================================================================================
+ #   Prior claim (step0.txt / docs/NEXT_TASK.md / CLAUDE.md)                              Verdict
+ 0a  Ingestion loads prompts/relationship_extraction.txt (default path)                   CONFIRMED
+ 0a  Parser, _raw_cache, resolve_and_remap and graph build do not collapse relation types CONFIRMED
+ 0a  "The prompt does NOT instruct ... Consequently the LLM selects only one"             IMPRECISE
+ 0a  "Fix 3 IS required"                                                                  IMPRECISE
+ 0b  Gold entities are Gryxethvath Nebikvane / Loroklan Sarkithtex; "Galthor"/"Lorik"
+     names exist nowhere                                                                  CONFIRMED
+ 0b  "G. Nebikvane" and "L. Sarkithtex" occur in no document                              CONFIRMED
+ --  "14 of 15 alias strings appear in no document" (CLAUDE.md)                           CONFIRMED
+ 0c  B4 9/30 vs 11/30 is caused by question-name removal in the followup script           CONFIRMED
+ 0c  The two extra questions are Q_0044 and Q_0055                                        REFUTED (Q_0031, Q_0052)
+ 0c  Seed count, ranking, ties, backfill otherwise identical                              CONFIRMED
+ 0d  "validated path exists" = undirected, untyped BFS, length <= hop_count               CONFIRMED
+ 0d  Alternate paths quoted for Q_0062, Q_0063, Q_0073, Q_0084                            CONFIRMED
+ 0d  "EDGE_0014 was never extracted / rejected"                                           IMPRECISE
+ 0e  Marker produced at src/retrieval/graph_retriever.py:275                              CONFIRMED
+ 0e  run_overnight.py:111 set graph_context_mode = False; False falls into the legacy
+     branch of context_builder.py that sends the path lines to the LLM                    CONFIRMED
+ --  15 gold entities split (CLAUDE.md)                                                   CONFIRMED (count)
+ --  splits are "EMPLOYEE vs PRODUCT, TECHNOLOGY vs PRODUCT" (NEXT_TASK.md)               IMPRECISE
+ --  "Five gold employee-to-employee MANAGES edges were extracted as DEVELOPS"            IMPRECISE (4 DEVELOPS + 1 SERVES)
+ --  "In 9 documents the text states both relations and only MANAGES was extracted"       IMPRECISE (10 documents state two)
+ --  hybrid hop2 17/30, B9 hop2 21/30                                                     CONFIRMED
+ --  "retrieval-only entry point built in experiments/synth_kg_audit/followup"            REFUTED (none exists)
+ --  "Reuse the recorded query plans from the seed-7 run records"                         REFUTED (records hold no plans)
+
+====================================================================================================
+B1. PROMPT AND PARSER
+====================================================================================================
+- Prompt loaded for seed 7: src/engine.py:119-123 constructs OllamaRelationshipExtractor with no prompt argument, so
+  src/extraction/relation_extractor.py:119 default "prompts/relationship_extraction.txt" is read (:141-142).
+  The file on disk equals the HEAD blob (mtime 2026-11-15T01:29:06, before the 03:40 extraction). CONFIRMED.
+- The KB snapshot and manifest say prompt_versions.relationship_extraction = "v1.1". That label is metadata only:
+  no code at HEAD selects a file from it. It names the SAME file that the new key relationship_extraction_version
+  calls "v1.0". The two version labels are therefore inconsistent (see FINAL_REPORT deviations).
+- Collapsing: 98 raw triples, 96 distinct ordered mention pairs, 2 ordered pairs carry two relation types
+  (D001: MANAGES + BELONGS_TO both VALIDATED), 3 unordered pairs carry two types. In relationships.jsonl 1 canonical
+  pair has 2 types. So the parser, cache, remap (key includes relation_type, entity_resolver.py:267) and graph build
+  (graph_builder.py:66) keep several types per pair. CONFIRMED.
+- IMPRECISE: gemma3:4b DID emit two relation types for the same pair with prompt v1.0 in 3 of the 10 two-relation
+  documents (D001, D003, D007). The prompt is silent on the point and instruction 8 ("choose the most specific allowed
+  relationship type") steers towards one type; it does not forbid several. "Fix 3 is required" is therefore an
+  inference, not something Phase 0a shows. Fix 3 is decided by the Phase 2c dev rule instead.
+
+====================================================================================================
+B2. Q_0091, Q_0094, ALIAS STRINGS
+====================================================================================================
+- Q_0091 "What entity or unit is managed by G. Nebikvane?" -> gold ENT_0002 Gryxethvath Nebikvane (EMPLOYEE),
+  aliases ["G. Nebikvane", "Nebikvane"]. Full name, given name and surname occur only in DOC_0002; the alias string
+  occurs in no document. KB: E003 Gryxethvath Nebikvane (EMPLOYEE).
+- Q_0094 "... managed by L. Sarkithtex?" -> gold ENT_0008 Loroklan Sarkithtex (EMPLOYEE); names only in DOC_0008;
+  alias string in no document. KB: E020 Loroklan Sarkithtex (EMPLOYEE).
+- "Galthor Nebikvane" and "Lorik Sarkithtex" (docs/NEXT_TASK.md 0b) occur in no document, no gold record and no
+  question. Their origin is a hand-written table in experiments/synth_kg_audit/followup/part_c_alias_audit.py:29 and :32.
+  So the gold entity names DO match the corpus; the CLAUDE.md item "Q_0091 and Q_0094 gold entity names may not match
+  corpus names" is resolved: it was an error in the audit script, not in the benchmark.
+- Recount: 14 of 15 alias strings occur in no document (only "Haelenrix", Q_0104, occurs: DOC_0025, DOC_0040).
+  Forms: 10 initial+surname of an EMPLOYEE (Q_0091, 92, 94-99, 103, 105), 4 "<FirstToken> Division" for a
+  DEPARTMENT (Q_0093, 100, 101, 102), 1 product stem (Q_0104).
+
+====================================================================================================
+B3. B4 DIFFERENCE
+====================================================================================================
+- Rerun of both implementations (fixlib.b4_audit, fixlib.b4_followup, copied logic): 9/30 and 11/30 on hop2. CONFIRMED.
+- Only code difference that changes results: audit_part2_baselines.py:139-146 keeps every capitalized run of the two
+  seed documents; part_f_iterative_baselines.py:92-98 drops runs that are a case-insensitive substring of the question.
+  Seed count (2), regex, ranking by cosine to the question, stable-sort ties and dense backfill are the same.
+  Embedding re-normalisation in the audit script has no effect (stored vectors are unit norm).
+- REFUTED detail: the two questions that change are Q_0031 (question entity "Zanistis Infrastructure Group" removed;
+  DOC_0037 enters) and Q_0052 ("Iskorlan Applied Automation Wing" removed; DOC_0043 enters), not Q_0044 and Q_0055.
+
+====================================================================================================
+B4. "VALIDATED PATH EXISTS"
+====================================================================================================
+- Definition: experiments/synth_kg/score.py:350-466 (compute_path_coverage): undirected adjacency over validated
+  canonical relationships (:379-384), BFS (:386-401), flag = shortest path <= hop_count (:446). No edge type, direction
+  or gold-edge identity is checked. CONFIRMED. Recomputed flags equal the stored ones (True for all four).
+- Actual paths (none of the three edges on any path is a gold-path edge or even joins gold-path endpoints):
+  Q_0062: Nebothnok Styxinvath(E034) -BELONGS_TO- Nebunnax Foundational Services Unit(E035) -SERVES- Durnonvor Aerospace(E057) -SERVES- Iskardyn Pipeline(E059)
+  Q_0063: Krenokmoth Tarnonmar(E036, the PRODUCT-typed duplicate) -MANAGES- Nebothnok Styxinvath(E034) -BELONGS_TO- Nebunnax ...(E035) -SERVES- Durnonvor Aerospace(E057)
+  Q_0073: Rynartor Aldislan(E050) -MANAGES- Kronanvek Core Platform Division(E012) -SERVES- Quenentor Consortium(E066) -SERVES- Zanolric Cluster(E067)
+  Q_0084: Tarniklan Raelonrak(E046) -MANAGES- Caelonwyn Praxungon(E044) -BELONGS_TO- Zantonnax Infrastructure Group(E045) -SERVES- Ulxathlok Logistics(E060)
+  The paths run through shared CLIENT or DEPARTMENT hubs (two things serving the same client), which is why an
+  undirected length-3 path exists without the gold chain.
+- EDGE_0014 (Vandothnok Foundational Services Unit -DEVELOPS-> Iskardyn Pipeline, DOC_0035): score.py says
+  NEVER_EXTRACTED, but a raw triple exists with the direction reversed (Iskardyn Pipeline -DEVELOPS-> Vandothnok ...)
+  and status REJECTED_QUOTE_MISMATCH. The sentence is "It is directly responsible for developing Iskardyn Pipeline."
+  (pronoun subject). IMPRECISE in both the prior text and score.py.
+- EDGE_0080 (Rynartor Aldislan -MANAGES-> Myrolvek Pryxelgath, DOC_0020): extracted as
+  Rynartor Aldislan -SERVES-> Myrolvek Pryxelgath with the target mention typed CLIENT; REJECTED_ONTOLOGY.
+
+====================================================================================================
+B5. PROVENANCE MARKER
+====================================================================================================
+- Produced: src/retrieval/graph_retriever.py:275 (f"GRAPH_EDGE_PROVENANCE: {path_str}"), stored in
+  Evidence.supporting_graph_paths. Sent to the LLM: src/retrieval/context_builder.py legacy branch (:89-95 in the
+  current file; "### Supporting Graph Traversal Paths" + one line per path), reached whenever graph_context_mode is
+  neither "none" nor True/"true"/"fix_e"/"edges" (:34-35). src/engine.py:340 passes config.retrieval.graph_context_mode.
+- Value used: experiments/synth_kg/run_overnight.py:111 sets the boolean False; all four run snapshots show
+  graph_context_mode=False. REPORT.md:19 labels this "off (False)". At HEAD both False and the string "off" take the
+  legacy branch, and the config field description says so ("False/'off' (legacy paths)"). So the marker reached the
+  LLM because "off" never meant "no graph text"; only "none" did. CONFIRMED.
+- Answers containing "GRAPH_EDGE_PROVENANCE": hybrid 7, graph_only 8, community_aware 2, vector_only 0 (17 of 480).
+  "GRAPH_SEED_PROVENANCE" appears in 0 answers.
+
+====================================================================================================
+B6. RECOUNTS
+====================================================================================================
+- Split gold entities: 15 (score.py and my exact-name mapping agree). Type patterns: EMPLOYEE vs PRODUCT 6,
+  TECHNOLOGY vs PRODUCT 6, EMPLOYEE vs CLIENT 1, DEPARTMENT vs CLIENT 1, DEPARTMENT vs PRODUCT 1.
+  97 canonical entities; 75 map to a gold canonical name; 22 extra.
+- Gold EMPLOYEE->EMPLOYEE MANAGES edges: 10. Raw triples between the same mentions: 4 typed DEVELOPS and VALIDATED
+  (target mention typed PRODUCT: EDGE_0071, 0072, 0074, 0076), 4 typed MANAGES and VALIDATED (three of them with the
+  target mention typed PRODUCT, which the ontology allows for MANAGES), 1 typed SERVES and REJECTED_ONTOLOGY
+  (EDGE_0080), 1 with no triple (EDGE_0075). The earlier "five as DEVELOPS" is 4 DEVELOPS + 1 SERVES.
+- Documents whose gold KG states two relations for one entity pair: 10 (DOC_0001..DOC_0010, always
+  BELONGS_TO + MANAGES for an employee and a department). Both relations validated in 1 (DOC_0001); MANAGES validated
+  and BELONGS_TO missing or rejected in 8; in DOC_0002 neither is validated. "9 documents" = the 9 without both.
+- All-gold evidence recall from the run records: hybrid hop2 17/30, hop3 1/30, alias 6/15; graph_only hop2 16/30,
+  alias 0/15; vector_only hop2 5/30. B9 hop2 21/30 (fixlib reimplementation). CONFIRMED.
+- For information: B10 (two-step overlap, defined after the seed-7 data were seen) scores hop3 10/30 and hop2 10/30 on
+  seed 7; hybrid hop3 is 1/30.
+
+====================================================================================================
+B7. PLAN DEPENDENCIES
+====================================================================================================
+- Config hash: compute_config_hash is defined at src/core/configuration.py (current file :241) and called nowhere in
+  src/ or hybrid_graphrag/. from_existing (hybrid_graphrag/api.py:149-195) validates config_snapshot.yaml against
+  EngineConfig and compares no hash. Old snapshots lack the new keys and load with defaults. NOT a blocker.
+  One real hazard found instead: the snapshot stores an ABSOLUTE storage_root; api.py:181-183 keeps it when that path
+  exists, so opening a COPY of a KB silently opens the original. The copy in kb_before/ has its snapshot repointed.
+- Retrieval-only hybrid entry point: none exists in experiments/synth_kg_audit/followup/. part_e_hop3_loss.py builds
+  SeedEntityRetriever/GraphEvidenceRetriever by hand with hand-made QueryPlans; part_f reads recorded
+  context_doc_ids. HybridGraphRAGEngine.query always calls the answer generator (src/engine.py:442 at HEAD).
+  New entry point: experiments/synth_kg_fix/retrieval_eval.py (engine path unchanged, planner replaced by cached plans,
+  answer generator replaced by a stub, llm_client.generate replaced by a function that raises).
+- Planner: hybrid and graph_only always call OllamaQueryPlanner (src/engine.py:395, 432 at HEAD); vector_only does not
+  (comparative mode off). The run records store no plans, so 105 plans were generated once (plan_cache.py, T=0,
+  0 planner errors) and reused everywhere.
+- Replay check: HEAD code + KB copy + cached plans reproduces the recorded context document sets on 105/105 questions
+  in hybrid, graph_only and vector_only. The cached plans are therefore equivalent to the plans of the overnight runs
+  as far as retrieval is concerned.
+- Planner intent: LOCAL for all 105 questions (community reports never enter hybrid retrieval on this benchmark).
+- Planner expected_type for the 15 alias questions: EMPLOYEE for all 10 initial+surname seeds, DEPARTMENT for the 4
+  "X Division" seeds, PRODUCT for "Haelenrix". None is missing or wrong, so the HEAD failure on alias seeds is the
+  literal "PERSON" comparison plus the absence of initial matching, not a missing planner type.

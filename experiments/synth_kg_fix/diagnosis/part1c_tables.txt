@@ -1,0 +1,130 @@
+part1c: reachability of gold documents by the graph route's traversal (engine GraphTraverser, stored KB graphs)
+==============================================================================================================
+seed 7 (kb_dev): graph vertices=82 edges=53
+| group | N | recorded graph list covers all gold | T1 capped-20 directed | T2 uncapped directed | T3 undirected 3-hop | T4 undirected any distance | graph list covers gold but T1 does not (seed-direct/other chunks) |
+|---|---|---|---|---|---|---|---|
+| hop1 | 30 | 30 | 27 | 27 | 30 | 30 | 3 |
+| hop2 | 30 | 18 | 18 | 18 | 18 | 24 | 0 |
+| hop3 | 30 | 6 | 6 | 6 | 7 | 18 | 0 |
+| alias | 15 | 9 | 9 | 9 | 9 | 10 | 0 |
+  hop2: questions where the capped traversal returned exactly 20 paths: 0/30; median uncapped path count 2; max hop reached in the capped traversal: {1: 9, 2: 10, 0: 4, 3: 7}; max hop reached uncapped: {1: 9, 2: 10, 0: 4, 3: 7}
+  hop3: questions where the capped traversal returned exactly 20 paths: 0/30; median uncapped path count 2; max hop reached in the capped traversal: {3: 11, 2: 8, 1: 9, 0: 2}; max hop reached uncapped: {3: 11, 2: 8, 1: 9, 0: 2}
+  hop2: smallest hop limit at which ALL gold docs are covered (None = never within 12). undirected: {1: 18, 4: 2, 6: 2, 8: 2, None: 6}; directed (engine traversal, cap removed): {1: 18, None: 12}
+  hop3: smallest hop limit at which ALL gold docs are covered (None = never within 12). undirected: {2: 6, 3: 1, 4: 1, 5: 3, 6: 2, 7: 2, 8: 1, 9: 1, 10: 1, None: 12}; directed (engine traversal, cap removed): {2: 6, None: 24}
+  hop3 per question (id, gold docs, n resolved seeds, relationship_path, paths capped, paths uncapped, gold NOT covered by T1 / T2 / T3):
+    Q_0061 gold=['DOC_0019', 'DOC_0020', 'DOC_0021'] seeds=1 rel_path=['MANAGES'] paths=5/5 missing T1=['DOC_0021'] T2=['DOC_0021'] T3=['DOC_0021']
+    Q_0062 gold=['DOC_0013', 'DOC_0014', 'DOC_0035'] seeds=1 rel_path=['MANAGES'] paths=6/6 missing T1=[] T2=[] T3=[]
+    Q_0063 gold=['DOC_0014', 'DOC_0035', 'DOC_0038'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=3/3 missing T1=['DOC_0038'] T2=['DOC_0038'] T3=[]
+    Q_0064 gold=['DOC_0018', 'DOC_0019', 'DOC_0025'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=4/4 missing T1=[] T2=[] T3=[]
+    Q_0065 gold=['DOC_0012', 'DOC_0033', 'DOC_0048'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=2/2 missing T1=['DOC_0048'] T2=['DOC_0048'] T3=['DOC_0048']
+    Q_0066 gold=['DOC_0018', 'DOC_0019', 'DOC_0020'] seeds=1 rel_path=['MANAGES', 'MANAGES', 'MANAGES'] paths=4/4 missing T1=[] T2=[] T3=[]
+    Q_0067 gold=['DOC_0005', 'DOC_0026', 'DOC_0041'] seeds=1 rel_path=['MANAGES', 'DEVELOPS', 'SERVES'] paths=4/4 missing T1=[] T2=[] T3=[]
+    Q_0068 gold=['DOC_0010', 'DOC_0031', 'DOC_0046'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=4/4 missing T1=[] T2=[] T3=[]
+    Q_0069 gold=['DOC_0021', 'DOC_0027', 'DOC_0042'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=1/1 missing T1=['DOC_0042'] T2=['DOC_0042'] T3=['DOC_0042']
+    Q_0070 gold=['DOC_0011', 'DOC_0012', 'DOC_0033'] seeds=1 rel_path=['MANAGES', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0012', 'DOC_0033'] T2=['DOC_0012', 'DOC_0033'] T3=['DOC_0012', 'DOC_0033']
+    Q_0071 gold=['DOC_0006', 'DOC_0027', 'DOC_0042'] seeds=1 rel_path=['MANAGES', 'BUILT_WITH'] paths=1/1 missing T1=['DOC_0042'] T2=['DOC_0042'] T3=['DOC_0042']
+    Q_0072 gold=['DOC_0009', 'DOC_0030', 'DOC_0045'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0045'] T2=['DOC_0045'] T3=['DOC_0045']
+    Q_0073 gold=['DOC_0020', 'DOC_0021', 'DOC_0027'] seeds=1 rel_path=['MANAGES', 'DEVELOPS'] paths=4/4 missing T1=['DOC_0021', 'DOC_0027'] T2=['DOC_0021', 'DOC_0027'] T3=['DOC_0021']
+    Q_0074 gold=['DOC_0008', 'DOC_0029', 'DOC_0044'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=1/1 missing T1=['DOC_0044'] T2=['DOC_0044'] T3=['DOC_0044']
+    Q_0075 gold=['DOC_0016', 'DOC_0022', 'DOC_0037'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=2/2 missing T1=['DOC_0037'] T2=['DOC_0037'] T3=['DOC_0037']
+    Q_0076 gold=['DOC_0012', 'DOC_0013', 'DOC_0034'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=2/2 missing T1=['DOC_0013', 'DOC_0034'] T2=['DOC_0013', 'DOC_0034'] T3=['DOC_0013', 'DOC_0034']
+    Q_0077 gold=['DOC_0004', 'DOC_0025', 'DOC_0040'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0040'] T2=['DOC_0040'] T3=['DOC_0040']
+    Q_0078 gold=['DOC_0009', 'DOC_0030', 'DOC_0045'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=1/1 missing T1=['DOC_0045'] T2=['DOC_0045'] T3=['DOC_0045']
+    Q_0079 gold=['DOC_0002', 'DOC_0023', 'DOC_0038'] seeds=1 rel_path=['MANAGES', 'BUILT_WITH'] paths=2/2 missing T1=['DOC_0038'] T2=['DOC_0038'] T3=['DOC_0038']
+    Q_0080 gold=['DOC_0016', 'DOC_0017', 'DOC_0018'] seeds=1 rel_path=['MANAGES'] paths=2/2 missing T1=['DOC_0017', 'DOC_0018'] T2=['DOC_0017', 'DOC_0018'] T3=['DOC_0017', 'DOC_0018']
+    Q_0081 gold=['DOC_0018', 'DOC_0024', 'DOC_0039'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=4/4 missing T1=['DOC_0024', 'DOC_0039'] T2=['DOC_0024', 'DOC_0039'] T3=['DOC_0024']
+    Q_0082 gold=['DOC_0015', 'DOC_0016', 'DOC_0022'] seeds=1 rel_path=['MANAGES', 'DEVELOPS'] paths=0/0 missing T1=['DOC_0015', 'DOC_0016', 'DOC_0022'] T2=['DOC_0015', 'DOC_0016', 'DOC_0022'] T3=['DOC_0016', 'DOC_0022']
+    Q_0083 gold=['DOC_0014', 'DOC_0015', 'DOC_0016'] seeds=1 rel_path=['MANAGES', 'MANAGES', 'MANAGES'] paths=3/3 missing T1=['DOC_0016'] T2=['DOC_0016'] T3=['DOC_0016']
+    Q_0084 gold=['DOC_0018', 'DOC_0024', 'DOC_0039'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=4/4 missing T1=['DOC_0024', 'DOC_0039'] T2=['DOC_0024', 'DOC_0039'] T3=['DOC_0024']
+    Q_0085 gold=['DOC_0015', 'DOC_0016', 'DOC_0017'] seeds=1 rel_path=['MANAGES'] paths=0/0 missing T1=['DOC_0015', 'DOC_0016', 'DOC_0017'] T2=['DOC_0015', 'DOC_0016', 'DOC_0017'] T3=['DOC_0016', 'DOC_0017']
+    Q_0086 gold=['DOC_0016', 'DOC_0017', 'DOC_0023'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=2/2 missing T1=['DOC_0017', 'DOC_0023'] T2=['DOC_0017', 'DOC_0023'] T3=['DOC_0017']
+    Q_0087 gold=['DOC_0021', 'DOC_0027', 'DOC_0042'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0042'] T2=['DOC_0042'] T3=['DOC_0042']
+    Q_0088 gold=['DOC_0008', 'DOC_0029', 'DOC_0044'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0044'] T2=['DOC_0044'] T3=['DOC_0044']
+    Q_0089 gold=['DOC_0013', 'DOC_0014', 'DOC_0015'] seeds=1 rel_path=['MANAGES', 'MANAGES', 'MANAGES'] paths=6/6 missing T1=[] T2=[] T3=[]
+    Q_0090 gold=['DOC_0019', 'DOC_0025', 'DOC_0040'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=5/5 missing T1=['DOC_0040'] T2=['DOC_0040'] T3=['DOC_0040']
+==============================================================================================================
+seed 7 (kb_dev_merge_only): graph vertices=82 edges=55
+| group | N | recorded graph list covers all gold | T1 capped-20 directed | T2 uncapped directed | T3 undirected 3-hop | T4 undirected any distance | graph list covers gold but T1 does not (seed-direct/other chunks) |
+|---|---|---|---|---|---|---|---|
+| hop1 | 30 | 30 | 26 | 26 | 30 | 30 | 4 |
+| hop2 | 30 | 20 | 20 | 20 | 20 | 27 | 0 |
+| hop3 | 30 | 10 | 10 | 10 | 11 | 20 | 0 |
+| alias | 15 | 9 | 8 | 8 | 9 | 10 | 1 |
+  hop2: questions where the capped traversal returned exactly 20 paths: 0/30; median uncapped path count 3; max hop reached in the capped traversal: {1: 8, 3: 11, 2: 6, 0: 5}; max hop reached uncapped: {1: 8, 3: 11, 2: 6, 0: 5}
+  hop3: questions where the capped traversal returned exactly 20 paths: 0/30; median uncapped path count 4; max hop reached in the capped traversal: {3: 17, 2: 2, 1: 8, 0: 3}; max hop reached uncapped: {3: 17, 2: 2, 1: 8, 0: 3}
+  hop2: smallest hop limit at which ALL gold docs are covered (None = never within 12). undirected: {1: 20, 4: 3, 6: 1, 12: 1, None: 5}; directed (engine traversal, cap removed): {1: 20, None: 10}
+  hop3: smallest hop limit at which ALL gold docs are covered (None = never within 12). undirected: {2: 10, 3: 1, 4: 1, 5: 3, 6: 2, 7: 1, 9: 1, 11: 1, None: 10}; directed (engine traversal, cap removed): {2: 10, None: 20}
+  hop3 per question (id, gold docs, n resolved seeds, relationship_path, paths capped, paths uncapped, gold NOT covered by T1 / T2 / T3):
+    Q_0061 gold=['DOC_0019', 'DOC_0020', 'DOC_0021'] seeds=1 rel_path=['MANAGES'] paths=5/5 missing T1=['DOC_0021'] T2=['DOC_0021'] T3=['DOC_0021']
+    Q_0062 gold=['DOC_0013', 'DOC_0014', 'DOC_0035'] seeds=1 rel_path=['MANAGES'] paths=6/6 missing T1=[] T2=[] T3=[]
+    Q_0063 gold=['DOC_0014', 'DOC_0035', 'DOC_0038'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=3/3 missing T1=['DOC_0038'] T2=['DOC_0038'] T3=[]
+    Q_0064 gold=['DOC_0018', 'DOC_0019', 'DOC_0025'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=4/4 missing T1=[] T2=[] T3=[]
+    Q_0065 gold=['DOC_0012', 'DOC_0033', 'DOC_0048'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=8/8 missing T1=['DOC_0048'] T2=['DOC_0048'] T3=['DOC_0048']
+    Q_0066 gold=['DOC_0018', 'DOC_0019', 'DOC_0020'] seeds=1 rel_path=['MANAGES', 'MANAGES', 'MANAGES'] paths=4/4 missing T1=[] T2=[] T3=[]
+    Q_0067 gold=['DOC_0005', 'DOC_0026', 'DOC_0041'] seeds=1 rel_path=['MANAGES', 'DEVELOPS', 'SERVES'] paths=4/4 missing T1=[] T2=[] T3=[]
+    Q_0068 gold=['DOC_0010', 'DOC_0031', 'DOC_0046'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=4/4 missing T1=[] T2=[] T3=[]
+    Q_0069 gold=['DOC_0021', 'DOC_0027', 'DOC_0042'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=1/1 missing T1=['DOC_0042'] T2=['DOC_0042'] T3=['DOC_0042']
+    Q_0070 gold=['DOC_0011', 'DOC_0012', 'DOC_0033'] seeds=1 rel_path=['MANAGES', 'DEVELOPS'] paths=7/7 missing T1=[] T2=[] T3=[]
+    Q_0071 gold=['DOC_0006', 'DOC_0027', 'DOC_0042'] seeds=1 rel_path=['MANAGES', 'BUILT_WITH'] paths=1/1 missing T1=['DOC_0042'] T2=['DOC_0042'] T3=['DOC_0042']
+    Q_0072 gold=['DOC_0009', 'DOC_0030', 'DOC_0045'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0045'] T2=['DOC_0045'] T3=['DOC_0045']
+    Q_0073 gold=['DOC_0020', 'DOC_0021', 'DOC_0027'] seeds=1 rel_path=['MANAGES', 'DEVELOPS'] paths=4/4 missing T1=['DOC_0021', 'DOC_0027'] T2=['DOC_0021', 'DOC_0027'] T3=['DOC_0021']
+    Q_0074 gold=['DOC_0008', 'DOC_0029', 'DOC_0044'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=1/1 missing T1=['DOC_0044'] T2=['DOC_0044'] T3=['DOC_0044']
+    Q_0075 gold=['DOC_0016', 'DOC_0022', 'DOC_0037'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=7/7 missing T1=['DOC_0037'] T2=['DOC_0037'] T3=['DOC_0037']
+    Q_0076 gold=['DOC_0012', 'DOC_0013', 'DOC_0034'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=8/8 missing T1=[] T2=[] T3=[]
+    Q_0077 gold=['DOC_0004', 'DOC_0025', 'DOC_0040'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0040'] T2=['DOC_0040'] T3=['DOC_0040']
+    Q_0078 gold=['DOC_0009', 'DOC_0030', 'DOC_0045'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=1/1 missing T1=['DOC_0045'] T2=['DOC_0045'] T3=['DOC_0045']
+    Q_0079 gold=['DOC_0002', 'DOC_0023', 'DOC_0038'] seeds=1 rel_path=['MANAGES', 'BUILT_WITH'] paths=0/0 missing T1=['DOC_0002', 'DOC_0023', 'DOC_0038'] T2=['DOC_0002', 'DOC_0023', 'DOC_0038'] T3=['DOC_0023', 'DOC_0038']
+    Q_0080 gold=['DOC_0016', 'DOC_0017', 'DOC_0018'] seeds=1 rel_path=['MANAGES'] paths=7/7 missing T1=[] T2=[] T3=[]
+    Q_0081 gold=['DOC_0018', 'DOC_0024', 'DOC_0039'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=4/4 missing T1=['DOC_0024', 'DOC_0039'] T2=['DOC_0024', 'DOC_0039'] T3=['DOC_0024']
+    Q_0082 gold=['DOC_0015', 'DOC_0016', 'DOC_0022'] seeds=1 rel_path=['MANAGES', 'DEVELOPS'] paths=0/0 missing T1=['DOC_0015', 'DOC_0016', 'DOC_0022'] T2=['DOC_0015', 'DOC_0016', 'DOC_0022'] T3=['DOC_0016', 'DOC_0022']
+    Q_0083 gold=['DOC_0014', 'DOC_0015', 'DOC_0016'] seeds=1 rel_path=['MANAGES', 'MANAGES', 'MANAGES'] paths=3/3 missing T1=['DOC_0016'] T2=['DOC_0016'] T3=['DOC_0016']
+    Q_0084 gold=['DOC_0018', 'DOC_0024', 'DOC_0039'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=4/4 missing T1=['DOC_0024', 'DOC_0039'] T2=['DOC_0024', 'DOC_0039'] T3=['DOC_0024']
+    Q_0085 gold=['DOC_0015', 'DOC_0016', 'DOC_0017'] seeds=1 rel_path=['MANAGES'] paths=0/0 missing T1=['DOC_0015', 'DOC_0016', 'DOC_0017'] T2=['DOC_0015', 'DOC_0016', 'DOC_0017'] T3=['DOC_0016', 'DOC_0017']
+    Q_0086 gold=['DOC_0016', 'DOC_0017', 'DOC_0023'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=7/7 missing T1=[] T2=[] T3=[]
+    Q_0087 gold=['DOC_0021', 'DOC_0027', 'DOC_0042'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0042'] T2=['DOC_0042'] T3=['DOC_0042']
+    Q_0088 gold=['DOC_0008', 'DOC_0029', 'DOC_0044'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0044'] T2=['DOC_0044'] T3=['DOC_0044']
+    Q_0089 gold=['DOC_0013', 'DOC_0014', 'DOC_0015'] seeds=1 rel_path=['MANAGES', 'MANAGES', 'MANAGES'] paths=6/6 missing T1=[] T2=[] T3=[]
+    Q_0090 gold=['DOC_0019', 'DOC_0025', 'DOC_0040'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=5/5 missing T1=['DOC_0040'] T2=['DOC_0040'] T3=['DOC_0040']
+==============================================================================================================
+seed 11 (kb_seed11): graph vertices=79 edges=45
+| group | N | recorded graph list covers all gold | T1 capped-20 directed | T2 uncapped directed | T3 undirected 3-hop | T4 undirected any distance | graph list covers gold but T1 does not (seed-direct/other chunks) |
+|---|---|---|---|---|---|---|---|
+| hop1 | 30 | 30 | 23 | 23 | 30 | 30 | 7 |
+| hop2 | 30 | 15 | 15 | 15 | 16 | 17 | 0 |
+| hop3 | 30 | 1 | 1 | 1 | 2 | 5 | 0 |
+| alias | 15 | 10 | 9 | 9 | 10 | 10 | 1 |
+  hop2: questions where the capped traversal returned exactly 20 paths: 0/30; median uncapped path count 1; max hop reached in the capped traversal: {0: 6, 2: 12, 1: 10, 3: 2}; max hop reached uncapped: {0: 6, 2: 12, 1: 10, 3: 2}
+  hop3: questions where the capped traversal returned exactly 20 paths: 0/30; median uncapped path count 2; max hop reached in the capped traversal: {2: 20, 0: 8, 1: 2}; max hop reached uncapped: {2: 20, 0: 8, 1: 2}
+  hop2: smallest hop limit at which ALL gold docs are covered (None = never within 12). undirected: {1: 16, 4: 1, None: 13}; directed (engine traversal, cap removed): {1: 15, None: 15}
+  hop3: smallest hop limit at which ALL gold docs are covered (None = never within 12). undirected: {2: 1, 3: 1, 4: 1, 5: 2, None: 25}; directed (engine traversal, cap removed): {2: 1, None: 29}
+  hop3 per question (id, gold docs, n resolved seeds, relationship_path, paths capped, paths uncapped, gold NOT covered by T1 / T2 / T3):
+    Q_0061 gold=['DOC_0017', 'DOC_0018', 'DOC_0024'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=3/3 missing T1=['DOC_0024'] T2=['DOC_0024'] T3=[]
+    Q_0062 gold=['DOC_0016', 'DOC_0017', 'DOC_0023'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'DEVELOPS'] paths=2/2 missing T1=['DOC_0017', 'DOC_0023'] T2=['DOC_0017', 'DOC_0023'] T3=['DOC_0017']
+    Q_0063 gold=['DOC_0001', 'DOC_0022', 'DOC_0037'] seeds=1 rel_path=['MANAGES', 'BUILT_WITH'] paths=2/2 missing T1=['DOC_0037'] T2=['DOC_0037'] T3=['DOC_0037']
+    Q_0064 gold=['DOC_0014', 'DOC_0035', 'DOC_0038'] seeds=1 rel_path=['BELONGS_TO', 'BUILT_WITH'] paths=2/2 missing T1=['DOC_0038'] T2=['DOC_0038'] T3=['DOC_0038']
+    Q_0065 gold=['DOC_0017', 'DOC_0018', 'DOC_0019'] seeds=1 rel_path=['MANAGES'] paths=3/3 missing T1=['DOC_0019'] T2=['DOC_0019'] T3=['DOC_0019']
+    Q_0066 gold=['DOC_0020', 'DOC_0026', 'DOC_0041'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=0/0 missing T1=['DOC_0020', 'DOC_0026', 'DOC_0041'] T2=['DOC_0020', 'DOC_0026', 'DOC_0041'] T3=['DOC_0026']
+    Q_0067 gold=['DOC_0001', 'DOC_0022', 'DOC_0037'] seeds=1 rel_path=['MANAGES', 'DEVELOPS', 'SERVES'] paths=2/2 missing T1=['DOC_0037'] T2=['DOC_0037'] T3=['DOC_0037']
+    Q_0068 gold=['DOC_0010', 'DOC_0031', 'DOC_0046'] seeds=1 rel_path=['BELONGS_TO', 'BUILT_WITH'] paths=2/2 missing T1=['DOC_0046'] T2=['DOC_0046'] T3=['DOC_0046']
+    Q_0069 gold=['DOC_0002', 'DOC_0023', 'DOC_0038'] seeds=1 rel_path=['MANAGES'] paths=2/2 missing T1=['DOC_0038'] T2=['DOC_0038'] T3=['DOC_0038']
+    Q_0070 gold=['DOC_0009', 'DOC_0030', 'DOC_0045'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=0/0 missing T1=['DOC_0009', 'DOC_0030', 'DOC_0045'] T2=['DOC_0009', 'DOC_0030', 'DOC_0045'] T3=['DOC_0030', 'DOC_0045']
+    Q_0071 gold=['DOC_0012', 'DOC_0033', 'DOC_0048'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=0/0 missing T1=['DOC_0012', 'DOC_0033', 'DOC_0048'] T2=['DOC_0012', 'DOC_0033', 'DOC_0048'] T3=['DOC_0033', 'DOC_0048']
+    Q_0072 gold=['DOC_0012', 'DOC_0013', 'DOC_0014'] seeds=1 rel_path=['MANAGES'] paths=0/0 missing T1=['DOC_0012', 'DOC_0013', 'DOC_0014'] T2=['DOC_0012', 'DOC_0013', 'DOC_0014'] T3=['DOC_0014']
+    Q_0073 gold=['DOC_0005', 'DOC_0026', 'DOC_0041'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=2/2 missing T1=[] T2=[] T3=[]
+    Q_0074 gold=['DOC_0012', 'DOC_0013', 'DOC_0034'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=0/0 missing T1=['DOC_0012', 'DOC_0013', 'DOC_0034'] T2=['DOC_0012', 'DOC_0013', 'DOC_0034'] T3=['DOC_0034']
+    Q_0075 gold=['DOC_0008', 'DOC_0029', 'DOC_0044'] seeds=1 rel_path=['MANAGES', 'DEVELOPS', 'SERVES'] paths=4/4 missing T1=['DOC_0044'] T2=['DOC_0044'] T3=['DOC_0044']
+    Q_0076 gold=['DOC_0013', 'DOC_0014', 'DOC_0035'] seeds=1 rel_path=['MANAGES', 'DEVELOPS'] paths=1/1 missing T1=['DOC_0014', 'DOC_0035'] T2=['DOC_0014', 'DOC_0035'] T3=['DOC_0014', 'DOC_0035']
+    Q_0077 gold=['DOC_0007', 'DOC_0028', 'DOC_0043'] seeds=1 rel_path=['BELONGS_TO', 'BUILT_WITH'] paths=2/2 missing T1=['DOC_0043'] T2=['DOC_0043'] T3=['DOC_0043']
+    Q_0078 gold=['DOC_0001', 'DOC_0022', 'DOC_0037'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=2/2 missing T1=['DOC_0037'] T2=['DOC_0037'] T3=['DOC_0037']
+    Q_0079 gold=['DOC_0014', 'DOC_0015', 'DOC_0016'] seeds=1 rel_path=['MANAGES'] paths=2/2 missing T1=['DOC_0015', 'DOC_0016'] T2=['DOC_0015', 'DOC_0016'] T3=['DOC_0015', 'DOC_0016']
+    Q_0080 gold=['DOC_0007', 'DOC_0028', 'DOC_0043'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS', 'SERVES'] paths=2/2 missing T1=['DOC_0043'] T2=['DOC_0043'] T3=['DOC_0043']
+    Q_0081 gold=['DOC_0002', 'DOC_0023', 'DOC_0038'] seeds=1 rel_path=['MANAGES'] paths=2/2 missing T1=['DOC_0038'] T2=['DOC_0038'] T3=['DOC_0038']
+    Q_0082 gold=['DOC_0007', 'DOC_0028', 'DOC_0043'] seeds=1 rel_path=['MANAGES', 'DEVELOPS', 'SERVES'] paths=2/2 missing T1=['DOC_0043'] T2=['DOC_0043'] T3=['DOC_0043']
+    Q_0083 gold=['DOC_0011', 'DOC_0012', 'DOC_0033'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=0/0 missing T1=['DOC_0011', 'DOC_0012', 'DOC_0033'] T2=['DOC_0011', 'DOC_0012', 'DOC_0033'] T3=['DOC_0012', 'DOC_0033']
+    Q_0084 gold=['DOC_0015', 'DOC_0016', 'DOC_0022'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=2/2 missing T1=['DOC_0016', 'DOC_0022'] T2=['DOC_0016', 'DOC_0022'] T3=['DOC_0016', 'DOC_0022']
+    Q_0085 gold=['DOC_0018', 'DOC_0024', 'DOC_0039'] seeds=1 rel_path=['BELONGS_TO'] paths=0/0 missing T1=['DOC_0018', 'DOC_0024', 'DOC_0039'] T2=['DOC_0018', 'DOC_0024', 'DOC_0039'] T3=['DOC_0024']
+    Q_0086 gold=['DOC_0020', 'DOC_0026', 'DOC_0041'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=0/0 missing T1=['DOC_0020', 'DOC_0026', 'DOC_0041'] T2=['DOC_0020', 'DOC_0026', 'DOC_0041'] T3=['DOC_0026']
+    Q_0087 gold=['DOC_0013', 'DOC_0014', 'DOC_0035'] seeds=1 rel_path=['MANAGES', 'BELONGS_TO', 'SERVES'] paths=1/1 missing T1=['DOC_0014', 'DOC_0035'] T2=['DOC_0014', 'DOC_0035'] T3=['DOC_0014', 'DOC_0035']
+    Q_0088 gold=['DOC_0010', 'DOC_0031', 'DOC_0046'] seeds=1 rel_path=['MANAGES', 'SERVES'] paths=2/2 missing T1=['DOC_0046'] T2=['DOC_0046'] T3=['DOC_0046']
+    Q_0089 gold=['DOC_0016', 'DOC_0022', 'DOC_0037'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=2/2 missing T1=['DOC_0037'] T2=['DOC_0037'] T3=['DOC_0037']
+    Q_0090 gold=['DOC_0017', 'DOC_0023', 'DOC_0038'] seeds=1 rel_path=['BELONGS_TO', 'DEVELOPS'] paths=3/3 missing T1=['DOC_0038'] T2=['DOC_0038'] T3=['DOC_0038']

@@ -1,0 +1,1 @@
+Myrelrix Hub is a proprietary enterprise software solution deployed across production clusters. Myrelrix Hub utilizes JolelricGraph for core functionality. It operates in production serving Iskalreth Energy Group. In contrast, Myrelrix Systems maintains entirely distinct non-production responsibilities.

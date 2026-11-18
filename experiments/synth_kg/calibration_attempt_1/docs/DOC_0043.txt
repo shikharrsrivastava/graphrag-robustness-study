@@ -1,0 +1,1 @@
+Jorustex Nexus is a proprietary enterprise software solution deployed across production clusters. Jorustex Nexus was constructed upon the WyrendorQL framework. Jorustex Nexus directly serves the enterprise requirements of Brynandor Networks.

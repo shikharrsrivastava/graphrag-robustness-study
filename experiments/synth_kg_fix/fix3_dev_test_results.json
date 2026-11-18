@@ -1,0 +1,969 @@
+{
+ "v1.0": {
+  "DOC_0001": {
+   "triples": [
+    {
+     "source": "Pryxeldor Iskorlan",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Zanistis Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0061"
+    },
+    {
+     "source": "Pryxeldor Iskorlan",
+     "source_type": "EMPLOYEE",
+     "relation": "BELONGS_TO",
+     "target": "Zanistis Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0040"
+    }
+   ],
+   "error": null,
+   "seconds": 17.0
+  },
+  "DOC_0002": {
+   "triples": [
+    {
+     "source": "Gryxethvath Nebikvane",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Zantonnax Infrastructure Group",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": "EDGE_0062"
+    },
+    {
+     "source": "Gryxethvath Nebikvane",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Gryxethvath Kren",
+     "target_type": "EMPLOYEE",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 12.5
+  },
+  "DOC_0003": {
+   "triples": [
+    {
+     "source": "Jolikvath Krenorrak",
+     "source_type": "EMPLOYEE",
+     "relation": "BELONGS_TO",
+     "target": "Oryxonvath Systems Engineering Unit",
+     "target_type": "DEPARTMENT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": "EDGE_0042"
+    },
+    {
+     "source": "Jolikvath Krenorrak",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Oryxonvath Systems Engineering Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0063"
+    }
+   ],
+   "error": null,
+   "seconds": 12.8
+  },
+  "DOC_0004": {
+   "triples": [
+    {
+     "source": "Krenostis Thalithvath",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Synethgath Systems Engineering Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0064"
+    }
+   ],
+   "error": null,
+   "seconds": 8.1
+  },
+  "DOC_0005": {
+   "triples": [
+    {
+     "source": "Aldunwyn Kronosmoth",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Kronanvek Core Platform Division",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0065"
+    }
+   ],
+   "error": null,
+   "seconds": 8.2
+  },
+  "DOC_0006": {
+   "triples": [
+    {
+     "source": "Lorosmir Faelennax",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Aetharkest Systems Engineering Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0066"
+    },
+    {
+     "source": "Aetharkest Systems Engineering Unit",
+     "source_type": "DEPARTMENT",
+     "relation": "MANAGES",
+     "target": "Lorosmir Faelennax",
+     "target_type": "EMPLOYEE",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 12.2
+  },
+  "DOC_0007": {
+   "triples": [
+    {
+     "source": "Thalusvix Fennisvane",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Iskorlan Applied Automation Wing",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0067"
+    },
+    {
+     "source": "Iskorlan Applied Automation Wing",
+     "source_type": "DEPARTMENT",
+     "relation": "BELONGS_TO",
+     "target": "Thalusvix Fennisvane",
+     "target_type": "EMPLOYEE",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 12.3
+  },
+  "DOC_0008": {
+   "triples": [
+    {
+     "source": "Loroklan Sarkithtex",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Kaelinlux Systems Engineering Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0068"
+    },
+    {
+     "source": "Loroklan Sarkithtex",
+     "source_type": "EMPLOYEE",
+     "relation": "SERVES",
+     "target": "Kaelinlux Systems",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 11.8
+  },
+  "DOC_0009": {
+   "triples": [
+    {
+     "source": "Krenuthreth Fennanvor",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Noxontor Foundational Services Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0069"
+    }
+   ],
+   "error": null,
+   "seconds": 7.9
+  },
+  "DOC_0010": {
+   "triples": [
+    {
+     "source": "Synorreth Aldathdyn",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Morenvek Analytics Laboratory",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0070"
+    }
+   ],
+   "error": null,
+   "seconds": 7.7
+  },
+  "DOC_0011": {
+   "triples": [
+    {
+     "source": "Fennikvath Quenindyn",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Eldornax Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    },
+    {
+     "source": "Fennikvath Quenindyn",
+     "source_type": "EMPLOYEE",
+     "relation": "DEVELOPS",
+     "target": "Taelanfen Wyrusnok",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 13.0
+  },
+  "DOC_0012": {
+   "triples": [
+    {
+     "source": "Taelanfen Wyrusnok",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Durnalnok Analytics Laboratory",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    },
+    {
+     "source": "Taelanfen Wyrusnok",
+     "source_type": "EMPLOYEE",
+     "relation": "DEVELOPS",
+     "target": "Nebothnok Styxinvath",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 12.5
+  },
+  "DOC_0014": {
+   "triples": [
+    {
+     "source": "Krenokmoth Tarnonmar",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Vandothnok Foundational Services Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    },
+    {
+     "source": "Krenokmoth Tarnonmar",
+     "source_type": "EMPLOYEE",
+     "relation": "DEVELOPS",
+     "target": "Durnenlok Noxornok",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 12.6
+  },
+  "DOC_0016": {
+   "triples": [
+    {
+     "source": "Rynunvor Lyrontis",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Zanistis Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    },
+    {
+     "source": "Rynunvor Lyrontis",
+     "source_type": "EMPLOYEE",
+     "relation": "DEVELOPS",
+     "target": "Caelonwyn Praxungon",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 15.2
+  },
+  "DOC_0020": {
+   "triples": [
+    {
+     "source": "Rynartor Aldislan",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Kronanvek Core Platform Division",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    },
+    {
+     "source": "Rynartor Aldislan",
+     "source_type": "EMPLOYEE",
+     "relation": "SERVES",
+     "target": "Myrolvek Pryxelgath",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 18.1
+  },
+  "DOC_0017": {
+   "triples": [
+    {
+     "source": "Caelonwyn Praxungon",
+     "source_type": "EMPLOYEE",
+     "relation": "BELONGS_TO",
+     "target": "Zantonnax Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0056"
+    },
+    {
+     "source": "Caelonwyn Praxungon",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Tarniklan Raelonrak",
+     "target_type": "EMPLOYEE",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0077"
+    }
+   ],
+   "error": null,
+   "seconds": 19.7
+  },
+  "DOC_0032": {
+   "triples": [
+    {
+     "source": "Eldothvix Hub",
+     "source_type": "PRODUCT",
+     "relation": "DEVELOPS",
+     "target": "Eldornax Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "REJECTED_QUOTE_MISMATCH",
+     "gold_edge": null
+    },
+    {
+     "source": "Eldothvix Hub",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Quenentor Consortium",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 22.3
+  },
+  "DOC_0040": {
+   "triples": [
+    {
+     "source": "Haelenrix Gateway",
+     "source_type": "PRODUCT",
+     "relation": "BUILT_WITH",
+     "target": "NoxarnokNet",
+     "target_type": "TECHNOLOGY",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0019"
+    },
+    {
+     "source": "Haelenrix Gateway",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Kaelunkest Syndicate",
+     "target_type": "CLIENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0031"
+    }
+   ],
+   "error": null,
+   "seconds": 25.7
+  },
+  "DOC_0042": {
+   "triples": [
+    {
+     "source": "Zanolric Cluster",
+     "source_type": "PRODUCT",
+     "relation": "BUILT_WITH",
+     "target": "YvethnokRPC",
+     "target_type": "TECHNOLOGY",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0021"
+    },
+    {
+     "source": "Zanolric Cluster",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Quenentor Consortium",
+     "target_type": "CLIENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0033"
+    }
+   ],
+   "error": null,
+   "seconds": 23.6
+  },
+  "DOC_0047": {
+   "triples": [
+    {
+     "source": "PryxingonDB",
+     "source_type": "TECHNOLOGY",
+     "relation": "BUILT_WITH",
+     "target": "Eldothvix Hub",
+     "target_type": "PRODUCT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    },
+    {
+     "source": "Eldothvix Hub",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Pryxunvek Syndicate",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": "EDGE_0038"
+    },
+    {
+     "source": "Eldothvix Systems",
+     "source_type": "PRODUCT",
+     "relation": "DEVELOPS",
+     "target": "Eldothvix Hub",
+     "target_type": "PRODUCT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 34.2
+  },
+  "DOC_0048": {
+   "triples": [
+    {
+     "source": "Maelengath Hub",
+     "source_type": "PRODUCT",
+     "relation": "BUILT_WITH",
+     "target": "YvethnokRPC",
+     "target_type": "TECHNOLOGY",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0027"
+    },
+    {
+     "source": "Maelengath Hub",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Quenentor Consortium",
+     "target_type": "CLIENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0039"
+    },
+    {
+     "source": "Maelengath Systems",
+     "source_type": "DEPARTMENT",
+     "relation": "BELONGS_TO",
+     "target": "Maelengath Hub",
+     "target_type": "PRODUCT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 38.2
+  }
+ },
+ "v1.1": {
+  "DOC_0001": {
+   "triples": [
+    {
+     "source": "Pryxeldor Iskorlan",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Zanistis Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0061"
+    },
+    {
+     "source": "Pryxeldor Iskorlan",
+     "source_type": "EMPLOYEE",
+     "relation": "BELONGS_TO",
+     "target": "Zanistis Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0040"
+    }
+   ],
+   "error": null,
+   "seconds": 26.3
+  },
+  "DOC_0002": {
+   "triples": [
+    {
+     "source": "Gryxethvath Nebikvane",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Zantonnax Infrastructure Group",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": "EDGE_0062"
+    },
+    {
+     "source": "Gryxethvath Nebikvane",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Gryxethvath Kren",
+     "target_type": "EMPLOYEE",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 22.0
+  },
+  "DOC_0003": {
+   "triples": [
+    {
+     "source": "Jolikvath Krenorrak",
+     "source_type": "EMPLOYEE",
+     "relation": "DEVELOPS",
+     "target": "Oryxonvath Systems Engineering Unit",
+     "target_type": "DEPARTMENT",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 20.4
+  },
+  "DOC_0004": {
+   "triples": [
+    {
+     "source": "Krenostis Thalithvath",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Synethgath Systems Engineering Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0064"
+    }
+   ],
+   "error": null,
+   "seconds": 13.0
+  },
+  "DOC_0005": {
+   "triples": [
+    {
+     "source": "Aldunwyn Kronosmoth",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Kronanvek Core Platform Division",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0065"
+    }
+   ],
+   "error": null,
+   "seconds": 20.2
+  },
+  "DOC_0006": {
+   "triples": [
+    {
+     "source": "Lorosmir Faelennax",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Aetharkest Systems Engineering Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0066"
+    },
+    {
+     "source": "Lorosmir Faelennax",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Lorosmir Kren",
+     "target_type": "EMPLOYEE",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 21.3
+  },
+  "DOC_0007": {
+   "triples": [
+    {
+     "source": "Thalusvix Fennisvane",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Iskorlan Applied Automation Wing",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0067"
+    },
+    {
+     "source": "Iskorlan Applied Automation Wing",
+     "source_type": "DEPARTMENT",
+     "relation": "BELONGS_TO",
+     "target": "Thalusvix Fennisvane",
+     "target_type": "EMPLOYEE",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 24.6
+  },
+  "DOC_0008": {
+   "triples": [
+    {
+     "source": "Loroklan Sarkithtex",
+     "source_type": "EMPLOYEE",
+     "relation": "BELONGS_TO",
+     "target": "Kaelinlux Systems Engineering Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0047"
+    },
+    {
+     "source": "Loroklan Sarkithtex",
+     "source_type": "EMPLOYEE",
+     "relation": "SERVES",
+     "target": "Kaelinlux Systems",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 22.5
+  },
+  "DOC_0009": {
+   "triples": [
+    {
+     "source": "Krenuthreth Fennanvor",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Noxontor Foundational Services Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0069"
+    }
+   ],
+   "error": null,
+   "seconds": 14.9
+  },
+  "DOC_0010": {
+   "triples": [
+    {
+     "source": "Synorreth Aldathdyn",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Morenvek Analytics Laboratory",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0070"
+    }
+   ],
+   "error": null,
+   "seconds": 14.3
+  },
+  "DOC_0011": {
+   "triples": [
+    {
+     "source": "Fennikvath Quenindyn",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Eldornax Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    },
+    {
+     "source": "Fennikvath Quenindyn",
+     "source_type": "EMPLOYEE",
+     "relation": "DEVELOPS",
+     "target": "Taelanfen Wyrusnok",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 25.3
+  },
+  "DOC_0012": {
+   "triples": [
+    {
+     "source": "Taelanfen Wyrusnok",
+     "source_type": "EMPLOYEE",
+     "relation": "BELONGS_TO",
+     "target": "Durnalnok Analytics Laboratory",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0051"
+    },
+    {
+     "source": "Taelanfen Wyrusnok",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Nebothnok Styxinvath",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0072"
+    }
+   ],
+   "error": null,
+   "seconds": 27.1
+  },
+  "DOC_0014": {
+   "triples": [
+    {
+     "source": "Krenokmoth Tarnonmar",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Vandothnok Foundational Services Unit",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    },
+    {
+     "source": "Krenokmoth Tarnonmar",
+     "source_type": "EMPLOYEE",
+     "relation": "DEVELOPS",
+     "target": "Durnenlok Noxornok",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 27.6
+  },
+  "DOC_0016": {
+   "triples": [
+    {
+     "source": "Rynunvor Lyrontis",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Zanistis Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    },
+    {
+     "source": "Rynunvor Lyrontis",
+     "source_type": "EMPLOYEE",
+     "relation": "DEVELOPS",
+     "target": "Caelonwyn Praxungon",
+     "target_type": "PRODUCT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 28.1
+  },
+  "DOC_0020": {
+   "triples": [
+    {
+     "source": "Rynartor Aldislan",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Kronanvek Core Platform Division",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": null
+    },
+    {
+     "source": "Rynartor Aldislan",
+     "source_type": "EMPLOYEE",
+     "relation": "SERVES",
+     "target": "Myrolvek Pryxelgath",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ONTOLOGY",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 29.3
+  },
+  "DOC_0017": {
+   "triples": [
+    {
+     "source": "Caelonwyn Praxungon",
+     "source_type": "EMPLOYEE",
+     "relation": "BELONGS_TO",
+     "target": "Zantonnax Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0056"
+    },
+    {
+     "source": "Caelonwyn Praxungon",
+     "source_type": "EMPLOYEE",
+     "relation": "MANAGES",
+     "target": "Tarniklan Raelonrak",
+     "target_type": "EMPLOYEE",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0077"
+    }
+   ],
+   "error": null,
+   "seconds": 25.4
+  },
+  "DOC_0032": {
+   "triples": [
+    {
+     "source": "Eldothvix Hub",
+     "source_type": "PRODUCT",
+     "relation": "DEVELOPS",
+     "target": "Eldornax Infrastructure Group",
+     "target_type": "DEPARTMENT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    },
+    {
+     "source": "Eldothvix Hub",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Quenentor Consortium",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 24.8
+  },
+  "DOC_0040": {
+   "triples": [
+    {
+     "source": "Haelenrix Gateway",
+     "source_type": "PRODUCT",
+     "relation": "BUILT_WITH",
+     "target": "NoxarnokNet",
+     "target_type": "TECHNOLOGY",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0019"
+    },
+    {
+     "source": "Haelenrix Gateway",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Kaelunkest Syndicate",
+     "target_type": "CLIENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0031"
+    }
+   ],
+   "error": null,
+   "seconds": 25.9
+  },
+  "DOC_0042": {
+   "triples": [
+    {
+     "source": "Zanolric Cluster",
+     "source_type": "PRODUCT",
+     "relation": "BUILT_WITH",
+     "target": "YvethnokRPC",
+     "target_type": "TECHNOLOGY",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0021"
+    },
+    {
+     "source": "Zanolric Cluster",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Quenentor Consortium",
+     "target_type": "CLIENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0033"
+    }
+   ],
+   "error": null,
+   "seconds": 26.4
+  },
+  "DOC_0047": {
+   "triples": [
+    {
+     "source": "PryxingonDB",
+     "source_type": "TECHNOLOGY",
+     "relation": "BUILT_WITH",
+     "target": "Eldothvix Hub",
+     "target_type": "PRODUCT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    },
+    {
+     "source": "Eldothvix Hub",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Pryxunvek Syndicate",
+     "target_type": "CLIENT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": "EDGE_0038"
+    },
+    {
+     "source": "Eldothvix Systems",
+     "source_type": "PRODUCT",
+     "relation": "DEVELOPS",
+     "target": "Eldothvix Hub",
+     "target_type": "PRODUCT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 33.2
+  },
+  "DOC_0048": {
+   "triples": [
+    {
+     "source": "Maelengath Hub",
+     "source_type": "PRODUCT",
+     "relation": "BUILT_WITH",
+     "target": "YvethnokRPC",
+     "target_type": "TECHNOLOGY",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0027"
+    },
+    {
+     "source": "Maelengath Hub",
+     "source_type": "PRODUCT",
+     "relation": "SERVES",
+     "target": "Quenentor Consortium",
+     "target_type": "CLIENT",
+     "status": "VALIDATED",
+     "gold_edge": "EDGE_0039"
+    },
+    {
+     "source": "Maelengath Systems",
+     "source_type": "DEPARTMENT",
+     "relation": "MANAGES",
+     "target": "Maelengath Hub",
+     "target_type": "PRODUCT",
+     "status": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "gold_edge": null
+    }
+   ],
+   "error": null,
+   "seconds": 40.8
+  }
+ }
+}

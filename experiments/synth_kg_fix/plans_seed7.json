@@ -1,0 +1,2277 @@
+{
+ "Q_0001": {
+  "plan": {
+   "question": "What product is developed by Durnalnok Analytics Laboratory?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Durnalnok Analytics Laboratory",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 12.22
+ },
+ "Q_0002": {
+  "plan": {
+   "question": "What entity or unit is managed by Gryxethvath Nebikvane?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Gryxethvath Nebikvane",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.56
+ },
+ "Q_0003": {
+  "plan": {
+   "question": "Which client does Synethgath Systems Engineering Unit serve?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Synethgath Systems Engineering Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.94
+ },
+ "Q_0004": {
+  "plan": {
+   "question": "What product is developed by Kronanvek Core Platform Division?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Kronanvek Core Platform Division",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.95
+ },
+ "Q_0005": {
+  "plan": {
+   "question": "What entity or unit is managed by Krenostis Thalithvath?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenostis Thalithvath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.33
+ },
+ "Q_0006": {
+  "plan": {
+   "question": "What technology is Iskardyn Pipeline built with?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Iskardyn Pipeline",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "TECHNOLOGY",
+   "relationship_path": [
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.78
+ },
+ "Q_0007": {
+  "plan": {
+   "question": "What technology is Wyrithwyn Pipeline built with?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Wyrithwyn Pipeline",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "TECHNOLOGY",
+   "relationship_path": [
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.83
+ },
+ "Q_0008": {
+  "plan": {
+   "question": "Which client does Zantonnax Infrastructure Group serve?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Zantonnax Infrastructure Group",
+     "expected_type": "CLIENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.91
+ },
+ "Q_0009": {
+  "plan": {
+   "question": "What technology is Jorustex Nexus built with?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Jorustex Nexus",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "TECHNOLOGY",
+   "relationship_path": [
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.9
+ },
+ "Q_0010": {
+  "plan": {
+   "question": "What entity or unit is managed by Synorreth Aldathdyn?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Synorreth Aldathdyn",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.18
+ },
+ "Q_0011": {
+  "plan": {
+   "question": "What entity or unit is managed by Caelonwyn Praxungon?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Caelonwyn Praxungon",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "EMPLOYEE",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.4
+ },
+ "Q_0012": {
+  "plan": {
+   "question": "Which client does Brecolron Systems Engineering Unit serve?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Brecolron Systems Engineering Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.03
+ },
+ "Q_0013": {
+  "plan": {
+   "question": "What product is developed by Brecolron Systems Engineering Unit?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Brecolron Systems Engineering Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOP"
+   ]
+  },
+  "error": null,
+  "seconds": 5.81
+ },
+ "Q_0014": {
+  "plan": {
+   "question": "What entity or unit is managed by Krenuthreth Fennanvor?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenuthreth Fennanvor",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.31
+ },
+ "Q_0015": {
+  "plan": {
+   "question": "What product is developed by Oryxonvath Systems Engineering Unit?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Oryxonvath Systems Engineering Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOP"
+   ]
+  },
+  "error": null,
+  "seconds": 5.98
+ },
+ "Q_0016": {
+  "plan": {
+   "question": "Which client does Noxontor Foundational Services Unit serve?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Noxontor Foundational Services Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.85
+ },
+ "Q_0017": {
+  "plan": {
+   "question": "What technology is Lyronvor Nexus built with?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Lyronvor Nexus",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "TECHNOLOGY",
+   "relationship_path": [
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.78
+ },
+ "Q_0018": {
+  "plan": {
+   "question": "Which department does Tarniklan Raelonrak belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Tarniklan Raelonrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.06
+ },
+ "Q_0019": {
+  "plan": {
+   "question": "Which client does Vandothnok Foundational Services Unit serve?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Vandothnok Foundational Services Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.95
+ },
+ "Q_0020": {
+  "plan": {
+   "question": "Which department does Pryxeldor Iskorlan belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Pryxeldor Iskorlan",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.15
+ },
+ "Q_0021": {
+  "plan": {
+   "question": "What product is developed by Kaelinlux Systems Engineering Unit?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Kaelinlux Systems Engineering Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOP"
+   ]
+  },
+  "error": null,
+  "seconds": 5.9
+ },
+ "Q_0022": {
+  "plan": {
+   "question": "What technology is Ulxarron Matrix built with?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Ulxarron Matrix",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "TECHNOLOGY",
+   "relationship_path": [
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 5.88
+ },
+ "Q_0023": {
+  "plan": {
+   "question": "Which department does Krenokmoth Tarnonmar belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenokmoth Tarnonmar",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.29
+ },
+ "Q_0024": {
+  "plan": {
+   "question": "Which client does Nebunnax Foundational Services Unit serve?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Nebunnax Foundational Services Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.06
+ },
+ "Q_0025": {
+  "plan": {
+   "question": "What entity or unit is managed by Jolikvath Krenorrak?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Jolikvath Krenorrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.52
+ },
+ "Q_0026": {
+  "plan": {
+   "question": "Which client does Ulxarron Matrix serve?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Ulxarron Matrix",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.17
+ },
+ "Q_0027": {
+  "plan": {
+   "question": "What entity or unit is managed by Nebothnok Styxinvath?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Nebothnok Styxinvath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "EMPLOYEE",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.6
+ },
+ "Q_0028": {
+  "plan": {
+   "question": "Which client does Lyronvor Nexus serve?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Lyronvor Nexus",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.1
+ },
+ "Q_0029": {
+  "plan": {
+   "question": "Which client does Sarkinfen Matrix serve?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Sarkinfen Matrix",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.17
+ },
+ "Q_0030": {
+  "plan": {
+   "question": "Which department does Rynartor Aldislan belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Rynartor Aldislan",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.3
+ },
+ "Q_0031": {
+  "plan": {
+   "question": "Which client is served by the product developed by Zanistis Infrastructure Group?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Zanistis Infrastructure Group",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOPED"
+   ]
+  },
+  "error": null,
+  "seconds": 6.72
+ },
+ "Q_0032": {
+  "plan": {
+   "question": "Which client is served by the department that Taelanfen Wyrusnok belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Taelanfen Wyrusnok",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 6.87
+ },
+ "Q_0033": {
+  "plan": {
+   "question": "Which client is served by the product developed by Iskorlan Applied Automation Wing?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Iskorlan Applied Automation Wing",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 7.24
+ },
+ "Q_0034": {
+  "plan": {
+   "question": "Starting from Rynunvor Lyrontis, traversing MANAGES then MANAGES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Rynunvor Lyrontis",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "EMPLOYEE",
+   "relationship_path": [
+    "MANAGES",
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 8.34
+ },
+ "Q_0035": {
+  "plan": {
+   "question": "Which department does the employee managed by Fennikvath Quenindyn belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Fennikvath Quenindyn",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 7.89
+ },
+ "Q_0036": {
+  "plan": {
+   "question": "Which client is served by the product developed by Eldornax Infrastructure Group?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Eldornax Infrastructure Group",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOPED"
+   ]
+  },
+  "error": null,
+  "seconds": 8.76
+ },
+ "Q_0037": {
+  "plan": {
+   "question": "Which client is served by the product developed by Noxontor Foundational Services Unit?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Noxontor Foundational Services Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOPED"
+   ]
+  },
+  "error": null,
+  "seconds": 9.57
+ },
+ "Q_0038": {
+  "plan": {
+   "question": "What product is developed by the department that Thalusvix Fennisvane belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Thalusvix Fennisvane",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.85
+ },
+ "Q_0039": {
+  "plan": {
+   "question": "What product is developed by the department managed by Krenostis Thalithvath?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenostis Thalithvath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.07
+ },
+ "Q_0040": {
+  "plan": {
+   "question": "What technology is used in the product developed by Eldornax Infrastructure Group?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Eldornax Infrastructure Group",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.11
+ },
+ "Q_0041": {
+  "plan": {
+   "question": "Starting from Jolikvath Krenorrak, traversing MANAGES then SERVES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Jolikvath Krenorrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.88
+ },
+ "Q_0042": {
+  "plan": {
+   "question": "What product is developed by the department managed by Jolikvath Krenorrak?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Jolikvath Krenorrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.14
+ },
+ "Q_0043": {
+  "plan": {
+   "question": "What technology is used in the product developed by Aetharkest Systems Engineering Unit?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Aetharkest Systems Engineering Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.48
+ },
+ "Q_0044": {
+  "plan": {
+   "question": "What product is developed by the department managed by Thalusvix Fennisvane?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Thalusvix Fennisvane",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.11
+ },
+ "Q_0045": {
+  "plan": {
+   "question": "What product is developed by the department that Rynartor Aldislan belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Rynartor Aldislan",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.4
+ },
+ "Q_0046": {
+  "plan": {
+   "question": "What product is developed by the department that Krenostis Thalithvath belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenostis Thalithvath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.32
+ },
+ "Q_0047": {
+  "plan": {
+   "question": "Which client is served by the department that Tarniklan Raelonrak belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Tarniklan Raelonrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 11.15
+ },
+ "Q_0048": {
+  "plan": {
+   "question": "Which client is served by the product developed by Durnalnok Analytics Laboratory?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Durnalnok Analytics Laboratory",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOPED"
+   ]
+  },
+  "error": null,
+  "seconds": 9.76
+ },
+ "Q_0049": {
+  "plan": {
+   "question": "What product is developed by the department that Aldunwyn Kronosmoth belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Aldunwyn Kronosmoth",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.96
+ },
+ "Q_0050": {
+  "plan": {
+   "question": "What product is developed by the department managed by Krenuthreth Fennanvor?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenuthreth Fennanvor",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.51
+ },
+ "Q_0051": {
+  "plan": {
+   "question": "Which department does the employee managed by Rynunvor Lyrontis belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Rynunvor Lyrontis",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.02
+ },
+ "Q_0052": {
+  "plan": {
+   "question": "What technology is used in the product developed by Iskorlan Applied Automation Wing?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Iskorlan Applied Automation Wing",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 8.54
+ },
+ "Q_0053": {
+  "plan": {
+   "question": "Which client is served by the department that Loroklan Sarkithtex belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Loroklan Sarkithtex",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.3
+ },
+ "Q_0054": {
+  "plan": {
+   "question": "What technology is used in the product developed by Morenvek Analytics Laboratory?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Morenvek Analytics Laboratory",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.06
+ },
+ "Q_0055": {
+  "plan": {
+   "question": "What product is developed by the department that Gryxethvath Nebikvane belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Gryxethvath Nebikvane",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.11
+ },
+ "Q_0056": {
+  "plan": {
+   "question": "Starting from Synorreth Aldathdyn, traversing MANAGES then SERVES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Synorreth Aldathdyn",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.07
+ },
+ "Q_0057": {
+  "plan": {
+   "question": "Which department does the employee managed by Caelonwyn Praxungon belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Caelonwyn Praxungon",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 8.64
+ },
+ "Q_0058": {
+  "plan": {
+   "question": "What product is developed by the department that Krenokmoth Tarnonmar belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenokmoth Tarnonmar",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.03
+ },
+ "Q_0059": {
+  "plan": {
+   "question": "Which client is served by the product developed by Zantonnax Infrastructure Group?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Zantonnax Infrastructure Group",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOPED"
+   ]
+  },
+  "error": null,
+  "seconds": 8.69
+ },
+ "Q_0060": {
+  "plan": {
+   "question": "What technology is used in the product developed by Nebunnax Foundational Services Unit?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Nebunnax Foundational Services Unit",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 8.62
+ },
+ "Q_0061": {
+  "plan": {
+   "question": "Which department does the employee managed by the staff under Xanithzar Jorarnok belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Xanithzar Jorarnok",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 8.77
+ },
+ "Q_0062": {
+  "plan": {
+   "question": "What product is developed by the department of the employee managed by Nebothnok Styxinvath?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Nebothnok Styxinvath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 8.89
+ },
+ "Q_0063": {
+  "plan": {
+   "question": "Which client is served by the product developed by the department that Krenokmoth Tarnonmar belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenokmoth Tarnonmar",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.83
+ },
+ "Q_0064": {
+  "plan": {
+   "question": "Starting from Tarniklan Raelonrak, traversing MANAGES, BELONGS_TO, and SERVES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Tarniklan Raelonrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": null,
+   "relationship_path": [
+    "MANAGES",
+    "BELONGS_TO",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.32
+ },
+ "Q_0065": {
+  "plan": {
+   "question": "What technology is used in the product developed by the department that Taelanfen Wyrusnok belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Taelanfen Wyrusnok",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 11.29
+ },
+ "Q_0066": {
+  "plan": {
+   "question": "Starting from Tarniklan Raelonrak, traversing MANAGES, MANAGES, and MANAGES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Tarniklan Raelonrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "EMPLOYEE",
+   "relationship_path": [
+    "MANAGES",
+    "MANAGES",
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 11.5
+ },
+ "Q_0067": {
+  "plan": {
+   "question": "Which client is served by the product developed by the unit managed by Aldunwyn Kronosmoth?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Aldunwyn Kronosmoth",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "MANAGES",
+    "DEVELOPS",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.83
+ },
+ "Q_0068": {
+  "plan": {
+   "question": "What technology is used in the product developed by the department that Synorreth Aldathdyn belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Synorreth Aldathdyn",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "TECHNOLOGY",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 11.48
+ },
+ "Q_0069": {
+  "plan": {
+   "question": "Which client is served by the product developed by the department that Myrolvek Pryxelgath belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Myrolvek Pryxelgath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.11
+ },
+ "Q_0070": {
+  "plan": {
+   "question": "What product is developed by the department of the employee managed by Fennikvath Quenindyn?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Fennikvath Quenindyn",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.65
+ },
+ "Q_0071": {
+  "plan": {
+   "question": "What technology is used in the product developed by the unit managed by Lorosmir Faelennax?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Lorosmir Faelennax",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 9.58
+ },
+ "Q_0072": {
+  "plan": {
+   "question": "What technology is used in the product developed by the department that Krenuthreth Fennanvor belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenuthreth Fennanvor",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.03
+ },
+ "Q_0073": {
+  "plan": {
+   "question": "What product is developed by the department of the employee managed by Rynartor Aldislan?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Rynartor Aldislan",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 10.44
+ },
+ "Q_0074": {
+  "plan": {
+   "question": "Which client is served by the product developed by the department that Loroklan Sarkithtex belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Loroklan Sarkithtex",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 14.87
+ },
+ "Q_0075": {
+  "plan": {
+   "question": "What technology is used in the product developed by the department that Rynunvor Lyrontis belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Rynunvor Lyrontis",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.5
+ },
+ "Q_0076": {
+  "plan": {
+   "question": "Starting from Taelanfen Wyrusnok, traversing MANAGES, BELONGS_TO, and SERVES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Taelanfen Wyrusnok",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": null,
+   "relationship_path": [
+    "MANAGES",
+    "BELONGS_TO",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.43
+ },
+ "Q_0077": {
+  "plan": {
+   "question": "What technology is used in the product developed by the department that Krenostis Thalithvath belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenostis Thalithvath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.36
+ },
+ "Q_0078": {
+  "plan": {
+   "question": "Which client is served by the product developed by the department that Krenuthreth Fennanvor belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenuthreth Fennanvor",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 18.24
+ },
+ "Q_0079": {
+  "plan": {
+   "question": "What technology is used in the product developed by the unit managed by Gryxethvath Nebikvane?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Gryxethvath Nebikvane",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.5
+ },
+ "Q_0080": {
+  "plan": {
+   "question": "Which department does the employee managed by the staff under Rynunvor Lyrontis belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Rynunvor Lyrontis",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 15.8
+ },
+ "Q_0081": {
+  "plan": {
+   "question": "What technology is used in the product developed by the department that Tarniklan Raelonrak belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Tarniklan Raelonrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.28
+ },
+ "Q_0082": {
+  "plan": {
+   "question": "What product is developed by the department of the employee managed by Durnenlok Noxornok?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Durnenlok Noxornok",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 15.46
+ },
+ "Q_0083": {
+  "plan": {
+   "question": "Starting from Krenokmoth Tarnonmar, traversing MANAGES, MANAGES, and MANAGES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Krenokmoth Tarnonmar",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "EMPLOYEE",
+   "relationship_path": [
+    "MANAGES",
+    "MANAGES",
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.56
+ },
+ "Q_0084": {
+  "plan": {
+   "question": "Which client is served by the product developed by the department that Tarniklan Raelonrak belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Tarniklan Raelonrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 20.86
+ },
+ "Q_0085": {
+  "plan": {
+   "question": "Which department does the employee managed by the staff under Durnenlok Noxornok belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Durnenlok Noxornok",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 17.63
+ },
+ "Q_0086": {
+  "plan": {
+   "question": "Starting from Rynunvor Lyrontis, traversing MANAGES, BELONGS_TO, and SERVES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Rynunvor Lyrontis",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": null,
+   "relationship_path": [
+    "MANAGES",
+    "BELONGS_TO",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 22.54
+ },
+ "Q_0087": {
+  "plan": {
+   "question": "What technology is used in the product developed by the department that Myrolvek Pryxelgath belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Myrolvek Pryxelgath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "TECHNOLOGY",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.95
+ },
+ "Q_0088": {
+  "plan": {
+   "question": "What technology is used in the product developed by the department that Loroklan Sarkithtex belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Loroklan Sarkithtex",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.35
+ },
+ "Q_0089": {
+  "plan": {
+   "question": "Starting from Nebothnok Styxinvath, traversing MANAGES, MANAGES, and MANAGES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Nebothnok Styxinvath",
+     "expected_type": "CLIENT"
+    }
+   ],
+   "target_type": "EMPLOYEE",
+   "relationship_path": [
+    "MANAGES",
+    "MANAGES",
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.26
+ },
+ "Q_0090": {
+  "plan": {
+   "question": "What technology is used in the product developed by the department that Xanithzar Jorarnok belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Xanithzar Jorarnok",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "TECHNOLOGY",
+   "relationship_path": [
+    "BELONGS_TO",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.8
+ },
+ "Q_0091": {
+  "plan": {
+   "question": "What entity or unit is managed by G. Nebikvane?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "G. Nebikvane",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 18.64
+ },
+ "Q_0092": {
+  "plan": {
+   "question": "Which client is served by the department that F. Quenindyn belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "F. Quenindyn",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 15.75
+ },
+ "Q_0093": {
+  "plan": {
+   "question": "What technology is used in the product developed by Durnalnok Division?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Durnalnok Division",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.19
+ },
+ "Q_0094": {
+  "plan": {
+   "question": "What product is developed by the department managed by L. Sarkithtex?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "L. Sarkithtex",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "DEVELOPS"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 15.48
+ },
+ "Q_0095": {
+  "plan": {
+   "question": "What product is developed by the department that L. Faelennax belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "L. Faelennax",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOPED_BY"
+   ]
+  },
+  "error": null,
+  "seconds": 18.29
+ },
+ "Q_0096": {
+  "plan": {
+   "question": "What entity or unit is managed by A. Kronosmoth?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "A. Kronosmoth",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "MANAGES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 17.78
+ },
+ "Q_0097": {
+  "plan": {
+   "question": "Which department does K. Thalithvath belong to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "K. Thalithvath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "DEPARTMENT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 17.88
+ },
+ "Q_0098": {
+  "plan": {
+   "question": "Which client is served by the department that M. Pryxelgath belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "M. Pryxelgath",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 19.12
+ },
+ "Q_0099": {
+  "plan": {
+   "question": "Starting from L. Faelennax, traversing MANAGES then SERVES, what is the target entity?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "L. Faelennax",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "MANAGES",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 17.91
+ },
+ "Q_0100": {
+  "plan": {
+   "question": "What product is developed by Nebunnax Division?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Nebunnax Division",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": [
+    "DEVELOPED_BY"
+   ]
+  },
+  "error": null,
+  "seconds": 16.87
+ },
+ "Q_0101": {
+  "plan": {
+   "question": "What product is developed by Oryxonvath Division?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Oryxonvath Division",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.87
+ },
+ "Q_0102": {
+  "plan": {
+   "question": "What technology is used in the product developed by Zantonnax Division?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Zantonnax Division",
+     "expected_type": "DEPARTMENT"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 20.09
+ },
+ "Q_0103": {
+  "plan": {
+   "question": "What product is developed by the department that P. Iskorlan belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "P. Iskorlan",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "PRODUCT",
+   "relationship_path": [
+    "BELONGS_TO"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 12.43
+ },
+ "Q_0104": {
+  "plan": {
+   "question": "What technology is Haelenrix built with?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "Haelenrix",
+     "expected_type": "PRODUCT"
+    }
+   ],
+   "target_type": "TECHNOLOGY",
+   "relationship_path": [
+    "BUILT_WITH"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 16.11
+ },
+ "Q_0105": {
+  "plan": {
+   "question": "Which client is served by the department that T. Raelonrak belongs to?",
+   "intent": "LOCAL",
+   "seed_entities": [
+    {
+     "name": "T. Raelonrak",
+     "expected_type": "EMPLOYEE"
+    }
+   ],
+   "target_type": "CLIENT",
+   "relationship_path": [
+    "BELONGS_TO",
+    "SERVES"
+   ],
+   "requires_clarification": false,
+   "clarification_reason": null,
+   "invalid_relationship_types": []
+  },
+  "error": null,
+  "seconds": 18.39
+ }
+}

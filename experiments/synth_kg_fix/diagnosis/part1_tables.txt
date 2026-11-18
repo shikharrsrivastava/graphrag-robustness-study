@@ -1,0 +1,216 @@
+========================================================================================================================
+SEED 7   engine settings: {'vector_top_k': 4, 'final_context_chunks': 4, 'max_graph_candidates': 20, 'rrf_k': 60, 'max_context_chars': 12000, 'graph_context_mode': 'False'}
+fidelity: context chunk-id lists identical to the earlier recorded run for 315 of 315 (question, mode) pairs; differing: []
+query errors in this recording: []
+
+TABLE 1 (seed 7): all-gold recall by candidate list (answerable questions)
+| list | hop1 | hop2 | hop3 | alias |
+|---|---|---|---|---|
+| hybrid context (K=4) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] |
+| graph_only as evaluated (variable length) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 6/30 = 20.0% [9.5, 37.3] | 9/15 = 60.0% [35.7, 80.2] |
+| graph_only first 4 chunks | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 4/30 = 13.3% [5.3, 29.7] | 9/15 = 60.0% [35.7, 80.2] |
+| graph list in hybrid, first 4 | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 4/30 = 13.3% [5.3, 29.7] | 9/15 = 60.0% [35.7, 80.2] |
+| graph list in hybrid, full | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 6/30 = 20.0% [9.5, 37.3] | 9/15 = 60.0% [35.7, 80.2] |
+| vector_only (K=4) | 30/30 = 100.0% [88.6, 100.0] | 5/30 = 16.7% [7.3, 33.6] | 0/30 = 0.0% [0.0, 11.4] | 6/15 = 40.0% [19.8, 64.3] |
+| union(graph full, vector 4) | 30/30 = 100.0% [88.6, 100.0] | 20/30 = 66.7% [48.8, 80.8] | 6/30 = 20.0% [9.5, 37.3] | 12/15 = 80.0% [54.8, 93.0] |
+graph_only context length (chunks) per group: hop1: min 2 median 7 max 16 share>4: 24/30; hop2: min 2 median 8 max 14 share>4: 21/30; hop3: min 2 median 8 max 16 share>4: 19/30; alias: min 0 median 3 max 12 share>4: 4/15
+
+STRUCTURAL CHECKS (seed 7, all 105 answerable questions, hybrid mode)
+  merged top-4 == returned context: 105/105
+  ContextBuilder (max_chars=12000, mode=False) drops a context chunk: 0/105 questions; max context chars 2374
+  merge-by-chunk-id: questions where |merged| != |graph chunk ids U vector chunk ids|: 0/105
+  graph list inside hybrid identical to graph_only context: 105/105
+  vector list inside hybrid identical to vector_only context: 105/105
+  distinct chunks per document id across all recorded lists: max 1 (1 means one chunk per document, so chunk-id collisions cannot merge different documents)
+
+TABLE 2 (seed 7): hop3 questions, graph_only vs hybrid
+  N=30; both succeed 1; graph_only only 5; hybrid only 0; neither 24
+  mechanism for every hop3 question (hybrid misses >=1 gold doc), seed 7
+     24  A: gold doc in neither route list (candidate generation)
+      4  B: RRF crowding (gold within graph top-4 but displaced by other chunks)
+      1  C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks)
+      1  hybrid succeeds
+  mechanism restricted to the questions where graph_only succeeds and hybrid does not:
+      4  B: RRF crowding (gold within graph top-4 but displaced by other chunks)
+      1  C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks)
+  | question | graph_only len | gold ranks in graph list | gold ranks in vector list | gold merged positions | hybrid context docs | mechanism |
+  |---|---|---|---|---|---|---|
+  | Q_0062 | 16 | [2, 3, 4] | [1, None, None] | [1, 5, 6] | D013(GRAPH+VECTOR),D012(GRAPH+VECTOR),D028(GRAPH+VECTOR),D002(VECTOR) | B: RRF crowding (gold within graph top-4 but displaced by other chunks) |
+  | Q_0064 | 8 | [2, 3, 5] | [1, None, None] | [2, 3, 7] | D017(GRAPH+VECTOR),D018(GRAPH+VECTOR),D019(GRAPH),D014(VECTOR) | C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks) |
+  | Q_0066 | 8 | [2, 3, 4] | [1, None, None] | [2, 3, 5] | D017(GRAPH+VECTOR),D018(GRAPH+VECTOR),D019(GRAPH),D014(VECTOR) | B: RRF crowding (gold within graph top-4 but displaced by other chunks) |
+  | Q_0067 | 12 | [1, 3, 4] | [1, 2, None] | [1, 2, 5] | D005(GRAPH+VECTOR),D026(GRAPH+VECTOR),D020(GRAPH+VECTOR),D029(VECTOR) | B: RRF crowding (gold within graph top-4 but displaced by other chunks) |
+  | Q_0089 | 16 | [2, 3, 10] | [1, None, 4] | [1, 5, 2] | D013(GRAPH+VECTOR),D015(GRAPH+VECTOR),D012(GRAPH),D002(VECTOR) | B: RRF crowding (gold within graph top-4 but displaced by other chunks) |
+  displacing chunks for gold docs that are in the graph list but not in the hybrid context (all hop3):
+    Q_0062 gold DOC_0014: graph rank 3, merged position 5, score 0.01587; context = D013[GRAPH+VECTOR g2 v1 0.03252]; D012[GRAPH+VECTOR g1 v3 0.03227]; D028[GRAPH+VECTOR g13 v4 0.02932]; D002[VECTOR gNone v2 0.01613]
+    Q_0062 gold DOC_0035: graph rank 4, merged position 6, score 0.01562; context = D013[GRAPH+VECTOR g2 v1 0.03252]; D012[GRAPH+VECTOR g1 v3 0.03227]; D028[GRAPH+VECTOR g13 v4 0.02932]; D002[VECTOR gNone v2 0.01613]
+    Q_0064 gold DOC_0025: graph rank 5, merged position 7, score 0.01538; context = D017[GRAPH+VECTOR g1 v2 0.03252]; D018[GRAPH+VECTOR g2 v1 0.03252]; D019[GRAPH g3 vNone 0.01587]; D014[VECTOR gNone v3 0.01587]
+    Q_0066 gold DOC_0020: graph rank 4, merged position 5, score 0.01562; context = D017[GRAPH+VECTOR g1 v2 0.03252]; D018[GRAPH+VECTOR g2 v1 0.03252]; D019[GRAPH g3 vNone 0.01587]; D014[VECTOR gNone v3 0.01587]
+    Q_0067 gold DOC_0041: graph rank 4, merged position 5, score 0.01562; context = D005[GRAPH+VECTOR g1 v1 0.03279]; D026[GRAPH+VECTOR g3 v2 0.03200]; D020[GRAPH+VECTOR g2 v4 0.03175]; D029[VECTOR gNone v3 0.01587]
+    Q_0069 gold DOC_0027: graph rank 4, merged position 6, score 0.01562; context = D021[GRAPH+VECTOR g2 v2 0.03226]; D020[GRAPH g1 vNone 0.01639]; D031[VECTOR gNone v1 0.01639]; D006[GRAPH g3 vNone 0.01587]
+    Q_0075 gold DOC_0022: graph rank 4, merged position 6, score 0.01562; context = D016[GRAPH+VECTOR g2 v1 0.03252]; D015[GRAPH+VECTOR g1 v3 0.03227]; D028[GRAPH+VECTOR g5 v4 0.03101]; D044[GRAPH+VECTOR g8 v2 0.03083]
+    Q_0083 gold DOC_0015: graph rank 9, merged position 11, score 0.01449; context = D013[GRAPH+VECTOR g1 v2 0.03252]; D014[GRAPH+VECTOR g2 v1 0.03252]; D035[GRAPH g3 vNone 0.01587]; D018[VECTOR gNone v3 0.01587]
+    Q_0087 gold DOC_0027: graph rank 4, merged position 6, score 0.01562; context = D021[GRAPH+VECTOR g2 v2 0.03226]; D020[GRAPH g1 vNone 0.01639]; D031[VECTOR gNone v1 0.01639]; D006[GRAPH g3 vNone 0.01587]
+    Q_0089 gold DOC_0014: graph rank 3, merged position 5, score 0.01587; context = D013[GRAPH+VECTOR g2 v1 0.03252]; D015[GRAPH+VECTOR g10 v4 0.02991]; D012[GRAPH g1 vNone 0.01639]; D002[VECTOR gNone v2 0.01613]
+    Q_0090 gold DOC_0025: graph rank 4, merged position 5, score 0.01562; context = D019[GRAPH+VECTOR g2 v1 0.03252]; D018[GRAPH+VECTOR g1 v3 0.03227]; D028[VECTOR gNone v2 0.01613]; D004[GRAPH g3 vNone 0.01587]
+  route composition of the 4 hybrid context chunks over 30 hop3 questions: {'GRAPH+VECTOR': 54, 'GRAPH': 32, 'VECTOR': 34}
+  same, all answerable questions: {'GRAPH+VECTOR': 180, 'GRAPH': 114, 'VECTOR': 126}
+  hop3 questions with 0 resolved seeds: 0/30; graph list empty: 0/30; graph list median length 8
+
+TABLE 3 (seed 7): COUNTERFACTUAL RE-RANKING OF RECORDED LISTS. EXPLORATORY, NOT A FIX, SEED ALREADY USED.
+  Candidate lists are the recorded graph list (<= max_graph_candidates) and vector list (vector_top_k=4); only the selection changes.
+| selection rule | hop1 | hop2 | hop3 | alias | hop3 gained vs baseline | hop3 lost vs baseline | other-group lost vs baseline |
+|---|---|---|---|---|---|---|---|
+| baseline RRF top-4 (replica) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] | 0 | 0 | 0 |
+| graph top-4 only (K matched) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 4/30 = 13.3% [5.3, 29.7] | 9/15 = 60.0% [35.7, 80.2] | 3 | 0 | 5 |
+| graph top-3 + vector top-1 | 30/30 = 100.0% [88.6, 100.0] | 17/30 = 56.7% [39.2, 72.6] | 1/30 = 3.3% [0.6, 16.7] | 11/15 = 73.3% [48.0, 89.1] | 0 | 0 | 2 |
+| graph top-2 + vector top-2 | 30/30 = 100.0% [88.6, 100.0] | 8/30 = 26.7% [14.2, 44.4] | 0/30 = 0.0% [0.0, 11.4] | 8/15 = 53.3% [30.1, 75.2] | 0 | 1 | 12 |
+| weighted RRF w_graph=2 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 19/30 = 63.3% [45.5, 78.1] | 4/30 = 13.3% [5.3, 29.7] | 11/15 = 73.3% [48.0, 89.1] | 3 | 0 | 0 |
+| weighted RRF w_graph=3 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 19/30 = 63.3% [45.5, 78.1] | 4/30 = 13.3% [5.3, 29.7] | 11/15 = 73.3% [48.0, 89.1] | 3 | 0 | 0 |
+| weighted RRF w_graph=5 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 19/30 = 63.3% [45.5, 78.1] | 4/30 = 13.3% [5.3, 29.7] | 11/15 = 73.3% [48.0, 89.1] | 3 | 0 | 0 |
+| weighted RRF w_graph=10 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 19/30 = 63.3% [45.5, 78.1] | 5/30 = 16.7% [7.3, 33.6] | 11/15 = 73.3% [48.0, 89.1] | 4 | 0 | 0 |
+| RRF top-6 (K=6) | 30/30 = 100.0% [88.6, 100.0] | 20/30 = 66.7% [48.8, 80.8] | 5/30 = 16.7% [7.3, 33.6] | 12/15 = 80.0% [54.8, 93.0] | 4 | 0 | 0 |
+| RRF top-8 (K=8) | 30/30 = 100.0% [88.6, 100.0] | 20/30 = 66.7% [48.8, 80.8] | 6/30 = 20.0% [9.5, 37.3] | 12/15 = 80.0% [54.8, 93.0] | 5 | 0 | 0 |
+| graph full list as evaluated in graph_only (K variable) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 6/30 = 20.0% [9.5, 37.3] | 9/15 = 60.0% [35.7, 80.2] | 5 | 0 | 5 |
+========================================================================================================================
+SEED 7mo (seed-7 KB built with merge only, no revalidation; 53 vs 55 relationships question)   engine settings: {'vector_top_k': 4, 'final_context_chunks': 4, 'max_graph_candidates': 20, 'rrf_k': 60, 'max_context_chars': 12000, 'graph_context_mode': 'False'}
+fidelity: context chunk-id lists identical to the earlier recorded run for 210 of 210 (question, mode) pairs; differing: []
+query errors in this recording: []
+
+TABLE 1 (seed 7mo): all-gold recall by candidate list (answerable questions)
+| list | hop1 | hop2 | hop3 | alias |
+|---|---|---|---|---|
+| hybrid context (K=4) | 30/30 = 100.0% [88.6, 100.0] | 16/30 = 53.3% [36.1, 69.8] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] |
+| graph_only as evaluated (variable length) | 30/30 = 100.0% [88.6, 100.0] | 20/30 = 66.7% [48.8, 80.8] | 10/30 = 33.3% [19.2, 51.2] | 9/15 = 60.0% [35.7, 80.2] |
+| graph_only first 4 chunks | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 4/30 = 13.3% [5.3, 29.7] | 9/15 = 60.0% [35.7, 80.2] |
+| graph list in hybrid, first 4 | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 4/30 = 13.3% [5.3, 29.7] | 9/15 = 60.0% [35.7, 80.2] |
+| graph list in hybrid, full | 30/30 = 100.0% [88.6, 100.0] | 20/30 = 66.7% [48.8, 80.8] | 10/30 = 33.3% [19.2, 51.2] | 9/15 = 60.0% [35.7, 80.2] |
+| vector_only (K=4) | 30/30 = 100.0% [88.6, 100.0] | 5/30 = 16.7% [7.3, 33.6] | 0/30 = 0.0% [0.0, 11.4] | 6/15 = 40.0% [19.8, 64.3] |
+| union(graph full, vector 4) | 30/30 = 100.0% [88.6, 100.0] | 22/30 = 73.3% [55.6, 85.8] | 10/30 = 33.3% [19.2, 51.2] | 12/15 = 80.0% [54.8, 93.0] |
+graph_only context length (chunks) per group: hop1: min 1 median 7 max 16 share>4: 23/30; hop2: min 1 median 8 max 19 share>4: 21/30; hop3: min 1 median 9 max 19 share>4: 19/30; alias: min 0 median 3 max 12 share>4: 4/15
+
+STRUCTURAL CHECKS (seed 7mo, all 105 answerable questions, hybrid mode)
+  merged top-4 == returned context: 105/105
+  ContextBuilder (max_chars=12000, mode=False) drops a context chunk: 0/105 questions; max context chars 2650
+  merge-by-chunk-id: questions where |merged| != |graph chunk ids U vector chunk ids|: 0/105
+  graph list inside hybrid identical to graph_only context: 105/105
+  vector list inside hybrid identical to vector_only context: 105/105
+  distinct chunks per document id across all recorded lists: max 1 (1 means one chunk per document, so chunk-id collisions cannot merge different documents)
+
+TABLE 2 (seed 7mo): hop3 questions, graph_only vs hybrid
+  N=30; both succeed 1; graph_only only 9; hybrid only 0; neither 20
+  mechanism for every hop3 question (hybrid misses >=1 gold doc), seed 7mo
+     20  A: gold doc in neither route list (candidate generation)
+      4  B: RRF crowding (gold within graph top-4 but displaced by other chunks)
+      5  C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks)
+      1  hybrid succeeds
+  mechanism restricted to the questions where graph_only succeeds and hybrid does not:
+      4  B: RRF crowding (gold within graph top-4 but displaced by other chunks)
+      5  C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks)
+  | question | graph_only len | gold ranks in graph list | gold ranks in vector list | gold merged positions | hybrid context docs | mechanism |
+  |---|---|---|---|---|---|---|
+  | Q_0062 | 16 | [2, 3, 4] | [1, None, None] | [1, 5, 6] | D013(GRAPH+VECTOR),D012(GRAPH+VECTOR),D028(GRAPH+VECTOR),D002(VECTOR) | B: RRF crowding (gold within graph top-4 but displaced by other chunks) |
+  | Q_0064 | 8 | [2, 3, 5] | [1, None, None] | [2, 3, 7] | D017(GRAPH+VECTOR),D018(GRAPH+VECTOR),D019(GRAPH),D014(VECTOR) | C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks) |
+  | Q_0066 | 8 | [2, 3, 4] | [1, None, None] | [2, 3, 5] | D017(GRAPH+VECTOR),D018(GRAPH+VECTOR),D019(GRAPH),D014(VECTOR) | B: RRF crowding (gold within graph top-4 but displaced by other chunks) |
+  | Q_0067 | 12 | [1, 3, 4] | [1, 2, None] | [1, 2, 5] | D005(GRAPH+VECTOR),D026(GRAPH+VECTOR),D020(GRAPH+VECTOR),D029(VECTOR) | B: RRF crowding (gold within graph top-4 but displaced by other chunks) |
+  | Q_0070 | 11 | [1, 3, 7] | [1, None, None] | [1, 4, 10] | D011(GRAPH+VECTOR),D032(GRAPH),D026(VECTOR),D012(GRAPH) | C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks) |
+  | Q_0076 | 17 | [2, 4, 5] | [1, None, None] | [1, 7, 8] | D012(GRAPH+VECTOR),D014(GRAPH+VECTOR),D015(GRAPH+VECTOR),D011(GRAPH) | C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks) |
+  | Q_0080 | 19 | [2, 10, 12] | [1, None, None] | [2, 12, 14] | D015(GRAPH+VECTOR),D016(GRAPH+VECTOR),D001(GRAPH),D020(VECTOR) | C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks) |
+  | Q_0086 | 19 | [2, 5, 7] | [1, None, None] | [2, 7, 9] | D015(GRAPH+VECTOR),D016(GRAPH+VECTOR),D044(GRAPH+VECTOR),D001(GRAPH) | C: K cap (gold at graph-list rank > 4, cannot fit 4 slots with vector chunks) |
+  | Q_0089 | 16 | [2, 3, 10] | [1, None, 4] | [1, 5, 2] | D013(GRAPH+VECTOR),D015(GRAPH+VECTOR),D012(GRAPH),D002(VECTOR) | B: RRF crowding (gold within graph top-4 but displaced by other chunks) |
+  displacing chunks for gold docs that are in the graph list but not in the hybrid context (all hop3):
+    Q_0062 gold DOC_0014: graph rank 3, merged position 5, score 0.01587; context = D013[GRAPH+VECTOR g2 v1 0.03252]; D012[GRAPH+VECTOR g1 v3 0.03227]; D028[GRAPH+VECTOR g13 v4 0.02932]; D002[VECTOR gNone v2 0.01613]
+    Q_0062 gold DOC_0035: graph rank 4, merged position 6, score 0.01562; context = D013[GRAPH+VECTOR g2 v1 0.03252]; D012[GRAPH+VECTOR g1 v3 0.03227]; D028[GRAPH+VECTOR g13 v4 0.02932]; D002[VECTOR gNone v2 0.01613]
+    Q_0064 gold DOC_0025: graph rank 5, merged position 7, score 0.01538; context = D017[GRAPH+VECTOR g1 v2 0.03252]; D018[GRAPH+VECTOR g2 v1 0.03252]; D019[GRAPH g3 vNone 0.01587]; D014[VECTOR gNone v3 0.01587]
+    Q_0065 gold DOC_0033: graph rank 4, merged position 6, score 0.01562; context = D012[GRAPH+VECTOR g2 v1 0.03252]; D028[GRAPH+VECTOR g13 v2 0.02983]; D011[GRAPH g1 vNone 0.01639]; D013[GRAPH g3 vNone 0.01587]
+    Q_0066 gold DOC_0020: graph rank 4, merged position 5, score 0.01562; context = D017[GRAPH+VECTOR g1 v2 0.03252]; D018[GRAPH+VECTOR g2 v1 0.03252]; D019[GRAPH g3 vNone 0.01587]; D014[VECTOR gNone v3 0.01587]
+    Q_0067 gold DOC_0041: graph rank 4, merged position 5, score 0.01562; context = D005[GRAPH+VECTOR g1 v1 0.03279]; D026[GRAPH+VECTOR g3 v2 0.03200]; D020[GRAPH+VECTOR g2 v4 0.03175]; D029[VECTOR gNone v3 0.01587]
+    Q_0069 gold DOC_0027: graph rank 4, merged position 6, score 0.01562; context = D021[GRAPH+VECTOR g2 v2 0.03226]; D020[GRAPH g1 vNone 0.01639]; D031[VECTOR gNone v1 0.01639]; D006[GRAPH g3 vNone 0.01587]
+    Q_0070 gold DOC_0033: graph rank 7, merged position 10, score 0.01493; context = D011[GRAPH+VECTOR g1 v1 0.03279]; D032[GRAPH g2 vNone 0.01613]; D026[VECTOR gNone v2 0.01613]; D012[GRAPH g3 vNone 0.01587]
+    Q_0075 gold DOC_0022: graph rank 5, merged position 7, score 0.01538; context = D016[GRAPH+VECTOR g2 v1 0.03252]; D015[GRAPH+VECTOR g1 v3 0.03227]; D028[GRAPH+VECTOR g9 v4 0.03012]; D044[GRAPH+VECTOR g12 v2 0.03002]
+    Q_0076 gold DOC_0013: graph rank 4, merged position 7, score 0.01562; context = D012[GRAPH+VECTOR g2 v1 0.03252]; D014[GRAPH+VECTOR g15 v3 0.02921]; D015[GRAPH+VECTOR g16 v4 0.02878]; D011[GRAPH g1 vNone 0.01639]
+    Q_0076 gold DOC_0034: graph rank 5, merged position 8, score 0.01538; context = D012[GRAPH+VECTOR g2 v1 0.03252]; D014[GRAPH+VECTOR g15 v3 0.02921]; D015[GRAPH+VECTOR g16 v4 0.02878]; D011[GRAPH g1 vNone 0.01639]
+    Q_0080 gold DOC_0017: graph rank 10, merged position 12, score 0.01429; context = D015[GRAPH+VECTOR g1 v2 0.03252]; D016[GRAPH+VECTOR g2 v1 0.03252]; D001[GRAPH g3 vNone 0.01587]; D020[VECTOR gNone v3 0.01587]
+    Q_0080 gold DOC_0018: graph rank 12, merged position 14, score 0.01389; context = D015[GRAPH+VECTOR g1 v2 0.03252]; D016[GRAPH+VECTOR g2 v1 0.03252]; D001[GRAPH g3 vNone 0.01587]; D020[VECTOR gNone v3 0.01587]
+    Q_0083 gold DOC_0015: graph rank 9, merged position 11, score 0.01449; context = D013[GRAPH+VECTOR g1 v2 0.03252]; D014[GRAPH+VECTOR g2 v1 0.03252]; D035[GRAPH g3 vNone 0.01587]; D018[VECTOR gNone v3 0.01587]
+    Q_0086 gold DOC_0017: graph rank 5, merged position 7, score 0.01538; context = D015[GRAPH+VECTOR g1 v2 0.03252]; D016[GRAPH+VECTOR g2 v1 0.03252]; D044[GRAPH+VECTOR g16 v3 0.02903]; D001[GRAPH g3 vNone 0.01587]
+    Q_0086 gold DOC_0023: graph rank 7, merged position 9, score 0.01493; context = D015[GRAPH+VECTOR g1 v2 0.03252]; D016[GRAPH+VECTOR g2 v1 0.03252]; D044[GRAPH+VECTOR g16 v3 0.02903]; D001[GRAPH g3 vNone 0.01587]
+    Q_0087 gold DOC_0027: graph rank 4, merged position 6, score 0.01562; context = D021[GRAPH+VECTOR g2 v2 0.03226]; D020[GRAPH g1 vNone 0.01639]; D031[VECTOR gNone v1 0.01639]; D006[GRAPH g3 vNone 0.01587]
+    Q_0089 gold DOC_0014: graph rank 3, merged position 5, score 0.01587; context = D013[GRAPH+VECTOR g2 v1 0.03252]; D015[GRAPH+VECTOR g10 v4 0.02991]; D012[GRAPH g1 vNone 0.01639]; D002[VECTOR gNone v2 0.01613]
+    Q_0090 gold DOC_0025: graph rank 4, merged position 5, score 0.01562; context = D019[GRAPH+VECTOR g2 v1 0.03252]; D018[GRAPH+VECTOR g1 v3 0.03227]; D028[VECTOR gNone v2 0.01613]; D004[GRAPH g3 vNone 0.01587]
+  route composition of the 4 hybrid context chunks over 30 hop3 questions: {'GRAPH+VECTOR': 57, 'GRAPH': 30, 'VECTOR': 33}
+  same, all answerable questions: {'GRAPH+VECTOR': 187, 'GRAPH': 106, 'VECTOR': 127}
+  hop3 questions with 0 resolved seeds: 0/30; graph list empty: 0/30; graph list median length 9
+
+TABLE 3 (seed 7mo): COUNTERFACTUAL RE-RANKING OF RECORDED LISTS. EXPLORATORY, NOT A FIX, SEED ALREADY USED.
+  Candidate lists are the recorded graph list (<= max_graph_candidates) and vector list (vector_top_k=4); only the selection changes.
+| selection rule | hop1 | hop2 | hop3 | alias | hop3 gained vs baseline | hop3 lost vs baseline | other-group lost vs baseline |
+|---|---|---|---|---|---|---|---|
+| baseline RRF top-4 (replica) | 30/30 = 100.0% [88.6, 100.0] | 16/30 = 53.3% [36.1, 69.8] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] | 0 | 0 | 0 |
+| graph top-4 only (K matched) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 4/30 = 13.3% [5.3, 29.7] | 9/15 = 60.0% [35.7, 80.2] | 3 | 0 | 5 |
+| graph top-3 + vector top-1 | 30/30 = 100.0% [88.6, 100.0] | 16/30 = 53.3% [36.1, 69.8] | 1/30 = 3.3% [0.6, 16.7] | 11/15 = 73.3% [48.0, 89.1] | 0 | 0 | 2 |
+| graph top-2 + vector top-2 | 30/30 = 100.0% [88.6, 100.0] | 8/30 = 26.7% [14.2, 44.4] | 0/30 = 0.0% [0.0, 11.4] | 7/15 = 46.7% [24.8, 69.9] | 0 | 1 | 11 |
+| weighted RRF w_graph=2 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 4/30 = 13.3% [5.3, 29.7] | 11/15 = 73.3% [48.0, 89.1] | 3 | 0 | 0 |
+| weighted RRF w_graph=3 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 4/30 = 13.3% [5.3, 29.7] | 11/15 = 73.3% [48.0, 89.1] | 3 | 0 | 0 |
+| weighted RRF w_graph=5 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 4/30 = 13.3% [5.3, 29.7] | 11/15 = 73.3% [48.0, 89.1] | 3 | 0 | 0 |
+| weighted RRF w_graph=10 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 18/30 = 60.0% [42.3, 75.4] | 5/30 = 16.7% [7.3, 33.6] | 11/15 = 73.3% [48.0, 89.1] | 4 | 0 | 0 |
+| RRF top-6 (K=6) | 30/30 = 100.0% [88.6, 100.0] | 20/30 = 66.7% [48.8, 80.8] | 5/30 = 16.7% [7.3, 33.6] | 12/15 = 80.0% [54.8, 93.0] | 4 | 0 | 0 |
+| RRF top-8 (K=8) | 30/30 = 100.0% [88.6, 100.0] | 21/30 = 70.0% [52.1, 83.3] | 7/30 = 23.3% [11.8, 40.9] | 12/15 = 80.0% [54.8, 93.0] | 6 | 0 | 0 |
+| graph full list as evaluated in graph_only (K variable) | 30/30 = 100.0% [88.6, 100.0] | 20/30 = 66.7% [48.8, 80.8] | 10/30 = 33.3% [19.2, 51.2] | 9/15 = 60.0% [35.7, 80.2] | 9 | 0 | 5 |
+========================================================================================================================
+SEED 11   engine settings: {'vector_top_k': 4, 'final_context_chunks': 4, 'max_graph_candidates': 20, 'rrf_k': 60, 'max_context_chars': 12000, 'graph_context_mode': 'False'}
+fidelity: context chunk-id lists identical to the earlier recorded run for 315 of 315 (question, mode) pairs; differing: []
+query errors in this recording: []
+
+TABLE 1 (seed 11): all-gold recall by candidate list (answerable questions)
+| list | hop1 | hop2 | hop3 | alias |
+|---|---|---|---|---|
+| hybrid context (K=4) | 30/30 = 100.0% [88.6, 100.0] | 11/30 = 36.7% [21.9, 54.5] | 0/30 = 0.0% [0.0, 11.4] | 12/15 = 80.0% [54.8, 93.0] |
+| graph_only as evaluated (variable length) | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] |
+| graph_only first 4 chunks | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] |
+| graph list in hybrid, first 4 | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] |
+| graph list in hybrid, full | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] |
+| vector_only (K=4) | 30/30 = 100.0% [88.6, 100.0] | 4/30 = 13.3% [5.3, 29.7] | 0/30 = 0.0% [0.0, 11.4] | 7/15 = 46.7% [24.8, 69.9] |
+| union(graph full, vector 4) | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 2/30 = 6.7% [1.8, 21.3] | 12/15 = 80.0% [54.8, 93.0] |
+graph_only context length (chunks) per group: hop1: min 1 median 7 max 16 share>4: 21/30; hop2: min 1 median 7 max 16 share>4: 21/30; hop3: min 1 median 7 max 10 share>4: 19/30; alias: min 0 median 7 max 16 share>4: 9/15
+
+STRUCTURAL CHECKS (seed 11, all 105 answerable questions, hybrid mode)
+  merged top-4 == returned context: 105/105
+  ContextBuilder (max_chars=12000, mode=False) drops a context chunk: 0/105 questions; max context chars 2379
+  merge-by-chunk-id: questions where |merged| != |graph chunk ids U vector chunk ids|: 0/105
+  graph list inside hybrid identical to graph_only context: 105/105
+  vector list inside hybrid identical to vector_only context: 105/105
+  distinct chunks per document id across all recorded lists: max 1 (1 means one chunk per document, so chunk-id collisions cannot merge different documents)
+
+TABLE 2 (seed 11): hop3 questions, graph_only vs hybrid
+  N=30; both succeed 0; graph_only only 1; hybrid only 0; neither 29
+  mechanism for every hop3 question (hybrid misses >=1 gold doc), seed 11
+     28  A: gold doc in neither route list (candidate generation)
+      1  B: RRF crowding (gold within graph top-4 but displaced by other chunks)
+      1  D: gold only in vector list or mixed, not selected
+  mechanism restricted to the questions where graph_only succeeds and hybrid does not:
+      1  B: RRF crowding (gold within graph top-4 but displaced by other chunks)
+  | question | graph_only len | gold ranks in graph list | gold ranks in vector list | gold merged positions | hybrid context docs | mechanism |
+  |---|---|---|---|---|---|---|
+  | Q_0073 | 4 | [1, 3, 4] | [1, 2, None] | [1, 2, 5] | D005(GRAPH+VECTOR),D026(GRAPH+VECTOR),D020(GRAPH),D036(VECTOR) | B: RRF crowding (gold within graph top-4 but displaced by other chunks) |
+  displacing chunks for gold docs that are in the graph list but not in the hybrid context (all hop3):
+    Q_0073 gold DOC_0041: graph rank 4, merged position 5, score 0.01562; context = D005[GRAPH+VECTOR g1 v1 0.03279]; D026[GRAPH+VECTOR g3 v2 0.03200]; D020[GRAPH g2 vNone 0.01613]; D036[VECTOR gNone v3 0.01587]
+    Q_0089 gold DOC_0022: graph rank 4, merged position 6, score 0.01562; context = D016[GRAPH+VECTOR g2 v1 0.03252]; D015[GRAPH g1 vNone 0.01639]; D026[VECTOR gNone v2 0.01613]; D001[GRAPH g3 vNone 0.01587]
+  route composition of the 4 hybrid context chunks over 30 hop3 questions: {'GRAPH+VECTOR': 47, 'VECTOR': 38, 'GRAPH': 35}
+  same, all answerable questions: {'GRAPH+VECTOR': 175, 'GRAPH': 114, 'VECTOR': 131}
+  hop3 questions with 0 resolved seeds: 0/30; graph list empty: 0/30; graph list median length 7
+
+TABLE 3 (seed 11): COUNTERFACTUAL RE-RANKING OF RECORDED LISTS. EXPLORATORY, NOT A FIX, SEED ALREADY USED.
+  Candidate lists are the recorded graph list (<= max_graph_candidates) and vector list (vector_top_k=4); only the selection changes.
+| selection rule | hop1 | hop2 | hop3 | alias | hop3 gained vs baseline | hop3 lost vs baseline | other-group lost vs baseline |
+|---|---|---|---|---|---|---|---|
+| baseline RRF top-4 (replica) | 30/30 = 100.0% [88.6, 100.0] | 11/30 = 36.7% [21.9, 54.5] | 0/30 = 0.0% [0.0, 11.4] | 12/15 = 80.0% [54.8, 93.0] | 0 | 0 | 0 |
+| graph top-4 only (K matched) | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] | 1 | 0 | 2 |
+| graph top-3 + vector top-1 | 30/30 = 100.0% [88.6, 100.0] | 11/30 = 36.7% [21.9, 54.5] | 0/30 = 0.0% [0.0, 11.4] | 11/15 = 73.3% [48.0, 89.1] | 0 | 0 | 2 |
+| graph top-2 + vector top-2 | 30/30 = 100.0% [88.6, 100.0] | 7/30 = 23.3% [11.8, 40.9] | 0/30 = 0.0% [0.0, 11.4] | 8/15 = 53.3% [30.1, 75.2] | 0 | 0 | 8 |
+| weighted RRF w_graph=2 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 13/30 = 43.3% [27.4, 60.8] | 1/30 = 3.3% [0.6, 16.7] | 12/15 = 80.0% [54.8, 93.0] | 1 | 0 | 0 |
+| weighted RRF w_graph=3 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 13/30 = 43.3% [27.4, 60.8] | 1/30 = 3.3% [0.6, 16.7] | 12/15 = 80.0% [54.8, 93.0] | 1 | 0 | 0 |
+| weighted RRF w_graph=5 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 13/30 = 43.3% [27.4, 60.8] | 1/30 = 3.3% [0.6, 16.7] | 12/15 = 80.0% [54.8, 93.0] | 1 | 0 | 0 |
+| weighted RRF w_graph=10 (K=4) | 30/30 = 100.0% [88.6, 100.0] | 14/30 = 46.7% [30.2, 63.9] | 1/30 = 3.3% [0.6, 16.7] | 12/15 = 80.0% [54.8, 93.0] | 1 | 0 | 0 |
+| RRF top-6 (K=6) | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 2/30 = 6.7% [1.8, 21.3] | 12/15 = 80.0% [54.8, 93.0] | 2 | 0 | 0 |
+| RRF top-8 (K=8) | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 2/30 = 6.7% [1.8, 21.3] | 12/15 = 80.0% [54.8, 93.0] | 2 | 0 | 0 |
+| graph full list as evaluated in graph_only (K variable) | 30/30 = 100.0% [88.6, 100.0] | 15/30 = 50.0% [33.2, 66.8] | 1/30 = 3.3% [0.6, 16.7] | 10/15 = 66.7% [41.7, 84.8] | 1 | 0 | 2 |

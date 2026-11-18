@@ -1,0 +1,1 @@
+Haelikgon Pipeline is a proprietary enterprise software solution deployed across production clusters. Haelikgon Pipeline is engineered primarily using JolelrakQL. It operates in production serving Jolethgon Syndicate.

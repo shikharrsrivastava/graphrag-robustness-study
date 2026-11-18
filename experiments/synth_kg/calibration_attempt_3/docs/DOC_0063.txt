@@ -1,0 +1,1 @@
+Gryxarlux Workspace is a proprietary enterprise software solution deployed across production clusters. Gryxarlux Workspace was constructed upon the GryxokwynLang framework. Gryxarlux Workspace operates in production serving Caelandor Energy Group. In contrast, Gryxarlux Systems maintains entirely distinct non-production responsibilities.

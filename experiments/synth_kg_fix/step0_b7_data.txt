@@ -1,0 +1,27 @@
+B7. PLAN DEPENDENCIES (computed from plans_seed7.json and retrieval_seed7_before.jsonl)
+cached plans: 105 planner errors: 0
+planner intents over the 105 answerable questions: {'LOCAL': 105}
+planner seed expected_type over all 105: {'DEPARTMENT': 26, 'EMPLOYEE': 67, 'PRODUCT': 10, 'CLIENT': 2}
+planner output for the 15 alias questions (seed name, expected_type):
+   Q_0091 LOCAL [('G. Nebikvane', 'EMPLOYEE')] relationship_path= ['MANAGES']
+   Q_0092 LOCAL [('F. Quenindyn', 'EMPLOYEE')] relationship_path= ['BELONGS_TO', 'SERVES']
+   Q_0093 LOCAL [('Durnalnok Division', 'DEPARTMENT')] relationship_path= ['BELONGS_TO', 'BUILT_WITH']
+   Q_0094 LOCAL [('L. Sarkithtex', 'EMPLOYEE')] relationship_path= ['MANAGES', 'DEVELOPS']
+   Q_0095 LOCAL [('L. Faelennax', 'EMPLOYEE')] relationship_path= ['BELONGS_TO']
+   Q_0096 LOCAL [('A. Kronosmoth', 'EMPLOYEE')] relationship_path= ['MANAGES']
+   Q_0097 LOCAL [('K. Thalithvath', 'EMPLOYEE')] relationship_path= ['BELONGS_TO']
+   Q_0098 LOCAL [('M. Pryxelgath', 'EMPLOYEE')] relationship_path= ['BELONGS_TO', 'SERVES']
+   Q_0099 LOCAL [('L. Faelennax', 'EMPLOYEE')] relationship_path= ['MANAGES', 'SERVES']
+   Q_0100 LOCAL [('Nebunnax Division', 'DEPARTMENT')] relationship_path= []
+   Q_0101 LOCAL [('Oryxonvath Division', 'DEPARTMENT')] relationship_path= ['BELONGS_TO']
+   Q_0102 LOCAL [('Zantonnax Division', 'DEPARTMENT')] relationship_path= ['BELONGS_TO', 'BUILT_WITH']
+   Q_0103 LOCAL [('P. Iskorlan', 'EMPLOYEE')] relationship_path= ['BELONGS_TO']
+   Q_0104 LOCAL [('Haelenrix', 'PRODUCT')] relationship_path= ['BUILT_WITH']
+   Q_0105 LOCAL [('T. Raelonrak', 'EMPLOYEE')] relationship_path= ['BELONGS_TO', 'SERVES']
+Replay check: HEAD code + copy of the original KB + cached plans + stubbed answer generator vs the recorded runs:
+   hybrid: identical context document sets on 105/105 questions; query errors 0
+   graph_only: identical context document sets on 105/105 questions; query errors 0
+   vector_only: identical context document sets on 105/105 questions; query errors 0
+compute_config_hash usage in src/ and hybrid_graphrag/:
+src/core/configuration.py:241:    def compute_config_hash(self) -> str:
+

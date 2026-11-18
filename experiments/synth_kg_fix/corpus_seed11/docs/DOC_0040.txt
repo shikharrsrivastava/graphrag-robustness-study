@@ -1,0 +1,1 @@
+Synaldor Hub is a proprietary enterprise software solution deployed across production clusters. Synaldor Hub relies on DurnokgathGraph as its foundational technology stack. Synaldor Hub provides specialized commercial solutions for Xanusvix Consortium. In contrast, Synaldor Systems maintains entirely distinct non-production responsibilities.

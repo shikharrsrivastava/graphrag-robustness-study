@@ -1,0 +1,152 @@
+==============================================================================================================
+KB TABLES  corpus=experiments/synth_kg/corpus_final  gold entities=60 gold edges=95 answerable questions=105
+==============================================================================================================
+
+(i) GOLD-EDGE FATE (categories defined in the header of experiments/synth_kg_fix/kb_tables.py)
+| fate | before (original KB, HEAD code) | merge+initial only (no revalidation) | after (kb_dev, all fixes) |
+|---|---|---|---|
+| A validated, exact gold type | 27 | 46 | 47 |
+| E validated exact, endpoint on split/duplicate entity | 19 | 0 | 0 |
+| B validated under another type / reversed, same endpoints | 17 | 17 | 15 |
+| C rejected by ontology | 11 | 11 | 12 |
+| D rejected for evidence reasons (not in the requested list) | 14 | 14 | 14 |
+| F never extracted | 7 | 7 | 7 |
+| total | 95 | 95 | 95 |
+| A+E (exact type validated) | 46 | 46 | 47 |
+
+   By gold relation type (fate counts A/E/B/C/D/F):
+   BELONGS_TO  before (original KB, HEAD code): 1/4/13/1/1/1  ||  merge+initial only (no revalidation): 5/0/13/1/1/1  ||  after (kb_dev, all fixes): 5/0/14/0/1/1
+   BUILT_WITH  before (original KB, HEAD code): 0/7/0/1/4/0  ||  merge+initial only (no revalidation): 7/0/0/1/4/0  ||  after (kb_dev, all fixes): 7/0/0/1/4/0
+   DEVELOPS    before (original KB, HEAD code): 2/1/0/7/5/0  ||  merge+initial only (no revalidation): 3/0/0/7/5/0  ||  after (kb_dev, all fixes): 3/0/0/7/5/0
+   MANAGES     before (original KB, HEAD code): 8/5/4/2/1/0  ||  merge+initial only (no revalidation): 13/0/4/2/1/0  ||  after (kb_dev, all fixes): 14/0/1/4/1/0
+   SERVES      before (original KB, HEAD code): 16/2/0/0/3/6  ||  merge+initial only (no revalidation): 18/0/0/0/3/6  ||  after (kb_dev, all fixes): 18/0/0/0/3/6
+   score.py fate counts [before (original KB, HEAD code)]: {'REJECTED: REJECTED_ONTOLOGY': 13, 'REJECTED: REJECTED_ENDPOINT_NOT_IN_EVIDENCE': 17, 'VALIDATED_CORRECT': 46, 'NEVER_EXTRACTED': 4, 'EXTRACTED_BUT_DROPPED_IN_RESOLUTION': 14, 'REJECTED: REJECTED_QUOTE_MISMATCH': 1}
+   score.py relationship scoring [before (original KB, HEAD code)]: {"gold_edges_total": 95, "validated_edges_total": 55, "exact_matched_validated": 46, "exact_recalled_gold": 46, "exact_precision": 0.836, "exact_recall": 0.484, "relaxed_matched_validated": 55, "relaxed_recalled_gold": 54, "relaxed_precision": 1.0, "relaxed_recall": 0.568}
+   score.py fate counts [merge+initial only (no revalidation)]: {'REJECTED: REJECTED_ONTOLOGY': 13, 'REJECTED: REJECTED_ENDPOINT_NOT_IN_EVIDENCE': 17, 'VALIDATED_CORRECT': 46, 'NEVER_EXTRACTED': 4, 'EXTRACTED_BUT_DROPPED_IN_RESOLUTION': 14, 'REJECTED: REJECTED_QUOTE_MISMATCH': 1}
+   score.py relationship scoring [merge+initial only (no revalidation)]: {"gold_edges_total": 95, "validated_edges_total": 55, "exact_matched_validated": 46, "exact_recalled_gold": 46, "exact_precision": 0.836, "exact_recall": 0.484, "relaxed_matched_validated": 55, "relaxed_recalled_gold": 54, "relaxed_precision": 1.0, "relaxed_recall": 0.568}
+   score.py fate counts [after (kb_dev, all fixes)]: {'REJECTED: REJECTED_ONTOLOGY': 14, 'REJECTED: REJECTED_ENDPOINT_NOT_IN_EVIDENCE': 18, 'VALIDATED_CORRECT': 47, 'NEVER_EXTRACTED': 4, 'EXTRACTED_BUT_DROPPED_IN_RESOLUTION': 11, 'REJECTED: REJECTED_QUOTE_MISMATCH': 1}
+   score.py relationship scoring [after (kb_dev, all fixes)]: {"gold_edges_total": 95, "validated_edges_total": 53, "exact_matched_validated": 47, "exact_recalled_gold": 47, "exact_precision": 0.887, "exact_recall": 0.495, "relaxed_matched_validated": 53, "relaxed_recalled_gold": 52, "relaxed_precision": 1.0, "relaxed_recall": 0.547}
+
+   Fate transitions before (original KB, HEAD code) -> after (kb_dev, all fixes) (only changes): B->C: 3, C->A: 1, C->B: 1, E->A: 19
+      EDGE_0005 Kronanvek Core Platform Division -DEVELOPS-> Wyrithwyn Pipeline [DOC_0026]: E [] -> A []
+      EDGE_0017 Iskardyn Pipeline -BUILT_WITH-> AethithnokQL [DOC_0038]: E [] -> A []
+      EDGE_0018 Sarkinfen Matrix -BUILT_WITH-> VandethnokStore [DOC_0039]: E [] -> A []
+      EDGE_0019 Haelenrix Gateway -BUILT_WITH-> NoxarnokNet [DOC_0040]: E [] -> A []
+      EDGE_0021 Zanolric Cluster -BUILT_WITH-> YvethnokRPC [DOC_0042]: E [] -> A []
+      EDGE_0022 Jorustex Nexus -BUILT_WITH-> WyrendorQL [DOC_0043]: E [] -> A []
+      EDGE_0024 Faelolnok Protocol -BUILT_WITH-> VandethnokStore [DOC_0045]: E [] -> A []
+      EDGE_0027 Maelengath Hub -BUILT_WITH-> YvethnokRPC [DOC_0048]: E [] -> A []
+      EDGE_0041 Gryxethvath Nebikvane -BELONGS_TO-> Zantonnax Infrastructure Group [DOC_0002]: C ['REJECTED_ONTOLOGY'] -> B ['MANAGES']
+      EDGE_0052 Nebothnok Styxinvath -BELONGS_TO-> Nebunnax Foundational Services Unit [DOC_0013]: E [] -> A []
+      EDGE_0056 Caelonwyn Praxungon -BELONGS_TO-> Zantonnax Infrastructure Group [DOC_0017]: E [] -> A []
+      EDGE_0058 Xanithzar Jorarnok -BELONGS_TO-> Synethgath Systems Engineering Unit [DOC_0019]: E [] -> A []
+      EDGE_0060 Myrolvek Pryxelgath -BELONGS_TO-> Aetharkest Systems Engineering Unit [DOC_0021]: E [] -> A []
+      EDGE_0062 Gryxethvath Nebikvane -MANAGES-> Zantonnax Infrastructure Group [DOC_0002]: C ['REJECTED_ONTOLOGY'] -> A []
+      EDGE_0065 Aldunwyn Kronosmoth -MANAGES-> Kronanvek Core Platform Division [DOC_0005]: E [] -> A []
+      EDGE_0071 Fennikvath Quenindyn -MANAGES-> Taelanfen Wyrusnok [DOC_0011]: B ['DEVELOPS'] -> C ['REJECTED_ONTOLOGY']
+      EDGE_0072 Taelanfen Wyrusnok -MANAGES-> Nebothnok Styxinvath [DOC_0012]: B ['DEVELOPS'] -> C ['REJECTED_ONTOLOGY']
+      EDGE_0073 Nebothnok Styxinvath -MANAGES-> Krenokmoth Tarnonmar [DOC_0013]: E [] -> A []
+      EDGE_0076 Rynunvor Lyrontis -MANAGES-> Caelonwyn Praxungon [DOC_0016]: B ['DEVELOPS'] -> C ['REJECTED_ONTOLOGY']
+      EDGE_0077 Caelonwyn Praxungon -MANAGES-> Tarniklan Raelonrak [DOC_0017]: E [] -> A []
+      EDGE_0078 Tarniklan Raelonrak -MANAGES-> Xanithzar Jorarnok [DOC_0018]: E [] -> A []
+      EDGE_0079 Xanithzar Jorarnok -MANAGES-> Rynartor Aldislan [DOC_0019]: E [] -> A []
+      EDGE_0082 Zantonnax Infrastructure Group -SERVES-> Ulxathlok Logistics [DOC_0023]: E [] -> A []
+      EDGE_0085 Kronanvek Core Platform Division -SERVES-> Quenentor Consortium [DOC_0026]: E [] -> A []
+
+(ii) CANONICAL ENTITIES
+| quantity | before (original KB, HEAD code) | merge+initial only (no revalidation) | after (kb_dev, all fixes) |
+|---|---|---|---|
+| canonical entities | 97 | 82 | 82 |
+| gold entities with >=1 canonical entity | 60 | 60 | 60 |
+| gold entities split into >1 canonical entity | 15 | 0 | 0 |
+| canonical entities mapping to >1 gold entity (false merge) | 0 | 0 | 0 |
+| extra canonical entities (map to no gold entity) | 22 | 22 | 22 |
+| graph relationships (validated, aggregated) | 55 | 55 | 53 |
+| raw triples VALIDATED | 55 | 55 | 53 |
+| raw triples REJECTED_ONTOLOGY | 15 | 15 | 17 |
+| validated graph edges matching a gold edge exactly (score.py) | 46 | 46 | 47 |
+| validated graph edges matching NO gold edge exactly | 9 | 9 | 6 |
+   split gold entities [before (original KB, HEAD code)]: Taelanfen Wyrusnok -> E029:PRODUCT,E031:EMPLOYEE; Nebothnok Styxinvath -> E033:PRODUCT,E034:EMPLOYEE; Krenokmoth Tarnonmar -> E036:PRODUCT,E037:EMPLOYEE; Durnenlok Noxornok -> E039:PRODUCT,E040:EMPLOYEE; Caelonwyn Praxungon -> E043:PRODUCT,E044:EMPLOYEE; Xanithzar Jorarnok -> E047:PRODUCT,E049:EMPLOYEE; Myrolvek Pryxelgath -> E052:CLIENT,E054:EMPLOYEE; Zantonnax Infrastructure Group -> E004:CLIENT,E045:DEPARTMENT; Kronanvek Core Platform Division -> E012:DEPARTMENT,E013:PRODUCT; WyrendorQL -> E079:TECHNOLOGY,E089:PRODUCT; AethithnokQL -> E080:TECHNOLOGY,E091:PRODUCT; VandethnokStore -> E081:TECHNOLOGY,E092:PRODUCT; NoxarnokNet -> E083:TECHNOLOGY,E093:PRODUCT; PryxingonDB -> E084:TECHNOLOGY,E094:PRODUCT; YvethnokRPC -> E086:TECHNOLOGY,E096:PRODUCT
+   unsplit gold entities whose canonical type differs from the gold type [before (original KB, HEAD code)]: 0 []
+   unsplit gold entities whose canonical type differs from the gold type [merge+initial only (no revalidation)]: 1 [('Durnenlok Noxornok', 'EMPLOYEE', 'PRODUCT')]
+   unsplit gold entities whose canonical type differs from the gold type [after (kb_dev, all fixes)]: 1 [('Durnenlok Noxornok', 'EMPLOYEE', 'PRODUCT')]
+
+(iv) RETRIEVAL-ONLY ALL-GOLD EVIDENCE RECALL AT K=4 (cached query plans, no answer generation; Wilson 95%)
+   earlier seed-7 run records (experiments/synth_kg/runs, recomputed in step0_reverify.py): hybrid hop1 100.0% hop2 56.7% hop3 3.3% alias 40.0%; graph_only hop1 96.7% hop2 53.3% hop3 3.3% alias 0.0%
+  [before (original KB, HEAD code)]  (/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg_fix/retrieval_seed7_before.jsonl)
+   hybrid: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 17/30 = 56.7% [39.2, 72.6] | hop3 1/30 = 3.3% [0.6, 16.7] | alias 6/15 = 40.0% [19.8, 64.3]
+   graph_only: hop1 29/30 = 96.7% [83.3, 99.4] | hop2 16/30 = 53.3% [36.1, 69.8] | hop3 1/30 = 3.3% [0.6, 16.7] | alias 0/15 = 0.0% [0.0, 20.4]
+   vector_only: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 5/30 = 16.7% [7.3, 33.6] | hop3 0/30 = 0.0% [0.0, 11.4] | alias 6/15 = 40.0% [19.8, 64.3]
+   planner failures (cached): 0 [] | query ERRORs (counted as not retrieved, listed separately): 0 []
+  [merge+initial only (no revalidation)]  (/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg_fix/retrieval_seed7_merge_only.jsonl)
+   hybrid: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 16/30 = 53.3% [36.1, 69.8] | hop3 1/30 = 3.3% [0.6, 16.7] | alias 10/15 = 66.7% [41.7, 84.8]
+   graph_only: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 20/30 = 66.7% [48.8, 80.8] | hop3 10/30 = 33.3% [19.2, 51.2] | alias 9/15 = 60.0% [35.7, 80.2]
+   planner failures (cached): 0 [] | query ERRORs (counted as not retrieved, listed separately): 0 []
+  [after (kb_dev, all fixes)]  (/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg_fix/retrieval_seed7_after.jsonl)
+   hybrid: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 18/30 = 60.0% [42.3, 75.4] | hop3 1/30 = 3.3% [0.6, 16.7] | alias 10/15 = 66.7% [41.7, 84.8]
+   graph_only: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 18/30 = 60.0% [42.3, 75.4] | hop3 6/30 = 20.0% [9.5, 37.3] | alias 9/15 = 60.0% [35.7, 80.2]
+   vector_only: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 5/30 = 16.7% [7.3, 33.6] | hop3 0/30 = 0.0% [0.0, 11.4] | alias 6/15 = 40.0% [19.8, 64.3]
+   planner failures (cached): 0 [] | query ERRORs (counted as not retrieved, listed separately): 0 []
+   hybrid hop1: before (original KB, HEAD code) -> after (kb_dev, all fixes): gained 0 [] | lost 0 [] | paired sign test p=1.0000 (descriptive)
+   hybrid hop2: before (original KB, HEAD code) -> after (kb_dev, all fixes): gained 1 ['Q_0055'] | lost 0 [] | paired sign test p=1.0000 (descriptive)
+   hybrid hop3: before (original KB, HEAD code) -> after (kb_dev, all fixes): gained 0 [] | lost 0 [] | paired sign test p=1.0000 (descriptive)
+   hybrid alias: before (original KB, HEAD code) -> after (kb_dev, all fixes): gained 4 ['Q_0092', 'Q_0094', 'Q_0095', 'Q_0099'] | lost 0 [] | paired sign test p=0.1250 (descriptive)
+   graph_only hop1: before (original KB, HEAD code) -> after (kb_dev, all fixes): gained 1 ['Q_0008'] | lost 0 [] | paired sign test p=1.0000 (descriptive)
+   graph_only hop2: before (original KB, HEAD code) -> after (kb_dev, all fixes): gained 2 ['Q_0049', 'Q_0055'] | lost 0 [] | paired sign test p=0.5000 (descriptive)
+   graph_only hop3: before (original KB, HEAD code) -> after (kb_dev, all fixes): gained 5 ['Q_0062', 'Q_0064', 'Q_0066', 'Q_0067', 'Q_0089'] | lost 0 [] | paired sign test p=0.0625 (descriptive)
+   graph_only alias: before (original KB, HEAD code) -> after (kb_dev, all fixes): gained 9 ['Q_0091', 'Q_0092', 'Q_0094', 'Q_0095', 'Q_0096', 'Q_0097', 'Q_0098', 'Q_0099', 'Q_0103'] | lost 0 [] | paired sign test p=0.0039 (descriptive)
+
+(iii) ALIAS QUESTIONS: SEEDS RESOLVED BY THE GRAPH ROUTE (graph_only mode records)
+  [before (original KB, HEAD code)]
+    Q_0091 gold='Gryxethvath Nebikvane' planner_seeds=[('G. Nebikvane', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+    Q_0092 gold='Fennikvath Quenindyn' planner_seeds=[('F. Quenindyn', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+    Q_0093 gold='Durnalnok Analytics Laboratory' planner_seeds=[('Durnalnok Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0094 gold='Loroklan Sarkithtex' planner_seeds=[('L. Sarkithtex', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+    Q_0095 gold='Lorosmir Faelennax' planner_seeds=[('L. Faelennax', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+    Q_0096 gold='Aldunwyn Kronosmoth' planner_seeds=[('A. Kronosmoth', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+    Q_0097 gold='Krenostis Thalithvath' planner_seeds=[('K. Thalithvath', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+    Q_0098 gold='Myrolvek Pryxelgath' planner_seeds=[('M. Pryxelgath', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+    Q_0099 gold='Lorosmir Faelennax' planner_seeds=[('L. Faelennax', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+    Q_0100 gold='Nebunnax Foundational Services Unit' planner_seeds=[('Nebunnax Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0101 gold='Oryxonvath Systems Engineering Unit' planner_seeds=[('Oryxonvath Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0102 gold='Zantonnax Infrastructure Group' planner_seeds=[('Zantonnax Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0103 gold='Pryxeldor Iskorlan' planner_seeds=[('P. Iskorlan', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+    Q_0104 gold='Haelenrix Gateway' planner_seeds=[('Haelenrix', 'PRODUCT')] resolved=[] gold_entity_resolved=NO
+    Q_0105 gold='Tarniklan Raelonrak' planner_seeds=[('T. Raelonrak', 'EMPLOYEE')] resolved=[] gold_entity_resolved=NO
+  [merge+initial only (no revalidation)]
+    Q_0091 gold='Gryxethvath Nebikvane' planner_seeds=[('G. Nebikvane', 'EMPLOYEE')] resolved=[('E003', 'Gryxethvath Nebikvane', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0092 gold='Fennikvath Quenindyn' planner_seeds=[('F. Quenindyn', 'EMPLOYEE')] resolved=[('E026', 'Fennikvath Quenindyn', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0093 gold='Durnalnok Analytics Laboratory' planner_seeds=[('Durnalnok Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0094 gold='Loroklan Sarkithtex' planner_seeds=[('L. Sarkithtex', 'EMPLOYEE')] resolved=[('E019', 'Loroklan Sarkithtex', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0095 gold='Lorosmir Faelennax' planner_seeds=[('L. Faelennax', 'EMPLOYEE')] resolved=[('E013', 'Lorosmir Faelennax', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0096 gold='Aldunwyn Kronosmoth' planner_seeds=[('A. Kronosmoth', 'EMPLOYEE')] resolved=[('E011', 'Aldunwyn Kronosmoth', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0097 gold='Krenostis Thalithvath' planner_seeds=[('K. Thalithvath', 'EMPLOYEE')] resolved=[('E008', 'Krenostis Thalithvath', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0098 gold='Myrolvek Pryxelgath' planner_seeds=[('M. Pryxelgath', 'EMPLOYEE')] resolved=[('E044', 'Myrolvek Pryxelgath', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0099 gold='Lorosmir Faelennax' planner_seeds=[('L. Faelennax', 'EMPLOYEE')] resolved=[('E013', 'Lorosmir Faelennax', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0100 gold='Nebunnax Foundational Services Unit' planner_seeds=[('Nebunnax Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0101 gold='Oryxonvath Systems Engineering Unit' planner_seeds=[('Oryxonvath Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0102 gold='Zantonnax Infrastructure Group' planner_seeds=[('Zantonnax Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0103 gold='Pryxeldor Iskorlan' planner_seeds=[('P. Iskorlan', 'EMPLOYEE')] resolved=[('E001', 'Pryxeldor Iskorlan', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0104 gold='Haelenrix Gateway' planner_seeds=[('Haelenrix', 'PRODUCT')] resolved=[] gold_entity_resolved=NO
+    Q_0105 gold='Tarniklan Raelonrak' planner_seeds=[('T. Raelonrak', 'EMPLOYEE')] resolved=[('E039', 'Tarniklan Raelonrak', 'EMPLOYEE')] gold_entity_resolved=YES
+  [after (kb_dev, all fixes)]
+    Q_0091 gold='Gryxethvath Nebikvane' planner_seeds=[('G. Nebikvane', 'EMPLOYEE')] resolved=[('E003', 'Gryxethvath Nebikvane', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0092 gold='Fennikvath Quenindyn' planner_seeds=[('F. Quenindyn', 'EMPLOYEE')] resolved=[('E026', 'Fennikvath Quenindyn', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0093 gold='Durnalnok Analytics Laboratory' planner_seeds=[('Durnalnok Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0094 gold='Loroklan Sarkithtex' planner_seeds=[('L. Sarkithtex', 'EMPLOYEE')] resolved=[('E019', 'Loroklan Sarkithtex', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0095 gold='Lorosmir Faelennax' planner_seeds=[('L. Faelennax', 'EMPLOYEE')] resolved=[('E013', 'Lorosmir Faelennax', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0096 gold='Aldunwyn Kronosmoth' planner_seeds=[('A. Kronosmoth', 'EMPLOYEE')] resolved=[('E011', 'Aldunwyn Kronosmoth', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0097 gold='Krenostis Thalithvath' planner_seeds=[('K. Thalithvath', 'EMPLOYEE')] resolved=[('E008', 'Krenostis Thalithvath', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0098 gold='Myrolvek Pryxelgath' planner_seeds=[('M. Pryxelgath', 'EMPLOYEE')] resolved=[('E044', 'Myrolvek Pryxelgath', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0099 gold='Lorosmir Faelennax' planner_seeds=[('L. Faelennax', 'EMPLOYEE')] resolved=[('E013', 'Lorosmir Faelennax', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0100 gold='Nebunnax Foundational Services Unit' planner_seeds=[('Nebunnax Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0101 gold='Oryxonvath Systems Engineering Unit' planner_seeds=[('Oryxonvath Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0102 gold='Zantonnax Infrastructure Group' planner_seeds=[('Zantonnax Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0103 gold='Pryxeldor Iskorlan' planner_seeds=[('P. Iskorlan', 'EMPLOYEE')] resolved=[('E001', 'Pryxeldor Iskorlan', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0104 gold='Haelenrix Gateway' planner_seeds=[('Haelenrix', 'PRODUCT')] resolved=[] gold_entity_resolved=NO
+    Q_0105 gold='Tarniklan Raelonrak' planner_seeds=[('T. Raelonrak', 'EMPLOYEE')] resolved=[('E039', 'Tarniklan Raelonrak', 'EMPLOYEE')] gold_entity_resolved=YES
+  | run | questions with >=1 resolved seed | gold entity among resolved seeds | resolved seeds are only the gold entity |
+  |---|---|---|---|
+  | before (original KB, HEAD code) | 0/15 | 0/15 | 0/15 |
+  | merge+initial only (no revalidation) | 10/15 | 10/15 | 10/15 |
+  | after (kb_dev, all fixes) | 10/15 | 10/15 | 10/15 |

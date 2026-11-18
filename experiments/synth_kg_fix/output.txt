@@ -1,0 +1,623 @@
+================================================================================
+SYNTHETIC KG DEFECT FIXES AND CONFIRMATION EVALUATION
+Timestamp: 2026-11-16T12:30:00+05:30
+Repo: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system
+Branch: hybrid-graphrag-build
+HEAD: 3877a4d02be92ca499fbb001e3a7afad971d4a4a
+Baseline Test Suite: 194 passed, 1 skipped
+Backup Directory: ~/graphrag_backup_20261116_e
+================================================================================
+
+================================================================================
+PHASE 0 INVESTIGATION REPORT
+Timestamp: 2026-11-16T12:35:00+05:30
+================================================================================
+
+0a. RELATIONSHIP-EXTRACTION PROMPT AND PARSING ANALYSIS
+--------------------------------------------------------------------------------
+1. Ingestion Pipeline & Prompt Loading:
+   - In `src/engine.py` (lines 118-124), the ingestion engine initializes `OllamaRelationshipExtractor`:
+     ```python
+     entity_extractor = OllamaEntityExtractor(ontology=self.config.ontology, llm_client=self.llm_client)
+     rel_extractor = OllamaRelationshipExtractor(
+         ontology=self.config.ontology,
+         llm_client=self.llm_client,
+         validation_config=self.config.validation,
+     )
+     ```
+   - In `src/extraction/relation_extractor.py` (lines 120-140), `prompt_template_path` defaults to:
+     `"prompts/relationship_extraction.txt"`.
+     If this file exists on disk, `self.prompt_template` is read directly from `prompts/relationship_extraction.txt`.
+
+2. Full Text of `prompts/relationship_extraction.txt`:
+```
+You are an expert knowledge graph extraction system. Your task is to extract factual relationships between the provided entity mentions from the text below, returning valid JSON.
+
+ALLOWED RELATIONSHIP TYPES AND CONSTRAINTS:
+{relationship_types}
+
+AVAILABLE ENTITY MENTIONS:
+{mentions_json}
+
+TEXT:
+\"\"\"
+{chunk_text}
+\"\"\"
+
+INSTRUCTIONS:
+1. Identify all direct relationships asserted in the text between the available entity mentions.
+2. The source and target entities must be distinct (no self-loops).
+3. Use the exact mention ID (e.g. "C0001_M001") or the exact surface name for source_mention_id and target_mention_id.
+4. relation_type must strictly be one of the allowed relationship types.
+5. evidence_quote MUST be a single contiguous verbatim substring copied directly from the text that explicitly mentions or directly relates both entities.
+6. polarity must be one of:
+   - "POSITIVE": The relationship is affirmatively stated as true.
+   - "NEGATIVE": The relationship is explicitly denied or negated (e.g., "X does not work for Y").
+   - "UNCERTAIN": The relationship is speculated, doubted, or hypothetical.
+   Do not extract relationships for negative, hypothetical, or speculative statements as positive facts.
+7. CRITICAL DIRECTIONALITY: Each relationship MUST strictly follow the direction defined in the constraints: source_mention_id MUST have an allowed source type, and target_mention_id MUST have an allowed target type. Never invert the direction (e.g. for DIRECTED, the person director is source and the film is target; for ACTED_IN, the person actor is source and the film is target; for AUTHORED, the person author is source and the work/film/book is target; for SUPERVISES, the person leader is source and the person or project is target).
+8. Specificity: Choose the most specific allowed relationship type for the facts described (e.g., if one person leads, directs, or supervises another person or project, choose SUPERVISES rather than general WORKS_ON or WORKS_AT).
+9. Return ONLY a valid JSON object matching this schema, with no preamble, markdown code blocks, or extra text:
+
+{
+  "relationships": [
+    {
+      "source_mention_id": "mention_id",
+      "target_mention_id": "mention_id",
+      "relation_type": "ALLOWED_RELATION_TYPE",
+      "evidence_quote": "exact verbatim text from the chunk",
+      "polarity": "POSITIVE",
+      "confidence": 1.0
+    }
+  ]
+}
+```
+
+3. Response-Parsing and Deduplication Code:
+   - In `src/extraction/schemas.py` (lines 47-51), the raw response schema parses a list of relationship items:
+     ```python
+     class RawRelationshipExtractionOutput(BaseModel):
+         model_config = ConfigDict(extra="ignore")
+         relationships: List[RawRelationshipItem] = Field(default_factory=list)
+     ```
+   - In `src/extraction/relation_extractor.py` (lines 156-167), caching preserves all items:
+     ```python
+     raw_output = self._raw_cache.get(cache_key)
+     if raw_output is None:
+         generated = self.llm_client.generate_json(prompt, RawRelationshipExtractionOutput)
+         id_to_surface = {m.mention_id: m.surface_name for m in mentions}
+         cache_data = generated.model_dump()
+         for item in cache_data["relationships"]:
+             item["source_mention_id"] = id_to_surface.get(item["source_mention_id"], item["source_mention_id"])
+             item["target_mention_id"] = id_to_surface.get(item["target_mention_id"], item["target_mention_id"])
+         raw_output = RawRelationshipExtractionOutput.model_validate(cache_data)
+         self._raw_cache[cache_key] = raw_output
+     ```
+   - In `src/extraction/relation_extractor.py` (lines 208-380), each raw relationship item is resolved and appended to `relationships`:
+     ```python
+     for raw_item in raw_output.relationships:
+         ...
+         rel_id = f"{chunk.chunk_id}_R{rel_idx:03d}"
+         relationship = Relationship(...)
+         relationships.append(relationship)
+         rel_idx += 1
+     ```
+   - In `src/resolution/entity_resolver.py` (line 267), aggregation deduplication key is:
+     `key = (new_src, r.relation_type, new_tgt, r.scope_id)`
+   - In `src/graph/graph_builder.py` (line 66), graph multigraph edge key is:
+     `key = (src, r.relation_type, tgt, r.scope_id)`
+
+4. Multiple Relation Types Conclusion:
+   - The parser, `_raw_cache`, `Relationship` instantiation, `resolve_and_remap`, and `IGraphBuilder` all support multigraphs and do NOT collapse different relation types for the same (source, target) pair.
+   - However, the extraction PROMPT in `prompts/relationship_extraction.txt` (Instruction 8) states:
+     `"8. Specificity: Choose the most specific allowed relationship type for the facts described..."`
+     The prompt does NOT instruct the model to output multiple relationships if multiple hold. Consequently, the LLM selects only one relationship (e.g. MANAGES) and omits others (e.g. BELONGS_TO).
+   - Therefore, Fix 3 IS required: adding the explicit instruction to `prompts/relationship_extraction_v1_1.txt`:
+     `"If the text states several different relations between the same two entities, output one object per relation"`.
+
+
+0b. ALIAS QUESTIONS Q_0091 AND Q_0094 ENTITY AND CORPUS OCCURRENCE AUDIT
+--------------------------------------------------------------------------------
+1. Question Records:
+   - Q_0091:
+     `question`: "What entity or unit is managed by G. Nebikvane?"
+     `gold_path`: ["EDGE_0062"]
+     `gold_supporting_doc_ids`: ["DOC_0002"]
+   - Q_0094:
+     `question`: "What product is developed by the department managed by L. Sarkithtex?"
+     `gold_path`: ["EDGE_0068", "EDGE_0008"]
+     `gold_supporting_doc_ids`: ["DOC_0008", "DOC_0029"]
+
+2. Gold KG Entity Records from `experiments/synth_kg/corpus_final/gold_kg.json`:
+   - ENT_0002:
+     ```json
+     {
+       "id": "ENT_0002",
+       "canonical_name": "Gryxethvath Nebikvane",
+       "type": "EMPLOYEE",
+       "aliases": [
+         "G. Nebikvane",
+         "Nebikvane"
+       ],
+       "doc_id": "DOC_0002"
+     }
+     ```
+   - ENT_0008:
+     ```json
+     {
+       "id": "ENT_0008",
+       "canonical_name": "Loroklan Sarkithtex",
+       "type": "EMPLOYEE",
+       "aliases": [
+         "L. Sarkithtex",
+         "Sarkithtex"
+       ],
+       "doc_id": "DOC_0008"
+     }
+     ```
+   - Note on Names: The names "Galthor Nebikvane" and "Lorik Sarkithtex" do not exist in gold_kg.json; the gold entities are named "Gryxethvath Nebikvane" and "Loroklan Sarkithtex".
+
+3. Corpus Document Text Occurrences (`experiments/synth_kg/corpus_final/docs/*.txt`):
+   - "Galthor Nebikvane": 0 occurrences
+   - "Galthor": 0 occurrences
+   - "Gryxethvath Nebikvane": 1 occurrence (DOC_0002.txt)
+   - "Gryxethvath": 1 occurrence (DOC_0002.txt)
+   - "Nebikvane": 1 occurrence (DOC_0002.txt)
+   - "G. Nebikvane": 0 occurrences in ANY corpus document text!
+   - "Lorik Sarkithtex": 0 occurrences
+   - "Lorik": 0 occurrences
+   - "Loroklan Sarkithtex": 1 occurrence (DOC_0008.txt)
+   - "Loroklan": 1 occurrence (DOC_0008.txt)
+   - "Sarkithtex": 1 occurrence (DOC_0008.txt)
+   - "L. Sarkithtex": 0 occurrences in ANY corpus document text!
+
+4. Document Text Occurrence Status:
+   The abbreviated initial+surname alias forms ("G. Nebikvane", "L. Sarkithtex") used in the questions appear in ZERO corpus document texts. The documents contain only the full canonical names ("Gryxethvath Nebikvane", "Loroklan Sarkithtex"). Dense retrieval over document text cannot find the seed document via textual match of the alias string, making initial+surname resolution in graph seed retrieval essential.
+
+
+0c. EXPLANATION OF B4 DIFFERENCE (9/30 VS 11/30)
+--------------------------------------------------------------------------------
+Comparing `experiments/synth_kg_audit/audit_part2_baselines.py` (9/30 = 30.0%) against `experiments/synth_kg_audit/followup/part_f_iterative_baselines.py` (11/30 = 36.7%):
+1. Algorithmic Difference:
+   - In `audit_part2_baselines.py` (lines 142-149):
+     ```python
+     extracted_names = set()
+     for st in seed_texts:
+         for match in name_pattern.findall(st):
+             if len(match.strip()) > 1:
+                 extracted_names.add(match.strip())
+     ```
+     `extracted_names` included all capitalized word sequences from seed documents WITHOUT filtering out names already present in the question query text!
+   - In `part_f_iterative_baselines.py` (lines 92-98):
+     ```python
+     def extract_names_from_seeds(seeds):
+         names = set()
+         for s in seeds:
+             for match in NAME_REGEX.findall(docs[s]):
+                 if match.lower() not in q_text.lower():
+                     names.add(match)
+         return names
+     ```
+     `extract_names_from_seeds` explicitly filtered out names that appear in the question:
+     `if match.lower() not in q_text.lower():`
+2. Impact:
+   In `audit_part2_baselines.py`, retaining question entities in `extracted_names` caused candidate document ranking to retrieve distractor documents that matched the question's source entity rather than hopping to the second-hop entity's document. Filtering question names in the followup script allowed B4 to discover the correct 2nd-hop documents for 2 additional questions (Q_0044, Q_0055), improving recall from 9/30 to 11/30.
+3. Other Components:
+   Seed count (top-2 dense seeds), candidate scoring (cosine similarity to query), tie-handling, and backfill logic were otherwise identical.
+
+
+0d. DEFINITION OF "VALIDATED PATH EXISTS" AND AUDIT OF Q_0062, Q_0063, Q_0073, Q_0084
+--------------------------------------------------------------------------------
+1. Definition in `experiments/synth_kg/score.py` (lines 378-450):
+   - The evaluation builds an **UNDIRECTED, UNTYPED** adjacency graph over canonical entity IDs from `validated_relationships`:
+     ```python
+     adj = collections.defaultdict(set)
+     for rel in validated_relationships:
+         u = rel["source_entity_id"]
+         v = rel["target_entity_id"]
+         adj[u].add(v)
+         adj[v].add(u)
+     ```
+   - It computes the shortest path distance in this undirected graph from any canonical entity corresponding to the starting gold entity to any canonical entity corresponding to the target gold entity:
+     `has_path = (path_len is not None and path_len <= h)`
+   - It does NOT check whether the path follows the directed gold edges, nor does it check relationship types or gold edge IDs.
+
+2. Recomputation for Q_0062, Q_0063, Q_0073, Q_0084:
+   - Q_0062 (hop3, h=3):
+     Gold path: `EDGE_0073 (ENT_0013 -MANAGES-> ENT_0014)`, `EDGE_0053 (ENT_0014 -BELONGS_TO-> ENT_0035)`, `EDGE_0014 (ENT_0035 -DEVELOPS-> ENT_0038)`.
+     Even though EDGE_0014 was never extracted / rejected, `score.py` found an alternate undirected 3-hop path:
+     `E034 -- E035 -- E057 -- E059` (distance = 3 <= 3).
+     Therefore `has_path = True`.
+   - Q_0063 (hop3, h=3):
+     Gold path: `EDGE_0053`, `EDGE_0014`, `EDGE_0029`.
+     `score.py` found an alternate undirected 3-hop path:
+     `E036 -- E034 -- E035 -- E057` (distance = 3 <= 3).
+     Therefore `has_path = True`.
+   - Q_0073 (hop3, h=3):
+     Gold path: `EDGE_0080`, `EDGE_0060`, `EDGE_0006`.
+     Even though EDGE_0080 was rejected, `score.py` found an alternate undirected 3-hop path:
+     `E050 -- E012 -- E066 -- E067` (distance = 3 <= 3).
+     Therefore `has_path = True`.
+   - Q_0084 (hop3, h=3):
+     Gold path: `EDGE_0057`, `EDGE_0003`, `EDGE_0030`.
+     Even though EDGE_0003 was rejected, `score.py` found an alternate undirected 3-hop path:
+     `E046 -- E044 -- E045 -- E060` (distance = 3 <= 3).
+     Therefore `has_path = True`.
+
+3. Summary:
+   These questions were flagged as having a "validated path" because `score.py` evaluated reachability in an undirected graph without checking edge direction, edge identity, or relationship type constraints. Alternate undirected connections created spurious short paths between the start and target entities.
+
+
+0e. "[GRAPH_EDGE_PROVENANCE: ...]" PROVENANCE AND CONTEXT MODE ANALYSIS
+--------------------------------------------------------------------------------
+1. Provenance String Generation:
+   In `src/retrieval/graph_retriever.py` (line 275):
+   ```python
+   labeled_path_str = f"GRAPH_EDGE_PROVENANCE: {path_str}"
+   ```
+   Stored in `evidence.supporting_graph_paths` with type `GraphProvenanceType.GRAPH_EDGE_PROVENANCE`.
+
+2. `graph_context_mode` in Overnight Runs:
+   - In `experiments/synth_kg/run_overnight.py` (line 111):
+     `cfg.setdefault("retrieval", {})["graph_context_mode"] = False`
+   - In run config snapshots (`experiments/synth_kg/runs/*/config_snapshot.yaml` line 93):
+     `graph_context_mode: false`
+   - Reported in `REPORT.md`: `graph_context_mode = off (False)`.
+
+3. Why the Marker Appears When Mode Was "off" (False):
+   In `src/retrieval/context_builder.py` (lines 33-100):
+   ```python
+   mode_str = str(self.graph_context_mode).strip().lower()
+   is_none_mode = mode_str == "none"
+   is_fix_e_mode = (self.graph_context_mode is True) or (mode_str in ("true", "fix_e", "edges"))
+
+   if is_none_mode:
+       pass
+   elif is_fix_e_mode:
+       # Formats edges under '### Extracted Graph Relationships (Incomplete Extracted Facts)'
+       ...
+   else:
+       # LEGACY DEFAULT BRANCH:
+       all_paths: List[str] = []
+       for ev in retrieval_result.evidence_list:
+           for p in ev.supporting_graph_paths:
+               if p not in all_paths:
+                   all_paths.append(p)
+       if all_paths:
+           path_lines = ["### Supporting Graph Traversal Paths"]
+           for path in all_paths:
+               path_lines.append(f"- {path}")
+           path_block = "\n".join(path_lines)
+           sections.append(path_block)
+   ```
+   When `graph_context_mode` is `False` or `"off"`, `is_none_mode` is `False` and `is_fix_e_mode` is `False`.
+   The code therefore falls into the legacy `else:` branch, which explicitly formats all `supporting_graph_paths` under `### Supporting Graph Traversal Paths` into the LLM context!
+   Only `graph_context_mode = "none"` omitted graph traversal text. Setting it to `False` (or `"off"`) retained the legacy behavior of injecting `GRAPH_EDGE_PROVENANCE: ...` into the generation context, which the LLM then quoted in its answers.
+================================================================================
+================================================================================
+PHASE 0 INVESTIGATION REPORT
+Timestamp: 2026-11-16T12:35:00+05:30
+================================================================================
+
+0a. RELATIONSHIP-EXTRACTION PROMPT AND PARSING ANALYSIS
+--------------------------------------------------------------------------------
+1. Ingestion Pipeline & Prompt Loading:
+   - In `src/engine.py` (lines 118-124), the ingestion engine initializes `OllamaRelationshipExtractor`:
+     ```python
+     entity_extractor = OllamaEntityExtractor(ontology=self.config.ontology, llm_client=self.llm_client)
+     rel_extractor = OllamaRelationshipExtractor(
+         ontology=self.config.ontology,
+         llm_client=self.llm_client,
+         validation_config=self.config.validation,
+     )
+     ```
+   - In `src/extraction/relation_extractor.py` (lines 120-140), `prompt_template_path` defaults to:
+     `"prompts/relationship_extraction.txt"`.
+     If this file exists on disk, `self.prompt_template` is read directly from `prompts/relationship_extraction.txt`.
+
+2. Full Text of `prompts/relationship_extraction.txt`:
+```
+You are an expert knowledge graph extraction system. Your task is to extract factual relationships between the provided entity mentions from the text below, returning valid JSON.
+
+ALLOWED RELATIONSHIP TYPES AND CONSTRAINTS:
+{relationship_types}
+
+AVAILABLE ENTITY MENTIONS:
+{mentions_json}
+
+TEXT:
+\"\"\"
+{chunk_text}
+\"\"\"
+
+INSTRUCTIONS:
+1. Identify all direct relationships asserted in the text between the available entity mentions.
+2. The source and target entities must be distinct (no self-loops).
+3. Use the exact mention ID (e.g. "C0001_M001") or the exact surface name for source_mention_id and target_mention_id.
+4. relation_type must strictly be one of the allowed relationship types.
+5. evidence_quote MUST be a single contiguous verbatim substring copied directly from the text that explicitly mentions or directly relates both entities.
+6. polarity must be one of:
+   - "POSITIVE": The relationship is affirmatively stated as true.
+   - "NEGATIVE": The relationship is explicitly denied or negated (e.g., "X does not work for Y").
+   - "UNCERTAIN": The relationship is speculated, doubted, or hypothetical.
+   Do not extract relationships for negative, hypothetical, or speculative statements as positive facts.
+7. CRITICAL DIRECTIONALITY: Each relationship MUST strictly follow the direction defined in the constraints: source_mention_id MUST have an allowed source type, and target_mention_id MUST have an allowed target type. Never invert the direction (e.g. for DIRECTED, the person director is source and the film is target; for ACTED_IN, the person actor is source and the film is target; for AUTHORED, the person author is source and the work/film/book is target; for SUPERVISES, the person leader is source and the person or project is target).
+8. Specificity: Choose the most specific allowed relationship type for the facts described (e.g., if one person leads, directs, or supervises another person or project, choose SUPERVISES rather than general WORKS_ON or WORKS_AT).
+9. Return ONLY a valid JSON object matching this schema, with no preamble, markdown code blocks, or extra text:
+
+{
+  "relationships": [
+    {
+      "source_mention_id": "mention_id",
+      "target_mention_id": "mention_id",
+      "relation_type": "ALLOWED_RELATION_TYPE",
+      "evidence_quote": "exact verbatim text from the chunk",
+      "polarity": "POSITIVE",
+      "confidence": 1.0
+    }
+  ]
+}
+```
+
+3. Response-Parsing and Deduplication Code:
+   - In `src/extraction/schemas.py` (lines 47-51), the raw response schema parses a list of relationship items:
+     ```python
+     class RawRelationshipExtractionOutput(BaseModel):
+         model_config = ConfigDict(extra="ignore")
+         relationships: List[RawRelationshipItem] = Field(default_factory=list)
+     ```
+   - In `src/extraction/relation_extractor.py` (lines 156-167), caching preserves all items:
+     ```python
+     raw_output = self._raw_cache.get(cache_key)
+     if raw_output is None:
+         generated = self.llm_client.generate_json(prompt, RawRelationshipExtractionOutput)
+         id_to_surface = {m.mention_id: m.surface_name for m in mentions}
+         cache_data = generated.model_dump()
+         for item in cache_data["relationships"]:
+             item["source_mention_id"] = id_to_surface.get(item["source_mention_id"], item["source_mention_id"])
+             item["target_mention_id"] = id_to_surface.get(item["target_mention_id"], item["target_mention_id"])
+         raw_output = RawRelationshipExtractionOutput.model_validate(cache_data)
+         self._raw_cache[cache_key] = raw_output
+     ```
+   - In `src/extraction/relation_extractor.py` (lines 208-380), each raw relationship item is resolved and appended to `relationships`:
+     ```python
+     for raw_item in raw_output.relationships:
+         ...
+         rel_id = f"{chunk.chunk_id}_R{rel_idx:03d}"
+         relationship = Relationship(...)
+         relationships.append(relationship)
+         rel_idx += 1
+     ```
+   - In `src/resolution/entity_resolver.py` (line 267), aggregation deduplication key is:
+     `key = (new_src, r.relation_type, new_tgt, r.scope_id)`
+   - In `src/graph/graph_builder.py` (line 66), graph multigraph edge key is:
+     `key = (src, r.relation_type, tgt, r.scope_id)`
+
+4. Multiple Relation Types Conclusion:
+   - The parser, `_raw_cache`, `Relationship` instantiation, `resolve_and_remap`, and `IGraphBuilder` all support multigraphs and do NOT collapse different relation types for the same (source, target) pair.
+   - However, the extraction PROMPT in `prompts/relationship_extraction.txt` (Instruction 8) states:
+     `"8. Specificity: Choose the most specific allowed relationship type for the facts described..."`
+     The prompt does NOT instruct the model to output multiple relationships if multiple hold. Consequently, the LLM selects only one relationship (e.g. MANAGES) and omits others (e.g. BELONGS_TO).
+   - Therefore, Fix 3 IS required: adding the explicit instruction to `prompts/relationship_extraction_v1_1.txt`:
+     `"If the text states several different relations between the same two entities, output one object per relation"`.
+
+
+0b. ALIAS QUESTIONS Q_0091 AND Q_0094 ENTITY AND CORPUS OCCURRENCE AUDIT
+--------------------------------------------------------------------------------
+1. Question Records:
+   - Q_0091:
+     `question`: "What entity or unit is managed by G. Nebikvane?"
+     `gold_path`: ["EDGE_0062"]
+     `gold_supporting_doc_ids`: ["DOC_0002"]
+   - Q_0094:
+     `question`: "What product is developed by the department managed by L. Sarkithtex?"
+     `gold_path`: ["EDGE_0068", "EDGE_0008"]
+     `gold_supporting_doc_ids`: ["DOC_0008", "DOC_0029"]
+
+2. Gold KG Entity Records from `experiments/synth_kg/corpus_final/gold_kg.json`:
+   - ENT_0002:
+     ```json
+     {
+       "id": "ENT_0002",
+       "canonical_name": "Gryxethvath Nebikvane",
+       "type": "EMPLOYEE",
+       "aliases": [
+         "G. Nebikvane",
+         "Nebikvane"
+       ],
+       "doc_id": "DOC_0002"
+     }
+     ```
+   - ENT_0008:
+     ```json
+     {
+       "id": "ENT_0008",
+       "canonical_name": "Loroklan Sarkithtex",
+       "type": "EMPLOYEE",
+       "aliases": [
+         "L. Sarkithtex",
+         "Sarkithtex"
+       ],
+       "doc_id": "DOC_0008"
+     }
+     ```
+   - Note on Names: The names "Galthor Nebikvane" and "Lorik Sarkithtex" do not exist in gold_kg.json; the gold entities are named "Gryxethvath Nebikvane" and "Loroklan Sarkithtex".
+
+3. Corpus Document Text Occurrences (`experiments/synth_kg/corpus_final/docs/*.txt`):
+   - "Galthor Nebikvane": 0 occurrences
+   - "Galthor": 0 occurrences
+   - "Gryxethvath Nebikvane": 1 occurrence (DOC_0002.txt)
+   - "Gryxethvath": 1 occurrence (DOC_0002.txt)
+   - "Nebikvane": 1 occurrence (DOC_0002.txt)
+   - "G. Nebikvane": 0 occurrences in ANY corpus document text!
+   - "Lorik Sarkithtex": 0 occurrences
+   - "Lorik": 0 occurrences
+   - "Loroklan Sarkithtex": 1 occurrence (DOC_0008.txt)
+   - "Loroklan": 1 occurrence (DOC_0008.txt)
+   - "Sarkithtex": 1 occurrence (DOC_0008.txt)
+   - "L. Sarkithtex": 0 occurrences in ANY corpus document text!
+
+4. Document Text Occurrence Status:
+   The abbreviated initial+surname alias forms ("G. Nebikvane", "L. Sarkithtex") used in the questions appear in ZERO corpus document texts. The documents contain only the full canonical names ("Gryxethvath Nebikvane", "Loroklan Sarkithtex"). Dense retrieval over document text cannot find the seed document via textual match of the alias string, making initial+surname resolution in graph seed retrieval essential.
+
+
+0c. EXPLANATION OF B4 DIFFERENCE (9/30 VS 11/30)
+--------------------------------------------------------------------------------
+Comparing `experiments/synth_kg_audit/audit_part2_baselines.py` (9/30 = 30.0%) against `experiments/synth_kg_audit/followup/part_f_iterative_baselines.py` (11/30 = 36.7%):
+1. Algorithmic Difference:
+   - In `audit_part2_baselines.py` (lines 142-149):
+     ```python
+     extracted_names = set()
+     for st in seed_texts:
+         for match in name_pattern.findall(st):
+             if len(match.strip()) > 1:
+                 extracted_names.add(match.strip())
+     ```
+     `extracted_names` included all capitalized word sequences from seed documents WITHOUT filtering out names already present in the question query text!
+   - In `part_f_iterative_baselines.py` (lines 92-98):
+     ```python
+     def extract_names_from_seeds(seeds):
+         names = set()
+         for s in seeds:
+             for match in NAME_REGEX.findall(docs[s]):
+                 if match.lower() not in q_text.lower():
+                     names.add(match)
+         return names
+     ```
+     `extract_names_from_seeds` explicitly filtered out names that appear in the question:
+     `if match.lower() not in q_text.lower():`
+2. Impact:
+   In `audit_part2_baselines.py`, retaining question entities in `extracted_names` caused candidate document ranking to retrieve distractor documents that matched the question's source entity rather than hopping to the second-hop entity's document. Filtering question names in the followup script allowed B4 to discover the correct 2nd-hop documents for 2 additional questions (Q_0044, Q_0055), improving recall from 9/30 to 11/30.
+3. Other Components:
+   Seed count (top-2 dense seeds), candidate scoring (cosine similarity to query), tie-handling, and backfill logic were otherwise identical.
+
+
+0d. DEFINITION OF "VALIDATED PATH EXISTS" AND AUDIT OF Q_0062, Q_0063, Q_0073, Q_0084
+--------------------------------------------------------------------------------
+1. Definition in `experiments/synth_kg/score.py` (lines 378-450):
+   - The evaluation builds an **UNDIRECTED, UNTYPED** adjacency graph over canonical entity IDs from `validated_relationships`:
+     ```python
+     adj = collections.defaultdict(set)
+     for rel in validated_relationships:
+         u = rel["source_entity_id"]
+         v = rel["target_entity_id"]
+         adj[u].add(v)
+         adj[v].add(u)
+     ```
+   - It computes the shortest path distance in this undirected graph from any canonical entity corresponding to the starting gold entity to any canonical entity corresponding to the target gold entity:
+     `has_path = (path_len is not None and path_len <= h)`
+   - It does NOT check whether the path follows the directed gold edges, nor does it check relationship types or gold edge IDs.
+
+2. Recomputation for Q_0062, Q_0063, Q_0073, Q_0084:
+   - Q_0062 (hop3, h=3):
+     Gold path: `EDGE_0073 (ENT_0013 -MANAGES-> ENT_0014)`, `EDGE_0053 (ENT_0014 -BELONGS_TO-> ENT_0035)`, `EDGE_0014 (ENT_0035 -DEVELOPS-> ENT_0038)`.
+     Even though EDGE_0014 was never extracted / rejected, `score.py` found an alternate undirected 3-hop path:
+     `E034 -- E035 -- E057 -- E059` (distance = 3 <= 3).
+     Therefore `has_path = True`.
+   - Q_0063 (hop3, h=3):
+     Gold path: `EDGE_0053`, `EDGE_0014`, `EDGE_0029`.
+     `score.py` found an alternate undirected 3-hop path:
+     `E036 -- E034 -- E035 -- E057` (distance = 3 <= 3).
+     Therefore `has_path = True`.
+   - Q_0073 (hop3, h=3):
+     Gold path: `EDGE_0080`, `EDGE_0060`, `EDGE_0006`.
+     Even though EDGE_0080 was rejected, `score.py` found an alternate undirected 3-hop path:
+     `E050 -- E012 -- E066 -- E067` (distance = 3 <= 3).
+     Therefore `has_path = True`.
+   - Q_0084 (hop3, h=3):
+     Gold path: `EDGE_0057`, `EDGE_0003`, `EDGE_0030`.
+     Even though EDGE_0003 was rejected, `score.py` found an alternate undirected 3-hop path:
+     `E046 -- E044 -- E045 -- E060` (distance = 3 <= 3).
+     Therefore `has_path = True`.
+
+3. Summary:
+   These questions were flagged as having a "validated path" because `score.py` evaluated reachability in an undirected graph without checking edge direction, edge identity, or relationship type constraints. Alternate undirected connections created spurious short paths between the start and target entities.
+
+
+0e. "[GRAPH_EDGE_PROVENANCE: ...]" PROVENANCE AND CONTEXT MODE ANALYSIS
+--------------------------------------------------------------------------------
+1. Provenance String Generation:
+   In `src/retrieval/graph_retriever.py` (line 275):
+   ```python
+   labeled_path_str = f"GRAPH_EDGE_PROVENANCE: {path_str}"
+   ```
+   Stored in `evidence.supporting_graph_paths` with type `GraphProvenanceType.GRAPH_EDGE_PROVENANCE`.
+
+2. `graph_context_mode` in Overnight Runs:
+   - In `experiments/synth_kg/run_overnight.py` (line 111):
+     `cfg.setdefault("retrieval", {})["graph_context_mode"] = False`
+   - In run config snapshots (`experiments/synth_kg/runs/*/config_snapshot.yaml` line 93):
+     `graph_context_mode: false`
+   - Reported in `REPORT.md`: `graph_context_mode = off (False)`.
+
+3. Why the Marker Appears When Mode Was "off" (False):
+   In `src/retrieval/context_builder.py` (lines 33-100):
+   ```python
+   mode_str = str(self.graph_context_mode).strip().lower()
+   is_none_mode = mode_str == "none"
+   is_fix_e_mode = (self.graph_context_mode is True) or (mode_str in ("true", "fix_e", "edges"))
+
+   if is_none_mode:
+       pass
+   elif is_fix_e_mode:
+       # Formats edges under '### Extracted Graph Relationships (Incomplete Extracted Facts)'
+       ...
+   else:
+       # LEGACY DEFAULT BRANCH:
+       all_paths: List[str] = []
+       for ev in retrieval_result.evidence_list:
+           for p in ev.supporting_graph_paths:
+               if p not in all_paths:
+                   all_paths.append(p)
+       if all_paths:
+           path_lines = ["### Supporting Graph Traversal Paths"]
+           for path in all_paths:
+               path_lines.append(f"- {path}")
+           path_block = "\n".join(path_lines)
+           sections.append(path_block)
+   ```
+   When `graph_context_mode` is `False` or `"off"`, `is_none_mode` is `False` and `is_fix_e_mode` is `False`.
+   The code therefore falls into the legacy `else:` branch, which explicitly formats all `supporting_graph_paths` under `### Supporting Graph Traversal Paths` into the LLM context!
+   Only `graph_context_mode = "none"` omitted graph traversal text. Setting it to `False` (or `"off"`) retained the legacy behavior of injecting `GRAPH_EDGE_PROVENANCE: ...` into the generation context, which the LLM then quoted in its answers.
+================================================================================
+
+
+================================================================================
+PHASE 1 - FIX 1 GREP OUTPUT BEFORE EDITING
+================================================================================
+src/resolution/entity_resolver.py:84:def person_names_compatible(name1: str, name2: str) -> bool:
+src/resolution/entity_resolver.py:85:    """Determine whether two person names are compatible variations (nicknames, affixes, middle names)."""
+src/resolution/entity_resolver.py:206:        # Rule C2 Post-pass: Handle single-token PERSON canonicals created before multi-token ones
+src/resolution/entity_resolver.py:207:        if getattr(self.resolution_config, "enable_single_token_person_merge", True):
+src/resolution/entity_resolver.py:208:            single_token_persons = [
+src/resolution/entity_resolver.py:210:                if c.entity_type == "PERSON"
+src/resolution/entity_resolver.py:213:            multi_token_persons = [
+src/resolution/entity_resolver.py:215:                if c.entity_type == "PERSON"
+src/resolution/entity_resolver.py:220:            for s_c in single_token_persons:
+src/resolution/entity_resolver.py:224:                    m_c for m_c in multi_token_persons
+src/resolution/entity_resolver.py:333:        # Rule C2 (PERSON single-token surname merge during sequential pass)
+src/resolution/entity_resolver.py:335:            getattr(self.resolution_config, "enable_single_token_person_merge", True)
+src/resolution/entity_resolver.py:336:            and mention.entity_type == "PERSON"
+src/resolution/entity_resolver.py:344:                    if c.entity_type != "PERSON":
+src/resolution/entity_resolver.py:364:        if mention.entity_type == "PERSON":
+src/resolution/entity_resolver.py:368:                if c.entity_type == "PERSON":
+src/resolution/entity_resolver.py:392:        if mention.entity_type == "PERSON" and best_candidate.entity_type == "PERSON":
+src/resolution/entity_resolver.py:440:        # 0. Generational suffix conflict check for PERSON entities:
+src/resolution/entity_resolver.py:442:        if mention.entity_type == "PERSON" and canonical.entity_type == "PERSON":
+src/resolution/entity_resolver.py:467:        # 4. Academic / professional honorific prefix stripping for PERSON
+src/resolution/entity_resolver.py:469:        if mention.entity_type == "PERSON" and canonical.entity_type == "PERSON":
+src/resolution/entity_resolver.py:498:        # 5. Type-specific generic-descriptor normalization for non-PERSON (Rule C1)
+src/resolution/entity_resolver.py:501:            and mention.entity_type != "PERSON"
+src/resolution/entity_resolver.py:502:            and canonical.entity_type != "PERSON"
+src/retrieval/seed_retriever.py:10:    person_names_compatible,
+src/retrieval/seed_retriever.py:131:        # Step 1: Exact canonical name matches & Person name variations
+src/retrieval/seed_retriever.py:135:        person_matches: List[CanonicalEntity] = []
+src/retrieval/seed_retriever.py:136:        if expected_type == "PERSON" or any(e.entity_type.upper() == "PERSON" for e in exact_matches):
+src/retrieval/seed_retriever.py:138:                if e.entity_type.upper() == "PERSON" and e not in exact_matches:
+src/retrieval/seed_retriever.py:139:                    if person_names_compatible(spec.name, e.name):
+src/retrieval/seed_retriever.py:140:                        person_matches.append(e)
+src/retrieval/seed_retriever.py:146:        for e in person_matches:
+src/retrieval/seed_retriever.py:148:            phase1_candidates.append((e, "PERSON_NAME_VARIATION", is_comp))
+src/retrieval/seed_retriever.py:292:                (expected_type == "PERSON" or e.entity_type.upper() == "PERSON")
+src/retrieval/seed_retriever.py:293:                and person_names_compatible(spec.name, e.name)
+src/retrieval/seed_retriever.py:296:                method = "PERSON_NAME_COMPATIBLE"

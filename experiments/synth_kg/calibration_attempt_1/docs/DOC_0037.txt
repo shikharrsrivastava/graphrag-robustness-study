@@ -1,0 +1,1 @@
+Haelentor Hub is a proprietary enterprise software solution deployed across production clusters. Haelentor Hub utilizes WyrendorQL for core functionality. It operates in production serving Brynandor Networks.

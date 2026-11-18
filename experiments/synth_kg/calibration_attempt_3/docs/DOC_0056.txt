@@ -1,0 +1,1 @@
+Gorarzor Nexus is a proprietary enterprise software solution deployed across production clusters. Gorarzor Nexus was constructed upon the WreningathNet framework. It delivers dedicated platform support to Bryninvix Technologies.

@@ -1,0 +1,71 @@
+{
+  "timestamp_iso": "2026-11-16T02:01:13.199910+05:30",
+  "domain_config_used": "configs/domains/academic.yaml",
+  "domain_config_justification": "academic.yaml provides broad open-domain ontology coverage (PERSON, LOCATION, ORGANIZATION, EVENT, WORK, FILM, BOOK, COUNTRY, CONCEPT) matching general Wikipedia paragraphs, whereas company, legal, and medical_research ontologies are domain-restricted.",
+  "num_paragraphs": 10,
+  "total_wall_time_seconds": 635.17,
+  "seconds_per_paragraph": 63.52,
+  "documents": 10,
+  "pages": 10,
+  "chunks": 12,
+  "entity_mentions": 96,
+  "canonical_entities": 78,
+  "extracted_relationships": 63,
+  "validated_relationships": 11,
+  "rejected_relationships": 52,
+  "rejected_relationships_by_reason": {
+    "REJECTED_ENDPOINT_NOT_IN_EVIDENCE": 45,
+    "REJECTED_ONTOLOGY": 5,
+    "REJECTED_QUOTE_MISMATCH": 2
+  },
+  "communities": 68,
+  "community_reports": 68,
+  "leiden_ran": true,
+  "community_reports_ran": true,
+  "graph_vertices": 78,
+  "graph_edges": 11,
+  "stage_seconds": {
+    "document_loading": 0.0,
+    "chunking": 0.0,
+    "entity_extraction": 187.55,
+    "relationship_extraction": 357.6,
+    "entity_resolution": 30.12,
+    "embedding_and_vector_indexing": 1.41,
+    "graph_construction_and_validation": 0.02,
+    "community_detection": 0.02,
+    "community_summarization": 58.35,
+    "total_indexing": 635.11
+  },
+  "linear_extrapolations": {
+    "300_paragraphs": {
+      "seconds": 19055.08,
+      "minutes": 317.58,
+      "hours": 5.29,
+      "note": "Linear extrapolation based on 10-paragraph sample (O(N) extraction + O(V+E) graph ops)"
+    },
+    "1000_paragraphs": {
+      "seconds": 63516.94,
+      "minutes": 1058.62,
+      "hours": 17.64,
+      "note": "Linear extrapolation based on 10-paragraph sample (O(N) extraction + O(V+E) graph ops)"
+    }
+  },
+  "kb_stats": {
+    "kb_id": "scratch_hotpot_10",
+    "documents": 10,
+    "chunks": 12,
+    "entities": 78,
+    "relationships": 11,
+    "communities": 68,
+    "community_reports": 68,
+    "vector_store_counts": {
+      "chunks": 12,
+      "entities": 78,
+      "community_reports": 68
+    },
+    "graph": {
+      "vertices": 78,
+      "edges": 11
+    }
+  }
+}

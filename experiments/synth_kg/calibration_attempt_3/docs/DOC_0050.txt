@@ -1,0 +1,1 @@
+Kaelunkest Workspace is a proprietary enterprise software solution deployed across production clusters. Kaelunkest Workspace was constructed upon the EldusvorDB framework. Kaelunkest Workspace delivers dedicated platform support to Faelothgath Consortium. In contrast, Kaelunkest Systems maintains entirely distinct non-production responsibilities.

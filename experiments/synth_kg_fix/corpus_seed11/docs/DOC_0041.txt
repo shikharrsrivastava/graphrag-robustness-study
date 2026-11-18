@@ -1,0 +1,1 @@
+Sarkantor Engine is a proprietary enterprise software solution deployed across production clusters. Sarkantor Engine utilizes NeboldynGraph for core functionality. Sarkantor Engine delivers dedicated platform support to Brecanzar Syndicate. In contrast, Sarkantor Systems maintains entirely distinct non-production responsibilities.

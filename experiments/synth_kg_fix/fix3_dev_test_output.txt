@@ -1,0 +1,26 @@
+====================================================================================================
+PHASE 2c - FIX 3 DEV TEST (relationship prompt v1.0 vs v1.1), seed 7
+T1 two-relation documents (10): ['DOC_0001', 'DOC_0002', 'DOC_0003', 'DOC_0004', 'DOC_0005', 'DOC_0006', 'DOC_0007', 'DOC_0008', 'DOC_0009', 'DOC_0010']
+T2 supporting documents of the 14 score.py EXTRACTED_BUT_DROPPED_IN_RESOLUTION gold edges (10): ['DOC_0004', 'DOC_0005', 'DOC_0006', 'DOC_0009', 'DOC_0010', 'DOC_0011', 'DOC_0012', 'DOC_0014', 'DOC_0016', 'DOC_0020']
+T1 union T2: 15 documents; CONTROL (random seed 0, 6 of 45 remaining): ['DOC_0017', 'DOC_0032', 'DOC_0040', 'DOC_0042', 'DOC_0047', 'DOC_0048']
+selected documents: 21
+ollama config (from the seed-7 KB snapshot): {'base_url': 'http://localhost:11434', 'llm_model': 'gemma3:4b', 'embedding_model': 'embeddinggemma:latest', 'expected_embedding_dim': 768, 'temperature': 0.0, 'timeout_seconds': 120, 'max_retries': 2}
+ontology person_like_types (current company.yaml, same for both prompts): ['EMPLOYEE']
+
+| document set | docs | gold edges in docs | prompt | raw triples | VALIDATED | (a) gold edges recovered | (b) VALIDATED matching no gold edge | extraction ERRORs |
+|---|---|---|---|---|---|---|---|---|
+| T1 two-relation | 10 | 20 | v1.0 | 16 | 10 | 10 | 0 | 0 |
+| T1 two-relation | 10 | 20 | v1.1 | 15 | 9 | 9 | 0 | 0 |
+| T1 union T2 | 15 | 30 | v1.0 | 26 | 19 | 10 | 9 | 0 |
+| T1 union T2 | 15 | 30 | v1.1 | 25 | 18 | 11 | 7 | 0 |
+| CONTROL | 6 | 12 | v1.0 | 14 | 8 | 8 | 0 | 0 |
+| CONTROL | 6 | 12 | v1.1 | 14 | 8 | 8 | 0 | 0 |
+| ALL SELECTED | 21 | 42 | v1.0 | 40 | 27 | 18 | 9 | 0 |
+| ALL SELECTED | 21 | 42 | v1.1 | 39 | 26 | 19 | 7 | 0 |
+
+ALL SELECTED: (a) v1.0=18 v1.1=19 rise=1; (b) v1.0=9 v1.1=7 rise=-2
+gold edges recovered only with v1.1: ['EDGE_0047', 'EDGE_0051', 'EDGE_0072']
+gold edges recovered only with v1.0: ['EDGE_0063', 'EDGE_0068']
+T1 documents in which the model emitted more than one relation type for one mention pair: v1.0=3 v1.1=2 of 10
+RULE: enable v1.1 only if rise in (a) >= 3 AND rise in (b) <= rise in (a)  ->  (a) rise 1 >= 3: False; (b) rise -2 <= 1: True
+OUTCOME: KEEP v1.0 (v1.1 not enabled)

@@ -1,0 +1,1 @@
+WyrendorQL is an internal software specification maintained for operational stability. In contrast, WyrendorQL Systems maintains entirely distinct non-production responsibilities. All formal operational guidelines regarding WyrendorQL are cataloged in internal records.

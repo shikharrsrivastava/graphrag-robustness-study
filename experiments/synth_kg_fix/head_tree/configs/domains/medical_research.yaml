@@ -1,0 +1,31 @@
+kb_id: "medical_research_kb"
+ontology:
+  domain_name: "medical_research"
+  version: "1.0.0"
+  entity_types:
+    DISEASE: "Clinical conditions, syndromes, or pathologies"
+    BIOMARKER: "Genes, proteins, or physiological indicators"
+    THERAPY: "Drugs, treatments, or clinical interventions"
+    STUDY: "Clinical trials or biomedical research studies"
+    INSTITUTION: "Hospitals, research centers, or laboratories"
+  relationship_types:
+    TREATS:
+      name: "TREATS"
+      description: "Therapy treats or mitigates a disease"
+      allowed_source_types: ["THERAPY"]
+      allowed_target_types: ["DISEASE"]
+    ASSOCIATED_WITH:
+      name: "ASSOCIATED_WITH"
+      description: "Biomarker is associated with a disease or therapy response"
+      allowed_source_types: ["BIOMARKER"]
+      allowed_target_types: ["DISEASE", "THERAPY"]
+    INVESTIGATES:
+      name: "INVESTIGATES"
+      description: "Study investigates a disease, therapy, or biomarker"
+      allowed_source_types: ["STUDY"]
+      allowed_target_types: ["DISEASE", "THERAPY", "BIOMARKER"]
+    CONDUCTED_BY:
+      name: "CONDUCTED_BY"
+      description: "Study is conducted by an institution"
+      allowed_source_types: ["STUDY"]
+      allowed_target_types: ["INSTITUTION"]

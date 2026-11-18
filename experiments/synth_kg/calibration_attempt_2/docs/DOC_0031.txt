@@ -1,0 +1,1 @@
+Zantornok Cluster is a proprietary enterprise software solution deployed across production clusters. Zantornok Cluster is engineered primarily using AethenvekLang. Zantornok Cluster directly serves the enterprise requirements of Gorollan Logistics.

@@ -1,0 +1,195 @@
+{
+ "seed 7 (kb_dev)": {
+  "newly": [
+   "EDGE_0001",
+   "EDGE_0002",
+   "EDGE_0004",
+   "EDGE_0008",
+   "EDGE_0012",
+   "EDGE_0013",
+   "EDGE_0015",
+   "EDGE_0020",
+   "EDGE_0046"
+  ],
+  "changed_questions": [
+   "Q_0038",
+   "Q_0039",
+   "Q_0048",
+   "Q_0059",
+   "Q_0079",
+   "Q_0090"
+  ],
+  "rejected_ontology": 17,
+  "swap_passes": 10,
+  "swap_equals_gold": 10,
+  "swap_wrong": 0,
+  "path_complete": {
+   "hop1": {
+    "n": 30,
+    "before": 17,
+    "after": 21
+   },
+   "hop2": {
+    "n": 30,
+    "before": 4,
+    "after": 8
+   },
+   "hop3": {
+    "n": 30,
+    "before": 1,
+    "after": 3
+   }
+  },
+  "changed_hybrid_ok": 2,
+  "changed_graph_only_ok": 2,
+  "ae_before": 47,
+  "ae_after": 56,
+  "L2": {
+   "total": 33,
+   "ae": 20
+  },
+  "dev_template": {
+   "<S> is directly responsible for developing <T>": {
+    "REV": 6
+   },
+   "<S> builds and maintains <T>": {
+    "REV": 5
+   },
+   "<S> spearheads the technical development of <T>": {
+    "fwd": 3
+   },
+   "<S> designs and engineers <T>": {
+    "REV": 1
+   }
+  },
+  "dev_dir": {
+   "DEVELOPS|same relation|REV": 12,
+   "DEVELOPS|same relation|fwd": 3
+  },
+  "dir_all": {
+   "DEVELOPS|same relation|REV": 12,
+   "DEVELOPS|same relation|fwd": 3,
+   "BUILT_WITH|same relation|fwd": 10,
+   "BUILT_WITH|same relation|REV": 2,
+   "SERVES|no triple|-": 6,
+   "SERVES|same relation|fwd": 21,
+   "BELONGS_TO|extracted MANAGES|fwd": 15,
+   "BELONGS_TO|same relation|fwd": 7,
+   "BELONGS_TO|extracted MANAGES|REV": 1,
+   "BELONGS_TO|same relation|REV": 1,
+   "BELONGS_TO|no triple|-": 1,
+   "MANAGES|same relation|fwd": 14,
+   "MANAGES|extracted BELONGS_TO|fwd": 2,
+   "MANAGES|same relation|REV": 2,
+   "MANAGES|extracted BELONGS_TO|REV": 1,
+   "MANAGES|extracted DEVELOPS|fwd": 4,
+   "MANAGES|extracted SERVES|fwd": 1
+  }
+ },
+ "seed 11 (kb_seed11)": {
+  "newly": [
+   "EDGE_0001",
+   "EDGE_0002",
+   "EDGE_0003",
+   "EDGE_0006",
+   "EDGE_0007",
+   "EDGE_0008",
+   "EDGE_0009",
+   "EDGE_0010",
+   "EDGE_0011",
+   "EDGE_0012",
+   "EDGE_0015",
+   "EDGE_0017",
+   "EDGE_0066",
+   "EDGE_0069"
+  ],
+  "changed_questions": [
+   "Q_0032",
+   "Q_0034",
+   "Q_0035",
+   "Q_0038",
+   "Q_0042",
+   "Q_0043",
+   "Q_0046",
+   "Q_0054",
+   "Q_0056",
+   "Q_0060",
+   "Q_0069",
+   "Q_0075",
+   "Q_0081",
+   "Q_0082",
+   "Q_0090"
+  ],
+  "rejected_ontology": 24,
+  "swap_passes": 15,
+  "swap_equals_gold": 14,
+  "swap_wrong": 1,
+  "path_complete": {
+   "hop1": {
+    "n": 30,
+    "before": 12,
+    "after": 16
+   },
+   "hop2": {
+    "n": 30,
+    "before": 2,
+    "after": 12
+   },
+   "hop3": {
+    "n": 30,
+    "before": 0,
+    "after": 5
+   }
+  },
+  "changed_hybrid_ok": 5,
+  "changed_graph_only_ok": 6,
+  "ae_before": 42,
+  "ae_after": 56,
+  "L2": {
+   "total": 39,
+   "ae": 18
+  },
+  "dev_template": {
+   "<S> designs and engineers <T>": {
+    "REV": 3
+   },
+   "<S> spearheads the technical development of <T>": {
+    "REV": 1,
+    "fwd": 3
+   },
+   "<S> is directly responsible for developing <T>": {
+    "REV": 3,
+    "fwd": 1
+   },
+   "<S> builds and maintains <T>": {
+    "REV": 4
+   }
+  },
+  "dev_dir": {
+   "DEVELOPS|same relation|REV": 11,
+   "DEVELOPS|same relation|fwd": 4
+  },
+  "dir_all": {
+   "DEVELOPS|same relation|REV": 11,
+   "DEVELOPS|same relation|fwd": 4,
+   "BUILT_WITH|same relation|fwd": 6,
+   "BUILT_WITH|same relation|REV": 3,
+   "BUILT_WITH|extracted DEVELOPS|fwd": 1,
+   "BUILT_WITH|no triple|-": 2,
+   "SERVES|same relation|fwd": 24,
+   "SERVES|no triple|-": 3,
+   "BELONGS_TO|extracted MANAGES|fwd": 11,
+   "BELONGS_TO|same relation|fwd": 7,
+   "BELONGS_TO|extracted DEVELOPS|fwd": 1,
+   "BELONGS_TO|extracted MANAGES|REV": 2,
+   "BELONGS_TO|extracted SERVES|fwd": 1,
+   "BELONGS_TO|no triple|-": 2,
+   "MANAGES|same relation|fwd": 11,
+   "MANAGES|extracted BELONGS_TO|fwd": 2,
+   "MANAGES|extracted DEVELOPS|fwd": 2,
+   "MANAGES|same relation|REV": 3,
+   "MANAGES|extracted SERVES|fwd": 4,
+   "MANAGES|no triple|-": 1
+  }
+ }
+}

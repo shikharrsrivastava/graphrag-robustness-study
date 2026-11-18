@@ -1,0 +1,1 @@
+Zantelvix Engine is a proprietary enterprise software solution deployed across production clusters. Zantelvix Engine was constructed upon the SynethvekVM framework. Zantelvix Engine operates in production serving Styxisrix Enterprises. In contrast, Zantelvix Systems maintains entirely distinct non-production responsibilities.

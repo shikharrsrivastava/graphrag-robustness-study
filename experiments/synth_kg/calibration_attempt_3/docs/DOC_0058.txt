@@ -1,0 +1,1 @@
+Taelothwyn Fabric is a proprietary enterprise software solution deployed across production clusters. Taelothwyn Fabric was constructed upon the EldusvorDB framework. It provides specialized commercial solutions for Faelothgath Consortium. In contrast, Taelothwyn Systems maintains entirely distinct non-production responsibilities.

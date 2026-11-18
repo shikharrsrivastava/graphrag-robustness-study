@@ -1,0 +1,1747 @@
+{
+ "seed 11 (kb_seed11)": [
+  {
+   "edge": "EDGE_0001",
+   "doc": "DOC_0022",
+   "source": "Raelonmar Infrastructure Group",
+   "source_type": "DEPARTMENT",
+   "target": "Lorelrix Mesh",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0022": [
+     "DEPARTMENT"
+    ],
+    "ENT_0037": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D022_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Raelonmar Infrastructure Group designs and engineers Lorelrix Mesh.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Raelonmar Infrastructure Group designs and engineers Lorelrix Mesh."
+  },
+  {
+   "edge": "EDGE_0002",
+   "doc": "DOC_0023",
+   "source": "Maelinvane Core Platform Division",
+   "source_type": "DEPARTMENT",
+   "target": "Eldenfen Matrix",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0023": [
+     "DEPARTMENT"
+    ],
+    "ENT_0038": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D023_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Maelinvane Core Platform Division operates as a central functional division of the organization. It spearheads the technical development of Eldenfen Matrix.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It spearheads the technical development of Eldenfen Matrix."
+  },
+  {
+   "edge": "EDGE_0003",
+   "doc": "DOC_0024",
+   "source": "Aethorvath Applied Automation Wing",
+   "source_type": "DEPARTMENT",
+   "target": "Zorarvek Cluster",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0024": [
+     "DEPARTMENT"
+    ],
+    "ENT_0039": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D024_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Aethorvath Applied Automation Wing is directly responsible for developing Zorarvek Cluster.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Aethorvath Applied Automation Wing is directly responsible for developing Zorarvek Cluster."
+  },
+  {
+   "edge": "EDGE_0004",
+   "doc": "DOC_0025",
+   "source": "Morithvor Foundational Services Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Synaldor Hub",
+   "target_type": "PRODUCT",
+   "fate": "A",
+   "other_edge_types": [],
+   "cause": "OK (validated exact)",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0025": [
+     "DEPARTMENT"
+    ],
+    "ENT_0040": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D025_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "VALIDATED",
+     "status_final": "VALIDATED",
+     "quote": "Morithvor Foundational Services Unit spearheads the technical development of Synaldor Hub.",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "Morithvor Foundational Services Unit spearheads the technical development of Synaldor Hub."
+  },
+  {
+   "edge": "EDGE_0005",
+   "doc": "DOC_0026",
+   "source": "Zantothvane Applied Automation Wing",
+   "source_type": "DEPARTMENT",
+   "target": "Sarkantor Engine",
+   "target_type": "PRODUCT",
+   "fate": "A",
+   "other_edge_types": [],
+   "cause": "OK (validated exact)",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0026": [
+     "DEPARTMENT"
+    ],
+    "ENT_0041": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D026_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "VALIDATED",
+     "status_final": "VALIDATED",
+     "quote": "Zantothvane Applied Automation Wing spearheads the technical development of Sarkantor Engine.",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "Zantothvane Applied Automation Wing spearheads the technical development of Sarkantor Engine."
+  },
+  {
+   "edge": "EDGE_0006",
+   "doc": "DOC_0027",
+   "source": "Fennuthreth Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Synokwyn Protocol",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0027": [
+     "DEPARTMENT"
+    ],
+    "ENT_0042": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D027_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Fennuthreth Systems Engineering Unit builds and maintains Synokwyn Protocol",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Fennuthreth Systems Engineering Unit builds and maintains Synokwyn Protocol."
+  },
+  {
+   "edge": "EDGE_0007",
+   "doc": "DOC_0028",
+   "source": "Ulxintor Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Vaelelmar Hub",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0028": [
+     "DEPARTMENT"
+    ],
+    "ENT_0043": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D028_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Ulxintor Systems Engineering Unit designs and engineers Vaelelmar Hub.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Ulxintor Systems Engineering Unit designs and engineers Vaelelmar Hub."
+  },
+  {
+   "edge": "EDGE_0008",
+   "doc": "DOC_0029",
+   "source": "Eldismir Applied Automation Wing",
+   "source_type": "DEPARTMENT",
+   "target": "Vaeluntex Protocol",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0029": [
+     "DEPARTMENT"
+    ],
+    "ENT_0044": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D029_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Eldismir Applied Automation Wing is directly responsible for developing Vaeluntex Protocol.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Eldismir Applied Automation Wing is directly responsible for developing Vaeluntex Protocol."
+  },
+  {
+   "edge": "EDGE_0009",
+   "doc": "DOC_0030",
+   "source": "Noxinzor Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Wyrinzar Workspace",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0030": [
+     "DEPARTMENT"
+    ],
+    "ENT_0045": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D030_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Noxinzor Systems Engineering Unit is directly responsible for developing Wyrinzar Workspace.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Noxinzor Systems Engineering Unit is directly responsible for developing Wyrinzar Workspace."
+  },
+  {
+   "edge": "EDGE_0010",
+   "doc": "DOC_0031",
+   "source": "Gorardor Analytics Laboratory",
+   "source_type": "DEPARTMENT",
+   "target": "Syniktex Mesh",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0031": [
+     "DEPARTMENT"
+    ],
+    "ENT_0046": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D031_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Gorardor Analytics Laboratory builds and maintains Syniktex Mesh.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Gorardor Analytics Laboratory builds and maintains Syniktex Mesh."
+  },
+  {
+   "edge": "EDGE_0011",
+   "doc": "DOC_0032",
+   "source": "Aldokrak Core Platform Division",
+   "source_type": "DEPARTMENT",
+   "target": "Fennosron Relay",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0032": [
+     "DEPARTMENT"
+    ],
+    "ENT_0047": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D032_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Aldokrak Core Platform Division builds and maintains Fennosron Relay.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Aldokrak Core Platform Division builds and maintains Fennosron Relay."
+  },
+  {
+   "edge": "EDGE_0012",
+   "doc": "DOC_0033",
+   "source": "Zorathmoth Analytics Laboratory",
+   "source_type": "DEPARTMENT",
+   "target": "Quenontis Relay",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0033": [
+     "DEPARTMENT"
+    ],
+    "ENT_0048": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D033_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Zorathmoth Analytics Laboratory builds and maintains Quenontis Relay",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Zorathmoth Analytics Laboratory builds and maintains Quenontis Relay."
+  },
+  {
+   "edge": "EDGE_0013",
+   "doc": "DOC_0034",
+   "source": "Haelostor Core Platform Division",
+   "source_type": "DEPARTMENT",
+   "target": "Lorelrix Mesh",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_ENDPOINT_NOT_IN_EVIDENCE"
+   ],
+   "cause": "EVIDENCE_REJECT",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0034": [
+     "DEPARTMENT"
+    ],
+    "ENT_0037": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D034_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "status_final": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "quote": "It spearheads the technical development of Lorelrix Mesh.",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "It spearheads the technical development of Lorelrix Mesh."
+  },
+  {
+   "edge": "EDGE_0014",
+   "doc": "DOC_0035",
+   "source": "Xylounmar Infrastructure Group",
+   "source_type": "DEPARTMENT",
+   "target": "Eldenfen Matrix",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_QUOTE_MISMATCH"
+   ],
+   "cause": "EVIDENCE_REJECT",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0035": [
+     "DEPARTMENT"
+    ],
+    "ENT_0038": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D035_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "REJECTED_QUOTE_MISMATCH",
+     "status_final": "REJECTED_QUOTE_MISMATCH",
+     "quote": "Xylounmar Infrastructure Group is directly responsible for developing Eldenfen Matrix.",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "It is directly responsible for developing Eldenfen Matrix."
+  },
+  {
+   "edge": "EDGE_0015",
+   "doc": "DOC_0036",
+   "source": "Vandolkest Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Zorarvek Cluster",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0036": [
+     "DEPARTMENT"
+    ],
+    "ENT_0039": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D036_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Vandolkest Systems Engineering Unit designs and engineers Zorarvek Cluster.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Vandolkest Systems Engineering Unit designs and engineers Zorarvek Cluster."
+  }
+ ],
+ "seed 7 (kb_dev, after fixes)": [
+  {
+   "edge": "EDGE_0001",
+   "doc": "DOC_0022",
+   "source": "Zanistis Infrastructure Group",
+   "source_type": "DEPARTMENT",
+   "target": "Haelentor Hub",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0022": [
+     "DEPARTMENT"
+    ],
+    "ENT_0037": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D022_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Zanistis Infrastructure Group is directly responsible for developing Haelentor Hub.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Zanistis Infrastructure Group is directly responsible for developing Haelentor Hub."
+  },
+  {
+   "edge": "EDGE_0002",
+   "doc": "DOC_0023",
+   "source": "Zantonnax Infrastructure Group",
+   "source_type": "DEPARTMENT",
+   "target": "Iskardyn Pipeline",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0023": [
+     "DEPARTMENT"
+    ],
+    "ENT_0038": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D023_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Zantonnax Infrastructure Group is directly responsible for developing Iskardyn Pipeline.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Zantonnax Infrastructure Group is directly responsible for developing Iskardyn Pipeline."
+  },
+  {
+   "edge": "EDGE_0003",
+   "doc": "DOC_0024",
+   "source": "Oryxonvath Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Sarkinfen Matrix",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_ENDPOINT_NOT_IN_EVIDENCE"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0024": [
+     "DEPARTMENT"
+    ],
+    "ENT_0039": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D024_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "status_final": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "quote": "It builds and maintains Sarkinfen Matrix.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It builds and maintains Sarkinfen Matrix."
+  },
+  {
+   "edge": "EDGE_0004",
+   "doc": "DOC_0025",
+   "source": "Synethgath Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Haelenrix Gateway",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0025": [
+     "DEPARTMENT"
+    ],
+    "ENT_0040": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D025_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Synethgath Systems Engineering Unit builds and maintains Haelenrix Gateway.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Synethgath Systems Engineering Unit builds and maintains Haelenrix Gateway."
+  },
+  {
+   "edge": "EDGE_0005",
+   "doc": "DOC_0026",
+   "source": "Kronanvek Core Platform Division",
+   "source_type": "DEPARTMENT",
+   "target": "Wyrithwyn Pipeline",
+   "target_type": "PRODUCT",
+   "fate": "A",
+   "other_edge_types": [],
+   "cause": "OK (validated exact)",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0026": [
+     "DEPARTMENT"
+    ],
+    "ENT_0041": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D026_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "VALIDATED",
+     "status_final": "VALIDATED",
+     "quote": "Kronanvek Core Platform Division spearheads the technical development of Wyrithwyn Pipeline.",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "Kronanvek Core Platform Division spearheads the technical development of Wyrithwyn Pipeline."
+  },
+  {
+   "edge": "EDGE_0006",
+   "doc": "DOC_0027",
+   "source": "Aetharkest Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Zanolric Cluster",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_ENDPOINT_NOT_IN_EVIDENCE"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0027": [
+     "DEPARTMENT"
+    ],
+    "ENT_0042": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D027_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "status_final": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "quote": "developing Zanolric Cluster",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It is directly responsible for developing Zanolric Cluster."
+  },
+  {
+   "edge": "EDGE_0007",
+   "doc": "DOC_0028",
+   "source": "Iskorlan Applied Automation Wing",
+   "source_type": "DEPARTMENT",
+   "target": "Jorustex Nexus",
+   "target_type": "PRODUCT",
+   "fate": "A",
+   "other_edge_types": [],
+   "cause": "OK (validated exact)",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0028": [
+     "DEPARTMENT"
+    ],
+    "ENT_0043": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D028_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "VALIDATED",
+     "status_final": "VALIDATED",
+     "quote": "Iskorlan Applied Automation Wing spearheads the technical development of Jorustex Nexus",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "Iskorlan Applied Automation Wing spearheads the technical development of Jorustex Nexus."
+  },
+  {
+   "edge": "EDGE_0008",
+   "doc": "DOC_0029",
+   "source": "Kaelinlux Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Lyronvor Nexus",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0029": [
+     "DEPARTMENT"
+    ],
+    "ENT_0044": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D029_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Kaelinlux Systems Engineering Unit builds and maintains Lyronvor Nexus",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Kaelinlux Systems Engineering Unit builds and maintains Lyronvor Nexus."
+  },
+  {
+   "edge": "EDGE_0009",
+   "doc": "DOC_0030",
+   "source": "Noxontor Foundational Services Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Faelolnok Protocol",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_ENDPOINT_NOT_IN_EVIDENCE"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0030": [
+     "DEPARTMENT"
+    ],
+    "ENT_0045": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D030_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "status_final": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "quote": "It builds and maintains Faelolnok Protocol.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It builds and maintains Faelolnok Protocol."
+  },
+  {
+   "edge": "EDGE_0010",
+   "doc": "DOC_0031",
+   "source": "Morenvek Analytics Laboratory",
+   "source_type": "DEPARTMENT",
+   "target": "Ulxarron Matrix",
+   "target_type": "PRODUCT",
+   "fate": "A",
+   "other_edge_types": [],
+   "cause": "OK (validated exact)",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0031": [
+     "DEPARTMENT"
+    ],
+    "ENT_0046": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D031_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "VALIDATED",
+     "status_final": "VALIDATED",
+     "quote": "Morenvek Analytics Laboratory spearheads the technical development of Ulxarron Matrix.",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "Morenvek Analytics Laboratory spearheads the technical development of Ulxarron Matrix."
+  },
+  {
+   "edge": "EDGE_0011",
+   "doc": "DOC_0032",
+   "source": "Eldornax Infrastructure Group",
+   "source_type": "DEPARTMENT",
+   "target": "Eldothvix Hub",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_QUOTE_MISMATCH"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0032": [
+     "DEPARTMENT"
+    ],
+    "ENT_0047": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D032_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_QUOTE_MISMATCH",
+     "status_final": "REJECTED_QUOTE_MISMATCH",
+     "quote": "Eldornax Infrastructure Group builds and maintains Eldothvix Hub.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It builds and maintains Eldothvix Hub."
+  },
+  {
+   "edge": "EDGE_0012",
+   "doc": "DOC_0033",
+   "source": "Durnalnok Analytics Laboratory",
+   "source_type": "DEPARTMENT",
+   "target": "Maelengath Hub",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0033": [
+     "DEPARTMENT"
+    ],
+    "ENT_0048": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D033_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Durnalnok Analytics Laboratory designs and engineers Maelengath Hub",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Durnalnok Analytics Laboratory designs and engineers Maelengath Hub."
+  },
+  {
+   "edge": "EDGE_0013",
+   "doc": "DOC_0034",
+   "source": "Nebunnax Foundational Services Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Haelentor Hub",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0034": [
+     "DEPARTMENT"
+    ],
+    "ENT_0037": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D034_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Nebunnax Foundational Services Unit is directly responsible for developing Haelentor Hub.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Nebunnax Foundational Services Unit is directly responsible for developing Haelentor Hub."
+  },
+  {
+   "edge": "EDGE_0014",
+   "doc": "DOC_0035",
+   "source": "Vandothnok Foundational Services Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Iskardyn Pipeline",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_QUOTE_MISMATCH"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0035": [
+     "DEPARTMENT"
+    ],
+    "ENT_0038": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D035_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_QUOTE_MISMATCH",
+     "status_final": "REJECTED_QUOTE_MISMATCH",
+     "quote": "Vandothnok Foundational Services Unit is directly responsible for developing Iskardyn Pipeline.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It is directly responsible for developing Iskardyn Pipeline."
+  },
+  {
+   "edge": "EDGE_0015",
+   "doc": "DOC_0036",
+   "source": "Brecolron Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Sarkinfen Matrix",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0036": [
+     "DEPARTMENT"
+    ],
+    "ENT_0039": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D036_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Brecolron Systems Engineering Unit is directly responsible for developing Sarkinfen Matrix.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Brecolron Systems Engineering Unit is directly responsible for developing Sarkinfen Matrix."
+  }
+ ],
+ "seed 7 (kb_before, original HEAD KB)": [
+  {
+   "edge": "EDGE_0001",
+   "doc": "DOC_0022",
+   "source": "Zanistis Infrastructure Group",
+   "source_type": "DEPARTMENT",
+   "target": "Haelentor Hub",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0022": [
+     "DEPARTMENT"
+    ],
+    "ENT_0037": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D022_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Zanistis Infrastructure Group is directly responsible for developing Haelentor Hub.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Zanistis Infrastructure Group is directly responsible for developing Haelentor Hub."
+  },
+  {
+   "edge": "EDGE_0002",
+   "doc": "DOC_0023",
+   "source": "Zantonnax Infrastructure Group",
+   "source_type": "DEPARTMENT",
+   "target": "Iskardyn Pipeline",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0023": [
+     "DEPARTMENT"
+    ],
+    "ENT_0038": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D023_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Zantonnax Infrastructure Group is directly responsible for developing Iskardyn Pipeline.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Zantonnax Infrastructure Group is directly responsible for developing Iskardyn Pipeline."
+  },
+  {
+   "edge": "EDGE_0003",
+   "doc": "DOC_0024",
+   "source": "Oryxonvath Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Sarkinfen Matrix",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_ENDPOINT_NOT_IN_EVIDENCE"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0024": [
+     "DEPARTMENT"
+    ],
+    "ENT_0039": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D024_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "status_final": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "quote": "It builds and maintains Sarkinfen Matrix.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It builds and maintains Sarkinfen Matrix."
+  },
+  {
+   "edge": "EDGE_0004",
+   "doc": "DOC_0025",
+   "source": "Synethgath Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Haelenrix Gateway",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0025": [
+     "DEPARTMENT"
+    ],
+    "ENT_0040": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D025_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Synethgath Systems Engineering Unit builds and maintains Haelenrix Gateway.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Synethgath Systems Engineering Unit builds and maintains Haelenrix Gateway."
+  },
+  {
+   "edge": "EDGE_0005",
+   "doc": "DOC_0026",
+   "source": "Kronanvek Core Platform Division",
+   "source_type": "DEPARTMENT",
+   "target": "Wyrithwyn Pipeline",
+   "target_type": "PRODUCT",
+   "fate": "E",
+   "other_edge_types": [],
+   "cause": "OK (validated exact)",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0026": [
+     "DEPARTMENT"
+    ],
+    "ENT_0041": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D026_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "VALIDATED",
+     "status_final": "VALIDATED",
+     "quote": "Kronanvek Core Platform Division spearheads the technical development of Wyrithwyn Pipeline.",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "Kronanvek Core Platform Division spearheads the technical development of Wyrithwyn Pipeline."
+  },
+  {
+   "edge": "EDGE_0006",
+   "doc": "DOC_0027",
+   "source": "Aetharkest Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Zanolric Cluster",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_ENDPOINT_NOT_IN_EVIDENCE"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0027": [
+     "DEPARTMENT"
+    ],
+    "ENT_0042": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D027_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "status_final": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "quote": "developing Zanolric Cluster",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It is directly responsible for developing Zanolric Cluster."
+  },
+  {
+   "edge": "EDGE_0007",
+   "doc": "DOC_0028",
+   "source": "Iskorlan Applied Automation Wing",
+   "source_type": "DEPARTMENT",
+   "target": "Jorustex Nexus",
+   "target_type": "PRODUCT",
+   "fate": "A",
+   "other_edge_types": [],
+   "cause": "OK (validated exact)",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0028": [
+     "DEPARTMENT"
+    ],
+    "ENT_0043": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D028_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "VALIDATED",
+     "status_final": "VALIDATED",
+     "quote": "Iskorlan Applied Automation Wing spearheads the technical development of Jorustex Nexus",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "Iskorlan Applied Automation Wing spearheads the technical development of Jorustex Nexus."
+  },
+  {
+   "edge": "EDGE_0008",
+   "doc": "DOC_0029",
+   "source": "Kaelinlux Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Lyronvor Nexus",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0029": [
+     "DEPARTMENT"
+    ],
+    "ENT_0044": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D029_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Kaelinlux Systems Engineering Unit builds and maintains Lyronvor Nexus",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Kaelinlux Systems Engineering Unit builds and maintains Lyronvor Nexus."
+  },
+  {
+   "edge": "EDGE_0009",
+   "doc": "DOC_0030",
+   "source": "Noxontor Foundational Services Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Faelolnok Protocol",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_ENDPOINT_NOT_IN_EVIDENCE"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0030": [
+     "DEPARTMENT"
+    ],
+    "ENT_0045": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D030_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "status_final": "REJECTED_ENDPOINT_NOT_IN_EVIDENCE",
+     "quote": "It builds and maintains Faelolnok Protocol.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It builds and maintains Faelolnok Protocol."
+  },
+  {
+   "edge": "EDGE_0010",
+   "doc": "DOC_0031",
+   "source": "Morenvek Analytics Laboratory",
+   "source_type": "DEPARTMENT",
+   "target": "Ulxarron Matrix",
+   "target_type": "PRODUCT",
+   "fate": "A",
+   "other_edge_types": [],
+   "cause": "OK (validated exact)",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0031": [
+     "DEPARTMENT"
+    ],
+    "ENT_0046": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D031_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": true,
+     "src_mention_type": "DEPARTMENT",
+     "tgt_mention_type": "PRODUCT",
+     "src_canonical_type": "DEPARTMENT",
+     "tgt_canonical_type": "PRODUCT",
+     "status_mention_level": "VALIDATED",
+     "status_final": "VALIDATED",
+     "quote": "Morenvek Analytics Laboratory spearheads the technical development of Ulxarron Matrix.",
+     "ontology_ok_mention_types": true,
+     "ontology_ok_canonical_types": true
+    }
+   ],
+   "evidence_quote": "Morenvek Analytics Laboratory spearheads the technical development of Ulxarron Matrix."
+  },
+  {
+   "edge": "EDGE_0011",
+   "doc": "DOC_0032",
+   "source": "Eldornax Infrastructure Group",
+   "source_type": "DEPARTMENT",
+   "target": "Eldothvix Hub",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_QUOTE_MISMATCH"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0032": [
+     "DEPARTMENT"
+    ],
+    "ENT_0047": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D032_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_QUOTE_MISMATCH",
+     "status_final": "REJECTED_QUOTE_MISMATCH",
+     "quote": "Eldornax Infrastructure Group builds and maintains Eldothvix Hub.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It builds and maintains Eldothvix Hub."
+  },
+  {
+   "edge": "EDGE_0012",
+   "doc": "DOC_0033",
+   "source": "Durnalnok Analytics Laboratory",
+   "source_type": "DEPARTMENT",
+   "target": "Maelengath Hub",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0033": [
+     "DEPARTMENT"
+    ],
+    "ENT_0048": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D033_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Durnalnok Analytics Laboratory designs and engineers Maelengath Hub",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Durnalnok Analytics Laboratory designs and engineers Maelengath Hub."
+  },
+  {
+   "edge": "EDGE_0013",
+   "doc": "DOC_0034",
+   "source": "Nebunnax Foundational Services Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Haelentor Hub",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0034": [
+     "DEPARTMENT"
+    ],
+    "ENT_0037": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D034_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Nebunnax Foundational Services Unit is directly responsible for developing Haelentor Hub.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Nebunnax Foundational Services Unit is directly responsible for developing Haelentor Hub."
+  },
+  {
+   "edge": "EDGE_0014",
+   "doc": "DOC_0035",
+   "source": "Vandothnok Foundational Services Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Iskardyn Pipeline",
+   "target_type": "PRODUCT",
+   "fate": "D",
+   "other_edge_types": [
+    "REJECTED_QUOTE_MISMATCH"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0035": [
+     "DEPARTMENT"
+    ],
+    "ENT_0038": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D035_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_QUOTE_MISMATCH",
+     "status_final": "REJECTED_QUOTE_MISMATCH",
+     "quote": "Vandothnok Foundational Services Unit is directly responsible for developing Iskardyn Pipeline.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "It is directly responsible for developing Iskardyn Pipeline."
+  },
+  {
+   "edge": "EDGE_0015",
+   "doc": "DOC_0036",
+   "source": "Brecolron Systems Engineering Unit",
+   "source_type": "DEPARTMENT",
+   "target": "Sarkinfen Matrix",
+   "target_type": "PRODUCT",
+   "fate": "C",
+   "other_edge_types": [
+    "REJECTED_ONTOLOGY"
+   ],
+   "cause": "REVERSED",
+   "gold_types_satisfy_rule": true,
+   "mention_types": {
+    "ENT_0036": [
+     "DEPARTMENT"
+    ],
+    "ENT_0039": [
+     "PRODUCT"
+    ]
+   },
+   "triples": [
+    {
+     "relationship_id": "D036_C0000_R001",
+     "relation": "DEVELOPS",
+     "same_direction": false,
+     "src_mention_type": "PRODUCT",
+     "tgt_mention_type": "DEPARTMENT",
+     "src_canonical_type": "PRODUCT",
+     "tgt_canonical_type": "DEPARTMENT",
+     "status_mention_level": "REJECTED_ONTOLOGY",
+     "status_final": "REJECTED_ONTOLOGY",
+     "quote": "Brecolron Systems Engineering Unit is directly responsible for developing Sarkinfen Matrix.",
+     "ontology_ok_mention_types": false,
+     "ontology_ok_canonical_types": false
+    }
+   ],
+   "evidence_quote": "Brecolron Systems Engineering Unit is directly responsible for developing Sarkinfen Matrix."
+  }
+ ]
+}

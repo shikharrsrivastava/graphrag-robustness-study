@@ -1,0 +1,1419 @@
+================================================================================
+SYNTHETIC KG BENCHMARK FOLLOW-UP AUDIT OUTPUT
+Workspace: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system
+HEAD: 3877a4d02be92ca499fbb001e3a7afad971d4a4a
+Timestamp: 2026-11-16T11:31:50+05:30
+================================================================================
+
+================================================================================
+PART A: VERIFICATION OF EVERY CITATION (READ-ONLY)
+Timestamp: 2026-11-16T11:35:50.697374
+================================================================================
+
+--------------------------------------------------------------------------------
+CITATION: src/resolution/entity_resolver.py:197-197
+CLAIM: aliases initialised empty and never appended
+VERDICT: MATCHES
+EXPLANATION: Line 197 initializes aliases=[] on new CanonicalEntity creation. Inspection of the rest of entity_resolver.py confirms that _merge_into_canonical does not append mention surface names to canonical.aliases.
+CONTEXT (with 3 lines before and after):
+    194:                     normalized_name=mention.normalized_name,
+    195:                     entity_type=mention.entity_type,
+    196:                     description=mention.description,
+>>  197:                     aliases=[],
+    198:                     source_mention_ids=[mention.mention_id],
+    199:                     source_chunk_ids=[mention.source_chunk_id],
+    200:                     source_doc_ids=[mention.source_doc_id],
+--------------------------------------------------------------------------------
+CITATION: src/resolution/entity_resolver.py:208-212
+CLAIM: hardcoded c.entity_type == 'PERSON' gates surname merging
+VERDICT: MATCHES
+EXPLANATION: Lines 208-212 filter single_token_persons with `c.entity_type == 'PERSON'` and line 215 filters `multi_token_persons` with `c.entity_type == 'PERSON'`. Since company.yaml defines the entity type as 'EMPLOYEE', this post-pass never executes for company employees.
+CONTEXT (with 3 lines before and after):
+    205: 
+    206:         # Rule C2 Post-pass: Handle single-token PERSON canonicals created before multi-token ones
+    207:         if getattr(self.resolution_config, "enable_single_token_person_merge", True):
+>>  208:             single_token_persons = [
+>>  209:                 c for c in canonical_entities
+>>  210:                 if c.entity_type == "PERSON"
+>>  211:                 and len(normalize_entity_name(strip_honorifics(c.name)).split()) == 1
+>>  212:             ]
+    213:             multi_token_persons = [
+    214:                 c for c in canonical_entities
+    215:                 if c.entity_type == "PERSON"
+--------------------------------------------------------------------------------
+CITATION: src/resolution/entity_resolver.py:326-328
+CLAIM: require_type_match skips differently-typed candidates
+VERDICT: MATCHES
+EXPLANATION: Line 327 checks `if self.resolution_config.require_type_match and mention.entity_type != canonical.entity_type: continue`. This strictly skips canonical entities whose entity_type does not match the mention's entity_type.
+CONTEXT (with 3 lines before and after):
+    323:     ) -> Optional[CanonicalEntity]:
+    324:         """Find matching canonical entity using 17B (exact/alias) and 17C/D (embedding/LLM)."""
+    325:         # Step 17B: Exact and Alias Matching
+>>  326:         for canonical in canonical_entities:
+>>  327:             if self.resolution_config.require_type_match and mention.entity_type != canonical.entity_type:
+>>  328:                 continue
+    329: 
+    330:             if self._is_exact_or_alias_match(mention, canonical):
+    331:                 return canonical
+--------------------------------------------------------------------------------
+CITATION: src/retrieval/seed_retriever.py:136-138
+CLAIM: name compatibility gated on entity_type == 'PERSON'
+VERDICT: MATCHES
+EXPLANATION: Line 136 checks `if expected_type == 'PERSON' or any(e.entity_type.upper() == 'PERSON' for e in exact_matches):` and line 138 checks `if e.entity_type.upper() == 'PERSON' and e not in exact_matches:`. This gates surname compatibility strictly to 'PERSON', bypassing 'EMPLOYEE' entities.
+CONTEXT (with 3 lines before and after):
+    133:         exact_matches = [e for e in entities if e.normalized_name == norm_name]
+    134: 
+    135:         person_matches: List[CanonicalEntity] = []
+>>  136:         if expected_type == "PERSON" or any(e.entity_type.upper() == "PERSON" for e in exact_matches):
+>>  137:             for e in entities:
+>>  138:                 if e.entity_type.upper() == "PERSON" and e not in exact_matches:
+    139:                     if person_names_compatible(spec.name, e.name):
+    140:                         person_matches.append(e)
+    141: 
+--------------------------------------------------------------------------------
+CITATION: src/graph/graph_builder.py:106-110
+CLAIM: self-loop filter at line 108; dedup key (source, target, relation_type)
+VERDICT: DOES NOT MATCH
+EXPLANATION: Line 108 is the end of build_graph (`return g` at 107, blank at 108). The self-loop filter is actually located at lines 60-62 (`if src == tgt: continue`). Furthermore, the aggregation deduplication key is defined at line 64 as `(src, r.relation_type, tgt, r.scope_id)`, which includes scope_id and orders relation_type between source and target, not `(source, target, relation_type)`.
+CONTEXT (with 3 lines before and after):
+    103:                 support_count=edge_data["support_count"],
+    104:                 scope_id=edge_data["scope_id"],
+    105:             )
+>>  106: 
+>>  107:         return g
+>>  108: 
+>>  109:     @classmethod
+>>  110:     def reconstruct_from_store(cls, doc_store: DocumentStore) -> igraph.Graph:
+    111:         """Reconstruct the graph directly from DocumentStore JSONL files."""
+    112:         entities = doc_store.load_canonical_entities()
+    113:         relationships = doc_store.load_relationships()
+--------------------------------------------------------------------------------
+CITATION: src/graph/graph_builder.py:60-64
+CLAIM: Actual self-loop filter and deduplication key in src/graph/graph_builder.py
+VERDICT: MATCHES (Actual Location)
+EXPLANATION: Lines 60-64 contain the actual self-loop check (`if src == tgt: continue`) and deduplication dictionary key.
+CONTEXT (with 3 lines before and after):
+     57:                 )
+     58:                 continue
+     59: 
+>>   60:             if src == tgt:
+>>   61:                 logger.warning("Skipping self-loop relationship %s (%s -> %s).", r.relationship_id, src, tgt)
+>>   62:                 continue
+>>   63: 
+>>   64:             key = (src, r.relation_type, tgt, r.scope_id)
+     65:             if key in aggregated:
+     66:                 item = aggregated[key]
+     67:                 item["source_chunk_ids"] = list(
+--------------------------------------------------------------------------------
+CITATION: src/extraction/relation_extractor.py:120-160
+CLAIM: prompt lacks disambiguation between BELONGS_TO / MANAGES / DEVELOPS
+VERDICT: MATCHES (Substance)
+EXPLANATION: Lines 120-160 comprise RelationExtractor.__init__ and the start of extract_relationships. The extraction prompt template (DEFAULT_RELATION_EXTRACTION_PROMPT, defined at lines 49-111 and assigned at line 144) provides general instructions on directionality and polarity, but contains NO disambiguation guidelines distinguishing BELONGS_TO, MANAGES, and DEVELOPS.
+CONTEXT (with 3 lines before and after):
+    117:         ontology: DomainOntology,
+    118:         llm_client: OllamaLLMClient,
+    119:         prompt_template_path: Optional[Union[str, Path]] = "prompts/relationship_extraction.txt",
+>>  120:         prompt_template: Optional[str] = None,
+>>  121:         validation_config: Optional[ValidationConfig] = None,
+>>  122:     ) -> None:
+>>  123:         self.ontology = ontology
+>>  124:         self.llm_client = llm_client
+>>  125:         self.validation_config = validation_config or ValidationConfig()
+>>  126:         self.negation_regex = build_cues_regex(self.validation_config.negation_cues)
+>>  127:         self.uncertainty_regex = build_cues_regex(self.validation_config.uncertainty_cues)
+>>  128:         self.honorifics = [
+>>  129:             h.lower().strip()
+>>  130:             for h in getattr(
+>>  131:                 self.validation_config,
+>>  132:                 "honorifics",
+>>  133:                 ["prof", "prof.", "professor", "dr", "dr.", "mr", "mr.", "mrs", "mrs.", "ms", "ms."],
+>>  134:             )
+>>  135:             if h.strip()
+>>  136:         ]
+>>  137:         self._raw_cache = {}
+>>  138: 
+>>  139:         if prompt_template is not None:
+>>  140:             self.prompt_template = prompt_template
+>>  141:         elif prompt_template_path is not None and Path(prompt_template_path).exists():
+>>  142:             self.prompt_template = Path(prompt_template_path).read_text(encoding="utf-8")
+>>  143:         else:
+>>  144:             self.prompt_template = DEFAULT_RELATION_EXTRACTION_PROMPT
+>>  145: 
+>>  146:     def extract_relationships(
+>>  147:         self, chunk: Chunk, mentions: List[EntityMention]
+>>  148:     ) -> List[Relationship]:
+>>  149:         """Extract relationships between mentions in a Chunk, validating quote, polarity, and ontology."""
+>>  150:         if len(mentions) < 2 or not chunk.text.strip():
+>>  151:             return []
+>>  152: 
+>>  153:         formatted_relations = "\n".join(
+>>  154:             f"- {name}: {c.description} (Allowed: {c.allowed_source_types or 'ANY'} -> {c.allowed_target_types or 'ANY'})"
+>>  155:             for name, c in self.ontology.relationship_types.items()
+>>  156:         )
+>>  157: 
+>>  158:         mentions_data = [
+>>  159:             {
+>>  160:                 "mention_id": m.mention_id,
+    161:                 "surface_name": m.surface_name,
+    162:                 "entity_type": m.entity_type,
+    163:                 "description": m.description,
+--------------------------------------------------------------------------------
+CITATION: src/retrieval/graph_retriever.py:74-76
+CLAIM: BFS depth 3
+VERDICT: DOES NOT MATCH
+EXPLANATION: Line 75 in src/retrieval/graph_retriever.py assigns `self.max_description_candidates_per_seed = retrieval_config.max_description_candidates_per_seed`. Graph traversal depth is not implemented or configured on line 75 of graph_retriever.py. Instead, traversal is delegated to GraphTraverser, where `max_hops: int = 3` is defined as default in src/graph/traversal.py line 46.
+CONTEXT (with 3 lines before and after):
+     71:             self.max_chunks_per_title_match = retrieval_config.max_chunks_per_title_match
+     72:             self.max_title_candidates_per_query = retrieval_config.max_title_candidates_per_query
+     73:             self.entity_description_discovery_enabled = retrieval_config.entity_description_discovery_enabled
+>>   74:             self.entity_description_similarity_threshold = retrieval_config.entity_description_similarity_threshold
+>>   75:             self.max_description_candidates_per_seed = retrieval_config.max_description_candidates_per_seed
+>>   76:             self.max_description_candidates_per_query = retrieval_config.max_description_candidates_per_query
+     77:         else:
+     78:             self.max_candidates = max_candidates
+     79:             self.provenance_expansion_enabled = provenance_expansion_enabled
+--------------------------------------------------------------------------------
+CITATION: src/retrieval/community_retriever.py:178-180
+CLAIM: final context truncated to final_context_chunks=4 after fusion (hybrid route)
+VERDICT: MATCHES
+EXPLANATION: Line 179 truncates the merged evidence using `reranked = self.reranker.rerank(merged, top_k=self.final_context_chunks)`.
+CONTEXT (with 3 lines before and after):
+    175:                 vector_ev = self.vector_retriever.retrieve(question, plan, kb_id, scope_id=scope_id)
+    176:             except Exception as exc:
+    177:                 route_errors["vector"] = str(exc)
+>>  178:             merged = EvidenceMerger.merge([graph_ev, vector_ev])
+>>  179:             reranked = self.reranker.rerank(merged, top_k=self.final_context_chunks)
+>>  180: 
+    181:             abstained = len(reranked) == 0
+    182:             reason = "No relevant evidence found in the knowledge base." if abstained else None
+    183: 
+--------------------------------------------------------------------------------
+CITATION: src/retrieval/community_retriever.py:247-249
+CLAIM: final context truncated to final_context_chunks=4 after fusion (community route)
+VERDICT: MATCHES
+EXPLANATION: Line 248 truncates the merged evidence using `reranked = self.reranker.rerank(merged, top_k=self.final_context_chunks)`.
+CONTEXT (with 3 lines before and after):
+    244:             try: vector_ev = self.vector_retriever.retrieve(question, plan, kb_id, scope_id=scope_id)
+    245:             except Exception as exc: route_errors["vector"] = str(exc)
+    246: 
+>>  247:             merged = EvidenceMerger.merge([graph_ev, comm_ev, vector_ev])
+>>  248:             reranked = self.reranker.rerank(merged, top_k=self.final_context_chunks)
+>>  249: 
+    250:             abstained = len(reranked) == 0 and len(comm_reports) == 0
+    251:             reason = "No relevant evidence found across graph, vector, or community streams." if abstained else None
+    252: 
+--------------------------------------------------------------------------------
+CITATION: src/engine.py:334-336
+CLAIM: final_context_chunks configured in HybridRetrieverOrchestrator
+VERDICT: MATCHES
+EXPLANATION: Line 335 passes `final_context_chunks=self.config.retrieval.final_context_chunks` to HybridRetrieverOrchestrator.
+CONTEXT (with 3 lines before and after):
+    331:             graph_retriever=graph_retriever,
+    332:             vector_retriever=vector_retriever,
+    333:             community_retriever=community_retriever,
+>>  334:             reranker=reranker,
+>>  335:             final_context_chunks=self.config.retrieval.final_context_chunks,
+>>  336:         )
+    337:         query_planner = OllamaQueryPlanner(ontology=self.config.ontology, llm_client=self.llm_client)
+    338:         context_builder = ContextBuilder(
+    339:             max_chars=self.config.retrieval.max_context_chars,
+--------------------------------------------------------------------------------
+PROMPTS DIRECTORY AUDIT:
+Files in prompts/: answer_generation.txt, answer_generation_v1_0.txt, answer_generation_v1_1.txt, community_summary.txt, entity_extraction.txt, entity_resolution.txt, query_planning.txt, relationship_extraction.txt
+--------------------------------------------------------------------------------
+CITATION: src/generation/answer_generator.py:45-85
+CLAIM: prompt lacks relation-type compatibility instruction
+VERDICT: MATCHES
+EXPLANATION: Lines 45-80 define the tail of DEFAULT_ANSWER_GENERATION_PROMPT_V1_0, and lines 81-85 begin DEFAULT_ANSWER_GENERATION_PROMPT_V1_1. When prompt_version == 'v1.1', AnswerGenerator loads prompts/answer_generation_v1_1.txt (lines 773-776). Inspection of prompts/answer_generation_v1_1.txt confirms that while it contains sections for Grounding, Citations, Comparative & Selection, and Multi-hop & Bridge questions, it contains NO instructions instructing the LLM to verify relation-type compatibility (e.g., distinguishing whether an entity belongs to, manages, or develops another entity).
+CONTEXT (with 3 lines before and after):
+     42:      - Do NOT confuse birthplaces (cities/states) with nationalities (countries/demonyms).
+     43:      - Do NOT confuse a neighborhood with the city containing it.
+     44:      - When comparing occupations (e.g. "opera composer"), both entities must be verified by the evidence as satisfying the specific occupation before confirming equivalence. If evidence is insufficient, abstain.
+>>   45:    - Entity Selection ("Which [entity] was [attribute], A or B?", "Who was [attribute], A or B?"):
+>>   46:      - Do NOT answer "yes" or "no".
+>>   47:      - In "canonical_answer", provide ONLY the exact name of the selected entity.
+>>   48:      - State clearly in "answer" why the selected entity satisfies the criteria and why the other entity does not, citing both source chunks.
+>>   49: 
+>>   50: 4. Multi-hop & Bridge Questions ("X of Y that was formed by who?", "...administration of a president that served during what years?"):
+>>   51:    - Identify the intermediate entity connecting the premise to the target (e.g. identify which boy group released the debut album 2014 S/S, or which president the official served under).
+>>   52:    - Traverse to the ultimate requested attribute (e.g. who formed that specific boy group, or what years that specific president served).
+>>   53:    - Disambiguate against distractor entities that superficially share numbers, years, or keywords (e.g. a group formed in 2014 is NOT the album titled "2014 S/S").
+>>   54:    - Set "canonical_answer" to the final requested target attribute, NOT the intermediate bridge entity.
+>>   55: 
+>>   56: 5. Reasoning & Canonical Answer:
+>>   57:    - Provide your step-by-step reasoning first in "reasoning".
+>>   58:    - In "canonical_answer", provide ONLY the concise direct answer (e.g. "yes", "no", entity name, number, or short phrase). If abstaining, return "".
+>>   59:    - Ensure "canonical_answer" and "answer" are completely consistent and never contradict each other.
+>>   60: 
+>>   61: Return ONLY a valid JSON object matching this schema:
+>>   62: {
+>>   63:   "reasoning": "Step-by-step evaluation of the evidence and attributes.",
+>>   64:   "extracted_attributes": [
+>>   65:     {
+>>   66:       "entity_name": "Name of entity",
+>>   67:       "entity_id": "Entity ID if available, or null",
+>>   68:       "attribute_name": "Name of attribute (e.g. NATIONALITY)",
+>>   69:       "extracted_value": "Extracted value (e.g. American)",
+>>   70:       "evidence_quote": "Exact sentence or phrase from the chunk text",
+>>   71:       "chunk_id": "Exact chunk ID where quote appears"
+>>   72:     }
+>>   73:   ],
+>>   74:   "canonical_answer": "Short direct answer (e.g. 'yes', 'no', entity name) or empty if abstaining.",
+>>   75:   "answer": "Direct answer to the question with inline citations [D002_C0000] or explanation if abstaining.",
+>>   76:   "abstained": false,
+>>   77:   "cited_chunk_ids": ["D002_C0000"]
+>>   78: }
+>>   79: """
+>>   80: 
+>>   81: DEFAULT_ANSWER_GENERATION_PROMPT_V1_1 = """You are an expert factual answer generator for an enterprise Hybrid GraphRAG system.
+>>   82: Your job is to answer the user's question accurately and objectively, strictly grounded in the provided evidence.
+>>   83: 
+>>   84: EVIDENCE CONTEXT:
+>>   85: {formatted_context}
+     86: 
+     87: QUERY METADATA:
+     88: {query_plan_info}
+--------------------------------------------------------------------------------
+ONTOLOGY DOMAIN/RANGE CONSTRAINTS DEFINITION & ENFORCEMENT:
+Definition in configs/domains/company.yaml:
+  kb_id: "company_kb"
+  ontology:
+    domain_name: "company_knowledge"
+    version: "1.0.0"
+    entity_types:
+      EMPLOYEE: "Company engineers, managers, executives, or staff"
+      DEPARTMENT: "Engineering, product, operations, or business units"
+      PRODUCT: "Software products, platforms, or internal services"
+      TECHNOLOGY: "Programming languages, databases, cloud tools, or frameworks"
+      CLIENT: "Enterprise customers or partner organizations"
+    relationship_types:
+      MANAGES:
+        name: "MANAGES"
+        description: "Employee manages another employee, department, or product"
+        allowed_source_types: ["EMPLOYEE"]
+        allowed_target_types: ["EMPLOYEE", "DEPARTMENT", "PRODUCT"]
+      BELONGS_TO:
+        name: "BELONGS_TO"
+        description: "Employee or product belongs to a department"
+        allowed_source_types: ["EMPLOYEE", "PRODUCT"]
+        allowed_target_types: ["DEPARTMENT"]
+      DEVELOPS:
+        name: "DEVELOPS"
+        description: "Employee or department builds or maintains a product"
+        allowed_source_types: ["EMPLOYEE", "DEPARTMENT"]
+        allowed_target_types: ["PRODUCT"]
+      BUILT_WITH:
+        name: "BUILT_WITH"
+        description: "Product is built using a specific technology"
+        allowed_source_types: ["PRODUCT"]
+        allowed_target_types: ["TECHNOLOGY"]
+      SERVES:
+        name: "SERVES"
+        description: "Product or department serves a client"
+        allowed_source_types: ["PRODUCT", "DEPARTMENT"]
+        allowed_target_types: ["CLIENT"]
+
+Enforcement in codebase:
+--------------------------------------------------------------------------------
+CITATION: src/core/ontology.py:74-85
+CLAIM: Ontology.validate_triple_types enforces allowed_source_types and allowed_target_types
+VERDICT: MATCHES
+EXPLANATION: Checks source_type against allowed_source_types and target_type against allowed_target_types.
+CONTEXT (with 3 lines before and after):
+     71:         if not self.is_valid_relation_type(r_type):
+     72:             return False, f"Unknown relationship type: {r_type}"
+     73: 
+>>   74:         constraint = self.relationship_types[r_type]
+>>   75:         if constraint.allowed_source_types and s_type not in constraint.allowed_source_types:
+>>   76:             return (
+>>   77:                 False,
+>>   78:                 f"Source type '{s_type}' not permitted for '{r_type}' (allowed: {constraint.allowed_source_types})",
+>>   79:             )
+>>   80:         if constraint.allowed_target_types and t_type not in constraint.allowed_target_types:
+>>   81:             return (
+>>   82:                 False,
+>>   83:                 f"Target type '{t_type}' not permitted for '{r_type}' (allowed: {constraint.allowed_target_types})",
+>>   84:             )
+>>   85:         return True, None
+--------------------------------------------------------------------------------
+CITATION: src/extraction/relation_extractor.py:332-339
+CLAIM: RelationExtractor enforces ontology validation before storing relationships
+VERDICT: MATCHES
+EXPLANATION: Lines 333-339 call `self.ontology.validate_triple_types(...)`. If False, validation_status is set to REJECTED_ONTOLOGY.
+CONTEXT (with 3 lines before and after):
+    329:                 elif polarity == Polarity.NEGATIVE or self.negation_regex.search(quote_norm):
+    330:                     validation_status = ValidationStatus.REJECTED_NEGATION
+    331:                 # --- Validation Stage 3: Ontology Validation ---
+>>  332:                 else:
+>>  333:                     ok, _ = self.ontology.validate_triple_types(
+>>  334:                         src.entity_type, raw_item.relation_type, tgt.entity_type
+>>  335:                     )
+>>  336:                     if not ok:
+>>  337:                         validation_status = ValidationStatus.REJECTED_ONTOLOGY
+>>  338:                     else:
+>>  339:                         validation_status = ValidationStatus.VALIDATED
+    340: 
+    341:             rel_id = f"{chunk.chunk_id}_R{rel_idx:03d}"
+    342:             relationship = Relationship(
+--------------------------------------------------------------------------------
+CITATION: src/graph/graph_builder.py:44-46
+CLAIM: IGraphBuilder filters for VALIDATED relationships
+VERDICT: MATCHES
+EXPLANATION: Line 45 filters `if r.validation_status != ValidationStatus.VALIDATED: continue`. The graph builder does NOT re-evaluate ontology domain/range directly, but inherits the enforcement executed during extraction validation.
+CONTEXT (with 3 lines before and after):
+     41:         # 2. Filter & aggregate edges for VALIDATED relationships
+     42:         aggregated: Dict[Tuple[str, str, str, Optional[str]], Dict[str, Any]] = {}
+     43: 
+>>   44:         for r in relationships:
+>>   45:             if r.validation_status != ValidationStatus.VALIDATED:
+>>   46:                 continue
+     47: 
+     48:             src = r.source_entity_id
+     49:             tgt = r.target_entity_id
+================================================================================
+PART B: RELATION TYPE CONFUSION AND LOST EDGES
+Timestamp: 2026-11-16T11:39:05.566316
+Analyzing 14 gold edges with fate EXTRACTED_BUT_DROPPED_IN_RESOLUTION
+================================================================================
+
+### [1] Gold Edge ID: `EDGE_0043`
+- **Gold Edge**: `Krenostis Thalithvath` (EMPLOYEE) -[BELONGS_TO]-> `Synethgath Systems Engineering Unit` (DEPARTMENT)
+- **Supporting Document**: `DOC_0004`
+- **Verbatim Gold Evidence Quote**: "Krenostis Thalithvath is structurally integrated into Synethgath Systems Engineering Unit."
+- **Document Full Text**: "Krenostis Thalithvath is a certified staff professional within the enterprise infrastructure. Krenostis Thalithvath is structurally integrated into Synethgath Systems Engineering Unit. Executive oversight of Synethgath Systems Engineering Unit is handled by Krenostis Thalithvath."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D004_C0000_R001`:
+    - Extracted: `Krenostis Thalithvath` (EMPLOYEE) -[MANAGES]-> `Synethgath Systems Engineering Unit` (DEPARTMENT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`DEPARTMENT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (1) wrong relation type with correct endpoint types
+- **Primary Edge Classification**: **(1) wrong relation type with correct endpoint types**
+
+### [2] Gold Edge ID: `EDGE_0044`
+- **Gold Edge**: `Aldunwyn Kronosmoth` (EMPLOYEE) -[BELONGS_TO]-> `Kronanvek Core Platform Division` (DEPARTMENT)
+- **Supporting Document**: `DOC_0005`
+- **Verbatim Gold Evidence Quote**: "Aldunwyn Kronosmoth is an official organizational part of Kronanvek Core Platform Division."
+- **Document Full Text**: "Aldunwyn Kronosmoth is a certified staff professional within the enterprise infrastructure. Aldunwyn Kronosmoth is an official organizational part of Kronanvek Core Platform Division. Aldunwyn Kronosmoth serves as the primary manager of Kronanvek Core Platform Division."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D005_C0000_R001`:
+    - Extracted: `Aldunwyn Kronosmoth` (EMPLOYEE) -[MANAGES]-> `Kronanvek Core Platform Division` (PRODUCT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`PRODUCT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (2) wrong relation type AND wrong endpoint type
+- **Primary Edge Classification**: **(2) wrong relation type AND wrong endpoint type**
+
+### [3] Gold Edge ID: `EDGE_0045`
+- **Gold Edge**: `Lorosmir Faelennax` (EMPLOYEE) -[BELONGS_TO]-> `Aetharkest Systems Engineering Unit` (DEPARTMENT)
+- **Supporting Document**: `DOC_0006`
+- **Verbatim Gold Evidence Quote**: "They is an official organizational part of Aetharkest Systems Engineering Unit."
+- **Document Full Text**: "Lorosmir Faelennax is a certified staff professional within the enterprise infrastructure. They is an official organizational part of Aetharkest Systems Engineering Unit. Executive oversight of Aetharkest Systems Engineering Unit is handled by Lorosmir Faelennax. In contrast, Lorosmir Kren maintains entirely distinct non-production responsibilities."
+- **Extracted Triples in KB** (2 found):
+  * Triple ID `D006_C0000_R001`:
+    - Extracted: `Lorosmir Faelennax` (EMPLOYEE) -[MANAGES]-> `Aetharkest Systems Engineering Unit` (DEPARTMENT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`DEPARTMENT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (1) wrong relation type with correct endpoint types
+  * Triple ID `D006_C0000_R002`:
+    - Extracted: `Aetharkest Systems Engineering Unit` (DEPARTMENT) -[MANAGES]-> `Lorosmir Faelennax` (EMPLOYEE)
+    - Direction: REVERSED vs gold
+    - Endpoint Types in KB vs Gold: Source=`DEPARTMENT` (gold `EMPLOYEE`), Target=`EMPLOYEE` (gold `DEPARTMENT`)
+    - Ontology Permitted: `False` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `REJECTED_ONTOLOGY`
+    - Item Classification: (3) reversed direction
+- **Primary Edge Classification**: **(1) wrong relation type with correct endpoint types**
+
+### [4] Gold Edge ID: `EDGE_0048`
+- **Gold Edge**: `Krenuthreth Fennanvor` (EMPLOYEE) -[BELONGS_TO]-> `Noxontor Foundational Services Unit` (DEPARTMENT)
+- **Supporting Document**: `DOC_0009`
+- **Verbatim Gold Evidence Quote**: "Krenuthreth Fennanvor is structurally integrated into Noxontor Foundational Services Unit."
+- **Document Full Text**: "Krenuthreth Fennanvor is a certified staff professional within the enterprise infrastructure. Krenuthreth Fennanvor is structurally integrated into Noxontor Foundational Services Unit. Krenuthreth Fennanvor actively manages and directs Noxontor Foundational Services Unit."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D009_C0000_R001`:
+    - Extracted: `Krenuthreth Fennanvor` (EMPLOYEE) -[MANAGES]-> `Noxontor Foundational Services Unit` (DEPARTMENT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`DEPARTMENT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (1) wrong relation type with correct endpoint types
+- **Primary Edge Classification**: **(1) wrong relation type with correct endpoint types**
+
+### [5] Gold Edge ID: `EDGE_0049`
+- **Gold Edge**: `Synorreth Aldathdyn` (EMPLOYEE) -[BELONGS_TO]-> `Morenvek Analytics Laboratory` (DEPARTMENT)
+- **Supporting Document**: `DOC_0010`
+- **Verbatim Gold Evidence Quote**: "Synorreth Aldathdyn is structurally integrated into Morenvek Analytics Laboratory."
+- **Document Full Text**: "Synorreth Aldathdyn is a certified staff professional within the enterprise infrastructure. Synorreth Aldathdyn is structurally integrated into Morenvek Analytics Laboratory. Synorreth Aldathdyn actively manages and directs Morenvek Analytics Laboratory."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D010_C0000_R001`:
+    - Extracted: `Synorreth Aldathdyn` (EMPLOYEE) -[MANAGES]-> `Morenvek Analytics Laboratory` (DEPARTMENT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`DEPARTMENT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (1) wrong relation type with correct endpoint types
+- **Primary Edge Classification**: **(1) wrong relation type with correct endpoint types**
+
+### [6] Gold Edge ID: `EDGE_0050`
+- **Gold Edge**: `Fennikvath Quenindyn` (EMPLOYEE) -[BELONGS_TO]-> `Eldornax Infrastructure Group` (DEPARTMENT)
+- **Supporting Document**: `DOC_0011`
+- **Verbatim Gold Evidence Quote**: "Fennikvath Quenindyn operates as a key component under Eldornax Infrastructure Group."
+- **Document Full Text**: "Fennikvath Quenindyn is a certified staff professional within the enterprise infrastructure. Fennikvath Quenindyn operates as a key component under Eldornax Infrastructure Group. Fennikvath Quenindyn actively manages and directs Taelanfen Wyrusnok. In contrast, Fennikvath Kren maintains entirely distinct non-production responsibilities."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D011_C0000_R001`:
+    - Extracted: `Fennikvath Quenindyn` (EMPLOYEE) -[MANAGES]-> `Eldornax Infrastructure Group` (DEPARTMENT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`DEPARTMENT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (1) wrong relation type with correct endpoint types
+- **Primary Edge Classification**: **(1) wrong relation type with correct endpoint types**
+
+### [7] Gold Edge ID: `EDGE_0051`
+- **Gold Edge**: `Taelanfen Wyrusnok` (EMPLOYEE) -[BELONGS_TO]-> `Durnalnok Analytics Laboratory` (DEPARTMENT)
+- **Supporting Document**: `DOC_0012`
+- **Verbatim Gold Evidence Quote**: "Taelanfen Wyrusnok is structurally integrated into Durnalnok Analytics Laboratory."
+- **Document Full Text**: "Taelanfen Wyrusnok is a certified staff professional within the enterprise infrastructure. Taelanfen Wyrusnok is structurally integrated into Durnalnok Analytics Laboratory. Taelanfen Wyrusnok actively manages and directs Nebothnok Styxinvath. In contrast, Taelanfen Kren maintains entirely distinct non-production responsibilities."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D012_C0000_R001`:
+    - Extracted: `Taelanfen Wyrusnok` (EMPLOYEE) -[MANAGES]-> `Durnalnok Analytics Laboratory` (DEPARTMENT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`DEPARTMENT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (1) wrong relation type with correct endpoint types
+- **Primary Edge Classification**: **(1) wrong relation type with correct endpoint types**
+
+### [8] Gold Edge ID: `EDGE_0053`
+- **Gold Edge**: `Krenokmoth Tarnonmar` (EMPLOYEE) -[BELONGS_TO]-> `Vandothnok Foundational Services Unit` (DEPARTMENT)
+- **Supporting Document**: `DOC_0014`
+- **Verbatim Gold Evidence Quote**: "Krenokmoth Tarnonmar operates as a key component under Vandothnok Foundational Services Unit."
+- **Document Full Text**: "Krenokmoth Tarnonmar is a certified staff professional within the enterprise infrastructure. Krenokmoth Tarnonmar operates as a key component under Vandothnok Foundational Services Unit. Executive oversight of Durnenlok Noxornok is handled by Krenokmoth Tarnonmar."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D014_C0000_R001`:
+    - Extracted: `Krenokmoth Tarnonmar` (EMPLOYEE) -[MANAGES]-> `Vandothnok Foundational Services Unit` (DEPARTMENT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`DEPARTMENT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (1) wrong relation type with correct endpoint types
+- **Primary Edge Classification**: **(1) wrong relation type with correct endpoint types**
+
+### [9] Gold Edge ID: `EDGE_0055`
+- **Gold Edge**: `Rynunvor Lyrontis` (EMPLOYEE) -[BELONGS_TO]-> `Zanistis Infrastructure Group` (DEPARTMENT)
+- **Supporting Document**: `DOC_0016`
+- **Verbatim Gold Evidence Quote**: "Rynunvor Lyrontis operates as a key component under Zanistis Infrastructure Group."
+- **Document Full Text**: "Rynunvor Lyrontis is a certified staff professional within the enterprise infrastructure. Rynunvor Lyrontis operates as a key component under Zanistis Infrastructure Group. Rynunvor Lyrontis oversees the day-to-day operations of Caelonwyn Praxungon."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D016_C0000_R001`:
+    - Extracted: `Rynunvor Lyrontis` (EMPLOYEE) -[MANAGES]-> `Zanistis Infrastructure Group` (DEPARTMENT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`DEPARTMENT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (1) wrong relation type with correct endpoint types
+- **Primary Edge Classification**: **(1) wrong relation type with correct endpoint types**
+
+### [10] Gold Edge ID: `EDGE_0059`
+- **Gold Edge**: `Rynartor Aldislan` (EMPLOYEE) -[BELONGS_TO]-> `Kronanvek Core Platform Division` (DEPARTMENT)
+- **Supporting Document**: `DOC_0020`
+- **Verbatim Gold Evidence Quote**: "Rynartor Aldislan operates as a key component under Kronanvek Core Platform Division."
+- **Document Full Text**: "Rynartor Aldislan is a certified staff professional within the enterprise infrastructure. Rynartor Aldislan operates as a key component under Kronanvek Core Platform Division. Executive oversight of Myrolvek Pryxelgath is handled by Rynartor Aldislan. In contrast, Rynartor Kren maintains entirely distinct non-production responsibilities."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D020_C0000_R001`:
+    - Extracted: `Rynartor Aldislan` (EMPLOYEE) -[MANAGES]-> `Kronanvek Core Platform Division` (DEPARTMENT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`DEPARTMENT` (gold `DEPARTMENT`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE'], target: ['EMPLOYEE', 'DEPARTMENT', 'PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (1) wrong relation type with correct endpoint types
+- **Primary Edge Classification**: **(1) wrong relation type with correct endpoint types**
+
+### [11] Gold Edge ID: `EDGE_0071`
+- **Gold Edge**: `Fennikvath Quenindyn` (EMPLOYEE) -[MANAGES]-> `Taelanfen Wyrusnok` (EMPLOYEE)
+- **Supporting Document**: `DOC_0011`
+- **Verbatim Gold Evidence Quote**: "Fennikvath Quenindyn actively manages and directs Taelanfen Wyrusnok."
+- **Document Full Text**: "Fennikvath Quenindyn is a certified staff professional within the enterprise infrastructure. Fennikvath Quenindyn operates as a key component under Eldornax Infrastructure Group. Fennikvath Quenindyn actively manages and directs Taelanfen Wyrusnok. In contrast, Fennikvath Kren maintains entirely distinct non-production responsibilities."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D011_C0000_R002`:
+    - Extracted: `Fennikvath Quenindyn` (EMPLOYEE) -[DEVELOPS]-> `Taelanfen Wyrusnok` (PRODUCT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`PRODUCT` (gold `EMPLOYEE`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE', 'DEPARTMENT'], target: ['PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (2) wrong relation type AND wrong endpoint type
+- **Primary Edge Classification**: **(2) wrong relation type AND wrong endpoint type**
+
+### [12] Gold Edge ID: `EDGE_0072`
+- **Gold Edge**: `Taelanfen Wyrusnok` (EMPLOYEE) -[MANAGES]-> `Nebothnok Styxinvath` (EMPLOYEE)
+- **Supporting Document**: `DOC_0012`
+- **Verbatim Gold Evidence Quote**: "Taelanfen Wyrusnok actively manages and directs Nebothnok Styxinvath."
+- **Document Full Text**: "Taelanfen Wyrusnok is a certified staff professional within the enterprise infrastructure. Taelanfen Wyrusnok is structurally integrated into Durnalnok Analytics Laboratory. Taelanfen Wyrusnok actively manages and directs Nebothnok Styxinvath. In contrast, Taelanfen Kren maintains entirely distinct non-production responsibilities."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D012_C0000_R002`:
+    - Extracted: `Taelanfen Wyrusnok` (EMPLOYEE) -[DEVELOPS]-> `Nebothnok Styxinvath` (PRODUCT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`PRODUCT` (gold `EMPLOYEE`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE', 'DEPARTMENT'], target: ['PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (2) wrong relation type AND wrong endpoint type
+- **Primary Edge Classification**: **(2) wrong relation type AND wrong endpoint type**
+
+### [13] Gold Edge ID: `EDGE_0074`
+- **Gold Edge**: `Krenokmoth Tarnonmar` (EMPLOYEE) -[MANAGES]-> `Durnenlok Noxornok` (EMPLOYEE)
+- **Supporting Document**: `DOC_0014`
+- **Verbatim Gold Evidence Quote**: "Executive oversight of Durnenlok Noxornok is handled by Krenokmoth Tarnonmar."
+- **Document Full Text**: "Krenokmoth Tarnonmar is a certified staff professional within the enterprise infrastructure. Krenokmoth Tarnonmar operates as a key component under Vandothnok Foundational Services Unit. Executive oversight of Durnenlok Noxornok is handled by Krenokmoth Tarnonmar."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D014_C0000_R002`:
+    - Extracted: `Krenokmoth Tarnonmar` (EMPLOYEE) -[DEVELOPS]-> `Durnenlok Noxornok` (PRODUCT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`PRODUCT` (gold `EMPLOYEE`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE', 'DEPARTMENT'], target: ['PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (2) wrong relation type AND wrong endpoint type
+- **Primary Edge Classification**: **(2) wrong relation type AND wrong endpoint type**
+
+### [14] Gold Edge ID: `EDGE_0076`
+- **Gold Edge**: `Rynunvor Lyrontis` (EMPLOYEE) -[MANAGES]-> `Caelonwyn Praxungon` (EMPLOYEE)
+- **Supporting Document**: `DOC_0016`
+- **Verbatim Gold Evidence Quote**: "Rynunvor Lyrontis oversees the day-to-day operations of Caelonwyn Praxungon."
+- **Document Full Text**: "Rynunvor Lyrontis is a certified staff professional within the enterprise infrastructure. Rynunvor Lyrontis operates as a key component under Zanistis Infrastructure Group. Rynunvor Lyrontis oversees the day-to-day operations of Caelonwyn Praxungon."
+- **Extracted Triples in KB** (1 found):
+  * Triple ID `D016_C0000_R002`:
+    - Extracted: `Rynunvor Lyrontis` (EMPLOYEE) -[DEVELOPS]-> `Caelonwyn Praxungon` (PRODUCT)
+    - Direction: FORWARD matching gold
+    - Endpoint Types in KB vs Gold: Source=`EMPLOYEE` (gold `EMPLOYEE`), Target=`PRODUCT` (gold `EMPLOYEE`)
+    - Ontology Permitted: `True` (Allowed source: ['EMPLOYEE', 'DEPARTMENT'], target: ['PRODUCT'])
+    - Validation Status: `VALIDATED`
+    - Item Classification: (2) wrong relation type AND wrong endpoint type
+- **Primary Edge Classification**: **(2) wrong relation type AND wrong endpoint type**
+
+--------------------------------------------------------------------------------
+SPECIAL DEEP-DIVE: EDGE_0045 AND EDGE_0059 AUDIT
+--------------------------------------------------------------------------------
+### EDGE_0045 Deep-Dive:
+Gold Edge: Lorosmir Faelennax (EMPLOYEE) -[BELONGS_TO]-> Aetharkest Systems Engineering Unit (DEPARTMENT) [DOC_0006]
+Evidence sentence in DOC_0006: "They is an official organizational part of Aetharkest Systems Engineering Unit."
+Extracted records in KB (synth_company_kb/data/processed/triples.jsonl):
+  * Triple `D006_C0000_R001`: `Lorosmir Faelennax` (EMPLOYEE) -[MANAGES]-> `Aetharkest Systems Engineering Unit` (DEPARTMENT) | ValidationStatus: `VALIDATED` | Quote: "Executive oversight of Aetharkest Systems Engineering Unit is handled by Lorosmir Faelennax."
+  * Triple `D006_C0000_R002`: `Aetharkest Systems Engineering Unit` (DEPARTMENT) -[MANAGES]-> `Lorosmir Faelennax` (EMPLOYEE) | ValidationStatus: `REJECTED_ONTOLOGY` | Quote: "Executive oversight of Aetharkest Systems Engineering Unit is handled by Lorosmir Faelennax."
+Findings for EDGE_0045:
+  1. The gold triple `Lorosmir Faelennax -[BELONGS_TO]-> Aetharkest Systems Engineering Unit` was NEVER extracted at all by the LLM.
+  2. Instead, the LLM extracted two relationships under relation_type MANAGES:
+     - D006_C0000_R001: Lorosmir Faelennax (EMPLOYEE) -[MANAGES]-> Aetharkest Systems Engineering Unit (DEPARTMENT). VALIDATED and admitted to relationships.jsonl as REL_0006.
+     - D006_C0000_R002: Aetharkest Systems Engineering Unit (DEPARTMENT) -[MANAGES]-> Lorosmir Faelennax (EMPLOYEE). REJECTED by rule REJECTED_ONTOLOGY (source type DEPARTMENT not permitted for MANAGES).
+  3. Root cause: The corpus sentence used the pronoun 'They' ('They is an official organizational part of Aetharkest Systems Engineering Unit.'). The LLM failed to resolve the pronoun mention to Lorosmir for BELONGS_TO, and extracted the executive oversight sentence as MANAGES instead.
+
+### EDGE_0059 Deep-Dive:
+Gold Edge: Rynartor Aldislan (EMPLOYEE) -[BELONGS_TO]-> Kronanvek Core Platform Division (DEPARTMENT) [DOC_0020]
+Evidence sentence in DOC_0020: "Rynartor Aldislan operates as a key component under Kronanvek Core Platform Division."
+Extracted records in KB (synth_company_kb/data/processed/triples.jsonl):
+  * Triple `D020_C0000_R001`: `Rynartor Aldislan` (EMPLOYEE) -[MANAGES]-> `Kronanvek Core Platform Division` (DEPARTMENT) | ValidationStatus: `VALIDATED` | Quote: "Rynartor Aldislan operates as a key component under Kronanvek Core Platform Division"
+  * Triple `D020_C0000_R002`: `Rynartor Aldislan` (EMPLOYEE) -[SERVES]-> `Myrolvek Pryxelgath` (CLIENT) | ValidationStatus: `REJECTED_ONTOLOGY` | Quote: "Executive oversight of Myrolvek Pryxelgath is handled by Rynartor Aldislan"
+Findings for EDGE_0059:
+  1. The gold triple `Rynartor Aldislan -[BELONGS_TO]-> Kronanvek Core Platform Division` was NEVER extracted at all by the LLM.
+  2. The LLM extracted:
+     - D020_C0000_R001: Rynartor Aldislan (EMPLOYEE) -[MANAGES]-> Kronanvek Core Platform Division (DEPARTMENT). VALIDATED and admitted as REL_0018.
+     - D020_C0000_R002: Rynartor Aldislan (EMPLOYEE) -[SERVES]-> Myrolvek Pryxelgath (CLIENT). REJECTED by rule REJECTED_ONTOLOGY (source type EMPLOYEE not permitted for SERVES; allowed are PRODUCT, DEPARTMENT).
+  3. Root cause: The LLM conflated the structural affiliation sentence ('operates as a key component under') with managerial authority, extracting MANAGES instead of BELONGS_TO.
+--------------------------------------------------------------------------------
+CLASSIFICATION SUMMARY OF THE 14 DROPPED EDGES:
+- (1) Wrong relation type with correct endpoint types: 9
+      Edges: EDGE_0043, EDGE_0045, EDGE_0048, EDGE_0049, EDGE_0050, EDGE_0051, EDGE_0053, EDGE_0055, EDGE_0059 (9 edges)
+- (2) Wrong relation type AND wrong endpoint type: 5
+      Edges: EDGE_0044 (target type PRODUCT instead of DEPARTMENT), EDGE_0071, EDGE_0072, EDGE_0074, EDGE_0076 (target type PRODUCT instead of EMPLOYEE) (5 edges)
+- (3) Reversed direction: 0 (0 as primary; D006_C0000_R002 was reversed & rejected by ontology)
+- (4) Edge absent from KB: 0
+================================================================================
+
+================================================================================
+PART C: ALIAS QUESTIONS AUDIT
+Timestamp: 2026-11-16T11:40:34.432909
+Auditing 15 alias questions
+================================================================================
+
+### [1] Question ID: `Q_0091`
+- **Question**: "What entity or unit is managed by G. Nebikvane?"
+- **Target Canonical Entity**: `Galthor Nebikvane` (Gold Answer: `Zantonnax Infrastructure Group`)
+- **Alias String**: `"G. Nebikvane"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Nebikvane'; norm=lower/alphanumeric)**: 1 match(es)
+  * E003 ('Gryxethvath Nebikvane', EMPLOYEE)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [2] Question ID: `Q_0092`
+- **Question**: "Which client is served by the department that F. Quenindyn belongs to?"
+- **Target Canonical Entity**: `Fennikvath Quenindyn` (Gold Answer: `Quenentor Consortium`)
+- **Alias String**: `"F. Quenindyn"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Quenindyn'; norm=lower/alphanumeric)**: 1 match(es)
+  * E027 ('Fennikvath Quenindyn', EMPLOYEE)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [3] Question ID: `Q_0093`
+- **Question**: "What technology is used in the product developed by Durnalnok Division?"
+- **Target Canonical Entity**: `Durnalnok Analytics Laboratory` (Gold Answer: `YvethnokRPC`)
+- **Alias String**: `"Durnalnok Division"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Durnalnok'; norm=lower/alphanumeric)**: 2 match(es)
+  * E032 ('Durnalnok Analytics Laboratory', DEPARTMENT)
+  * E077 ('Durnalnok Systems', DEPARTMENT)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [4] Question ID: `Q_0094`
+- **Question**: "What product is developed by the department managed by L. Sarkithtex?"
+- **Target Canonical Entity**: `Lorik Sarkithtex` (Gold Answer: `Lyronvor Nexus`)
+- **Alias String**: `"L. Sarkithtex"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Sarkithtex'; norm=lower/alphanumeric)**: 1 match(es)
+  * E020 ('Loroklan Sarkithtex', EMPLOYEE)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [5] Question ID: `Q_0095`
+- **Question**: "What product is developed by the department that L. Faelennax belongs to?"
+- **Target Canonical Entity**: `Lorosmir Faelennax` (Gold Answer: `Zanolric Cluster`)
+- **Alias String**: `"L. Faelennax"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Faelennax'; norm=lower/alphanumeric)**: 1 match(es)
+  * E014 ('Lorosmir Faelennax', EMPLOYEE)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [6] Question ID: `Q_0096`
+- **Question**: "What entity or unit is managed by A. Kronosmoth?"
+- **Target Canonical Entity**: `Aldunwyn Kronosmoth` (Gold Answer: `Kronanvek Core Platform Division`)
+- **Alias String**: `"A. Kronosmoth"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Kronosmoth'; norm=lower/alphanumeric)**: 1 match(es)
+  * E011 ('Aldunwyn Kronosmoth', EMPLOYEE)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [7] Question ID: `Q_0097`
+- **Question**: "Which department does K. Thalithvath belong to?"
+- **Target Canonical Entity**: `Krenostis Thalithvath` (Gold Answer: `Synethgath Systems Engineering Unit`)
+- **Alias String**: `"K. Thalithvath"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Thalithvath'; norm=lower/alphanumeric)**: 1 match(es)
+  * E008 ('Krenostis Thalithvath', EMPLOYEE)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [8] Question ID: `Q_0098`
+- **Question**: "Which client is served by the department that M. Pryxelgath belongs to?"
+- **Target Canonical Entity**: `Myrolvek Pryxelgath` (Gold Answer: `Brynandor Networks`)
+- **Alias String**: `"M. Pryxelgath"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Pryxelgath'; norm=lower/alphanumeric)**: 2 match(es)
+  * E052 ('Myrolvek Pryxelgath', CLIENT)
+  * E054 ('Myrolvek Pryxelgath', EMPLOYEE)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [9] Question ID: `Q_0099`
+- **Question**: "Starting from L. Faelennax, traversing MANAGES then SERVES, what is the target entity?"
+- **Target Canonical Entity**: `Lorosmir Faelennax` (Gold Answer: `Brynandor Networks`)
+- **Alias String**: `"L. Faelennax"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Faelennax'; norm=lower/alphanumeric)**: 1 match(es)
+  * E014 ('Lorosmir Faelennax', EMPLOYEE)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [10] Question ID: `Q_0100`
+- **Question**: "What product is developed by Nebunnax Division?"
+- **Target Canonical Entity**: `Nebunnax Foundational Services Unit` (Gold Answer: `Haelentor Hub`)
+- **Alias String**: `"Nebunnax Division"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Nebunnax'; norm=lower/alphanumeric)**: 1 match(es)
+  * E035 ('Nebunnax Foundational Services Unit', DEPARTMENT)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [11] Question ID: `Q_0101`
+- **Question**: "What product is developed by Oryxonvath Division?"
+- **Target Canonical Entity**: `Oryxonvath Systems Engineering Unit` (Gold Answer: `Sarkinfen Matrix`)
+- **Alias String**: `"Oryxonvath Division"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Oryxonvath'; norm=lower/alphanumeric)**: 1 match(es)
+  * E007 ('Oryxonvath Systems Engineering Unit', DEPARTMENT)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [12] Question ID: `Q_0102`
+- **Question**: "What technology is used in the product developed by Zantonnax Division?"
+- **Target Canonical Entity**: `Zantonnax Infrastructure Group` (Gold Answer: `AethithnokQL`)
+- **Alias String**: `"Zantonnax Division"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Zantonnax'; norm=lower/alphanumeric)**: 2 match(es)
+  * E004 ('Zantonnax Infrastructure Group', CLIENT)
+  * E045 ('Zantonnax Infrastructure Group', DEPARTMENT)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [13] Question ID: `Q_0103`
+- **Question**: "What product is developed by the department that P. Iskorlan belongs to?"
+- **Target Canonical Entity**: `Pryxeldor Iskorlan` (Gold Answer: `Haelentor Hub`)
+- **Alias String**: `"P. Iskorlan"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Iskorlan'; norm=lower/alphanumeric)**: 2 match(es)
+  * E001 ('Pryxeldor Iskorlan', EMPLOYEE)
+  * E018 ('Iskorlan Applied Automation Wing', DEPARTMENT)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+### [14] Question ID: `Q_0104`
+- **Question**: "What technology is Haelenrix built with?"
+- **Target Canonical Entity**: `Haelenrix Gateway` (Gold Answer: `NoxarnokNet`)
+- **Alias String**: `"Haelenrix"`
+- **Corpus Documents Containing Exact Alias String**: ['DOC_0025', 'DOC_0040']
+- **Co-occurs with Canonical Name in Same Sentence**: ['DOC_0025', 'DOC_0040']
+- **Token Matching (token='Haelenrix'; norm=lower/alphanumeric)**: 1 match(es)
+  * E063 ('Haelenrix Gateway', PRODUCT)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(c) linked in text**
+
+### [15] Question ID: `Q_0105`
+- **Question**: "Which client is served by the department that T. Raelonrak belongs to?"
+- **Target Canonical Entity**: `Tarniklan Raelonrak` (Gold Answer: `Kaelunkest Syndicate`)
+- **Alias String**: `"T. Raelonrak"`
+- **Corpus Documents Containing Exact Alias String**: NONE
+- **Co-occurs with Canonical Name in Same Sentence**: NO
+- **Token Matching (token='Raelonrak'; norm=lower/alphanumeric)**: 1 match(es)
+  * E046 ('Tarniklan Raelonrak', EMPLOYEE)
+- **Graph-Only Mode Run Result**: Abstained=True | Reason: "No relevant graph traversal paths found."
+- **Retrieved Seeds**: [] (None resolved) | Context Docs: []
+- **Answer**: "I am unable to answer this question. Reason: No relevant graph traversal paths found...."
+- **Category**: **(a) alias occurs in no document**
+
+--------------------------------------------------------------------------------
+CATEGORY COUNTS:
+- (a) Alias occurs in no document: 14 (Q_0091-Q_0103, Q_0105)
+- (b) Occurs but never linked to canonical name: 0
+- (c) Linked in text: 1 (Q_0104 'Haelenrix' in DOC_0025, DOC_0040)
+--------------------------------------------------------------------------------
+RESOLVER STAGES THAT MUST CHANGE:
+1. For Class (a) (Alias appears ONLY in the query, not in any document):
+   - File & Lines: `src/retrieval/seed_retriever.py:136-140`
+   - Exact Gating Condition:
+     ```python
+     if expected_type == "PERSON" or any(e.entity_type.upper() == "PERSON" for e in exact_matches):
+         for e in entities:
+             if e.entity_type.upper() == "PERSON" and e not in exact_matches:
+                 if person_names_compatible(spec.name, e.name):
+                     person_matches.append(e)
+     ```
+   - Defect: The condition hardcodes `"PERSON"`. In company.yaml, employees have type `"EMPLOYEE"`. Therefore, person_names_compatible is NEVER evaluated for any employee. Furthermore, no abbreviation or stem matching stage exists in SeedEntityRetriever for non-person entity types (e.g., 'Durnalnok Division' -> 'Durnalnok Analytics Laboratory').
+
+2. For Class (c) (Alias appears in text, e.g. 'Haelenrix' for 'Haelenrix Gateway'):
+   - File & Lines: `src/resolution/entity_resolver.py:197, 208-212, 327`
+   - Exact Gating Conditions:
+     a) Line 197: `aliases=[]` is initialized empty on CanonicalEntity and never populated with mention variants during _merge_into_canonical.
+     b) Lines 208-212: Single-token post-pass merging is gated strictly on `c.entity_type == "PERSON"`, ignoring PRODUCT/DEPARTMENT mentions.
+     c) Line 327: `if self.resolution_config.require_type_match and mention.entity_type != canonical.entity_type: continue`.
+================================================================================
+
+================================================================================
+PART D: UNANSWERABLE QUESTIONS AUDIT (PER QUESTION)
+Timestamp: 2026-11-16T11:41:43.731331
+Auditing 15 unanswerable questions across 4 modes
+================================================================================
+
+### [1] Question ID: `Q_0106`
+- **Question**: "What client organization is managed by Eldornax Infrastructure Group?"
+- **Template**: `managed_client`
+- **Subject Entity**: `Eldornax Infrastructure Group`
+- **Asked-About Target Type**: `CLIENT`
+- **Gold Edges from Subject to 'CLIENT'** (1 found):
+  * Edge `EDGE_0091`: `Eldornax Infrastructure Group` -[SERVES]-> `Quenentor Consortium` (CLIENT) [Doc: DOC_0032]
+    Verbatim Corpus Sentence: "It operates in production serving Quenentor Consortium."
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Eldornax Infrastructure Group manages Quenentor Consortium as stated in [D032_C0000]."
+  * **hybrid**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Eldornax Infrastructure Group serves Quenentor Consortium. This is stated in chunk D032_C0000: "It operates in production serving Quenentor Consortium.""
+  * **graph_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to chunk D032_C0000, Eldornax Infrastructure Group operates in production serving Quenentor Consortium. Therefore, Quenentor Consortium is the client organization managed by Eldornax Infrastructure Group."
+  * **community_aware**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not explicitly state which client organization is managed by Eldornax Infrastructure Group. Chunk D032_C0000 indicates Eldornax Infrastructure Group operates in production serving Quenentor Consortium, but does not identify a specif..."
+
+### [2] Question ID: `Q_0107`
+- **Question**: "What client organization is managed by Kaelinlux Systems Engineering Unit?"
+- **Template**: `managed_client`
+- **Subject Entity**: `Kaelinlux Systems Engineering Unit`
+- **Asked-About Target Type**: `CLIENT`
+- **Gold Edges from Subject to 'CLIENT'** (1 found):
+  * Edge `EDGE_0088`: `Kaelinlux Systems Engineering Unit` -[SERVES]-> `Ulxathlok Logistics` (CLIENT) [Doc: DOC_0029]
+    Verbatim Corpus Sentence: "Kaelinlux Systems Engineering Unit directly serves the enterprise requirements of Ulxathlok Logistics."
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to [D029_C0000], Kaelinlux Systems Engineering Unit directly serves the enterprise requirements of Ulxathlok Logistics, indicating that Ulxathlok Logistics is the client organization managed by this unit."
+  * **hybrid**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to chunk D029 [D029_C0000], Kaelinlux Systems Engineering Unit directly serves the enterprise requirements of Ulxathlok Logistics, indicating that Ulxathlok Logistics is the client organization managed by this unit."
+  * **graph_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to chunk D029_C0000, Kaelinlux Systems Engineering Unit directly serves the enterprise requirements of Ulxathlok Logistics, indicating that Ulxathlok Logistics is the client organization managed by this unit. [D029_C0000]"
+  * **community_aware**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Kaelinlux Systems Engineering Unit directly serves the enterprise requirements of Ulxathlok Logistics, as stated in [D029_C0000]. Therefore, Ulxathlok Logistics is a client organization managed by this unit."
+
+### [3] Question ID: `Q_0108`
+- **Question**: "What client organization is managed by Lyronvor Nexus?"
+- **Template**: `managed_client`
+- **Subject Entity**: `Lyronvor Nexus`
+- **Asked-About Target Type**: `CLIENT`
+- **Gold Edges from Subject to 'CLIENT'** (1 found):
+  * Edge `EDGE_0035`: `Lyronvor Nexus` -[SERVES]-> `Durnonvor Aerospace` (CLIENT) [Doc: DOC_0044]
+    Verbatim Corpus Sentence: "Lyronvor Nexus delivers dedicated platform support to Durnonvor Aerospace."
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Lyronvor Nexus delivers dedicated platform support to Durnonvor Aerospace, as stated in [D044_C0000]."
+  * **hybrid**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Chunk D044_C0000 states that Lyronvor Nexus delivers dedicated platform support to Durnonvor Aerospace, indicating that Durnonvor Aerospace is the client organization managed by Lyronvor Nexus."
+  * **graph_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Lyronvor Nexus delivers dedicated platform support to Durnonvor Aerospace, as stated in [D044_C0000]. Therefore, Durnonvor Aerospace is the client organization managed by Lyronvor Nexus."
+  * **community_aware**: [Abstained=False] -> **ANSWERABLE_OTHER_ENTITY**
+    Answer: "Kaelinlux Systems Engineering Unit builds and maintains Lyronvor Nexus, as stated in [D029_C0000]. This unit directly serves the enterprise requirements of Ulxathlok Logistics, but the primary relationship identified is its role in maintaining Lyronv..."
+
+### [4] Question ID: `Q_0109`
+- **Question**: "What client organization is managed by Zanistis Infrastructure Group?"
+- **Template**: `managed_client`
+- **Subject Entity**: `Zanistis Infrastructure Group`
+- **Asked-About Target Type**: `CLIENT`
+- **Gold Edges from Subject to 'CLIENT'** (1 found):
+  * Edge `EDGE_0081`: `Zanistis Infrastructure Group` -[SERVES]-> `Durnonvor Aerospace` (CLIENT) [Doc: DOC_0022]
+    Verbatim Corpus Sentence: "Zanistis Infrastructure Group provides specialized commercial solutions for Durnonvor Aerospace."
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Zanistis Infrastructure Group manages Durnonvor Aerospace and Ulxathlok Logistics. Chunk D022 states that Zanistis Infrastructure Group provides specialized commercial solutions for Durnonvor Aerospace [D022_C0000], and Chunk D023 states that Zantonn..."
+  * **hybrid**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Zanistis Infrastructure Group provides specialized commercial solutions for Durnonvor Aerospace [D022_C0000]. This indicates that Durnonvor Aerospace is a client organization managed by Zanistis Infrastructure Group."
+  * **graph_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to [D022_C0000], Zanistis Infrastructure Group provides specialized commercial solutions for Durnonvor Aerospace. This indicates that Durnonvor Aerospace is a client organization managed by Zanistis Infrastructure Group."
+  * **community_aware**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Zanistis Infrastructure Group provides specialized commercial solutions for Durnonvor Aerospace, as stated in [D022_C0000]. Therefore, Durnonvor Aerospace is a client organization managed by Zanistis Infrastructure Group."
+
+### [5] Question ID: `Q_0110`
+- **Question**: "What product is directly developed by Tarniklan Raelonrak?"
+- **Template**: `developed_product`
+- **Subject Entity**: `Tarniklan Raelonrak`
+- **Asked-About Target Type**: `PRODUCT`
+- **Gold Edges from Subject to 'PRODUCT'**: NONE
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state what product Tarniklan Raelonrak directly develops. Chunk D018_C0000 indicates they manage Xanithzar Jorarnok, and Chunk D017_C0000 indicates Caelonwyn Praxungon manages Tarniklan Raelonrak. Neither chunk provides informat..."
+  * **hybrid**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state what product is directly developed by Tarniklan Raelonrak. Chunk D018 describes his management role and affiliation with Oryxonvath Systems Engineering Unit, but does not detail any products he develops. [D018_C0000]"
+  * **graph_only**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state what product is directly developed by Tarniklan Raelonrak. It only describes their role as a manager and their affiliation with different enterprise groups. [D017_C0000] and [D018_C0000] do not contain information about pr..."
+  * **community_aware**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state what product Tarniklan Raelonrak develops. It only indicates that they manage Xanithzar Jorarnok [D018_C0000]."
+
+### [6] Question ID: `Q_0111`
+- **Question**: "What product does NoxarnokNet develop or manage?"
+- **Template**: `develop_or_manage_product`
+- **Subject Entity**: `NoxarnokNet`
+- **Asked-About Target Type**: `PRODUCT`
+- **Gold Edges from Subject to 'PRODUCT'**: NONE
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "NoxarnokNet is described as an internal software specification maintained for operational stability [D052_C0000]. It serves as the foundational technology stack for Ulxarron Matrix [D046_C0000] and Haelenrix Gateway [D040_C0000]."
+  * **hybrid**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "NoxarnokNet is used in Haelenrix Gateway [D040_C0000] and Ulxarron Matrix [D046_C0000], both of which are proprietary enterprise software solutions deployed across production clusters and serve the Kaelunkest Syndicate. Therefore, NoxarnokNet manages..."
+  * **graph_only**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "The evidence indicates that NoxarnokNet manages the development of Haelenrix Gateway [D040_C0000] and Ulxarron Matrix [D046_C0000]. Both are proprietary enterprise software solutions deployed across production clusters and rely on NoxarnokNet as thei..."
+  * **community_aware**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "NoxarnokNet manages Haelenrix Gateway [D040_C0000] and Ulxarron Matrix [D046_C0000] because they are engineered primarily using NoxarnokNet and rely on it as their foundational technology stack, respectively."
+
+### [7] Question ID: `Q_0112`
+- **Question**: "What client organization is managed by Faelolnok Protocol?"
+- **Template**: `managed_client`
+- **Subject Entity**: `Faelolnok Protocol`
+- **Asked-About Target Type**: `CLIENT`
+- **Gold Edges from Subject to 'CLIENT'** (1 found):
+  * Edge `EDGE_0036`: `Faelolnok Protocol` -[SERVES]-> `Ulxathlok Logistics` (CLIENT) [Doc: DOC_0045]
+    Verbatim Corpus Sentence: "Faelolnok Protocol delivers dedicated platform support to Ulxathlok Logistics."
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Faelolnok Protocol delivers dedicated platform support to Ulxathlok Logistics [D045_C0000] and Kaelunkest Syndicate [D030_C0000]."
+  * **hybrid**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Faelolnok Protocol delivers dedicated platform support to Ulxathlok Logistics, as stated in [D045_C0000]."
+  * **graph_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to [D045_C0000], Faelolnok Protocol delivers dedicated platform support to Ulxathlok Logistics, indicating that Ulxathlok Logistics is a client managed by Faelolnok Protocol."
+  * **community_aware**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Faelolnok Protocol delivers dedicated platform support to Ulxathlok Logistics, as stated in [D045_C0000]. Therefore, Ulxathlok Logistics is the client organization managed by Faelolnok Protocol."
+
+### [8] Question ID: `Q_0113`
+- **Question**: "What product does Pryxunvek Syndicate develop or manage?"
+- **Template**: `develop_or_manage_product`
+- **Subject Entity**: `Pryxunvek Syndicate`
+- **Asked-About Target Type**: `PRODUCT`
+- **Gold Edges from Subject to 'PRODUCT'**: NONE
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Pryxunvek Syndicate manages Wyrithwyn Pipeline, which provides specialized commercial solutions [D041_C0000]."
+  * **hybrid**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Pryxunvek Syndicate manages Wyrithwyn Pipeline, as stated in [D041_C0000] where it is described as providing specialized commercial solutions for the syndicate and relying on PryxingonDB. Additionally, Synethgath Systems Engineering Unit and Morenvek..."
+  * **graph_only**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Pryxunvek Syndicate manages Wyrithwyn Pipeline and Eldothvix Hub. [D041_C0000] states that Wyrithwyn Pipeline is a proprietary enterprise software solution deployed across production clusters and provides specialized commercial solutions for Pryxunve..."
+  * **community_aware**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Pryxunvek Syndicate manages Wyrithwyn Pipeline, as stated in [D041_C0000] where it is described as providing specialized commercial solutions for them. Additionally, Synethgath Systems Engineering Unit delivers dedicated platform support to Pryxunvek..."
+
+### [9] Question ID: `Q_0114`
+- **Question**: "What client organization is managed by Iskardyn Pipeline?"
+- **Template**: `managed_client`
+- **Subject Entity**: `Iskardyn Pipeline`
+- **Asked-About Target Type**: `CLIENT`
+- **Gold Edges from Subject to 'CLIENT'** (1 found):
+  * Edge `EDGE_0029`: `Iskardyn Pipeline` -[SERVES]-> `Durnonvor Aerospace` (CLIENT) [Doc: DOC_0038]
+    Verbatim Corpus Sentence: "Iskardyn Pipeline operates in production serving Durnonvor Aerospace."
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "The evidence indicates that Iskardyn Pipeline serves Durnonvor Aerospace [D038_C0000] and Ulxathlok Logistics. Zantonnax Infrastructure Group delivers support to Ulxathlok Logistics [D023_C0000], and Vandothnok Foundational Services Unit provides sol..."
+  * **hybrid**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Iskardyn Pipeline serves Durnonvor Aerospace and provides platform support to Ulxathlok Logistics. This indicates Ulxathlok Logistics is the client organization managed by Iskardyn Pipeline [D038_C0000, D023_C0000]."
+  * **graph_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Iskardyn Pipeline operates in production serving Durnonvor Aerospace [D038_C0000], and Durnonvor Aerospace is described as an external commercial partner collaborating on enterprise initiatives [D056_C0000]. Therefore, Durnonvor Aerospace is the clie..."
+  * **community_aware**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to chunk D038_C0000, Iskardyn Pipeline operates in production serving Durnonvor Aerospace, indicating that Durnonvor Aerospace is a client organization managing Iskardyn Pipeline. [D038_C0000]"
+
+### [10] Question ID: `Q_0115`
+- **Question**: "What client organization is managed by Aetharkest Systems Engineering Unit?"
+- **Template**: `managed_client`
+- **Subject Entity**: `Aetharkest Systems Engineering Unit`
+- **Asked-About Target Type**: `CLIENT`
+- **Gold Edges from Subject to 'CLIENT'** (1 found):
+  * Edge `EDGE_0086`: `Aetharkest Systems Engineering Unit` -[SERVES]-> `Brynandor Networks` (CLIENT) [Doc: DOC_0027]
+    Verbatim Corpus Sentence: "Aetharkest Systems Engineering Unit directly serves the enterprise requirements of Brynandor Networks."
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Aetharkest Systems Engineering Unit directly serves the enterprise requirements of Brynandor Networks, as stated in [D027_C0000]."
+  * **hybrid**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Chunk D027 states that Aetharkest Systems Engineering Unit directly serves the enterprise requirements of Brynandor Networks. Therefore, Brynandor Networks is the client organization managed by Aetharkest Systems Engineering Unit. [D027_C0000]"
+  * **graph_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to chunk D027_C0000, Aetharkest Systems Engineering Unit directly serves the enterprise requirements of Brynandor Networks. Therefore, Brynandor Networks is the client organization managed by Aetharkest Systems Engineering Unit."
+  * **community_aware**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "Aetharkest Systems Engineering Unit directly serves the enterprise requirements of Brynandor Networks, as stated in [D027_C0000]. Therefore, Brynandor Networks is the client organization managed by Aetharkest Systems Engineering Unit."
+
+### [11] Question ID: `Q_0116`
+- **Question**: "What product is directly developed by Rynartor Aldislan?"
+- **Template**: `developed_product`
+- **Subject Entity**: `Rynartor Aldislan`
+- **Asked-About Target Type**: `PRODUCT`
+- **Gold Edges from Subject to 'PRODUCT'**: NONE
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state that Rynartor Aldislan develops any product. [D020_C0000] describes Rynartor Aldislan's role in overseeing Myrolvek Pryxelgath within the Kronanvek Core Platform Division. [D010_C0000] details Synorreth Aldathdyn's role in..."
+  * **hybrid**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Rynartor Aldislan develops the Wyrithwyn Pipeline, as stated in the graph edge: Rynartor Aldislan -[DEVELOPS]-> Wyrithwyn Pipeline [GRAPH_EDGE_PROVENANCE: Rynartor Aldislan -[DEVELOPS]-> Wyrithwyn Pipeline]."
+  * **graph_only**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Rynartor Aldislan manages Kronanvek Core Platform Division, and that division develops Wyrithwyn Pipeline. [GRAPH_EDGE_PROVENANCE: Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyrithwyn Pipeline]"
+  * **community_aware**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state that Rynartor Aldislan directly develops a product. [D005_C0000] states he manages the Kronanvek Core Platform Division, and [D020_C0000] states he oversees Myrolvek Pryxelgath, but neither explicitly details product devel..."
+
+### [12] Question ID: `Q_0117`
+- **Question**: "What product does Ulxathlok Logistics develop or manage?"
+- **Template**: `develop_or_manage_product`
+- **Subject Entity**: `Ulxathlok Logistics`
+- **Asked-About Target Type**: `PRODUCT`
+- **Gold Edges from Subject to 'PRODUCT'**: NONE
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "Ulxathlok Logistics receives dedicated platform support from Ulxathlok Logistics, Zantonnax Infrastructure Group, and Faelolnok Protocol, but the evidence does not state that Ulxathlok Logistics develops or manages any specific product [D057_C0000, D..."
+  * **hybrid**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Ulxathlok Logistics manages Iskardyn Pipeline through Zantonnax Infrastructure Group [D023_C0000], Lyronvor Nexus through Kaelinlux Systems Engineering Unit [D029_C0000], and Faelolnok Protocol through Faelolnok Protocol [D045_C0000]."
+  * **graph_only**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Ulxathlok Logistics develops or manages Iskardyn Pipeline, as stated by Zantonnax Infrastructure Group [D023_C0000] and Vandothnok Foundational Services Unit [D035_C0000]. It also manages Lyronvor Nexus, as built and maintained by Kaelinlux Systems E..."
+  * **community_aware**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Ulxathlok Logistics manages Faelolnok Protocol. This is stated in chunk D045_C0000: 'Faelolnok Protocol delivers dedicated platform support to Ulxathlok Logistics.'"
+
+### [13] Question ID: `Q_0118`
+- **Question**: "What client organization is managed by Zanolric Cluster?"
+- **Template**: `managed_client`
+- **Subject Entity**: `Zanolric Cluster`
+- **Asked-About Target Type**: `CLIENT`
+- **Gold Edges from Subject to 'CLIENT'** (1 found):
+  * Edge `EDGE_0033`: `Zanolric Cluster` -[SERVES]-> `Quenentor Consortium` (CLIENT) [Doc: DOC_0042]
+    Verbatim Corpus Sentence: "Zanolric Cluster provides specialized commercial solutions for Quenentor Consortium."
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **ANSWERABLE_OTHER_ENTITY**
+    Answer: "Zanolric Cluster serves the enterprise requirements of Brynandor Networks, as stated in [D027_C0000]."
+  * **hybrid**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not explicitly state which client organization is managed by Zanolric Cluster. It states that Zanolric Cluster provides solutions for Quenentor Consortium [D042_C0000] and Maelengath Hub also provides solutions for Quenentor Consort..."
+  * **graph_only**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to chunk D042, Zanolric Cluster provides specialized commercial solutions for Quenentor Consortium. Additionally, chunk D026 states that Kronanvek Core Platform Division directly serves the enterprise requirements of Quenentor Consortium, i..."
+  * **community_aware**: [Abstained=False] -> **NEAR_ANSWERABLE**
+    Answer: "According to chunk D042_C0000, Zanolric Cluster provides specialized commercial solutions for Quenentor Consortium, indicating that Quenentor Consortium is the client organization managed by Zanolric Cluster."
+
+### [14] Question ID: `Q_0119`
+- **Question**: "What product is directly developed by Taelanfen Wyrusnok?"
+- **Template**: `developed_product`
+- **Subject Entity**: `Taelanfen Wyrusnok`
+- **Asked-About Target Type**: `PRODUCT`
+- **Gold Edges from Subject to 'PRODUCT'**: NONE
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state that Taelanfen Wyrusnok develops any product. It only describes their role in managing Nebothnok Styxinvath [D012_C0000]."
+  * **hybrid**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state that Taelanfen Wyrusnok directly develops any product. He manages Nebothnok Styxinvath and serves Brynandor Networks through Durnalnok Analytics Laboratory [D012_C0000]."
+  * **graph_only**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state what product Taelanfen Wyrusnok directly develops. It only indicates that he manages Nebothnok Styxinvath, as stated in [D012_C0000]."
+  * **community_aware**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Taelanfen Wyrusnok actively manages and directs Nebothnok Styxinvath [GRAPH_EDGE_PROVENANCE: Taelanfen Wyrusnok -[DEVELOPS]-> Nebothnok Styxinvath]."
+
+### [15] Question ID: `Q_0120`
+- **Question**: "What product is directly developed by Durnenlok Noxornok?"
+- **Template**: `developed_product`
+- **Subject Entity**: `Durnenlok Noxornok`
+- **Asked-About Target Type**: `PRODUCT`
+- **Gold Edges from Subject to 'PRODUCT'**: NONE
+- **Mode Answers and Classifications**:
+  * **vector_only**: [Abstained=False] -> **TRULY_UNANSWERABLE_WRONG_ANSWER**
+    Answer: "Durnenlok Noxornok actively manages and directs Rynunvor Lyrontis [D015_C0000]. Additionally, Lyronvor Nexus, a proprietary enterprise software solution that Durnenlok Noxornok manages, is deployed across production clusters and utilizes AethithnokQL..."
+  * **hybrid**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state that Durnenlok Noxornok directly develops any product. They manage Rynunvor Lyrontis and are overseen by Krenokmoth Tarnonmar, who operates within the Iskorlan Applied Automation Wing which develops Jorustex Nexus. [D015_C..."
+  * **graph_only**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence states that Durnenlok Noxornok actively manages and directs Rynunvor Lyrontis, but does not specify what product is directly developed. Therefore, I must abstain."
+  * **community_aware**: [Abstained=True] -> **CORRECT_ABSTENTION**
+    Answer: "The evidence does not state that Durnenlok Noxornok directly develops any product. They are described as a certified staff professional managing Rynunvor Lyrontis within Brecolron Systems Engineering Unit. [D015_C0000]"
+
+--------------------------------------------------------------------------------
+COUNTS PER MODE:
+- Mode `vector_only`:
+  * NEAR_ANSWERABLE                 : 7
+  * ANSWERABLE_OTHER_ENTITY         : 1
+  * TRULY_UNANSWERABLE_WRONG_ANSWER : 3
+  * CORRECT_ABSTENTION              : 4
+- Mode `hybrid`:
+  * NEAR_ANSWERABLE                 : 7
+  * ANSWERABLE_OTHER_ENTITY         : 0
+  * TRULY_UNANSWERABLE_WRONG_ANSWER : 4
+  * CORRECT_ABSTENTION              : 4
+- Mode `graph_only`:
+  * NEAR_ANSWERABLE                 : 8
+  * ANSWERABLE_OTHER_ENTITY         : 0
+  * TRULY_UNANSWERABLE_WRONG_ANSWER : 4
+  * CORRECT_ABSTENTION              : 3
+- Mode `community_aware`:
+  * NEAR_ANSWERABLE                 : 6
+  * ANSWERABLE_OTHER_ENTITY         : 1
+  * TRULY_UNANSWERABLE_WRONG_ANSWER : 4
+  * CORRECT_ABSTENTION              : 4
+
+COUNTS PER TEMPLATE (AGGREGATED ACROSS ALL 4 MODES, 60 TOTAL EVALUATIONS):
+- Template `managed_client` (N=8 questions * 4 modes = 32 evals):
+  * NEAR_ANSWERABLE                 : 28
+  * ANSWERABLE_OTHER_ENTITY         : 2
+  * TRULY_UNANSWERABLE_WRONG_ANSWER : 0
+  * CORRECT_ABSTENTION              : 2
+- Template `developed_product` (N=4 questions * 4 modes = 16 evals):
+  * NEAR_ANSWERABLE                 : 0
+  * ANSWERABLE_OTHER_ENTITY         : 0
+  * TRULY_UNANSWERABLE_WRONG_ANSWER : 4
+  * CORRECT_ABSTENTION              : 12
+- Template `develop_or_manage_product` (N=3 questions * 4 modes = 12 evals):
+  * NEAR_ANSWERABLE                 : 0
+  * ANSWERABLE_OTHER_ENTITY         : 0
+  * TRULY_UNANSWERABLE_WRONG_ANSWER : 11
+  * CORRECT_ABSTENTION              : 1
+================================================================================
+
+============================================================================================================================================================
+PART E: HOP3 LOSS LOCALISATION (RETRIEVAL-ONLY AUDIT)
+Timestamp: 2026-11-16T12:12:52.738532
+Reconstructing retrieval stages for 5 hop3 questions (Q_0062, Q_0063, Q_0073, Q_0084, Q_0068)
+================================================================================
+
+--------------------------------------------------------------------------------
+CONFIGURED LIMITS AND CODE CITATIONS:
+- max_traversal_hops: 3
+  * Config: configs/default.yaml:26
+  * Instantiated: src/engine.py:305 (GraphTraverser(max_hops=self.config.retrieval.max_traversal_hops))
+  * Applied: src/graph/traversal.py:115 (`if current_hop >= self.max_hops: continue`)
+- max_graph_candidates: 20
+  * Config: configs/default.yaml:27
+  * Applied: src/graph/traversal.py:156 (`return traversed_paths[: self.max_candidates]`)
+             and src/retrieval/graph_retriever.py:397 (`return evidence[: self.max_candidates]`)
+- final_context_chunks: 4
+  * Config: configs/default.yaml:30
+  * Instantiated: src/engine.py:335 (final_context_chunks=self.config.retrieval.final_context_chunks)
+  * Applied: src/retrieval/community_retriever.py:179 (`reranked = self.reranker.rerank(merged, top_k=self.final_context_chunks)`)
+- rrf_k: 60
+  * Config: configs/default.yaml:31
+  * Instantiated: src/engine.py:326 (`reranker = RRFReranker(rrf_k=self.config.retrieval.rrf_k)`)
+  * Applied: src/retrieval/reranker.py:41 (`rrf_score = 1.0 / (self.rrf_k + rank)`)
+--------------------------------------------------------------------------------
+
+### [1] Question ID: `Q_0062`
+- **Question**: "What product is developed by the department of the employee managed by Nebothnok Styxinvath?"
+- **Gold Supporting Docs**: ['DOC_0013', 'DOC_0014', 'DOC_0035']
+- **Gold Path**: ['EDGE_0073', 'EDGE_0053', 'EDGE_0014']
+- **Resolved Seeds**: [('E034', 'Nebothnok Styxinvath')]
+- **Graph Traversed Paths** (3 paths):
+  * Nebothnok Styxinvath -[BELONGS_TO]-> Nebunnax Foundational Services Unit
+  * Nebothnok Styxinvath -[MANAGES]-> Krenokmoth Tarnonmar
+  * Nebothnok Styxinvath -[BELONGS_TO]-> Nebunnax Foundational Services Unit -[SERVES]-> Durnonvor Aerospace
+- **Graph-Route Candidate Chunks** (7 chunks, ranked):
+  * Rank  1: `D013_C0000` (Doc: DOC_0013) | Alignment/Rank Score: 1
+  * Rank  2: `D034_C0000` (Doc: DOC_0034) | Alignment/Rank Score: 2
+  * Rank  3: `D022_C0000` (Doc: DOC_0022) | Alignment/Rank Score: 3
+  * Rank  4: `D028_C0000` (Doc: DOC_0028) | Alignment/Rank Score: 4
+  * Rank  5: `D038_C0000` (Doc: DOC_0038) | Alignment/Rank Score: 5
+  * Rank  6: `D044_C0000` (Doc: DOC_0044) | Alignment/Rank Score: 6
+  * Rank  7: `D056_C0000` (Doc: DOC_0056) | Alignment/Rank Score: 7
+- **Vector-Route List** (top-4 chunks from dense retrieval):
+  * Rank 1: `D013_C0000` (DOC_0013)
+  * Rank 2: `D002_C0000` (DOC_0002)
+  * Rank 3: `D012_C0000` (DOC_0012)
+  * Rank 4: `D028_C0000` (DOC_0028)
+- **RRF-Merged List (Final Context Chunks, Budget=4)**:
+  * Final Rank 1: `D013_C0000` (DOC_0013)
+  * Final Rank 2: `D028_C0000` (DOC_0028)
+  * Final Rank 3: `D034_C0000` (DOC_0034)
+  * Final Rank 4: `D002_C0000` (DOC_0002)
+- **Per-Gold-Document Status Classification**:
+  * `DOC_0013`: **IN_CONTEXT** (Final Hybrid Rank: 1)
+  * `DOC_0014`: **NOT_REACHED_BY_TRAVERSAL** (Graph path severed/dead-end due to split entity or missing edge)
+  * `DOC_0035`: **NOT_REACHED_BY_TRAVERSAL** (Graph path severed/dead-end due to split entity or missing edge)
+
+### [2] Question ID: `Q_0063`
+- **Question**: "Which client is served by the product developed by the department that Krenokmoth Tarnonmar belongs to?"
+- **Gold Supporting Docs**: ['DOC_0014', 'DOC_0035', 'DOC_0038']
+- **Gold Path**: ['EDGE_0053', 'EDGE_0014', 'EDGE_0029']
+- **Resolved Seeds**: [('E037', 'Krenokmoth Tarnonmar')]
+- **Graph Traversed Paths** (3 paths):
+  * Krenokmoth Tarnonmar -[MANAGES]-> Vandothnok Foundational Services Unit
+  * Krenokmoth Tarnonmar -[DEVELOPS]-> Durnenlok Noxornok
+  * Krenokmoth Tarnonmar -[MANAGES]-> Vandothnok Foundational Services Unit -[SERVES]-> Ulxathlok Logistics
+- **Graph-Route Candidate Chunks** (7 chunks, ranked):
+  * Rank  1: `D014_C0000` (Doc: DOC_0014) | Alignment/Rank Score: 1
+  * Rank  2: `D035_C0000` (Doc: DOC_0035) | Alignment/Rank Score: 2
+  * Rank  3: `D023_C0000` (Doc: DOC_0023) | Alignment/Rank Score: 3
+  * Rank  4: `D029_C0000` (Doc: DOC_0029) | Alignment/Rank Score: 4
+  * Rank  5: `D039_C0000` (Doc: DOC_0039) | Alignment/Rank Score: 5
+  * Rank  6: `D045_C0000` (Doc: DOC_0045) | Alignment/Rank Score: 6
+  * Rank  7: `D057_C0000` (Doc: DOC_0057) | Alignment/Rank Score: 7
+- **Vector-Route List** (top-4 chunks from dense retrieval):
+  * Rank 1: `D014_C0000` (DOC_0014)
+  * Rank 2: `D013_C0000` (DOC_0013)
+  * Rank 3: `D018_C0000` (DOC_0018)
+  * Rank 4: `D026_C0000` (DOC_0026)
+- **RRF-Merged List (Final Context Chunks, Budget=4)**:
+  * Final Rank 1: `D014_C0000` (DOC_0014)
+  * Final Rank 2: `D035_C0000` (DOC_0035)
+  * Final Rank 3: `D013_C0000` (DOC_0013)
+  * Final Rank 4: `D023_C0000` (DOC_0023)
+- **Per-Gold-Document Status Classification**:
+  * `DOC_0014`: **IN_CONTEXT** (Final Hybrid Rank: 1)
+  * `DOC_0035`: **IN_CONTEXT** (Final Hybrid Rank: 2)
+  * `DOC_0038`: **NOT_REACHED_BY_TRAVERSAL** (Graph path severed/dead-end due to split entity or missing edge)
+
+### [3] Question ID: `Q_0073`
+- **Question**: "What product is developed by the department of the employee managed by Rynartor Aldislan?"
+- **Gold Supporting Docs**: ['DOC_0020', 'DOC_0021', 'DOC_0027']
+- **Gold Path**: ['EDGE_0080', 'EDGE_0060', 'EDGE_0006']
+- **Resolved Seeds**: [('E050', 'Rynartor Aldislan')]
+- **Graph Traversed Paths** (4 paths):
+  * Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division
+  * Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyrithwyn Pipeline
+  * Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[SERVES]-> Quenentor Consortium
+  * Rynartor Aldislan -[MANAGES]-> Kronanvek Core Platform Division -[DEVELOPS]-> Wyrithwyn Pipeline -[SERVES]-> Pryxunvek Syndicate
+- **Graph-Route Candidate Chunks** (13 chunks, ranked):
+  * Rank  1: `D019_C0000` (Doc: DOC_0019) | Alignment/Rank Score: 1
+  * Rank  2: `D020_C0000` (Doc: DOC_0020) | Alignment/Rank Score: 2
+  * Rank  3: `D005_C0000` (Doc: DOC_0005) | Alignment/Rank Score: 3
+  * Rank  4: `D026_C0000` (Doc: DOC_0026) | Alignment/Rank Score: 4
+  * Rank  5: `D041_C0000` (Doc: DOC_0041) | Alignment/Rank Score: 5
+  * Rank  6: `D032_C0000` (Doc: DOC_0032) | Alignment/Rank Score: 6
+  * Rank  7: `D042_C0000` (Doc: DOC_0042) | Alignment/Rank Score: 7
+  * Rank  8: `D048_C0000` (Doc: DOC_0048) | Alignment/Rank Score: 8
+  * Rank  9: `D060_C0000` (Doc: DOC_0060) | Alignment/Rank Score: 9
+  * Rank 10: `D025_C0000` (Doc: DOC_0025) | Alignment/Rank Score: 10
+  * Rank 11: `D031_C0000` (Doc: DOC_0031) | Alignment/Rank Score: 11
+  * Rank 12: `D047_C0000` (Doc: DOC_0047) | Alignment/Rank Score: 12
+  * Rank 13: `D059_C0000` (Doc: DOC_0059) | Alignment/Rank Score: 13
+- **Vector-Route List** (top-4 chunks from dense retrieval):
+  * Rank 1: `D020_C0000` (DOC_0020)
+  * Rank 2: `D019_C0000` (DOC_0019)
+  * Rank 3: `D010_C0000` (DOC_0010)
+  * Rank 4: `D028_C0000` (DOC_0028)
+- **RRF-Merged List (Final Context Chunks, Budget=4)**:
+  * Final Rank 1: `D019_C0000` (DOC_0019)
+  * Final Rank 2: `D020_C0000` (DOC_0020)
+  * Final Rank 3: `D005_C0000` (DOC_0005)
+  * Final Rank 4: `D010_C0000` (DOC_0010)
+- **Per-Gold-Document Status Classification**:
+  * `DOC_0020`: **IN_CONTEXT** (Final Hybrid Rank: 2)
+  * `DOC_0021`: **NOT_REACHED_BY_TRAVERSAL** (Graph path severed/dead-end due to split entity or missing edge)
+  * `DOC_0027`: **NOT_REACHED_BY_TRAVERSAL** (Graph path severed/dead-end due to split entity or missing edge)
+
+### [4] Question ID: `Q_0084`
+- **Question**: "Which client is served by the product developed by the department that Tarniklan Raelonrak belongs to?"
+- **Gold Supporting Docs**: ['DOC_0018', 'DOC_0024', 'DOC_0039']
+- **Gold Path**: ['EDGE_0057', 'EDGE_0003', 'EDGE_0030']
+- **Resolved Seeds**: [('E046', 'Tarniklan Raelonrak')]
+- **Graph Traversed Paths** (1 paths):
+  * Tarniklan Raelonrak -[MANAGES]-> Xanithzar Jorarnok
+- **Graph-Route Candidate Chunks** (2 chunks, ranked):
+  * Rank  1: `D017_C0000` (Doc: DOC_0017) | Alignment/Rank Score: 1
+  * Rank  2: `D018_C0000` (Doc: DOC_0018) | Alignment/Rank Score: 2
+- **Vector-Route List** (top-4 chunks from dense retrieval):
+  * Rank 1: `D018_C0000` (DOC_0018)
+  * Rank 2: `D017_C0000` (DOC_0017)
+  * Rank 3: `D028_C0000` (DOC_0028)
+  * Rank 4: `D038_C0000` (DOC_0038)
+- **RRF-Merged List (Final Context Chunks, Budget=4)**:
+  * Final Rank 1: `D017_C0000` (DOC_0017)
+  * Final Rank 2: `D018_C0000` (DOC_0018)
+  * Final Rank 3: `D028_C0000` (DOC_0028)
+  * Final Rank 4: `D038_C0000` (DOC_0038)
+- **Per-Gold-Document Status Classification**:
+  * `DOC_0018`: **IN_CONTEXT** (Final Hybrid Rank: 2)
+  * `DOC_0024`: **NOT_REACHED_BY_TRAVERSAL** (Graph path severed/dead-end due to split entity or missing edge)
+  * `DOC_0039`: **NOT_REACHED_BY_TRAVERSAL** (Graph path severed/dead-end due to split entity or missing edge)
+
+### [5] Question ID: `Q_0068`
+- **Question**: "What technology is used in the product developed by the department that Synorreth Aldathdyn belongs to?"
+- **Gold Supporting Docs**: ['DOC_0010', 'DOC_0031', 'DOC_0046']
+- **Gold Path**: ['EDGE_0049', 'EDGE_0010', 'EDGE_0025']
+- **Resolved Seeds**: [('E025', 'Synorreth Aldathdyn')]
+- **Graph Traversed Paths** (4 paths):
+  * Synorreth Aldathdyn -[MANAGES]-> Morenvek Analytics Laboratory
+  * Synorreth Aldathdyn -[MANAGES]-> Morenvek Analytics Laboratory -[SERVES]-> Pryxunvek Syndicate
+  * Synorreth Aldathdyn -[MANAGES]-> Morenvek Analytics Laboratory -[DEVELOPS]-> Ulxarron Matrix
+  * Synorreth Aldathdyn -[MANAGES]-> Morenvek Analytics Laboratory -[DEVELOPS]-> Ulxarron Matrix -[SERVES]-> Kaelunkest Syndicate
+- **Graph-Route Candidate Chunks** (12 chunks, ranked):
+  * Rank  1: `D010_C0000` (Doc: DOC_0010) | Alignment/Rank Score: 1
+  * Rank  2: `D031_C0000` (Doc: DOC_0031) | Alignment/Rank Score: 2
+  * Rank  3: `D046_C0000` (Doc: DOC_0046) | Alignment/Rank Score: 3
+  * Rank  4: `D025_C0000` (Doc: DOC_0025) | Alignment/Rank Score: 4
+  * Rank  5: `D041_C0000` (Doc: DOC_0041) | Alignment/Rank Score: 5
+  * Rank  6: `D047_C0000` (Doc: DOC_0047) | Alignment/Rank Score: 6
+  * Rank  7: `D059_C0000` (Doc: DOC_0059) | Alignment/Rank Score: 7
+  * Rank  8: `D024_C0000` (Doc: DOC_0024) | Alignment/Rank Score: 8
+  * Rank  9: `D030_C0000` (Doc: DOC_0030) | Alignment/Rank Score: 9
+  * Rank 10: `D036_C0000` (Doc: DOC_0036) | Alignment/Rank Score: 10
+  * Rank 11: `D040_C0000` (Doc: DOC_0040) | Alignment/Rank Score: 11
+  * Rank 12: `D058_C0000` (Doc: DOC_0058) | Alignment/Rank Score: 12
+- **Vector-Route List** (top-4 chunks from dense retrieval):
+  * Rank 1: `D010_C0000` (DOC_0010)
+  * Rank 2: `D031_C0000` (DOC_0031)
+  * Rank 3: `D028_C0000` (DOC_0028)
+  * Rank 4: `D025_C0000` (DOC_0025)
+- **RRF-Merged List (Final Context Chunks, Budget=4)**:
+  * Final Rank 1: `D010_C0000` (DOC_0010)
+  * Final Rank 2: `D031_C0000` (DOC_0031)
+  * Final Rank 3: `D025_C0000` (DOC_0025)
+  * Final Rank 4: `D046_C0000` (DOC_0046)
+- **Per-Gold-Document Status Classification**:
+  * `DOC_0010`: **IN_CONTEXT** (Final Hybrid Rank: 1)
+  * `DOC_0031`: **IN_CONTEXT** (Final Hybrid Rank: 2)
+  * `DOC_0046`: **IN_CONTEXT** (Final Hybrid Rank: 4)
+
+--------------------------------------------------------------------------------
+SUMMARY OF HOP3 LOSS MECHANISMS:
+1. **Q_0068 (Success - 3/3 Gold in Context)**:
+   - All 3 gold documents (DOC_0010, DOC_0031, DOC_0046) were successfully reached by graph traversal.
+   - Traversal ranks were 1, 2, 3, ensuring they survived the final RRF fusion and context truncation.
+2. **Q_0062, Q_0063, Q_0073, Q_0084 (Failures - Missing Bridge/Target Documents)**:
+   - The primary failure mode was NOT truncation of validly ranked graph candidates, but **NOT_REACHED_BY_TRAVERSAL**.
+   - Root causes:
+     * Entity resolution splits (e.g. Q_0062: Krenokmoth Tarnonmar split into E036 and E037, creating an isolated sink vertex).
+     * Unextracted edges (e.g. EDGE_0014 NEVER_EXTRACTED for Q_0062/Q_0063).
+     * Rejected ontology edges (e.g. EDGE_0080 REJECTED_ONTOLOGY for Q_0073).
+================================================================================
+
+================================================================================
+PART F: STRONGER GRAPH-FREE ITERATIVE BASELINES AUDIT
+Timestamp: 2026-11-16T12:15:26.167428
+Evaluated on all 105 answerable questions (primary rule evaluation: 30 hop2 questions)
+================================================================================
+
+1. HYBRID RECOMPUTED RECALL ON HOP2:
+- Hybrid all-gold evidence recall (H): 17/30 = 56.67% [Wilson 95%: 39.2%, 72.6%]
+- Expected value from overnight REPORT.md: 56.7% (Confirmed exact match: 56.7%)
+
+2. PRIMARY EVALUATION ON HOP2 (N=30, BUDGET K=4):
+| Method | Success Count | Recall Rate | Wilson 95% Confidence Interval |
+| :--- | :---: | :---: | :---: |
+| **Hybrid Mode (Recomputed H)** | 17/30 | 56.7% | [39.2%, 72.6%] |
+| `B7_iter_dense` | 13/30 | 43.3% | [27.4%, 60.8%] |
+| `B8_overlap_top2` | 8/30 | 26.7% | [14.2%, 44.4%] |
+| `B9_overlap_top1` | 21/30 | 70.0% | [52.1%, 83.3%] |
+| `B4_name_exp_top4` | 11/30 | 36.7% | [21.9%, 54.5%] |
+
+3. PRE-REGISTERED DECISION RULE OUTCOME (hop2 only):
+- Recomputed Hybrid baseline (H): 56.67%
+- Best Iterative Baseline (B*): 70.00% (achieved by `B9_overlap_top1`)
+- Upper threshold (H - 10.0 points): 46.67%
+- Lower threshold (H - 20.0 points): 36.67%
+
+DECISION RULE STATEMENT:
+**"iterative retrieval without a graph reproduces most of the hybrid gain; graph-specific benefit not demonstrated"**
+
+4. DESCRIPTIVE PAIRED COMPARISONS AGAINST HYBRID ON HOP2 (N=30):
+| Baseline Method | Both Succeed (n11) | Hybrid-Only (n10) | Baseline-Only (n01) | Neither Succeed (n00) | Exact Sign Test p-value |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| `B7_iter_dense` | 7 | 10 | 6 | 7 | p = 0.4545 |
+| `B8_overlap_top2` | 6 | 11 | 2 | 11 | p = 0.0225 |
+| `B9_overlap_top1` | 13 | 4 | 8 | 5 | p = 0.3877 |
+| `B4_name_exp_top4` | 7 | 10 | 4 | 9 | p = 0.1796 |
+
+5. FULL BREAKDOWN ACROSS ALL QUESTION GROUPS (REPORTED FOR COMPLETENESS):
+| Question Group | Total (N) | Hybrid | B7 (Iter Dense) | B8 (Overlap Top-2) | B9 (Overlap Top-1) | B4 (Name Exp Top-4) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| `hop1` | 30 | 30/30 (100.0%) | 30/30 (100.0%) | 30/30 (100.0%) | 30/30 (100.0%) | 30/30 (100.0%) |
+| `hop2` | 30 | 17/30 (56.7%) | 13/30 (43.3%) | 8/30 (26.7%) | 21/30 (70.0%) | 11/30 (36.7%) |
+| `hop3` | 30 | 1/30 (3.3%) | 0/30 (0.0%) | 0/30 (0.0%) | 0/30 (0.0%) | 0/30 (0.0%) |
+| `alias` | 15 | 6/15 (40.0%) | 8/15 (53.3%) | 9/15 (60.0%) | 10/15 (66.7%) | 7/15 (46.7%) |
+| `all` | 105 | 54/105 (51.4%) | 51/105 (48.6%) | 47/105 (44.8%) | 61/105 (58.1%) | 48/105 (45.7%) |
+================================================================================
+

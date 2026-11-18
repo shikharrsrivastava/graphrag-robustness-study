@@ -1,0 +1,341 @@
+{
+  "5a7166395542994082a3e814": {
+    "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5a75e05c55429976ec32bc5f": {
+    "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5a7bbb64554299042af8f7cc": {
+    "question": "Who is older, Annie Morton or Terry Richardson?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5a8133725542995ce29dcbdb": {
+    "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "docs/HOTPOTQA_EVALUATION.md",
+      "docs/LINKEDIN_POST.md",
+      "docs/MODEL_EVALUATION.md",
+      "docs/PUBLIC_API.md",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/config_snapshot.yaml",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/data/processed/chunks.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/data/processed/documents.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/data/processed/entity_mentions.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/data/processed/mention_to_entity.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/data/processed/pages.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/data/processed/triples.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/graph/communities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/graph/community_reports.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/graph/entities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/graph/relationships.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/manifest.json",
+      "knowledge_bases/hotpotqa_pilot/5a8133725542995ce29dcbdb/vector_store/chroma.sqlite3",
+      "tests/test_hotpotqa_stabilisation.py"
+    ]
+  },
+  "5a85b2d95542997b5ce40028": {
+    "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5a85ea095542994775f606a8": {
+    "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "docs/MODEL_EVALUATION.md",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/config_snapshot.yaml",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/data/processed/chunks.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/data/processed/documents.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/data/processed/entity_mentions.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/data/processed/mention_to_entity.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/data/processed/pages.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/data/processed/triples.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/graph/communities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/graph/community_reports.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/graph/entities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/graph/relationships.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/manifest.json",
+      "knowledge_bases/hotpotqa_pilot/5a85ea095542994775f606a8/vector_store/chroma.sqlite3"
+    ]
+  },
+  "5a877e5d5542993e715abf7d": {
+    "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/config_snapshot.yaml",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/data/processed/chunks.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/data/processed/documents.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/data/processed/entity_mentions.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/data/processed/mention_to_entity.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/data/processed/pages.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/data/processed/triples.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/graph/communities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/graph/community_reports.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/graph/entities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/graph/relationships.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/manifest.json",
+      "knowledge_bases/hotpotqa_pilot/5a877e5d5542993e715abf7d/vector_store/chroma.sqlite3"
+    ]
+  },
+  "5a87ab905542996e4f3088c1": {
+    "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5a8b57f25542995d1e6f1371": {
+    "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "docs/HOTPOTQA_EVALUATION.md",
+      "docs/MODEL_EVALUATION.md",
+      "experiments/hotpotqa/diagnostic_one.json",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "experiments/hotpotqa/public_api_smoke_test.json",
+      "experiments/hotpotqa/validation_answer_replay.json",
+      "experiments/hotpotqa/validation_answer_replay_refreshed_baseline.json",
+      "experiments/hotpotqa/validation_answer_replay_v2.json",
+      "experiments/hotpotqa/validation_retrieval_only.json",
+      "experiments/hotpotqa/validation_retrieval_only_refreshed.json",
+      "knowledge_bases/hotpotqa_eval/hotpot_full_5a8b57f25542995d1e6f1371/data/processed/documents.jsonl",
+      "tests/test_answer_generation_grounding.py",
+      "tests/test_graph_retrieval_and_eval_repairs.py",
+      "tests/test_hotpotqa_stabilisation.py",
+      "tests/test_public_api.py"
+    ]
+  },
+  "5a8c7595554299585d9e36b6": {
+    "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5a8db19d5542994ba4e3dd00": {
+    "question": "Are Local H and For Against both from the United States?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/config_snapshot.yaml",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/data/processed/chunks.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/data/processed/documents.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/data/processed/entity_mentions.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/data/processed/mention_to_entity.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/data/processed/pages.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/data/processed/triples.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/graph/communities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/graph/community_reports.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/graph/entities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/graph/relationships.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/manifest.json",
+      "knowledge_bases/hotpotqa_pilot/5a8db19d5542994ba4e3dd00/vector_store/chroma.sqlite3",
+      "tests/test_hotpotqa_stabilisation.py"
+    ]
+  },
+  "5a8e3ea95542995a26add48d": {
+    "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "docs/HOTPOTQA_EVALUATION.md",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/config_snapshot.yaml",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/data/processed/chunks.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/data/processed/documents.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/data/processed/entity_mentions.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/data/processed/mention_to_entity.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/data/processed/pages.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/data/processed/triples.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/graph/communities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/graph/community_reports.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/graph/entities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/graph/relationships.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/manifest.json",
+      "knowledge_bases/hotpotqa_pilot/5a8e3ea95542995a26add48d/vector_store/chroma.sqlite3",
+      "tests/test_hotpotqa_stabilisation.py"
+    ]
+  },
+  "5ab29c24554299449642c932": {
+    "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "docs/HOTPOTQA_EVALUATION.md",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/config_snapshot.yaml",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/data/processed/chunks.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/data/processed/documents.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/data/processed/entity_mentions.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/data/processed/mention_to_entity.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/data/processed/pages.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/data/processed/triples.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/graph/communities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/graph/community_reports.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/graph/entities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/graph/relationships.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/manifest.json",
+      "knowledge_bases/hotpotqa_pilot/5ab29c24554299449642c932/vector_store/chroma.sqlite3",
+      "tests/test_hotpotqa_stabilisation.py"
+    ]
+  },
+  "5ab3b0bf5542992ade7c6e39": {
+    "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5ab3e45655429976abd1bcd4": {
+    "question": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5ab56e32554299637185c594": {
+    "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5ab6d09255429954757d337d": {
+    "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json"
+    ]
+  },
+  "5abd94525542992ac4f382d2": {
+    "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "docs/HOTPOTQA_EVALUATION.md",
+      "docs/MODEL_EVALUATION.md",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/config_snapshot.yaml",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/data/processed/chunks.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/data/processed/documents.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/data/processed/entity_mentions.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/data/processed/mention_to_entity.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/data/processed/pages.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/data/processed/triples.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/graph/communities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/graph/community_reports.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/graph/entities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/graph/relationships.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/manifest.json",
+      "knowledge_bases/hotpotqa_pilot/5abd94525542992ac4f382d2/vector_store/chroma.sqlite3",
+      "tests/test_hotpotqa_stabilisation.py"
+    ]
+  },
+  "5adbf0a255429947ff17385a": {
+    "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "docs/HOTPOTQA_EVALUATION.md",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/config_snapshot.yaml",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/data/processed/chunks.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/data/processed/documents.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/data/processed/entity_mentions.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/data/processed/mention_to_entity.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/data/processed/pages.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/data/processed/triples.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/graph/communities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/graph/community_reports.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/graph/entities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/graph/relationships.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/manifest.json",
+      "knowledge_bases/hotpotqa_pilot/5adbf0a255429947ff17385a/vector_store/chroma.sqlite3",
+      "tests/test_document_title_discovery.py",
+      "tests/test_hotpotqa_stabilisation.py"
+    ]
+  },
+  "5ae0d4c9554299603e418468": {
+    "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+    "locations": [
+      "adapters/datasets/hotpotqa/hotpot_smoke_20.json",
+      "experiments/hotpotqa/model_comparison_report.json",
+      "experiments/hotpotqa/pilot_10_manifest.json",
+      "experiments/hotpotqa/pilot_10_results.json",
+      "experiments/hotpotqa/pilot_10_results_v2.json",
+      "experiments/hotpotqa/pilot_10_results_v3.json",
+      "experiments/hotpotqa/pilot_10_run.log",
+      "experiments/hotpotqa/pilot_10_run_state.json",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/config_snapshot.yaml",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/data/processed/chunks.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/data/processed/documents.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/data/processed/entity_mentions.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/data/processed/mention_to_entity.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/data/processed/pages.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/data/processed/triples.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/graph/communities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/graph/community_reports.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/graph/entities.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/graph/relationships.jsonl",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/manifest.json",
+      "knowledge_bases/hotpotqa_pilot/5ae0d4c9554299603e418468/vector_store/chroma.sqlite3",
+      "tests/test_hotpotqa_stabilisation.py"
+    ]
+  }
+}

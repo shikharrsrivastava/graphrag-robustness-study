@@ -1,0 +1,1 @@
+Vaelelmar Hub is a proprietary enterprise software solution deployed across production clusters. Vaelelmar Hub utilizes VeltusdorDB for core functionality. Vaelelmar Hub directly serves the enterprise requirements of Eldarrak Aerospace.

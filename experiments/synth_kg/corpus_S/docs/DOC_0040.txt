@@ -1,0 +1,1 @@
+Haelenrix Gateway is a proprietary enterprise software solution deployed across production clusters. Haelenrix Gateway is engineered primarily using NoxarnokNet. Haelenrix Gateway operates in production serving Kaelunkest Syndicate.

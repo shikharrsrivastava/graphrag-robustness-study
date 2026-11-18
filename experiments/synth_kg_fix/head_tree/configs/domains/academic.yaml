@@ -1,0 +1,115 @@
+kb_id: "academic_kb"
+ontology:
+  domain_name: "academic_research"
+  version: "1.0.0"
+  entity_types:
+    PERSON: "Students, professors, researchers, or authors"
+    UNIVERSITY: "Universities, institutes, or academic departments"
+    PROJECT: "Research projects, labs, or academic initiatives"
+    TECHNOLOGY: "Algorithms, models, frameworks, or technical methods"
+    CONCEPT: "Scientific fields, domains, or theoretical concepts"
+    ORGANIZATION: "Non-university institutions, funding bodies, or companies"
+    LOCATION: "Cities, states, or countries"
+    FILM: "Feature films, television films, and other screen productions"
+    BOOK: "Books, novels, and other published literary works"
+    COUNTRY: "Sovereign states and countries"
+    EVENT: "Historical, cultural, political, or scientific events"
+    WORK: "Creative or scholarly works not otherwise typed"
+  generic_descriptors:
+    PROJECT: ["project", "program", "programme", "initiative"]
+  relationship_types:
+    STUDIES_AT:
+      name: "STUDIES_AT"
+      description: "Student studies at a university or institute"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["UNIVERSITY", "ORGANIZATION"]
+    WORKS_AT:
+      name: "WORKS_AT"
+      description: "Person works at or is employed by an institution"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["UNIVERSITY", "ORGANIZATION"]
+    WORKS_UNDER:
+      name: "WORKS_UNDER"
+      description: "Student or researcher works under the supervision of a professor/mentor"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["PERSON"]
+    SUPERVISES:
+      name: "SUPERVISES"
+      description: "Professor or lead supervises a person or research project"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["PERSON", "PROJECT"]
+    WORKS_ON:
+      name: "WORKS_ON"
+      description: "Person or group works on a research project, film, or creative work"
+      allowed_source_types: ["PERSON", "UNIVERSITY", "ORGANIZATION"]
+      allowed_target_types: ["PROJECT", "CONCEPT", "FILM", "WORK", "BOOK"]
+    USES:
+      name: "USES"
+      description: "Project, person, or technology uses a specific technology or concept"
+      allowed_source_types: ["PROJECT", "PERSON", "TECHNOLOGY"]
+      allowed_target_types: ["TECHNOLOGY", "CONCEPT"]
+    AFFILIATED_WITH:
+      name: "AFFILIATED_WITH"
+      description: "General affiliation between entities"
+      allowed_source_types: []
+      allowed_target_types: []
+    PART_OF:
+      name: "PART_OF"
+      description: "Sub-unit, project, or concept is part of a larger entity"
+      allowed_source_types: []
+      allowed_target_types: []
+    AUTHORED:
+      name: "AUTHORED"
+      description: "Person authored a project, paper, book, film, or technology"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["PROJECT", "TECHNOLOGY", "CONCEPT", "BOOK", "WORK", "FILM"]
+    RELATED_TO:
+      name: "RELATED_TO"
+      description: "Fallback semantic relationship when a specific label does not apply"
+      allowed_source_types: []
+      allowed_target_types: []
+    ACTED_IN:
+      name: "ACTED_IN"
+      description: "A person performed an acting role in a film or screen production; directed from actor to production"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["FILM"]
+    DIRECTED:
+      name: "DIRECTED"
+      description: "A person directed a film or screen production; directed from director to production"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["FILM"]
+    WROTE:
+      name: "WROTE"
+      description: "A person authored a book or creative work; directed from author to work"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["BOOK", "WORK"]
+    BORN_IN:
+      name: "BORN_IN"
+      description: "A person was born in a geographic place; directed from person to place"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["LOCATION", "COUNTRY"]
+    NATIONALITY:
+      name: "NATIONALITY"
+      description: "A person holds nationality or citizenship of a country or geographic region; directed from person to country/location"
+      allowed_source_types: ["PERSON"]
+      allowed_target_types: ["COUNTRY", "LOCATION"]
+    LOCATED_IN:
+      name: "LOCATED_IN"
+      description: "An entity is geographically located in a place; directed from entity to place"
+      allowed_source_types: []
+      allowed_target_types: ["LOCATION", "COUNTRY"]
+    MEMBER_OF:
+      name: "MEMBER_OF"
+      description: "A person or organization belongs to an organization, film cast, or group; directed from member to organization/film"
+      allowed_source_types: ["PERSON", "ORGANIZATION"]
+      allowed_target_types: ["ORGANIZATION", "FILM", "WORK"]
+    COLLABORATED_WITH:
+      name: "COLLABORATED_WITH"
+      description: "A person or organization collaborated or worked together with another person or organization"
+      allowed_source_types: ["PERSON", "ORGANIZATION"]
+      allowed_target_types: ["PERSON", "ORGANIZATION"]
+    PARTICIPATED_IN:
+      name: "PARTICIPATED_IN"
+      description: "A person or organization took part in an event; directed from participant to event"
+      allowed_source_types: ["PERSON", "ORGANIZATION"]
+      allowed_target_types: ["EVENT"]

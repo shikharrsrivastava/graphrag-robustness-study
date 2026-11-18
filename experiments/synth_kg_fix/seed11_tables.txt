@@ -1,0 +1,67 @@
+==============================================================================================================
+KB TABLES  corpus=/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg_fix/corpus_seed11  gold entities=60 gold edges=95 answerable questions=105
+==============================================================================================================
+
+(i) GOLD-EDGE FATE (categories defined in the header of experiments/synth_kg_fix/kb_tables.py)
+| fate | seed 11 (all fixes) |
+|---|---|
+| A validated, exact gold type | 42 |
+| E validated exact, endpoint on split/duplicate entity | 0 |
+| B validated under another type / reversed, same endpoints | 9 |
+| C rejected by ontology | 22 |
+| D rejected for evidence reasons (not in the requested list) | 14 |
+| F never extracted | 8 |
+| total | 95 |
+| A+E (exact type validated) | 42 |
+
+   By gold relation type (fate counts A/E/B/C/D/F):
+   BELONGS_TO  seed 11 (all fixes): 7/0/7/2/3/2
+   BUILT_WITH  seed 11 (all fixes): 4/0/0/3/3/2
+   DEVELOPS    seed 11 (all fixes): 2/0/0/11/2/0
+   MANAGES     seed 11 (all fixes): 9/0/2/6/2/1
+   SERVES      seed 11 (all fixes): 20/0/0/0/4/3
+   score.py fate counts [seed 11 (all fixes)]: {'REJECTED: REJECTED_ONTOLOGY': 23, 'VALIDATED_CORRECT': 42, 'REJECTED: REJECTED_ENDPOINT_NOT_IN_EVIDENCE': 16, 'REJECTED: REJECTED_QUOTE_MISMATCH': 4, 'EXTRACTED_BUT_DROPPED_IN_RESOLUTION': 7, 'NEVER_EXTRACTED': 3}
+   score.py relationship scoring [seed 11 (all fixes)]: {"gold_edges_total": 95, "validated_edges_total": 45, "exact_matched_validated": 42, "exact_recalled_gold": 42, "exact_precision": 0.933, "exact_recall": 0.442, "relaxed_matched_validated": 44, "relaxed_recalled_gold": 43, "relaxed_precision": 0.978, "relaxed_recall": 0.453}
+
+(ii) CANONICAL ENTITIES
+| quantity | seed 11 (all fixes) |
+|---|---|
+| canonical entities | 79 |
+| gold entities with >=1 canonical entity | 60 |
+| gold entities split into >1 canonical entity | 0 |
+| canonical entities mapping to >1 gold entity (false merge) | 0 |
+| extra canonical entities (map to no gold entity) | 19 |
+| graph relationships (validated, aggregated) | 45 |
+| raw triples VALIDATED | 45 |
+| raw triples REJECTED_ONTOLOGY | 24 |
+| validated graph edges matching a gold edge exactly (score.py) | 42 |
+| validated graph edges matching NO gold edge exactly | 3 |
+   unsplit gold entities whose canonical type differs from the gold type [seed 11 (all fixes)]: 3 [('NeborzorVM', 'TECHNOLOGY', 'PRODUCT'), ('UlxantisStore', 'TECHNOLOGY', 'PRODUCT'), ('KaeluthvekDB', 'TECHNOLOGY', 'PRODUCT')]
+
+(iv) RETRIEVAL-ONLY ALL-GOLD EVIDENCE RECALL AT K=4 (cached query plans, no answer generation; Wilson 95%)
+  [seed 11 (all fixes)]  (/Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg_fix/retrieval_seed11_all.jsonl)
+   hybrid: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 11/30 = 36.7% [21.9, 54.5] | hop3 0/30 = 0.0% [0.0, 11.4] | alias 12/15 = 80.0% [54.8, 93.0]
+   graph_only: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 15/30 = 50.0% [33.2, 66.8] | hop3 1/30 = 3.3% [0.6, 16.7] | alias 10/15 = 66.7% [41.7, 84.8]
+   vector_only: hop1 30/30 = 100.0% [88.6, 100.0] | hop2 4/30 = 13.3% [5.3, 29.7] | hop3 0/30 = 0.0% [0.0, 11.4] | alias 7/15 = 46.7% [24.8, 69.9]
+   planner failures (cached): 0 [] | query ERRORs (counted as not retrieved, listed separately): 0 []
+
+(iii) ALIAS QUESTIONS: SEEDS RESOLVED BY THE GRAPH ROUTE (graph_only mode records)
+  [seed 11 (all fixes)]
+    Q_0091 gold='Synaldor Hub' planner_seeds=[('Synaldor', 'PRODUCT')] resolved=[] gold_entity_resolved=NO
+    Q_0092 gold='Yvathmir Xanuthrix' planner_seeds=[('Y. Xanuthrix', 'EMPLOYEE')] resolved=[('E039', 'Yvathmir Xanuthrix', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0093 gold='Faelothric Nebuthric' planner_seeds=[('F. Nebuthric', 'EMPLOYEE')] resolved=[('E024', 'Faelothric Nebuthric', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0094 gold='Zantothvane Applied Automation Wing' planner_seeds=[('Zantothvane Division', 'DEPARTMENT')] resolved=[] gold_entity_resolved=NO
+    Q_0095 gold='Zanunvane Pryxonnax' planner_seeds=[('Z. Pryxonnax', 'EMPLOYEE')] resolved=[('E030', 'Zanunvane Pryxonnax', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0096 gold='Iskelvek Zantokmir' planner_seeds=[('I. Zantokmir', 'EMPLOYEE')] resolved=[('E005', 'Iskelvek Zantokmir', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0097 gold='Pryxothvane Jolinfen' planner_seeds=[('P. Jolinfen', 'EMPLOYEE')] resolved=[('E014', 'Pryxothvane Jolinfen', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0098 gold='Faelolrak Oryxuthnok' planner_seeds=[('F. Oryxuthnok', 'EMPLOYEE')] resolved=[('E012', 'Faelolrak Oryxuthnok', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0099 gold='Jorolmoth Kaelinkest' planner_seeds=[('J. Kaelinkest', 'EMPLOYEE')] resolved=[('E017', 'Jorolmoth Kaelinkest', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0100 gold='Veltothlux Loruthmar' planner_seeds=[('V. Loruthmar', 'EMPLOYEE')] resolved=[('E032', 'Veltothlux Loruthmar', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0101 gold='Jorolmoth Kaelinkest' planner_seeds=[('J. Kaelinkest', 'EMPLOYEE')] resolved=[('E017', 'Jorolmoth Kaelinkest', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0102 gold='Brecusron Haelinvath' planner_seeds=[('B. Haelinvath', 'EMPLOYEE')] resolved=[('E008', 'Brecusron Haelinvath', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0103 gold='Pryxothvane Jolinfen' planner_seeds=[('P. Jolinfen', 'EMPLOYEE')] resolved=[('E014', 'Pryxothvane Jolinfen', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0104 gold='Noxoktor Loralgon' planner_seeds=[('N. Loralgon', 'EMPLOYEE')] resolved=[('E038', 'Noxoktor Loralgon', 'EMPLOYEE')] gold_entity_resolved=YES
+    Q_0105 gold='Oryxustex Drakorgath' planner_seeds=[('O. Drakorgath', 'EMPLOYEE')] resolved=[('E003', 'Oryxustex Drakorgath', 'EMPLOYEE')] gold_entity_resolved=YES
+  | run | questions with >=1 resolved seed | gold entity among resolved seeds | resolved seeds are only the gold entity |
+  |---|---|---|---|
+  | seed 11 (all fixes) | 13/15 | 13/15 | 13/15 |

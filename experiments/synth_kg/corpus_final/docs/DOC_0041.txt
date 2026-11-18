@@ -1,0 +1,1 @@
+Wyrithwyn Pipeline is a proprietary enterprise software solution deployed across production clusters. Wyrithwyn Pipeline relies on PryxingonDB as its foundational technology stack. Wyrithwyn Pipeline provides specialized commercial solutions for Pryxunvek Syndicate. In contrast, Wyrithwyn Systems maintains entirely distinct non-production responsibilities.

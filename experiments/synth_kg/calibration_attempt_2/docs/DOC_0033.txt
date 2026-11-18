@@ -1,0 +1,1 @@
+Goroklok Engine is a proprietary enterprise software solution deployed across production clusters. Goroklok Engine relies on XanothlanStore as its foundational technology stack. Goroklok Engine provides specialized commercial solutions for Fennoknok Syndicate. In contrast, Goroklok Systems maintains entirely distinct non-production responsibilities.

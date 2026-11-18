@@ -1,0 +1,1 @@
+Vaeluntex Protocol is a proprietary enterprise software solution deployed across production clusters. Vaeluntex Protocol was constructed upon the NeborzorVM framework. Vaeluntex Protocol provides specialized commercial solutions for Fennuszar Syndicate.

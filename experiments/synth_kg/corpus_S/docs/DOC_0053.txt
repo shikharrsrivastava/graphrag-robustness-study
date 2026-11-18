@@ -1,0 +1,1 @@
+PryxingonDB is an internal software specification maintained for operational stability. In contrast, PryxingonDB Systems maintains entirely distinct non-production responsibilities. All formal operational guidelines regarding PryxingonDB are cataloged in internal records.

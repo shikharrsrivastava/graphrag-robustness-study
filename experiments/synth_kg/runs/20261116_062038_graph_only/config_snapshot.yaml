@@ -1,0 +1,153 @@
+kb_id: synth_company_kb
+config_version: 1.0.0
+storage_root: /Users/shikharsrivastava/Documents/Documents/Python/hybrid-graphrag-system/experiments/synth_kg/kb
+prompts_dir: prompts
+chunking:
+  chunk_size: 1100
+  chunk_overlap: 180
+  respect_sentence_boundaries: true
+ollama:
+  base_url: http://localhost:11434
+  llm_model: gemma3:4b
+  embedding_model: embeddinggemma:latest
+  expected_embedding_dim: 768
+  temperature: 0.0
+  timeout_seconds: 120
+  max_retries: 2
+validation:
+  enabled: true
+  negation_cues:
+  - not
+  - n't
+  - never
+  - no longer
+  - neither
+  - nor
+  - without
+  - cannot
+  - denies
+  - denied
+  - rejects
+  - rejected
+  - fails to
+  - failed to
+  uncertainty_cues:
+  - may
+  - might
+  - possibly
+  - reportedly
+  - allegedly
+  - perhaps
+  - uncertain
+  - claims
+  - claimed
+  - unconfirmed
+  quote_repair_enabled: true
+  endpoint_in_evidence_enabled: true
+  honorifics:
+  - prof
+  - prof.
+  - professor
+  - dr
+  - dr.
+  - mr
+  - mr.
+  - mrs
+  - mrs.
+  - ms
+  - ms.
+resolution:
+  similarity_candidate_threshold: 0.82
+  auto_merge_threshold: 0.95
+  require_type_match: true
+  use_llm_verification_for_ambiguous: true
+  enable_descriptor_normalization: true
+  enable_single_token_person_merge: true
+leiden:
+  objective: RBConfigurationVertexPartition
+  resolution_parameter: 1.0
+  random_seed: 42
+  edge_weight_rule: distinct_supporting_chunks
+retrieval:
+  max_traversal_hops: 3
+  max_graph_candidates: 20
+  vector_top_k: 4
+  community_top_k: 3
+  final_context_chunks: 4
+  rrf_k: 60
+  max_context_chars: 12000
+  provenance_expansion_enabled: false
+  max_chunks_per_cooccurring_entity: 2
+  max_cooccurring_entities_per_chunk: 5
+  max_expanded_candidates_per_query: 10
+  direct_seed_outranks_expanded: true
+  max_candidates_per_seed: 5
+  document_title_discovery_enabled: false
+  max_title_matches_per_seed: 2
+  max_chunks_per_title_match: 3
+  max_title_candidates_per_query: 6
+  entity_description_discovery_enabled: false
+  entity_description_similarity_threshold: 0.65
+  max_description_candidates_per_seed: 3
+  max_description_candidates_per_query: 6
+  graph_context_mode: false
+  comparative_reasoning_mode: 'off'
+prompt_versions:
+  entity_extraction: v1.1
+  relationship_extraction: v1.1
+  entity_resolution: v1.0
+  community_summary: v1.0
+  query_planning: v1.0
+  answer_generation: v1.1
+ontology:
+  domain_name: company_knowledge
+  version: 1.0.0
+  entity_types:
+    EMPLOYEE: Company engineers, managers, executives, or staff
+    DEPARTMENT: Engineering, product, operations, or business units
+    PRODUCT: Software products, platforms, or internal services
+    TECHNOLOGY: Programming languages, databases, cloud tools, or frameworks
+    CLIENT: Enterprise customers or partner organizations
+  relationship_types:
+    MANAGES:
+      name: MANAGES
+      description: Employee manages another employee, department, or product
+      allowed_source_types:
+      - EMPLOYEE
+      allowed_target_types:
+      - EMPLOYEE
+      - DEPARTMENT
+      - PRODUCT
+    BELONGS_TO:
+      name: BELONGS_TO
+      description: Employee or product belongs to a department
+      allowed_source_types:
+      - EMPLOYEE
+      - PRODUCT
+      allowed_target_types:
+      - DEPARTMENT
+    DEVELOPS:
+      name: DEVELOPS
+      description: Employee or department builds or maintains a product
+      allowed_source_types:
+      - EMPLOYEE
+      - DEPARTMENT
+      allowed_target_types:
+      - PRODUCT
+    BUILT_WITH:
+      name: BUILT_WITH
+      description: Product is built using a specific technology
+      allowed_source_types:
+      - PRODUCT
+      allowed_target_types:
+      - TECHNOLOGY
+    SERVES:
+      name: SERVES
+      description: Product or department serves a client
+      allowed_source_types:
+      - PRODUCT
+      - DEPARTMENT
+      allowed_target_types:
+      - CLIENT
+  static_aliases: {}
+  generic_descriptors: {}

@@ -1,0 +1,1 @@
+Noxosric Gateway is a proprietary enterprise software solution deployed across production clusters. It utilizes AethenvekLang for core functionality. It directly serves the enterprise requirements of Fennoknok Syndicate.

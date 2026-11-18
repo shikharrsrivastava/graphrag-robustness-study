@@ -1,0 +1,418 @@
+Discovered condition run files: {'A_v11': 'experiments/hotpotqa_m3/runs/20261115_223113_A_v11/results.jsonl', 'A_v10': 'experiments/hotpotqa_m3/runs/20261115_224820_A_v10/results.jsonl', 'B': 'experiments/hotpotqa_m3/runs/20261115_230652_B/results.jsonl', 'C': 'experiments/hotpotqa_m3/runs/20261115_232950_C/results.jsonl'}
+
+================================================================================
+PART 1(a): QUESTIONS NOT CORRECT (FAIL, ABS, OR ERR) IN AT LEAST ONE CONDITION
+================================================================================
+Total questions non-correct in >=1 condition: 15 / 30
+
+[1/15] Question ID: 5ae5669755429960a22e02ec
+Type: bridge
+Question: Which of the campaign that brought out the term Vichy Republican on social media was formally launched on June 16, 2015, at Trump Tower in New York City?
+Gold Answer: presidential campaign of Donald Trump
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           FAIL
+    Canonical Answer: "Donald Trump's 2016 presidential campaign"
+    Full Answer:      The evidence indicates that the campaign that brought out the term Vichy Republican was Donald Trump's 2016 presidential campaign, which was formally launched on June 16, 2015, at Trump Tower in New York City [D000_C0000]. Chunk [D001_C0000] defines Vichy Republican as a term that emerged on social media in 2016 in regards to Donald Trump's candida...
+    Abstained:        False
+    Generation Error: False
+  Condition: A_v10
+    Status:           FAIL
+    Canonical Answer: "Donald Trump's 2016 presidential campaign"
+    Full Answer:      The Donald Trump’s 2016 presidential campaign was formally launched on June 16, 2015, at Trump Tower in New York City [D002_C0000]. The term Vichy Republican emerged on social media in 2016 in regards to Trump’s candidacy [D001_C0000].
+    Abstained:        False
+    Generation Error: False
+  Condition: B
+    Status:           FAIL
+    Canonical Answer: 'Donald Trump campaign'
+    Full Answer:      The Donald Trump campaign was formally launched on June 16, 2015, at Trump Tower in New York City. The term "Vichy Republican" emerged on social media in 2016 to describe supporters of Donald Trump within the Republican Party [D003_C0000, D009_C0000].
+    Abstained:        False
+    Generation Error: False
+  Condition: C
+    Status:           FAIL
+    Canonical Answer: 'Donald Trump'
+    Full Answer:      The Donald Trump presidential campaign was formally launched on June 16, 2015, at Trump Tower in New York City [D001_C0000]. George Pataki's campaign was launched on May 28, 2015 [D002_C0000].
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+[2/15] Question ID: 5adf0cbd5542993a75d263e0
+Type: bridge
+Question: When was the English-born South Australian brewer whose brewery was amalgamated with W. K. Simms's West End Brewery. born 
+Gold Answer: 6 April 1830
+Non-correct Conditions:
+  Condition: B
+    Status:           FAIL
+    Canonical Answer: '1820'
+    Full Answer:      Edward Fitzgerald was born in 1820, as stated in chunk [5adf0cbd5542993a75d263e0_P0]. The chunk describes him as an Australian brewer and founder of the Castlemaine Brewery, and provides his birth year.
+    Abstained:        False
+    Generation Error: False
+  Condition: C
+    Status:           FAIL
+    Canonical Answer: '1830'
+    Full Answer:      The English-born South Australian brewer whose brewery was amalgamated with W. K. Simms's West End Brewery was Sir Edwin Thomas Smith, who was born on April 6, 1830 [D001_C0000].
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+[3/15] Question ID: 5a7caae75542996dd594b971
+Type: bridge
+Question: What, known as AAS, is commonly used in bodybuilding?
+Gold Answer: Anabolic steroids
+Non-correct Conditions:
+  Condition: A_v10
+    Status:           FAIL
+    Canonical Answer: 'Anabolic/androgenic steroids'
+    Full Answer:      The context states that anabolic/androgenic steroids are used for muscle-building and strength gain for cosmetic reasons as well as for performance-enhancement in athletics and bodybuilding [D001_P1].
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+[4/15] Question ID: 5abbcba05542992ccd8e7fa3
+Type: bridge
+Question: With whom did Lever Brothers merge to create an Indonesian soap factory?
+Gold Answer: Margarine Unie
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           FAIL
+    Canonical Answer: 'Lever Brothers'
+    Full Answer:      The evidence states that PT Unilever Indonesia Tbk was established as Lever Zeepfabrieken N.V., a subsidiary of Lever Brothers [D001_C0000]. Therefore, Lever Brothers merged to create the Indonesian soap factory.
+    Abstained:        False
+    Generation Error: False
+  Condition: A_v10
+    Status:           FAIL
+    Canonical Answer: 'Lever Brothers'
+    Full Answer:      According to Chunk [5abbcba05542992ccd8e7fa3_P1], PT Unilever Indonesia Tbk was established as a subsidiary of Lever Brothers. Therefore, Lever Brothers was with whom Lever Brothers merged to create an Indonesian soap factory.
+    Abstained:        False
+    Generation Error: False
+  Condition: C
+    Status:           FAIL
+    Canonical Answer: 'Lever Brothers'
+    Full Answer:      The evidence indicates that PT Unilever Indonesia Tbk was initially established as a subsidiary of Lever Brothers [D001_C0000]. This establishes a connection between the two entities, but does not describe a merger to create an Indonesian soap factory.
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+[5/15] Question ID: 5a77ddb855429967ab1052d8
+Type: bridge
+Question: The True Colors World Tour was by what artist whose debut album was "She's So Unusual"?
+Gold Answer: Cynthia Ann Stephanie "Cyndi" Lauper
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           FAIL
+    Canonical Answer: 'Cyndi Lauper'
+    Full Answer:      The question asks for the artist whose debut album was "She's So Unusual". According to [D000_C0000], this album was released by Cyndi Lauper. The True Colors World Tour was a concert tour by Cyndi Lauper.
+    Abstained:        False
+    Generation Error: False
+  Condition: A_v10
+    Status:           FAIL
+    Canonical Answer: 'Cyndi Lauper'
+    Full Answer:      The True Colors World Tour was by Cyndi Lauper, whose debut album was "She's So Unusual" [D002_C0000]. This is confirmed by [D001_C0000] which states the tour supported "True Colors" and "She's So Unusual".
+    Abstained:        False
+    Generation Error: False
+  Condition: B
+    Status:           FAIL
+    Canonical Answer: 'Cyndi Lauper'
+    Full Answer:      Cyndi Lauper released the album "She's So Unusual" [D000_C0000]. This album was her debut solo album and charted four top-five hits on the "Billboard" Hot 100, including "Girls Just Want to Have Fun", "Time After Time", "She Bop", and "All Through the Night".
+    Abstained:        False
+    Generation Error: False
+  Condition: C
+    Status:           FAIL
+    Canonical Answer: 'Cyndi Lauper'
+    Full Answer:      The artist whose debut album was "She's So Unusual" is Cyndi Lauper. This is stated in [D002_C0000] which says "Her second record "True Colors" (1986) was Lauper's debut solo album "She's So Unusual" (1983)".
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+[6/15] Question ID: 5a76067e55429976ec32bce9
+Type: bridge
+Question: What Box Codax group musician was also the guitarist, backing/lead vocalist and keyboardist of another Glasgow-based band?
+Gold Answer: Nicholas John "Nick" McCarthy
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           FAIL
+    Canonical Answer: 'Nick McCarthy'
+    Full Answer:      Nick McCarthy was a member of Box Codax [5a76067e55429976ec32bce9_P1] and also the guitarist, backing/lead vocalist, and keyboardist of Franz Ferdinand [5a76067e55429976ec32bce9_P1].
+    Abstained:        False
+    Generation Error: False
+  Condition: A_v10
+    Status:           FAIL
+    Canonical Answer: 'Nick McCarthy'
+    Full Answer:      Nick McCarthy is a member of Box Codax [5a76067e55429976ec32bce9_P0] and was also the guitarist, backing/lead vocalist, and keyboardist of Franz Ferdinand [5a76067e55429976ec32bce9_P1], which is a Glasgow-based band.
+    Abstained:        False
+    Generation Error: False
+  Condition: B
+    Status:           FAIL
+    Canonical Answer: 'Nick McCarthy'
+    Full Answer:      Nick McCarthy is identified as a member of both Box Codax [D000_C0000] and Franz Ferdinand [D001_C0000], fulfilling the criteria of being the guitarist, backing/lead vocalist and keyboardist of another Glasgow-based band. The evidence explicitly states this relationship.
+    Abstained:        False
+    Generation Error: False
+  Condition: C
+    Status:           FAIL
+    Canonical Answer: 'Nick McCarthy'
+    Full Answer:      Nick McCarthy was a member of Box Codax [5a76067e55429976ec32bce9_P1] and also the guitarist, backing/lead vocalist and keyboardist of the Glasgow-based band Franz Ferdinand [5a76067e55429976ec32bce9_P1].
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+[7/15] Question ID: 5ade0a275542997545bbbe2d
+Type: bridge
+Question: Where is the American hip hop group, that released the song "RedEye to Paris", from?
+Gold Answer: Flatbush section of Brooklyn, New York City
+Non-correct Conditions:
+  Condition: C
+    Status:           ABS
+    Canonical Answer: ''
+    Full Answer:      The evidence does not state the origin of the group that released the song "RedEye to Paris". Chunk D001 describes Cypress Hill as being from South Gate, California [5ade0a275542997545bbbe2d_P1], and Chunk D002 describes Stetsasonic as being from Brooklyn, New York City [5ade0a275542997545bbbe2d_P2]. However, the song "RedEye to Paris" is by Flatbu...
+    Abstained:        True
+    Generation Error: False
+--------------------------------------------------------------------------------
+[8/15] Question ID: 5ade24e35542992fa25da6e6
+Type: bridge
+Question: Mamie Gummer played the role of Nancy Crozier on the TV series airing on what network?
+Gold Answer: CBS
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           ERR
+    Canonical Answer: ''
+    Full Answer:      Error generating answer: Failed to generate valid JSON matching AnswerGenerationOutput after 3 attempts. Last error: Expecting ',' delimiter: line 17 column 553 (char 1472)
+    Abstained:        True
+    Generation Error: True
+--------------------------------------------------------------------------------
+[9/15] Question ID: 5ae07b0155429945ae95935d
+Type: comparison
+Question: Which novelist was German, David Guterson or Thomas Mann?
+Gold Answer: Paul Thomas Mann
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           FAIL
+    Canonical Answer: 'Thomas Mann'
+    Full Answer:      Thomas Mann was a German novelist, as stated in [D001_C0000], while David Guterson is described as an American novelist in [D000_C0000].
+    Abstained:        False
+    Generation Error: False
+  Condition: A_v10
+    Status:           FAIL
+    Canonical Answer: 'Thomas Mann'
+    Full Answer:      Thomas Mann was a German novelist, as stated in Chunk D001 [5ae07b0155429945ae95935d_P1], while David Guterson is described as an American novelist in Chunk D000 [5ae07b0155429945ae95935d_P0].
+    Abstained:        False
+    Generation Error: False
+  Condition: C
+    Status:           FAIL
+    Canonical Answer: 'Thomas Mann'
+    Full Answer:      Thomas Mann was described as a German novelist in [D001_C0000], while David Guterson is described as an American novelist in [D000_C0000].
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+[10/15] Question ID: 5a70f9335542994082a3e46a
+Type: comparison
+Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+Gold Answer: ALT for Damerne
+Non-correct Conditions:
+  Condition: A_v10
+    Status:           ABS
+    Canonical Answer: ''
+    Full Answer:      The context does not provide information about the number of copies published annually for either Essence or Alt for Damerne. Therefore, it is impossible to determine which magazine is published more in a year [D000_C0000, D001_C0000].
+    Abstained:        True
+    Generation Error: False
+--------------------------------------------------------------------------------
+[11/15] Question ID: 5a8a3dd55542995153361360
+Type: comparison
+Question: Did Nicholas Hytner and Maya Deren work in the same role in the film industry?
+Gold Answer: no
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           ABS
+    Canonical Answer: ''
+    Full Answer:      The evidence indicates that Nicholas Hytner was a theatre director, film director, and film producer, while Maya Deren was a filmmaker, choreographer, dancer, film theorist, poet, lecturer, writer, and photographer. There is no information in the provided evidence to suggest that they worked together or in the same role in the film industry. Theref...
+    Abstained:        True
+    Generation Error: False
+  Condition: A_v10
+    Status:           ABS
+    Canonical Answer: ''
+    Full Answer:      The evidence does not state that Nicholas Hytner and Maya Deren worked in the same role in the film industry. [Chunk: 5a8a3dd55542995153361360_P0] describes Maya Deren as a filmmaker, while [Chunk: 5a8a3dd55542995153361360_P1] describes Nicholas Hytner as a theatre and film director. There is no overlap in their described roles.
+    Abstained:        True
+    Generation Error: False
+  Condition: B
+    Status:           ABS
+    Canonical Answer: ''
+    Full Answer:      The provided evidence does not state that Nicholas Hytner and Maya Deren worked in the same role in the film industry. Chunk D005 describes Hytner as a theatre and film director, while Chunk D003 describes Deren as a filmmaker and experimental film artist. There is no mention of any collaboration or shared role between them. Therefore, I must absta...
+    Abstained:        True
+    Generation Error: False
+--------------------------------------------------------------------------------
+[12/15] Question ID: 5ae26905554299492dc91c17
+Type: comparison
+Question: Are Dennis Locorriere and Maja Ivarsson both lead singers?
+Gold Answer: yes
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      Dennis Locorriere was the lead vocalist and guitarist of Dr. Hook & the Medicine Show [5ae26905554299492dc91c17_P1], while Maja Ivarsson is the lead vocalist of The Sounds [5ae26905554299492dc91c17_P0]. Therefore, they are not both lead singers.
+    Abstained:        False
+    Generation Error: False
+  Condition: B
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      Dennis Locorriere is the lead vocalist and guitarist of The Temptations [D003_C0000], while Maja Ivarsson is the lead vocalist of The Sounds [D001_C0000]. Therefore, they were not both lead singers.
+    Abstained:        False
+    Generation Error: False
+  Condition: C
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      Maja Ivarsson is stated to be the lead vocalist of The Sounds [5ae26905554299492dc91c17_P0], while Dennis Locorriere was the lead vocalist and guitarist of Dr. Hook & the Medicine Show [5ae26905554299492dc91c17_P1]. Therefore, they are not both lead singers.
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+[13/15] Question ID: 5a7fe0b55542994857a76818
+Type: comparison
+Question: Are The Maine and Black both from Tempe, Arizona?
+Gold Answer: no
+Non-correct Conditions:
+  Condition: C
+    Status:           ABS
+    Canonical Answer: ''
+    Full Answer:      The Maine is from Tempe, Arizona [D000_C0000], but Black is not mentioned in the provided evidence. Therefore, I must abstain.
+    Abstained:        True
+    Generation Error: False
+--------------------------------------------------------------------------------
+[14/15] Question ID: 5ab2b630554299545a2cfa17
+Type: comparison
+Question: Are the films Gasland from 2010 and Pumping Iron from 1977 both documentaries?
+Gold Answer: yes
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      Pumping Iron is described as a "docudrama" [D000_C0000], while Gasland is explicitly identified as a "documentary" [D001_C0000]. These terms represent distinct film genres, therefore the films are not both documentaries.
+    Abstained:        False
+    Generation Error: False
+  Condition: A_v10
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      Gasland is described as a "2010 American documentary" [D001_C0000], while Pumping Iron is described as a "1977 docudrama" [D002_C0000]. A documentary presents factual information, whereas a docudrama is a fictionalized account based on real events. Therefore, they are not both documentaries.
+    Abstained:        False
+    Generation Error: False
+  Condition: B
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      ‘Pumping Iron’ (1977) is described as a "docudrama" which is a staged presentation of real events, while ‘Gasland’ (2010) is explicitly identified as a "documentary" film [D006_C0000, D008_C0000].
+    Abstained:        False
+    Generation Error: False
+  Condition: C
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      Gasland [D000_C0000] is described as a 2010 American documentary, while Pumping Iron [D001_C0000] is described as a 1977 docudrama. These descriptions indicate different documentary types.
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+[15/15] Question ID: 5a8b82a05542995d1e6f13d0
+Type: comparison
+Question: Are University of Virginia and Massachusetts Institute of Technology in the same country?
+Gold Answer: yes
+Non-correct Conditions:
+  Condition: A_v11
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      The University of Virginia is located in Virginia [5a8b82a05542995d1e6f13d0_P0], while the Massachusetts Institute of Technology is located in Massachusetts [5a8b82a05542995d1e6f13d0_P1]. These are two different states, and therefore different countries.
+    Abstained:        False
+    Generation Error: False
+  Condition: A_v10
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      The University of Virginia is located in Virginia [5a8b82a05542995d1e6f13d0_P0], while the Massachusetts Institute of Technology is located in Massachusetts [5a8b82a05542995d1e6f13d0_P1]. These are different states, and therefore different countries.
+    Abstained:        False
+    Generation Error: False
+  Condition: C
+    Status:           FAIL
+    Canonical Answer: 'no'
+    Full Answer:      University of Virginia is located in Virginia [D001_C0000], while Massachusetts Institute of Technology is located in Massachusetts [D002_C0000]. Therefore, they are not in the same country.
+    Abstained:        False
+    Generation Error: False
+--------------------------------------------------------------------------------
+
+================================================================================
+PART 1(b): UNTRIMMED ANSWER TEXTS FOR 4 FOCAL QUESTIONS IN A_v11 AND A_v10
+================================================================================
+
+Question ID: 5a8a3dd55542995153361360 (Prefix: 5a8a3dd5)
+Type: comparison | Gold: no
+Question: Did Nicholas Hytner and Maya Deren work in the same role in the film industry?
+
+--- Condition A_v11 ---
+Status: ABS | Abstained: True | Error: False
+Canonical Answer: ''
+Full Answer (untrimmed):
+The evidence indicates that Nicholas Hytner was a theatre director, film director, and film producer, while Maya Deren was a filmmaker, choreographer, dancer, film theorist, poet, lecturer, writer, and photographer. There is no information in the provided evidence to suggest that they worked together or in the same role in the film industry. Therefore, we must abstain.
+
+--- Condition A_v10 ---
+Status: ABS | Abstained: True | Error: False
+Canonical Answer: ''
+Full Answer (untrimmed):
+The evidence does not state that Nicholas Hytner and Maya Deren worked in the same role in the film industry. [Chunk: 5a8a3dd55542995153361360_P0] describes Maya Deren as a filmmaker, while [Chunk: 5a8a3dd55542995153361360_P1] describes Nicholas Hytner as a theatre and film director. There is no overlap in their described roles.
+
+Question ID: 5a8b82a05542995d1e6f13d0 (Prefix: 5a8b82a0)
+Type: comparison | Gold: yes
+Question: Are University of Virginia and Massachusetts Institute of Technology in the same country?
+
+--- Condition A_v11 ---
+Status: FAIL | Abstained: False | Error: False
+Canonical Answer: 'no'
+Full Answer (untrimmed):
+The University of Virginia is located in Virginia [5a8b82a05542995d1e6f13d0_P0], while the Massachusetts Institute of Technology is located in Massachusetts [5a8b82a05542995d1e6f13d0_P1]. These are two different states, and therefore different countries.
+
+--- Condition A_v10 ---
+Status: FAIL | Abstained: False | Error: False
+Canonical Answer: 'no'
+Full Answer (untrimmed):
+The University of Virginia is located in Virginia [5a8b82a05542995d1e6f13d0_P0], while the Massachusetts Institute of Technology is located in Massachusetts [5a8b82a05542995d1e6f13d0_P1]. These are different states, and therefore different countries.
+
+Question ID: 5ae26905554299492dc91c17 (Prefix: 5ae26905)
+Type: comparison | Gold: yes
+Question: Are Dennis Locorriere and Maja Ivarsson both lead singers?
+
+--- Condition A_v11 ---
+Status: FAIL | Abstained: False | Error: False
+Canonical Answer: 'no'
+Full Answer (untrimmed):
+Dennis Locorriere was the lead vocalist and guitarist of Dr. Hook & the Medicine Show [5ae26905554299492dc91c17_P1], while Maja Ivarsson is the lead vocalist of The Sounds [5ae26905554299492dc91c17_P0]. Therefore, they are not both lead singers.
+
+--- Condition A_v10 ---
+Status: PASS | Abstained: False | Error: False
+Canonical Answer: 'yes'
+Full Answer (untrimmed):
+Dennis Locorriere is described as the "lead vocalist and guitarist" of Dr. Hook & the Medicine Show [D001_C0000], while Maja Ivarsson is described as the "lead vocalist" of The Sounds [D000_C0000]. Both roles are lead singer.
+
+Question ID: 5ab2b630554299545a2cfa17 (Prefix: 5ab2b630)
+Type: comparison | Gold: yes
+Question: Are the films Gasland from 2010 and Pumping Iron from 1977 both documentaries?
+
+--- Condition A_v11 ---
+Status: FAIL | Abstained: False | Error: False
+Canonical Answer: 'no'
+Full Answer (untrimmed):
+Pumping Iron is described as a "docudrama" [D000_C0000], while Gasland is explicitly identified as a "documentary" [D001_C0000]. These terms represent distinct film genres, therefore the films are not both documentaries.
+
+--- Condition A_v10 ---
+Status: FAIL | Abstained: False | Error: False
+Canonical Answer: 'no'
+Full Answer (untrimmed):
+Gasland is described as a "2010 American documentary" [D001_C0000], while Pumping Iron is described as a "1977 docudrama" [D002_C0000]. A documentary presents factual information, whereas a docudrama is a fictionalized account based on real events. Therefore, they are not both documentaries.
+
+================================================================================
+PART 1(c): GOLD ANSWER BREAKDOWN (YES / NO / OTHER) AND SUBSET ACCURACY
+================================================================================
+Total Questions: 30
+  Gold = 'yes':   4 questions
+  Gold = 'no':    2 questions
+  Gold = 'other': 24 questions
+
+Condition  | Gold=yes (4)       | Gold=no (2)        | Other (24)         | Overall (30)      
+--------------------------------------------------------------------------------
+A_v11      | 1/4 (25.0%)        | 1/2 (50.0%)        | 18/24 (75.0%)      | 20/30 (66.7%)     
+A_v10      | 2/4 (50.0%)        | 1/2 (50.0%)        | 17/24 (70.8%)      | 20/30 (66.7%)     
+B          | 2/4 (50.0%)        | 1/2 (50.0%)        | 20/24 (83.3%)      | 23/30 (76.7%)     
+C          | 1/4 (25.0%)        | 1/2 (50.0%)        | 17/24 (70.8%)      | 19/30 (63.3%)     
+
+================================================================================
+PART 1(d): DISK USAGE AND GIT STATUS
+================================================================================
+du -sh experiments/hotpotqa_m3/data:
+51M	experiments/hotpotqa_m3/data
+
+git status -s:
+?? experiments/hotpotqa_m3/
+?? experiments/hotpotqa_m4/

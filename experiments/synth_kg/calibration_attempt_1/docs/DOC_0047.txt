@@ -1,0 +1,1 @@
+Eldothvix Hub is a proprietary enterprise software solution deployed across production clusters. Eldothvix Hub relies on PryxingonDB as its foundational technology stack. Eldothvix Hub delivers dedicated platform support to Pryxunvek Syndicate. In contrast, Eldothvix Systems maintains entirely distinct non-production responsibilities.

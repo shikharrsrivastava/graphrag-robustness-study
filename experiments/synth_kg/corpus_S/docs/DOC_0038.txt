@@ -1,0 +1,1 @@
+Iskardyn Pipeline is a proprietary enterprise software solution deployed across production clusters. Iskardyn Pipeline is engineered primarily using AethithnokQL. Iskardyn Pipeline operates in production serving Durnonvor Aerospace.

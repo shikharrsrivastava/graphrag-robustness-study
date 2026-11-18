@@ -1,0 +1,137 @@
+diff --git a/configs/default.yaml b/configs/default.yaml
+index a849ba9..027194f 100644
+--- a/configs/default.yaml
++++ b/configs/default.yaml
+@@ -26,6 +26,8 @@ resolution:
+   auto_merge_threshold: 0.95
+   require_type_match: true
+   use_llm_verification_for_ambiguous: true
++  merge_exact_name_across_types: false
++  revalidate_relationships_after_resolution: false
+ 
+ leiden:
+   objective: "RBConfigurationVertexPartition"
+diff --git a/configs/domains/company.yaml b/configs/domains/company.yaml
+index c2d2708..42eb57a 100644
+--- a/configs/domains/company.yaml
++++ b/configs/domains/company.yaml
+@@ -2,6 +2,7 @@ kb_id: "company_kb"
+ ontology:
+   domain_name: "company_knowledge"
+   version: "1.0.0"
++  person_like_types: ["EMPLOYEE"]
+   entity_types:
+     EMPLOYEE: "Company engineers, managers, executives, or staff"
+     DEPARTMENT: "Engineering, product, operations, or business units"
+@@ -34,3 +35,10 @@ ontology:
+       description: "Product or department serves a client"
+       allowed_source_types: ["PRODUCT", "DEPARTMENT"]
+       allowed_target_types: ["CLIENT"]
++
++resolution:
++  merge_exact_name_across_types: true
++  revalidate_relationships_after_resolution: true
++
++prompt_versions:
++  relationship_extraction_version: "v1.1"
+diff --git a/src/core/configuration.py b/src/core/configuration.py
+index 3025f4f..f7bc76d 100644
+--- a/src/core/configuration.py
++++ b/src/core/configuration.py
+@@ -72,6 +72,14 @@ class ResolutionConfig(BaseModel):
+     use_llm_verification_for_ambiguous: bool = True
+     enable_descriptor_normalization: bool = Field(default=True)
+     enable_single_token_person_merge: bool = Field(default=True)
++    merge_exact_name_across_types: bool = Field(
++        default=False,
++        description="Merge exact normalized name mentions across differing entity types with plurality voting",
++    )
++    revalidate_relationships_after_resolution: bool = Field(
++        default=False,
++        description="Revalidate relationship ontology constraints after resolution using canonical entity types",
++    )
+ 
+ 
+ class LeidenConfig(BaseModel):
+@@ -187,6 +195,15 @@ class PromptVersions(BaseModel):
+     community_summary: str = Field(default="v1.0")
+     query_planning: str = Field(default="v1.0")
+     answer_generation: str = Field(default="v1.0")
++    relationship_extraction_version: str = Field(default="v1.0")
++
++    @field_validator("relationship_extraction_version")
++    @classmethod
++    def validate_relationship_extraction_version(cls, v: str) -> str:
++        v_clean = str(v).strip().lower()
++        if v_clean not in ("v1.0", "v1.1"):
++            raise ValueError(f"Invalid relationship_extraction_version prompt version: '{v}'. Must be 'v1.0' or 'v1.1'.")
++        return v_clean
+ 
+     @field_validator("answer_generation")
+     @classmethod
+@@ -212,6 +229,10 @@ class EngineConfig(BaseModel):
+     retrieval: RetrievalConfig = Field(default_factory=RetrievalConfig)
+     prompt_versions: PromptVersions = Field(default_factory=PromptVersions)
+     ontology: DomainOntology
++    revalidate_relationships_after_resolution: Optional[bool] = Field(
++        default=None,
++        description="Optional top-level flag for revalidating relationships after resolution",
++    )
+ 
+     def compute_config_hash(self) -> str:
+         """Compute deterministic SHA-256 hash of the entire active configuration."""
+diff --git a/src/core/models.py b/src/core/models.py
+index 3a35c1c..54cb7fe 100644
+--- a/src/core/models.py
++++ b/src/core/models.py
+@@ -170,6 +170,10 @@ class CanonicalEntity(BaseModel):
+     source_mention_ids: List[str] = Field(default_factory=list)
+     source_chunk_ids: List[str] = Field(..., min_length=1)
+     source_doc_ids: List[str] = Field(..., min_length=1)
++    type_vote_counts: Dict[str, int] = Field(
++        default_factory=dict,
++        description="Plurality vote counts for entity_type when merge_exact_name_across_types is enabled",
++    )
+ 
+     @field_validator("entity_type")
+     @classmethod
+@@ -195,6 +199,10 @@ class Relationship(BaseModel):
+     scope_id: Optional[str] = Field(default=None)
+     repaired_quote: bool = Field(default=False)
+     quote_starts_with_pronoun: bool = Field(default=False)
++    mention_level_status: Optional[ValidationStatus] = Field(
++        default=None,
++        description="Original mention-level validation status before post-resolution re-validation",
++    )
+ 
+     @field_validator("relation_type")
+     @classmethod
+diff --git a/src/core/ontology.py b/src/core/ontology.py
+index 691a491..3341c69 100644
+--- a/src/core/ontology.py
++++ b/src/core/ontology.py
+@@ -43,12 +43,24 @@ class DomainOntology(BaseModel):
+         default_factory=dict,
+         description="Optional entity type -> list of generic descriptors (e.g. PROJECT: ['project', 'program'])",
+     )
++    person_like_types: List[str] = Field(
++        default_factory=lambda: ["PERSON"],
++        description="Optional list of entity type names treated as person-like for name resolution (default: ['PERSON'])",
++    )
+ 
+     @field_validator("entity_types")
+     @classmethod
+     def normalize_entity_keys(cls, v: Dict[str, str]) -> Dict[str, str]:
+         return {k.strip().upper(): desc for k, desc in v.items()}
+ 
++    @field_validator("person_like_types")
++    @classmethod
++    def normalize_person_like_types(cls, v: List[str]) -> List[str]:
++        return [item.strip().upper() for item in v]
++
++    def is_person_like_type(self, entity_type: str) -> bool:
++        return entity_type.strip().upper() in set(self.person_like_types)
++
+     def is_valid_entity_type(self, entity_type: str) -> bool:
+         return entity_type.strip().upper() in self.entity_types
+ 

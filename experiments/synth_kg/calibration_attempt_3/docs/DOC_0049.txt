@@ -1,0 +1,1 @@
+Nebathlok Gateway is a proprietary enterprise software solution deployed across production clusters. Nebathlok Gateway was constructed upon the ZanunlokRPC framework. It directly serves the enterprise requirements of Noxolvek Consortium. In contrast, Nebathlok Systems maintains entirely distinct non-production responsibilities.
