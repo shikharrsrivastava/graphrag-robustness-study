@@ -26,7 +26,6 @@ In scope: ingestion, entity and relationship extraction, entity resolution, grap
 - **Baselines.** Graph-free baselines were defined to test whether the graph itself matters: B1 dense top-4, B7 iterative dense, B9 dense top-1 seed with capitalized-name overlap expansion, B10 two-step.
 - **Integrity.** The `git diff` hash was frozen before the seed-11 run and checked after (hashes below).
 
-```
 Before generation (`frozen_diff_sha.txt`):
 ```
 frozen at 2026-11-16T19:59:13+0530 (before seed-11 corpus generation)
@@ -44,7 +43,6 @@ all_files_sha256=73e95fa2af0c6797537454f5bfbf9522ef3b7a2cacbd8364f4ecb4008276fe5
 
 Both hashes are identical: no protocol violation.
 
-```
 
 ## 4. Results (pasted by script)
 ### 4.1 Seed 7 (development; retrieval-only, K = 4; before vs after the fixes)
