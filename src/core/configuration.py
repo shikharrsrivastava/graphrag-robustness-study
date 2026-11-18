@@ -72,6 +72,22 @@ class ResolutionConfig(BaseModel):
     use_llm_verification_for_ambiguous: bool = True
     enable_descriptor_normalization: bool = Field(default=True)
     enable_single_token_person_merge: bool = Field(default=True)
+    merge_exact_name_across_types: bool = Field(
+        default=False,
+        description="Merge exact normalized name mentions across differing entity types with plurality voting",
+    )
+    revalidate_relationships_after_resolution: bool = Field(
+        default=False,
+        description="Revalidate relationship ontology constraints after resolution using canonical entity types",
+    )
+    enable_initial_surname_person_merge: bool = Field(
+        default=False,
+        description=(
+            "Merge a person-like mention written as initial + surname (e.g. 'G. Nebikvane') into the single "
+            "person-like canonical entity whose given name starts with that initial and whose surname matches; "
+            "no merge when zero or several candidates match"
+        ),
+    )
 
 
 class LeidenConfig(BaseModel):
@@ -162,7 +178,7 @@ class RetrievalConfig(BaseModel):
     )
     graph_context_mode: Union[bool, str] = Field(
         default=False,
-        description="Format graph context: False/'off' (legacy paths), True/'fix_e' (Fix E edges with chunk IDs and disclaimer), or 'none' (chunks only, no graph text)",
+        description="Format graph context: False (legacy path block, includes provenance marker text), 'off' (no graph section; community summaries kept), True/'fix_e' (Fix E edges with chunk IDs and disclaimer), or 'none' (chunks only, no graph or community text)",
     )
     comparative_reasoning_mode: str = Field(
         default="off",
@@ -187,6 +203,15 @@ class PromptVersions(BaseModel):
     community_summary: str = Field(default="v1.0")
     query_planning: str = Field(default="v1.0")
     answer_generation: str = Field(default="v1.0")
+    relationship_extraction_version: str = Field(default="v1.0")
+
+    @field_validator("relationship_extraction_version")
+    @classmethod
+    def validate_relationship_extraction_version(cls, v: str) -> str:
+        v_clean = str(v).strip().lower()
+        if v_clean not in ("v1.0", "v1.1"):
+            raise ValueError(f"Invalid relationship_extraction_version prompt version: '{v}'. Must be 'v1.0' or 'v1.1'.")
+        return v_clean
 
     @field_validator("answer_generation")
     @classmethod

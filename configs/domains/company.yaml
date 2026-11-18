@@ -2,6 +2,7 @@ kb_id: "company_kb"
 ontology:
   domain_name: "company_knowledge"
   version: "1.0.0"
+  person_like_types: ["EMPLOYEE"]
   entity_types:
     EMPLOYEE: "Company engineers, managers, executives, or staff"
     DEPARTMENT: "Engineering, product, operations, or business units"
@@ -34,3 +35,8 @@ ontology:
       description: "Product or department serves a client"
       allowed_source_types: ["PRODUCT", "DEPARTMENT"]
       allowed_target_types: ["CLIENT"]
+
+resolution:
+  merge_exact_name_across_types: true
+  revalidate_relationships_after_resolution: true
+  enable_initial_surname_person_merge: true

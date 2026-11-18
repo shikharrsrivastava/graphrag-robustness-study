@@ -5,7 +5,8 @@ import json
 import logging
 from pathlib import Path
 import re
-from typing import Callable, Dict, List, Optional, Set, Tuple, Union
+from collections import Counter
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 import numpy as np
 from pydantic import BaseModel, ConfigDict, Field
 from src.core.configuration import EngineConfig, ResolutionConfig
@@ -81,8 +82,24 @@ def strip_name_affixes(name: str) -> str:
     return cleaned
 
 
+def _person_name_tokens(name: str) -> List[str]:
+    """Lowercased alphanumeric tokens of a person name with honorifics and generational suffix removed."""
+    cleaned = strip_name_affixes(name.lower().strip())
+    return re.sub(r"[^a-z0-9\s]", " ", cleaned).split()
+
+
+def is_initial_surname_form(name: str) -> bool:
+    """True for a name written as one initial plus a surname, e.g. 'G. Nebikvane' or 'G Nebikvane'."""
+    toks = _person_name_tokens(name)
+    return len(toks) == 2 and len(toks[0]) == 1 and toks[0].isalpha() and len(toks[1]) > 1
+
+
 def person_names_compatible(name1: str, name2: str) -> bool:
-    """Determine whether two person names are compatible variations (nicknames, affixes, middle names)."""
+    """Determine whether two person names are compatible variations (nicknames, affixes, middle names, initials).
+
+    Initial + surname rule: a name consisting of a single-letter initial (optional period) plus a surname is
+    compatible with a name whose given name starts with that letter and whose last token equals the surname.
+    """
     s1 = extract_name_suffix(name1)
     s2 = extract_name_suffix(name2)
     # If both have suffixes and they differ, not compatible
@@ -112,6 +129,12 @@ def person_names_compatible(name1: str, name2: str) -> bool:
         or DIMINUTIVES.get(fn2) == fn1
         or (DIMINUTIVES.get(fn1) is not None and DIMINUTIVES.get(fn1) == DIMINUTIVES.get(fn2))
     )
+    if not first_match:
+        # Initial + surname form (surname equality was already required above).
+        if len(t1) == 2 and len(fn1) == 1 and fn1.isalpha() and len(t2) >= 2 and fn2.startswith(fn1):
+            first_match = True
+        elif len(t2) == 2 and len(fn2) == 1 and fn2.isalpha() and len(t1) >= 2 and fn1.startswith(fn2):
+            first_match = True
     if not first_match:
         return False
     # Middle names check: if one or both omit middle names, they are compatible
@@ -161,6 +184,9 @@ class ConservativeEntityResolver:
 
         self.embedding_provider = embedding_provider
         self.llm_client = llm_client
+        # Populated by resolve_mentions / resolve_and_remap for persistence and reporting.
+        self.last_resolution_report: Dict[str, Any] = {}
+        self.last_revalidated_triples: Optional[List[Relationship]] = None
 
         if prompt_template is not None:
             self.prompt_template = prompt_template
@@ -169,13 +195,29 @@ class ConservativeEntityResolver:
         else:
             self.prompt_template = DEFAULT_ENTITY_RESOLUTION_PROMPT
 
+    # ------------------------------------------------------------------ helpers
+    def _is_person(self, entity_type: Optional[str]) -> bool:
+        """Whether an entity type is person-like according to the ontology (never a literal type name)."""
+        return self.ontology.is_person_like_type(entity_type)
+
+    def _flag(self, name: str) -> bool:
+        return bool(getattr(self.resolution_config, name, False))
+
     def resolve_mentions(
-        self, mentions: List[EntityMention]
+        self,
+        mentions: List[EntityMention],
+        relationships: Optional[List[Relationship]] = None,
     ) -> Tuple[List[CanonicalEntity], Dict[str, str]]:
-        """Resolve a list of EntityMention objects into CanonicalEntity records."""
+        """Resolve a list of EntityMention objects into CanonicalEntity records.
+
+        `relationships` (mention-level triples) are only used by the optional type-reconciliation
+        tie-break when merge_exact_name_across_types is enabled.
+        """
         canonical_entities: List[CanonicalEntity] = []
         mention_to_entity: Dict[str, str] = {}
         canonical_counter = 1
+        merge_across_types = self._flag("merge_exact_name_across_types")
+        self.last_resolution_report = {}
 
         for mention in mentions:
             matched_canonical = self._find_match(mention, canonical_entities)
@@ -203,16 +245,21 @@ class ConservativeEntityResolver:
                 mention_to_entity[mention.mention_id] = new_id
                 canonical_counter += 1
 
-        # Rule C2 Post-pass: Handle single-token PERSON canonicals created before multi-token ones
+        # Type reconciliation (optional): plurality vote over the mention types of each canonical entity.
+        # Runs before the person post-passes so they see the reconciled types.
+        if merge_across_types:
+            self._reconcile_entity_types(canonical_entities, mentions, mention_to_entity, relationships)
+
+        # Rule C2 Post-pass: Handle single-token person-like canonicals created before multi-token ones
         if getattr(self.resolution_config, "enable_single_token_person_merge", True):
             single_token_persons = [
                 c for c in canonical_entities
-                if c.entity_type == "PERSON"
+                if self._is_person(c.entity_type)
                 and len(normalize_entity_name(strip_honorifics(c.name)).split()) == 1
             ]
             multi_token_persons = [
                 c for c in canonical_entities
-                if c.entity_type == "PERSON"
+                if self._is_person(c.entity_type)
                 and len(normalize_entity_name(strip_honorifics(c.name)).split()) >= 2
             ]
 
@@ -235,13 +282,173 @@ class ConservativeEntityResolver:
             if merged_single_ids:
                 canonical_entities = [c for c in canonical_entities if c.entity_id not in merged_single_ids]
 
+        # Initial + surname post-pass (optional): 'G. Nebikvane' canonicals created before the full name.
+        if self._flag("enable_initial_surname_person_merge"):
+            initial_forms = [
+                c for c in canonical_entities
+                if self._is_person(c.entity_type) and is_initial_surname_form(c.name)
+            ]
+            merged_initial_ids: Set[str] = set()
+            for i_c in initial_forms:
+                target_c = self._unique_initial_surname_target(i_c.name, canonical_entities, exclude_id=i_c.entity_id)
+                if target_c is not None and target_c.entity_id not in merged_initial_ids:
+                    self._merge_canonical_into_canonical(target_c, i_c)
+                    for m_id in i_c.source_mention_ids:
+                        mention_to_entity[m_id] = target_c.entity_id
+                    merged_initial_ids.add(i_c.entity_id)
+                    self.last_resolution_report.setdefault("initial_surname_merges", []).append(
+                        {"merged": i_c.name, "into": target_c.name, "entity_id": target_c.entity_id}
+                    )
+            if merged_initial_ids:
+                canonical_entities = [c for c in canonical_entities if c.entity_id not in merged_initial_ids]
+
         return canonical_entities, mention_to_entity
+
+    def _unique_initial_surname_target(
+        self,
+        name: str,
+        canonical_entities: List[CanonicalEntity],
+        exclude_id: Optional[str] = None,
+    ) -> Optional[CanonicalEntity]:
+        """Return the single person-like full-name canonical compatible with an initial + surname form.
+
+        Returns None when zero or more than one candidate matches (conservative: never guess).
+        """
+        if not is_initial_surname_form(name):
+            return None
+        suffix = extract_name_suffix(name)
+        matches = [
+            c for c in canonical_entities
+            if c.entity_id != exclude_id
+            and self._is_person(c.entity_type)
+            and not is_initial_surname_form(c.name)
+            and len(_person_name_tokens(c.name)) >= 2
+            and extract_name_suffix(c.name) == suffix
+            and person_names_compatible(name, c.name)
+        ]
+        return matches[0] if len(matches) == 1 else None
+
+    def _reconcile_entity_types(
+        self,
+        canonical_entities: List[CanonicalEntity],
+        mentions: List[EntityMention],
+        mention_to_entity: Dict[str, str],
+        relationships: Optional[List[Relationship]],
+    ) -> None:
+        """Set each canonical entity's type by plurality vote over its mention types.
+
+        Ties are broken by (1) the tied type that keeps the most of the entity's evidence-checked
+        relationships (status VALIDATED or REJECTED_ONTOLOGY) ontology-valid, then (2) ontology
+        declaration order. To avoid circular dependence, plurality types are computed for all entities
+        first; tied entities are then resolved in sorted normalized-name order, and a tied neighbour is
+        treated as its first tied type in ontology declaration order. The outcome depends only on the
+        multiset of mentions and relationships, not on their order.
+        """
+        mention_type = {m.mention_id: m.entity_type for m in mentions}
+        entity_by_id = {c.entity_id: c for c in canonical_entities}
+
+        votes: Dict[str, Counter] = {}
+        for c in canonical_entities:
+            votes[c.entity_id] = Counter(
+                mention_type[m_id] for m_id in c.source_mention_ids if m_id in mention_type
+            )
+
+        def tied_types(eid: str) -> List[str]:
+            counts = votes[eid]
+            if not counts:
+                return [entity_by_id[eid].entity_type]
+            top = max(counts.values())
+            return sorted(
+                (t for t, n in counts.items() if n == top),
+                key=lambda t: (self.ontology.entity_type_rank(t), t),
+            )
+
+        provisional = {eid: tied_types(eid)[0] for eid in votes}
+
+        eligible = (ValidationStatus.VALIDATED, ValidationStatus.REJECTED_ONTOLOGY)
+        rels_by_entity: Dict[str, List[Tuple[str, str, str]]] = {}
+        for r in relationships or []:
+            if r.validation_status not in eligible:
+                continue
+            src = mention_to_entity.get(r.source_entity_id)
+            tgt = mention_to_entity.get(r.target_entity_id)
+            if src is None or tgt is None or src == tgt:
+                continue
+            rels_by_entity.setdefault(src, []).append(("S", r.relation_type, tgt))
+            rels_by_entity.setdefault(tgt, []).append(("T", r.relation_type, src))
+
+        report: List[Dict[str, Any]] = []
+        final_type: Dict[str, str] = {}
+        ordered = sorted(canonical_entities, key=lambda c: (c.normalized_name, c.entity_id))
+        for c in ordered:
+            eid = c.entity_id
+            candidates = tied_types(eid)
+            tie_break = "plurality"
+            chosen = candidates[0]
+            if len(candidates) > 1:
+                valid_counts: Dict[str, int] = {}
+                for cand in candidates:
+                    n_valid = 0
+                    for role, rel_type, other in rels_by_entity.get(eid, []):
+                        other_type = provisional[other]
+                        if role == "S":
+                            ok, _ = self.ontology.validate_triple_types(cand, rel_type, other_type)
+                        else:
+                            ok, _ = self.ontology.validate_triple_types(other_type, rel_type, cand)
+                        n_valid += 1 if ok else 0
+                    valid_counts[cand] = n_valid
+                best = max(valid_counts.values())
+                best_types = [t for t in candidates if valid_counts[t] == best]
+                chosen = best_types[0]  # candidates are already in ontology declaration order
+                tie_break = "relationship_validity" if len(best_types) == 1 else "ontology_declaration_order"
+                report.append(
+                    {
+                        "entity_id": eid,
+                        "name": c.name,
+                        "votes": dict(votes[eid]),
+                        "tied_types": candidates,
+                        "valid_relationship_counts": valid_counts,
+                        "chosen_type": chosen,
+                        "tie_break": tie_break,
+                    }
+                )
+            elif len(votes[eid]) > 1:
+                report.append(
+                    {
+                        "entity_id": eid,
+                        "name": c.name,
+                        "votes": dict(votes[eid]),
+                        "chosen_type": chosen,
+                        "tie_break": tie_break,
+                    }
+                )
+            final_type[eid] = chosen
+
+        for c in canonical_entities:
+            c.type_vote_counts = dict(sorted(votes[c.entity_id].items()))
+            c.entity_type = final_type[c.entity_id]
+        self.last_resolution_report["type_reconciliation"] = report
 
     def resolve_and_remap(
         self, mentions: List[EntityMention], relationships: List[Relationship]
     ) -> Tuple[List[CanonicalEntity], Dict[str, str], List[Relationship]]:
         """Resolve mentions and remap validated relationship endpoints with deduplication."""
-        canonical_entities, mention_to_entity = self.resolve_mentions(mentions)
+        canonical_entities, mention_to_entity = self.resolve_mentions(mentions, relationships)
+
+        # Optional: re-validate ontology constraints with canonical entity types (after resolution,
+        # before the VALIDATED filter). Only triples that passed every evidence check are touched.
+        self.last_revalidated_triples = None
+        original_status: Dict[str, ValidationStatus] = {}
+        if self._flag("revalidate_relationships_after_resolution"):
+            relationships = self._revalidate_with_canonical_types(
+                relationships, canonical_entities, mention_to_entity
+            )
+            self.last_revalidated_triples = relationships
+            original_status = {
+                r.relationship_id: r.mention_level_status
+                for r in relationships
+                if r.mention_level_status is not None
+            }
 
         # Aggregate validated relationships
         aggregated: Dict[Tuple[str, str, str, Optional[str]], Relationship] = {}
@@ -297,6 +504,7 @@ class ConservativeEntityResolver:
                     validation_status=ValidationStatus.VALIDATED,
                     uncalibrated_confidence=conf,
                     scope_id=r.scope_id,
+                    mention_level_status=existing.mention_level_status,
                 )
             else:
                 rel_id = f"REL_{len(aggregated) + 1:04d}"
@@ -314,14 +522,72 @@ class ConservativeEntityResolver:
                     validation_status=ValidationStatus.VALIDATED,
                     uncalibrated_confidence=r.uncalibrated_confidence,
                     scope_id=r.scope_id,
+                    mention_level_status=original_status.get(r.relationship_id),
                 )
 
         return canonical_entities, mention_to_entity, list(aggregated.values())
+
+    def _revalidate_with_canonical_types(
+        self,
+        relationships: List[Relationship],
+        canonical_entities: List[CanonicalEntity],
+        mention_to_entity: Dict[str, str],
+    ) -> List[Relationship]:
+        """Recompute ontology validity of mention-level triples using canonical endpoint types.
+
+        Only triples whose status is VALIDATED or REJECTED_ONTOLOGY are recomputed; triples rejected for
+        quote, endpoint, negation or uncertainty reasons are returned unchanged. The original status is
+        kept in `mention_level_status`. Returns new Relationship objects (inputs are not mutated).
+        """
+        type_by_entity = {c.entity_id: c.entity_type for c in canonical_entities}
+        eligible = (ValidationStatus.VALIDATED, ValidationStatus.REJECTED_ONTOLOGY)
+        out: List[Relationship] = []
+        changes: List[Dict[str, str]] = []
+        for r in relationships:
+            if r.validation_status not in eligible:
+                out.append(r)
+                continue
+            src_type = type_by_entity.get(mention_to_entity.get(r.source_entity_id, ""))
+            tgt_type = type_by_entity.get(mention_to_entity.get(r.target_entity_id, ""))
+            if src_type is None or tgt_type is None:
+                out.append(r)
+                continue
+            ok, _ = self.ontology.validate_triple_types(src_type, r.relation_type, tgt_type)
+            new_status = ValidationStatus.VALIDATED if ok else ValidationStatus.REJECTED_ONTOLOGY
+            if new_status != r.validation_status:
+                changes.append(
+                    {
+                        "relationship_id": r.relationship_id,
+                        "relation_type": r.relation_type,
+                        "from": r.validation_status.value,
+                        "to": new_status.value,
+                        "canonical_source_type": src_type,
+                        "canonical_target_type": tgt_type,
+                    }
+                )
+            out.append(
+                r.model_copy(
+                    update={"validation_status": new_status, "mention_level_status": r.validation_status}
+                )
+            )
+        self.last_resolution_report["revalidation"] = {
+            "recomputed": sum(1 for r in out if r.mention_level_status is not None),
+            "validated_to_rejected_ontology": sum(1 for c in changes if c["to"] == "REJECTED_ONTOLOGY"),
+            "rejected_ontology_to_validated": sum(1 for c in changes if c["to"] == "VALIDATED"),
+            "changes": changes,
+        }
+        return out
 
     def _find_match(
         self, mention: EntityMention, canonical_entities: List[CanonicalEntity]
     ) -> Optional[CanonicalEntity]:
         """Find matching canonical entity using 17B (exact/alias) and 17C/D (embedding/LLM)."""
+        # Optional: identical normalized names merge regardless of entity type (type chosen later by vote).
+        if self._flag("merge_exact_name_across_types"):
+            for canonical in canonical_entities:
+                if mention.normalized_name == canonical.normalized_name:
+                    return canonical
+
         # Step 17B: Exact and Alias Matching
         for canonical in canonical_entities:
             if self.resolution_config.require_type_match and mention.entity_type != canonical.entity_type:
@@ -330,10 +596,10 @@ class ConservativeEntityResolver:
             if self._is_exact_or_alias_match(mention, canonical):
                 return canonical
 
-        # Rule C2 (PERSON single-token surname merge during sequential pass)
+        # Rule C2 (person-like single-token surname merge during sequential pass)
         if (
             getattr(self.resolution_config, "enable_single_token_person_merge", True)
-            and mention.entity_type == "PERSON"
+            and self._is_person(mention.entity_type)
         ):
             s_m = extract_name_suffix(mention.surface_name) or extract_name_suffix(mention.normalized_name)
             m_toks = normalize_entity_name(strip_honorifics(mention.surface_name)).split()
@@ -341,7 +607,7 @@ class ConservativeEntityResolver:
                 surname = m_toks[0]
                 matching_canonicals = []
                 for c in canonical_entities:
-                    if c.entity_type != "PERSON":
+                    if not self._is_person(c.entity_type):
                         continue
                     s_c = extract_name_suffix(c.name) or extract_name_suffix(c.normalized_name)
                     if s_m != s_c:
@@ -352,6 +618,15 @@ class ConservativeEntityResolver:
                 if len(matching_canonicals) == 1:
                     return matching_canonicals[0]
 
+        # Optional: initial + surname mention merges into the single compatible full-name canonical.
+        if self._flag("enable_initial_surname_person_merge") and self._is_person(mention.entity_type):
+            initial_target = self._unique_initial_surname_target(mention.surface_name, canonical_entities)
+            if initial_target is not None:
+                self.last_resolution_report.setdefault("initial_surname_merges", []).append(
+                    {"merged": mention.surface_name, "into": initial_target.name, "entity_id": initial_target.entity_id}
+                )
+                return initial_target
+
         # Step 17C: Embedding Candidate Discovery
         if not canonical_entities or self.embedding_provider is None:
             return None
@@ -361,11 +636,11 @@ class ConservativeEntityResolver:
             for c in canonical_entities
             if not self.resolution_config.require_type_match or c.entity_type == mention.entity_type
         ]
-        if mention.entity_type == "PERSON":
+        if self._is_person(mention.entity_type):
             s_m = extract_name_suffix(mention.surface_name) or extract_name_suffix(mention.normalized_name)
             filtered_candidates = []
             for c in candidates:
-                if c.entity_type == "PERSON":
+                if self._is_person(c.entity_type):
                     s_c = extract_name_suffix(c.name) or extract_name_suffix(c.normalized_name)
                     if s_m != s_c:
                         continue
@@ -389,7 +664,7 @@ class ConservativeEntityResolver:
         best_candidate = candidates[best_idx]
 
         # Step 17D: Verification Thresholds
-        if mention.entity_type == "PERSON" and best_candidate.entity_type == "PERSON":
+        if self._is_person(mention.entity_type) and self._is_person(best_candidate.entity_type):
             s_m = extract_name_suffix(mention.surface_name) or extract_name_suffix(mention.normalized_name)
             s_c = extract_name_suffix(best_candidate.name) or extract_name_suffix(best_candidate.normalized_name)
             if s_m != s_c:
@@ -437,9 +712,9 @@ class ConservativeEntityResolver:
         self, mention: EntityMention, canonical: CanonicalEntity
     ) -> bool:
         """Check if mention matches canonical via exact name, static aliases, or honorific-stripped core tokens."""
-        # 0. Generational suffix conflict check for PERSON entities:
+        # 0. Generational suffix conflict check for person-like entities:
         # Generational distinction must NEVER be bypassed by any matching step.
-        if mention.entity_type == "PERSON" and canonical.entity_type == "PERSON":
+        if self._is_person(mention.entity_type) and self._is_person(canonical.entity_type):
             s_m = extract_name_suffix(mention.surface_name) or extract_name_suffix(mention.normalized_name)
             s_c = extract_name_suffix(canonical.name) or extract_name_suffix(canonical.normalized_name)
 
@@ -466,7 +741,7 @@ class ConservativeEntityResolver:
 
         # 4. Academic / professional honorific prefix stripping for PERSON
         # (e.g., 'Prof. Sharma' == 'Dr. Sharma' == 'Professor Sharma' -> 'sharma')
-        if mention.entity_type == "PERSON" and canonical.entity_type == "PERSON":
+        if self._is_person(mention.entity_type) and self._is_person(canonical.entity_type):
             s_m = extract_name_suffix(mention.surface_name) or extract_name_suffix(mention.normalized_name)
             s_c = extract_name_suffix(canonical.name) or extract_name_suffix(canonical.normalized_name)
 
@@ -498,8 +773,8 @@ class ConservativeEntityResolver:
         # 5. Type-specific generic-descriptor normalization for non-PERSON (Rule C1)
         if (
             getattr(self.resolution_config, "enable_descriptor_normalization", True)
-            and mention.entity_type != "PERSON"
-            and canonical.entity_type != "PERSON"
+            and not self._is_person(mention.entity_type)
+            and not self._is_person(canonical.entity_type)
             and mention.entity_type == canonical.entity_type
         ):
             descriptors = []
@@ -604,6 +879,10 @@ class ConservativeEntityResolver:
         for d in source.source_doc_ids:
             if d not in target.source_doc_ids:
                 target.source_doc_ids.append(d)
+        if source.type_vote_counts or target.type_vote_counts:
+            merged_votes = Counter(target.type_vote_counts)
+            merged_votes.update(source.type_vote_counts)
+            target.type_vote_counts = dict(sorted(merged_votes.items()))
         if source.description and source.description not in target.description:
             if target.description:
                 target.description = f"{target.description}; {source.description}"

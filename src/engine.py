@@ -1,6 +1,7 @@
 """Hybrid GraphRAG Engine orchestrating end-to-end indexing and retrieval pipelines."""
 
 from __future__ import annotations
+import json
 import logging
 import time
 from collections import Counter
@@ -120,6 +121,7 @@ class HybridGraphRAGEngine:
             ontology=self.config.ontology,
             llm_client=self.llm_client,
             validation_config=self.config.validation,
+            **self._relationship_prompt_kwargs(),
         )
 
         all_mentions: List[EntityMention] = []
@@ -173,6 +175,7 @@ class HybridGraphRAGEngine:
         self.doc_store.save_canonical_entities(canonical_entities)
         self.doc_store.save_mention_to_entity(mention_to_entity)
         self.doc_store.save_relationships(graph_relationships)
+        self._persist_resolution_outputs(resolver)
         stage_seconds["entity_resolution"] = time.perf_counter() - stage_started
 
         stage_started = time.perf_counter()
@@ -270,6 +273,48 @@ class HybridGraphRAGEngine:
             "manifest_fingerprint": manifest["graph_fingerprint"],
         }
 
+    # Relationship-extraction prompt files selectable through prompt_versions.relationship_extraction_version.
+    # v1.0 is the long-standing default file; other versions are separate versioned files in prompts_dir.
+    RELATIONSHIP_PROMPT_FILES: Dict[str, str] = {
+        "v1.0": "relationship_extraction.txt",
+        "v1.1": "relationship_extraction_v1_1.txt",
+    }
+
+    def _relationship_prompt_kwargs(self) -> Dict[str, Any]:
+        """Constructor kwargs selecting the relationship-extraction prompt file.
+
+        The default version (v1.0) returns no kwargs, so the extractor keeps its historical default path
+        and fallback behaviour. Any other version must exist on disk; a missing file is an error rather
+        than a silent fallback to a different prompt.
+        """
+        version = getattr(self.config.prompt_versions, "relationship_extraction_version", "v1.0")
+        if version == "v1.0":
+            return {}
+        filename = self.RELATIONSHIP_PROMPT_FILES.get(version)
+        if filename is None:
+            raise ValueError(f"Unsupported relationship_extraction_version: '{version}'")
+        path = Path(self.config.prompts_dir) / filename
+        if not path.exists():
+            raise FileNotFoundError(
+                f"Relationship extraction prompt for version '{version}' not found: {path}"
+            )
+        return {"prompt_template_path": path}
+
+    def _persist_resolution_outputs(self, resolver: ConservativeEntityResolver) -> None:
+        """Persist optional resolution artefacts (only produced when the corresponding flags are enabled).
+
+        - Re-validated mention-level triples (with mention_level_status) replace the stored triples.
+        - The resolution report (type votes, tie-breaks, re-validation changes) is written next to them.
+        With default flags nothing is written and stored files are identical to earlier versions.
+        """
+        revalidated = getattr(resolver, "last_revalidated_triples", None)
+        if revalidated is not None:
+            self.doc_store.save_triples(revalidated)
+        report = getattr(resolver, "last_resolution_report", None)
+        if report:
+            report_path = self.kb_paths["processed"] / "resolution_report.json"
+            report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+
     def get_or_load_graph(self) -> igraph.Graph:
         """Return the active in-memory graph or reconstruct from DocumentStore."""
         if self._graph is None or self._graph.vcount() == 0:
@@ -303,6 +348,7 @@ class HybridGraphRAGEngine:
             embedding_provider=self.embedding_service,
             similarity_threshold=self.config.resolution.similarity_candidate_threshold,
             max_candidates_per_seed=getattr(self.config.retrieval, "max_candidates_per_seed", 5),
+            person_like_types=self.config.ontology.person_like_types,
         )
         graph_retriever = GraphEvidenceRetriever(
             doc_store=self.doc_store,

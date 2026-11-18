@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from typing import Dict, List, Optional, Tuple
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
 class RelationConstraint(BaseModel):
@@ -24,6 +24,10 @@ class RelationConstraint(BaseModel):
         return [item.strip().upper() for item in v]
 
 
+# Default entity types treated as person-like when an ontology does not declare its own list.
+DEFAULT_PERSON_LIKE_TYPES: Tuple[str, ...] = ("PERSON",)
+
+
 class DomainOntology(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -43,11 +47,48 @@ class DomainOntology(BaseModel):
         default_factory=dict,
         description="Optional entity type -> list of generic descriptors (e.g. PROJECT: ['project', 'program'])",
     )
+    person_like_types: List[str] = Field(
+        default_factory=lambda: list(DEFAULT_PERSON_LIKE_TYPES),
+        description=(
+            "Entity type names treated as person-like for name resolution (surname, initial, honorific and "
+            "generational-suffix rules). Defaults to DEFAULT_PERSON_LIKE_TYPES."
+        ),
+    )
 
     @field_validator("entity_types")
     @classmethod
     def normalize_entity_keys(cls, v: Dict[str, str]) -> Dict[str, str]:
         return {k.strip().upper(): desc for k, desc in v.items()}
+
+    @field_validator("person_like_types")
+    @classmethod
+    def normalize_person_like_types(cls, v: List[str]) -> List[str]:
+        return [item.strip().upper() for item in v]
+
+    @model_validator(mode="after")
+    def validate_person_like_types_exist(self) -> "DomainOntology":
+        """A custom person_like_types list must only name declared entity types.
+
+        The built-in default is exempt so ontologies without a person type keep loading unchanged.
+        """
+        if list(self.person_like_types) != list(DEFAULT_PERSON_LIKE_TYPES):
+            unknown = [t for t in self.person_like_types if t not in self.entity_types]
+            if unknown:
+                raise ValueError(
+                    f"person_like_types contains types not declared in entity_types: {unknown}"
+                )
+        return self
+
+    def is_person_like_type(self, entity_type: Optional[str]) -> bool:
+        if not entity_type:
+            return False
+        return entity_type.strip().upper() in set(self.person_like_types)
+
+    def entity_type_rank(self, entity_type: str) -> int:
+        """Position of an entity type in ontology declaration order (unknown types sort last)."""
+        keys = list(self.entity_types.keys())
+        t = entity_type.strip().upper()
+        return keys.index(t) if t in keys else len(keys)
 
     def is_valid_entity_type(self, entity_type: str) -> bool:
         return entity_type.strip().upper() in self.entity_types

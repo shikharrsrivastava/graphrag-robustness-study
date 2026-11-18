@@ -170,6 +170,10 @@ class CanonicalEntity(BaseModel):
     source_mention_ids: List[str] = Field(default_factory=list)
     source_chunk_ids: List[str] = Field(..., min_length=1)
     source_doc_ids: List[str] = Field(..., min_length=1)
+    type_vote_counts: Dict[str, int] = Field(
+        default_factory=dict,
+        description="Plurality vote counts for entity_type when merge_exact_name_across_types is enabled",
+    )
 
     @field_validator("entity_type")
     @classmethod
@@ -195,6 +199,10 @@ class Relationship(BaseModel):
     scope_id: Optional[str] = Field(default=None)
     repaired_quote: bool = Field(default=False)
     quote_starts_with_pronoun: bool = Field(default=False)
+    mention_level_status: Optional[ValidationStatus] = Field(
+        default=None,
+        description="Original mention-level validation status before post-resolution re-validation",
+    )
 
     @field_validator("relation_type")
     @classmethod

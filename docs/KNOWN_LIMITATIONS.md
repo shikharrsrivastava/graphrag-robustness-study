@@ -87,3 +87,19 @@ The graph engine represents knowledge graphs in-memory using C-based `igraph.Gra
 2. **Dynamic Context Chunk Compaction**: Sub-chunk token compression to fit larger multi-hop evidence graphs into smaller context windows.
 3. **Kùzu / Neo4j Graph Backend Integration**: Optional persistent disk-backed graph engine alongside in-memory igraph.
 4. **Active Disambiguation Feedback Loop**: Interactive clarification prompts when seed entity resolution encounters tied candidate entities.
+
+---
+
+## 9. Synthetic-KG Audit Findings (added 2026-11-16)
+
+Evidence: `experiments/synth_kg_fix/` (Phase 0 re-verification, Phase 2 dev evaluation on seed 7, Phase 3 fresh-seed run).
+
+- **No coreference step.** Sentences whose subject is a pronoun ("They is an official organizational part of ...", "It is directly responsible for developing X") lose their relationship edge: the endpoint-in-evidence check rejects them (`REJECTED_ENDPOINT_NOT_IN_EVIDENCE`) or the model reverses the direction.
+- **Partial-name aliases are not resolved.** Seed queries such as "Zantonnax Division" for "Zantonnax Infrastructure Group", or "Haelenrix" for "Haelenrix Gateway", resolve to nothing when several entities could share the first token. Only initial + surname forms of person-like entities were added (5 of the 15 seed-7 alias questions remained unresolved after the fixes).
+- **Extraction errors create wrong KG edges that can reach answers.** The model sometimes types an employee as PRODUCT and emits `DEVELOPS` instead of `MANAGES`, or reverses an edge. Optional post-resolution re-validation removes such edges only when the canonical type contradicts the ontology; it also removes links that were useful for traversal.
+- **New behaviour is config-controlled and off by default.** `resolution.merge_exact_name_across_types`, `resolution.revalidate_relationships_after_resolution`, `resolution.enable_initial_surname_person_merge` (all `false` in `configs/default.yaml`; enabled only in `configs/domains/company.yaml`) and `prompt_versions.relationship_extraction_version` (`v1.0` default; `v1.1` adds a multi-relation instruction and was not enabled because it did not pass its dev rule). The enabling decisions were made on dev data (seed 7).
+- **`graph_context_mode`:** the boolean `false` still sends the legacy "Supporting Graph Traversal Paths" block, whose `GRAPH_EDGE_PROVENANCE: ...` marker text appears in generated answers (17 of 480 answers in the seed-7 runs). Use the string `"off"` (no graph block, community summaries kept) or `"none"` (no graph and no community text) to avoid it.
+- **Person-name matching** accepts initial + surname for every ontology (`person_names_compatible`), so "J. Smith" now matches "John Smith" in seed retrieval for PERSON ontologies too.
+- **Hardcoded literal remaining:** `"PROJECT"` in `src/resolution/entity_resolver.py` (fallback generic-descriptor list) is still a domain-specific entity-type literal.
+- **Prompt-version labels:** the older metadata key `prompt_versions.relationship_extraction` (default "v1.1") does not select a file; the file is selected by `relationship_extraction_version`, whose "v1.0" is the file the old label calls "v1.1".
+- **Seed-7 benchmark issues** (`experiments/synth_kg/`): 14 of the 15 alias strings in the alias questions occur in no document (they test query-time resolution only); 28 of 32 "managed_client" unanswerable evaluations are near-answerable because the corpus states "serves" (figure from the earlier audit, not re-verified in the 2026-11-16 re-verification); the original "validated path exists" flag is an undirected, untyped reachability test and was unreliable (it is satisfied through shared client or department hubs without any gold edge); the audit script `synth_kg_audit/followup/part_c_alias_audit.py` contains invented names for Q_0091 and Q_0094.

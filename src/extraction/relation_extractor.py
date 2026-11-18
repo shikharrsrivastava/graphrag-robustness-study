@@ -192,10 +192,10 @@ class OllamaRelationshipExtractor(RelationshipExtractor):
         mentions_by_surface = {m.surface_name.lower(): m for m in mentions}
         mentions_by_norm = {m.normalized_name: m for m in mentions}
 
-        # Collect surnames for PERSON mentions in this chunk to determine uniqueness
+        # Collect surnames for person-like mentions in this chunk to determine uniqueness
         person_surnames: List[str] = []
         for m in mentions:
-            if m.entity_type.upper() == "PERSON":
+            if self.ontology.is_person_like_type(m.entity_type):
                 sname = get_person_surname(m.normalized_name, self.honorifics) or get_person_surname(m.surface_name, self.honorifics)
                 if sname:
                     person_surnames.append(sname)
@@ -218,7 +218,7 @@ class OllamaRelationshipExtractor(RelationshipExtractor):
             sname = get_person_surname(k_lower, self.honorifics)
             if sname and surname_counts.get(sname, 0) == 1:
                 for m in mentions:
-                    if m.entity_type.upper() == "PERSON":
+                    if self.ontology.is_person_like_type(m.entity_type):
                         m_sname = get_person_surname(m.normalized_name, self.honorifics) or get_person_surname(m.surface_name, self.honorifics)
                         if m_sname == sname:
                             return m
@@ -273,8 +273,8 @@ class OllamaRelationshipExtractor(RelationshipExtractor):
                 if stripped_norm:
                     forms.add(stripped_norm)
 
-                # For PERSON mentions: accept unique chunk surname
-                if m.entity_type.upper() == "PERSON":
+                # For person-like mentions: accept unique chunk surname
+                if self.ontology.is_person_like_type(m.entity_type):
                     sname = get_person_surname(m.normalized_name, self.honorifics) or get_person_surname(m.surface_name, self.honorifics)
                     if sname and surname_counts.get(sname, 0) == 1:
                         forms.add(sname)

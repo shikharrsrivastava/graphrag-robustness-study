@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 import logging
-from typing import Any, Dict, List, NamedTuple, Optional, Set, Tuple
+from typing import Any, Dict, Iterable, List, NamedTuple, Optional, Set, Tuple
 from src.core.interfaces import EmbeddingProvider
 from src.core.models import CanonicalEntity, ResolutionDecision, SeedEntitySpec
+from src.core.ontology import DEFAULT_PERSON_LIKE_TYPES
 from src.extraction.entity_extractor import normalize_entity_name
 from src.resolution.entity_resolver import (
     person_names_compatible,
@@ -44,6 +45,7 @@ class SeedEntityRetriever:
         max_description_candidates_per_seed: int = 3,
         max_description_candidates_per_query: int = 6,
         description_discoverer: Optional[EntityDescriptionDiscoverer] = None,
+        person_like_types: Optional[Iterable[str]] = None,
     ) -> None:
         if max_candidates_per_seed < 1:
             raise ValueError(
@@ -54,6 +56,12 @@ class SeedEntityRetriever:
         self.embedding_provider = embedding_provider
         self.similarity_threshold = similarity_threshold
         self.max_candidates_per_seed = max_candidates_per_seed
+        # Entity types that get person-name matching (name variations, initial + surname). Supplied by the
+        # ontology (DomainOntology.person_like_types) through the engine; never a literal type name here.
+        self.person_like_types: Set[str] = {
+            t.strip().upper()
+            for t in (person_like_types if person_like_types is not None else DEFAULT_PERSON_LIKE_TYPES)
+        }
         self.entity_description_discovery_enabled = entity_description_discovery_enabled
         self.entity_description_similarity_threshold = entity_description_similarity_threshold
         self.max_description_candidates_per_seed = max_description_candidates_per_seed
@@ -67,6 +75,9 @@ class SeedEntityRetriever:
             max_candidates_per_seed=self.max_description_candidates_per_seed,
             max_candidates_per_query=self.max_description_candidates_per_query,
         )
+
+    def _is_person(self, entity_type: Optional[str]) -> bool:
+        return bool(entity_type) and entity_type.strip().upper() in self.person_like_types
 
     def resolve_seeds(self, seed_specs: List[SeedEntitySpec]) -> SeedResolutionResult:
         """Resolve a list of seed entity specifications to canonical entity IDs with confidence-aware ranking."""
@@ -133,9 +144,9 @@ class SeedEntityRetriever:
         exact_matches = [e for e in entities if e.normalized_name == norm_name]
 
         person_matches: List[CanonicalEntity] = []
-        if expected_type == "PERSON" or any(e.entity_type.upper() == "PERSON" for e in exact_matches):
+        if self._is_person(expected_type) or any(self._is_person(e.entity_type) for e in exact_matches):
             for e in entities:
-                if e.entity_type.upper() == "PERSON" and e not in exact_matches:
+                if self._is_person(e.entity_type) and e not in exact_matches:
                     if person_names_compatible(spec.name, e.name):
                         person_matches.append(e)
 
@@ -289,7 +300,9 @@ class SeedEntityRetriever:
                 matched = True
                 method = "AFFIX_STRIPPED"
             elif (
-                (expected_type == "PERSON" or e.entity_type.upper() == "PERSON")
+                # Runs for every person-like entity whatever the planner's expected_type (including None),
+                # so alias seeds such as initial + surname resolve without a planner type.
+                (self._is_person(expected_type) or self._is_person(e.entity_type))
                 and person_names_compatible(spec.name, e.name)
             ):
                 matched = True

@@ -32,6 +32,10 @@ class ContextBuilder:
 
         mode_str = str(self.graph_context_mode).strip().lower()
         is_none_mode = mode_str == "none"
+        # The string "off" omits the graph section (path lines carry provenance marker text that the
+        # generator copies into answers). Boolean False keeps the legacy path block for backward
+        # compatibility with existing configurations and tests.
+        is_off_mode = isinstance(self.graph_context_mode, str) and mode_str == "off"
         is_fix_e_mode = (self.graph_context_mode is True) or (mode_str in ("true", "fix_e", "edges"))
 
         # 1. Community Summaries (filtered using allowlist: only VERIFIED and FALLBACK trusted by default)
@@ -56,8 +60,9 @@ class ContextBuilder:
                     current_len += len(comm_block) + 2
 
         # 2. Supporting Graph Traversal Paths / Extracted Graph Relationships
-        if is_none_mode:
-            # Mode "none": graph is used to retrieve evidence chunks, but NO graph section is sent to generator.
+        if is_none_mode or is_off_mode:
+            # Modes "none" and "off": the graph is used to retrieve evidence chunks, but NO graph section
+            # is sent to the generator ("off" still includes trusted community summaries; "none" does not).
             pass
         elif is_fix_e_mode:
             # Fix E(a): Include ONLY actual relationship edges, each with its chunk ID,

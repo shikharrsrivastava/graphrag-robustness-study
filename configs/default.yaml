@@ -26,6 +26,9 @@ resolution:
   auto_merge_threshold: 0.95
   require_type_match: true
   use_llm_verification_for_ambiguous: true
+  merge_exact_name_across_types: false
+  revalidate_relationships_after_resolution: false
+  enable_initial_surname_person_merge: false
 
 leiden:
   objective: "RBConfigurationVertexPartition"
